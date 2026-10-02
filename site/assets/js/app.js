@@ -404,6 +404,7 @@
 
   // Thumbnail grid columns by image count (full class names so Tailwind keeps them).
   const THUMB_COLS = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-4", 5: "grid-cols-5", 6: "grid-cols-3 sm:grid-cols-6" };
+  const THUMB_COLS_MANY = "grid-cols-4 sm:grid-cols-5";   // 7+ images wrap onto two rows
 
   // Spotlights for every project marked with "featured" in portfolio.json.
   function renderFeatured() {
@@ -486,7 +487,7 @@
         t(f.subtitle, "p", "mx-auto mt-3 max-w-2xl text-lg text-muted")),
       h("div", { class: "grid items-start gap-10 lg:grid-cols-[1.2fr_.8fr]" },
         // min-w-0 lets the long address-bar text truncate instead of widening the grid.
-        h("div", { class: "min-w-0" }, frame, caption, h("div", { class: "mt-1 grid gap-3 " + (THUMB_COLS[thumbs.length] || "grid-cols-4") }, thumbs)),
+        h("div", { class: "min-w-0" }, frame, caption, h("div", { class: "mt-1 grid gap-3 " + (THUMB_COLS[thumbs.length] || THUMB_COLS_MANY) }, thumbs)),
         h("div", { class: "reveal min-w-0" }, t(f.summary, "p", "text-soft"), action, metrics, stack)),
       highlights.length ? h("div", { class: "mt-12 grid gap-6 " + hlCols, "data-reveal-group": "" }, highlights) : null
     );
