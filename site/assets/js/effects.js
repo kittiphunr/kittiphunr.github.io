@@ -50,6 +50,17 @@
       x: Math.random(), y: Math.random(), r: Math.random() * 1.4 + 0.3, v: Math.random() * 0.00025 + 0.00005, a: Math.random() * 0.5 + 0.15
     }));
 
+    // Palette follows the device theme (deeper pinks on a light background).
+    const darkMq = window.matchMedia("(prefers-color-scheme: dark)");
+    const PALETTES = {
+      dark: { dust: "#ffc2dd", glowA: "rgba(236,72,153,0.32)", glowB: "rgba(190,24,93,0.12)", glowC: "rgba(190,24,93,0)",
+              ring: "249,168,212", sat: "#fbcfe8", edge: "#f9a8d4", nodeFront: "#ffe4f1", nodeBack: "#f472b6", core: "rgba(255,255,255,1)", halo: "244,114,182", edgeBoost: 1 },
+      light: { dust: "#f472b6", glowA: "rgba(236,72,153,0.16)", glowB: "rgba(219,39,119,0.06)", glowC: "rgba(219,39,119,0)",
+               ring: "219,39,119", sat: "#db2777", edge: "#db2777", nodeFront: "#be185d", nodeBack: "#f472b6", core: "rgba(255,240,247,1)", halo: "219,39,119", edgeBoost: 0.85 }
+    };
+    let pal = darkMq.matches ? PALETTES.dark : PALETTES.light;
+    darkMq.addEventListener("change", (e) => { pal = e.matches ? PALETTES.dark : PALETTES.light; if (!running) draw(); });
+
     let w = 0, h = 0, dpr = 1, cx = 0, cy = 0, R = 0;
     let rotY = 0, rotX = -0.35;
     let mx = 0, my = 0, tmx = 0, tmy = 0;
@@ -91,15 +102,15 @@
 
       for (const d of dust) {
         ctx.globalAlpha = d.a;
-        ctx.fillStyle = "#ffc2dd";
+        ctx.fillStyle = pal.dust;
         ctx.beginPath(); ctx.arc(d.x * w, d.y * h, d.r, 0, 6.283); ctx.fill();
       }
 
       // soft glow behind the globe
       const g = ctx.createRadialGradient(cx, cy, R * 0.1, cx, cy, R * 1.6);
-      g.addColorStop(0, "rgba(236,72,153,0.32)");
-      g.addColorStop(0.5, "rgba(190,24,93,0.12)");
-      g.addColorStop(1, "rgba(190,24,93,0)");
+      g.addColorStop(0, pal.glowA);
+      g.addColorStop(0.5, pal.glowB);
+      g.addColorStop(1, pal.glowC);
       ctx.globalAlpha = 1; ctx.fillStyle = g;
       ctx.fillRect(cx - R * 1.6, cy - R * 1.6, R * 3.2, R * 3.2);
 
@@ -111,10 +122,10 @@
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(-0.35 + k * 0.7 + rotY * (k ? -0.15 : 0.1));
-        ctx.strokeStyle = "rgba(249,168,212," + (0.18 - k * 0.06) + ")";
+        ctx.strokeStyle = "rgba(" + pal.ring + "," + (0.18 - k * 0.06) + ")";
         ctx.beginPath(); ctx.ellipse(0, 0, R * (1.35 + k * 0.12), R * (0.32 + k * 0.08), 0, 0, 6.283); ctx.stroke();
         const sa = rotY * (k ? -2.2 : 1.6) + k * 2;
-        ctx.fillStyle = "#fbcfe8";
+        ctx.fillStyle = pal.sat;
         ctx.beginPath(); ctx.arc(Math.cos(sa) * R * (1.35 + k * 0.12), Math.sin(sa) * R * (0.32 + k * 0.08), 2.6, 0, 6.283); ctx.fill();
         ctx.restore();
       }
@@ -123,8 +134,8 @@
       for (const [i, j] of edges) {
         const a = proj[i], b = proj[j];
         const depth = (a[2] + b[2]) / 2;
-        ctx.globalAlpha = Math.max(0.04, 0.12 + depth * 0.3);
-        ctx.strokeStyle = "#f9a8d4";
+        ctx.globalAlpha = Math.max(0.04, (0.12 + depth * 0.3) * pal.edgeBoost);
+        ctx.strokeStyle = pal.edge;
         ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
       }
 
@@ -132,7 +143,7 @@
       for (const p of proj) {
         const front = (p[2] + 1) / 2;
         ctx.globalAlpha = 0.25 + front * 0.75;
-        ctx.fillStyle = front > 0.55 ? "#ffe4f1" : "#f472b6";
+        ctx.fillStyle = front > 0.55 ? pal.nodeFront : pal.nodeBack;
         ctx.beginPath(); ctx.arc(p[0], p[1], 1 + front * 1.8 * p[3], 0, 6.283); ctx.fill();
       }
 
@@ -143,9 +154,9 @@
         const front = ((a[2] + b[2]) / 2 + 1) / 2;
         ctx.globalAlpha = 0.3 + front * 0.7;
         const pg = ctx.createRadialGradient(x, y, 0, x, y, 7);
-        pg.addColorStop(0, "rgba(255,255,255,1)");
-        pg.addColorStop(0.35, "rgba(244,114,182,0.9)");
-        pg.addColorStop(1, "rgba(244,114,182,0)");
+        pg.addColorStop(0, pal.core);
+        pg.addColorStop(0.35, "rgba(" + pal.halo + ",0.9)");
+        pg.addColorStop(1, "rgba(" + pal.halo + ",0)");
         ctx.fillStyle = pg;
         ctx.beginPath(); ctx.arc(x, y, 7, 0, 6.283); ctx.fill();
       }
