@@ -9,6 +9,7 @@ window.LANGS = [
 
 window.UI = {
   th: {
+    tryLive: "ทดลองใช้งานจริง",
     featuredBadge: "ผลงานเด่น",
     techStack: "เทคโนโลยีที่ใช้",
     viewFull: "ดูภาพขนาดเต็ม",
@@ -64,6 +65,7 @@ window.UI = {
     by: "โดย"
   },
   en: {
+    tryLive: "Try the live app",
     featuredBadge: "Featured project",
     techStack: "Tech stack",
     viewFull: "Open full-size image",
@@ -119,6 +121,7 @@ window.UI = {
     by: "by"
   },
   ja: {
+    tryLive: "実際に試す",
     featuredBadge: "注目プロジェクト",
     techStack: "技術スタック",
     viewFull: "原寸画像を開く",
@@ -174,6 +177,7 @@ window.UI = {
     by: "by"
   },
   zh: {
+    tryLive: "在线试用",
     featuredBadge: "重点项目",
     techStack: "技术栈",
     viewFull: "查看大图",

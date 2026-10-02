@@ -424,7 +424,7 @@
       const g = gallery[i];
       mainImg.src = g.src; mainLink.href = g.src;
       bind(caption, g.caption);
-      fileLabel.textContent = "precision-qc / " + g.src.split("/").pop();
+      fileLabel.textContent = pr.link ? pr.link.replace(/^https?:\/\//, "") : "precision-qc / " + g.src.split("/").pop();
       thumbs.forEach((b, j) => {
         b.classList.toggle("border-brand-500", j === i);
         b.classList.toggle("border-transparent", j !== i);
@@ -469,7 +469,9 @@
         t(f.subtitle, "p", "mx-auto mt-3 max-w-2xl text-lg text-muted")),
       h("div", { class: "grid items-start gap-10 lg:grid-cols-[1.2fr_.8fr]" },
         h("div", null, window_, caption, h("div", { class: "mt-1 grid grid-cols-4 gap-3" }, thumbs)),
-        h("div", { class: "reveal" }, t(f.summary, "p", "text-soft"), metrics, stack)),
+        h("div", { class: "reveal" }, t(f.summary, "p", "text-soft"),
+          pr.link ? h("div", { class: "mt-6" }, h("a", { class: "btn btn-primary", href: pr.link, target: "_blank", rel: "noopener" }, s.tryLive, icon("arrow"))) : null,
+          metrics, stack)),
       highlights.length ? h("div", { class: "mt-12 grid gap-6 md:grid-cols-2", "data-reveal-group": "" }, highlights) : null
     ));
   }
