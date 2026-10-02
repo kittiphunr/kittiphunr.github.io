@@ -58,8 +58,14 @@
       light: { dust: "#f472b6", glowA: "rgba(236,72,153,0.16)", glowB: "rgba(219,39,119,0.06)", glowC: "rgba(219,39,119,0)",
                ring: "219,39,119", sat: "#db2777", edge: "#db2777", nodeFront: "#be185d", nodeBack: "#f472b6", core: "rgba(255,240,247,1)", halo: "219,39,119", edgeBoost: 0.85 }
     };
-    let pal = darkMq.matches ? PALETTES.dark : PALETTES.light;
-    darkMq.addEventListener("change", (e) => { pal = e.matches ? PALETTES.dark : PALETTES.light; if (!running) draw(); });
+    function isDark() {
+      const t = document.documentElement.getAttribute("data-theme");
+      return t ? t === "dark" : darkMq.matches;
+    }
+    let pal = isDark() ? PALETTES.dark : PALETTES.light;
+    function repaint() { pal = isDark() ? PALETTES.dark : PALETTES.light; if (!running) draw(); }
+    darkMq.addEventListener("change", repaint);
+    document.addEventListener("themechange", repaint);
 
     let w = 0, h = 0, dpr = 1, cx = 0, cy = 0, R = 0;
     let rotY = 0, rotX = -0.35;
