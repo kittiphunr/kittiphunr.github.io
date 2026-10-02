@@ -112,6 +112,7 @@ npm run build      # build แบบย่อขนาดสำหรับข�
 ```
 
 - เปลี่ยนสีทั้งเว็บ: แก้ `brand` และ `backgroundImage.grad` ใน `tailwind.config.js`
+- โหมดสว่าง/มืด: เว็บจะเปลี่ยนตามธีมของเครื่องอัตโนมัติ สีพื้นหลัง ตัวอักษร และเส้นขอบของแต่ละธีมกำหนดเป็นตัวแปร (`--ink-*`, `--fg`, `--muted`, `--accent`) อยู่ต้นไฟล์ `src/tailwind.css`
 - เมื่อ push ขึ้น `main` GitHub Action จะ build CSS ให้อัตโนมัติ แต่ควร `npm run build` และ commit ไฟล์ `site/assets/css/tailwind.css` ด้วย เพื่อให้เปิดดูในเครื่องได้ทันที
 - เขียนชื่อ class ให้ครบเป็นข้อความเดียว (เช่น `"text-brand-300"`) อย่าต่อสตริงเป็นชิ้น ๆ ไม่เช่นนั้น Tailwind จะหา class ไม่เจอ
 
