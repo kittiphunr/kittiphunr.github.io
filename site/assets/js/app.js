@@ -154,6 +154,13 @@
 
   function formatDate(iso, withDay) {
     if (!iso) return UI[lang].present;
+    // Year-only dates ("2013") show just the year; Thai drops the "พ.ศ." prefix
+    // so a range reads "2556 — 2560".
+    if (/^\d{4}$/.test(iso)) {
+      const y = new Date(iso + "-01-01T00:00:00");
+      const fmt = new Intl.DateTimeFormat(locale(), { year: "numeric" });
+      return lang === "th" ? fmt.formatToParts(y).find((x) => x.type === "year").value : fmt.format(y);
+    }
     const d = new Date(iso + "T00:00:00");
     if (isNaN(d)) return iso;
     const opts = withDay ? { day: "numeric", month: "long", year: "numeric" } : { month: "short", year: "numeric" };
