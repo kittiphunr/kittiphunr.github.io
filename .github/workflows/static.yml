@@ -37,16 +37,16 @@ jobs:
           node-version: 20
 
       - name: Fill in missing translations (TH / EN / JA / ZH)
-        run: node scripts/translate.mjs data/portfolio.json
+        run: node scripts/translate.mjs site/data/portfolio.json
 
       - name: Commit translations
         run: |
-          if git diff --quiet -- data/; then
+          if git diff --quiet -- site/data/; then
             echo "No new translations."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-            git add data/
+            git add site/data/
             git commit -m "chore: auto-translate portfolio content [skip ci]"
             git push || echo "Could not push translations; the deployed site still includes them."
           fi
@@ -56,7 +56,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          # Publish only the site/ folder; scripts, workflows and docs stay out.
+          path: 'site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5

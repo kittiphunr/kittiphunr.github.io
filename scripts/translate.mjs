@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Fills in missing languages in data/portfolio.json.
+// Fills in missing languages in site/data/portfolio.json.
 //
 // Any object whose keys are only language codes (th, en, ja, zh) is treated as a
 // translatable field. Languages that are missing or empty are machine-translated:
@@ -14,7 +14,7 @@ const LANGS = ["th", "en", "ja", "zh"];
 const API_LANG = { th: "th", en: "en", ja: "ja", zh: "zh-CN" };
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
-const file = args.find((a) => !a.startsWith("--")) || "data/portfolio.json";
+const file = args.find((a) => !a.startsWith("--")) || "site/data/portfolio.json";
 
 const isI18n = (v) =>
   v && typeof v === "object" && !Array.isArray(v) &&

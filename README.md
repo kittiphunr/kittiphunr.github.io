@@ -4,13 +4,25 @@
 
 ## โครงสร้าง
 
+ไฟล์ที่ขึ้นเว็บไซต์จริงอยู่ในโฟลเดอร์ `site/` เท่านั้น ส่วนสคริปต์ เอกสาร และ workflow อยู่นอกโฟลเดอร์นี้และจะไม่ถูก deploy
+
+```
+site/            ← deploy ขึ้นเว็บ (GitHub Pages / Netlify)
+├── index.html
+├── assets/
+└── data/portfolio.json
+scripts/         ← เครื่องมือแปลภาษา (ไม่ขึ้นเว็บ)
+.github/         ← GitHub Action (ไม่ขึ้นเว็บ)
+```
+
+
 | ไฟล์ | หน้าที่ |
 | --- | --- |
-| `data/portfolio.json` | **ข้อมูลทั้งหมดของเว็บไซต์** (ประวัติ ทักษะ ประสบการณ์ การศึกษา ผลงาน) แก้ไขที่ไฟล์นี้ไฟล์เดียว |
-| `assets/js/i18n.js` | ข้อความเมนู/หัวข้อของหน้าเว็บในแต่ละภาษา |
-| `assets/js/app.js` | แสดงผลข้อมูล และแปลภาษาอัตโนมัติฝั่งเบราว์เซอร์ (สำรอง) |
-| `assets/css/style.css` | รูปแบบการแสดงผล (รองรับโหมดมืด และมือถือ) |
-| `scripts/translate.mjs` | สคริปต์เติมคำแปลที่ขาดลงใน `portfolio.json` |
+| `site/data/portfolio.json` | **ข้อมูลทั้งหมดของเว็บไซต์** (ประวัติ ทักษะ ประสบการณ์ การศึกษา ผลงาน) แก้ไขที่ไฟล์นี้ไฟล์เดียว |
+| `site/assets/js/i18n.js` | ข้อความเมนู/หัวข้อของหน้าเว็บในแต่ละภาษา |
+| `site/assets/js/app.js` | แสดงผลข้อมูล และแปลภาษาอัตโนมัติฝั่งเบราว์เซอร์ (สำรอง) |
+| `site/assets/css/style.css` | รูปแบบการแสดงผล (รองรับโหมดมืด และมือถือ) |
+| `scripts/translate.mjs` | สคริปต์เติมคำแปลที่ขาดลงใน `site/data/portfolio.json` |
 | `.github/workflows/static.yml` | GitHub Action: แปลภาษาอัตโนมัติ → commit กลับ → deploy |
 
 ## การเพิ่มข้อมูล
@@ -56,7 +68,7 @@
 
 **ทักษะ** (`skills`) — `icon` เลือกได้จาก `network`, `windows`, `terminal`, `code`, `server`, `shield`
 
-**รูปโปรไฟล์** — วางรูปไว้ที่ `assets/img/` แล้วใส่ path ใน `profile.photo`
+**รูปโปรไฟล์** — วางรูปไว้ที่ `site/assets/img/` แล้วใส่ path ใน `profile.photo`
 
 วันที่ใช้รูปแบบ ค.ศ. `YYYY-MM-DD` เมื่อแสดงเป็นภาษาไทยจะเปลี่ยนเป็น พ.ศ. ให้อัตโนมัติ
 
@@ -75,7 +87,7 @@ node scripts/translate.mjs --dry-run  # ทดสอบโดยไม่บั�
 ## ทดสอบในเครื่อง
 
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 8000 --directory site
 # เปิด http://localhost:8000  (หรือ ?lang=en / ja / zh)
 ```
 
