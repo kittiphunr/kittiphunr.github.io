@@ -273,8 +273,9 @@
       t(p.firstName || p.name, "span", "animate-shimmer whitespace-nowrap bg-grad-text bg-[length:220%_100%] bg-clip-text text-transparent"),
       after || "");
 
-    const secondary = p.cv
-      ? h("a", { class: "btn", href: p.cv, download: "" }, s.downloadCV, icon("download"))
+    const cv = p.cv ? resolve(p.cv).text : "";
+    const secondary = cv
+      ? h("a", { class: "btn", href: cv, download: cv.split("/").pop(), type: "application/pdf" }, s.downloadCV, icon("download"))
       : h("a", { class: "btn", href: "#contact" }, s.contactMe, icon("mail"));
 
     const tech = hasItems(data.proficiency)
@@ -609,7 +610,9 @@
         badge(s.ctaBadge),
         h("h2", { class: "mb-2.5 mt-3.5 text-[1.6rem] font-bold leading-tight md:text-[1.9rem]" }, s.ctaHeading),
         h("p", { class: "mb-6 text-muted" }, s.ctaText),
-        p.email ? h("a", { class: "btn btn-primary btn-sm", href: "mailto:" + p.email }, s.getInTouch, icon("arrow")) : null
+        h("div", { class: "flex flex-wrap gap-3" },
+          p.email ? h("a", { class: "btn btn-primary btn-sm", href: "mailto:" + p.email }, s.getInTouch, icon("arrow")) : null,
+          p.cv ? h("a", { class: "btn btn-sm", href: resolve(p.cv).text, download: resolve(p.cv).text.split("/").pop(), type: "application/pdf" }, s.downloadCV, icon("download")) : null)
       ),
       p.motto ? h("figure", { class: "card m-0 px-7 py-6" },
         icon("quote", "h-[34px] w-[34px] text-brand-500 [stroke-width:2.4]"),

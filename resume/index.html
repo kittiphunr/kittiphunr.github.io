@@ -1,0 +1,193 @@
+<!doctype html>
+<!--
+  A4 resume template used to generate the downloadable PDFs.
+  Rendered by scripts/build_pdf.mjs (npm run pdf) from site/data/portfolio.json.
+  Not deployed: the build writes PDFs into site/assets/cv/.
+  Open locally for preview: npm run pdf -- --serve  →  http://localhost:8123/resume/?lang=en
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Resume</title>
+<link rel="stylesheet" href="/node_modules/@fontsource/inter/400.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/inter/600.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/inter/700.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/ibm-plex-sans-thai/400.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/ibm-plex-sans-thai/600.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/ibm-plex-sans-thai/700.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/noto-sans-jp/400.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/noto-sans-jp/700.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/noto-sans-sc/400.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/noto-sans-sc/700.css">
+<style>
+  @page { size: A4; margin: 14mm 15mm 16mm; }
+  :root {
+    --ink: #1f1620; --muted: #5d4c58; --line: #ecd9e4; --soft: #fbf3f7;
+    --accent: #be185d; --accent-2: #9333ea;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    margin: 0; color: var(--ink); font-size: 9.6pt; line-height: 1.5;
+    font-family: Inter, "IBM Plex Sans Thai", "Noto Sans JP", "Noto Sans SC", sans-serif;
+  }
+  html[lang="th"] body { font-family: "IBM Plex Sans Thai", Inter, sans-serif; font-size: 10pt; }
+  html[lang="ja"] body { font-family: Inter, "Noto Sans JP", sans-serif; }
+  html[lang="zh"] body { font-family: Inter, "Noto Sans SC", sans-serif; }
+  /* Screen preview looks like a sheet of paper. */
+  @media screen { body { background: #e9e3e7; } .sheet { width: 210mm; margin: 10mm auto; padding: 14mm 15mm 16mm; background: #fff; box-shadow: 0 4px 24px rgba(0,0,0,.15); } }
+
+  .topbar { height: 4px; border-radius: 4px; background: linear-gradient(90deg, #ec4899, #c026d3 55%, #a855f7); margin-bottom: 7mm; }
+  header.hd { display: grid; grid-template-columns: 1fr auto; gap: 6mm; align-items: center; }
+  .name { margin: 0; font-size: 24pt; line-height: 1.15; font-weight: 700; letter-spacing: -.01em; }
+  .roman { margin: 1mm 0 0; color: var(--muted); font-size: 10.5pt; font-weight: 600; }
+  .title { margin: 2.5mm 0 0; font-size: 11pt; font-weight: 600; color: var(--accent); }
+  .org { margin: .5mm 0 0; color: var(--muted); }
+  .photo { width: 28mm; height: 28mm; border-radius: 50%; object-fit: cover; border: 2.5px solid #f9a8d4; }
+  .contact { display: flex; flex-wrap: wrap; gap: 1.2mm 5mm; margin: 4.5mm 0 0; padding: 2.6mm 3.5mm; background: var(--soft); border-radius: 2.5mm; font-size: 8.8pt; }
+  .contact span { display: inline-flex; align-items: center; gap: 1.4mm; white-space: nowrap; }
+  .contact svg { width: 3.4mm; height: 3.4mm; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+  section { margin-top: 5.5mm; }
+  h2 {
+    margin: 0 0 2.4mm; padding-bottom: 1.2mm; border-bottom: 1.2px solid var(--line);
+    font-size: 10pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
+  }
+  html[lang="th"] h2, html[lang="ja"] h2, html[lang="zh"] h2 { letter-spacing: .04em; font-size: 10.5pt; }
+  p { margin: 0; }
+  .summary { text-align: justify; }
+  /* Thai / CJK have few or no spaces, so justification leaves uneven gaps. */
+  html[lang="th"] .summary, html[lang="ja"] .summary, html[lang="zh"] .summary { text-align: left; }
+
+  .skills { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4mm 6mm; }
+  .skill b { display: block; font-size: 9.4pt; }
+  .skill span { color: var(--muted); font-size: 8.8pt; }
+
+  .entry { break-inside: avoid; margin-bottom: 3.4mm; }
+  .entry:last-child { margin-bottom: 0; }
+  .row { display: flex; justify-content: space-between; gap: 4mm; align-items: baseline; }
+  .row b { font-size: 10pt; }
+  .when { flex: none; color: var(--accent); font-weight: 600; font-size: 8.8pt; white-space: nowrap; }
+  .sub { color: var(--muted); }
+  ul { margin: 1.2mm 0 0; padding-left: 4.2mm; }
+  li { margin: .5mm 0; }
+  li::marker { color: var(--accent); }
+
+  .project { break-inside: avoid; margin-bottom: 3.4mm; padding: 2.8mm 3.5mm; border: 1px solid var(--line); border-left: 3px solid #ec4899; border-radius: 2mm; }
+  .project .metrics { margin-top: 1mm; color: var(--accent); font-size: 8.6pt; font-weight: 600; }
+  .project .link { color: var(--muted); font-size: 8.4pt; }
+  .others li b { font-weight: 600; }
+  .tags { color: var(--muted); font-size: 8.4pt; }
+</style>
+</head>
+<body>
+<div class="sheet" id="cv"></div>
+
+<script>
+(async function () {
+  const LABELS = {
+    th: { summary: "สรุปประวัติโดยย่อ", skills: "ความเชี่ยวชาญหลัก", experience: "ประสบการณ์การทำงาน", projects: "ผลงานเด่น", others: "ผลงานอื่น ๆ", education: "การศึกษา", present: "ปัจจุบัน", portfolio: "พอร์ตโฟลิโอ" },
+    en: { summary: "Professional Summary", skills: "Core Competencies", experience: "Work Experience", projects: "Key Projects", others: "Other Projects", education: "Education", present: "Present", portfolio: "Portfolio" },
+    ja: { summary: "職務要約", skills: "専門スキル", experience: "職歴", projects: "主なプロジェクト", others: "その他の実績", education: "学歴", present: "現在", portfolio: "ポートフォリオ" },
+    zh: { summary: "个人简介", skills: "核心技能", experience: "工作经历", projects: "主要项目", others: "其他项目", education: "教育背景", present: "至今", portfolio: "作品集" }
+  };
+  const LOCALE = { th: "th-TH", en: "en-GB", ja: "ja-JP", zh: "zh-CN" };
+  const lang = new URLSearchParams(location.search).get("lang") || "en";
+  const L = LABELS[lang] || LABELS.en;
+  document.documentElement.lang = lang;
+
+  const data = await (await fetch("/site/data/portfolio.json", { cache: "no-store" })).json();
+  const p = data.profile;
+  const tr = (v) => v == null ? "" : typeof v === "string" ? v : (v[lang] || v.en || v.th || "");
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const t = (v) => esc(tr(v));
+
+  function fmt(iso) {
+    if (!iso) return L.present;
+    if (/^\d{4}$/.test(iso)) {
+      const f = new Intl.DateTimeFormat(LOCALE[lang], { year: "numeric" });
+      const d = new Date(iso + "-01-01T00:00:00");
+      return lang === "th" ? f.formatToParts(d).find((x) => x.type === "year").value : f.format(d);
+    }
+    return new Intl.DateTimeFormat(LOCALE[lang], { month: "short", year: "numeric" }).format(new Date(iso + "T00:00:00"));
+  }
+  const range = (e) => (e.start || e.end) ? `${fmt(e.start)} – ${fmt(e.end)}` : "";
+
+  const ICON = {
+    mail: '<path d="M3 5h18v14H3zM3 6l9 7 9-7"/>',
+    phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/>',
+    pin: '<path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+    web: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/>',
+    code: '<path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/>'
+  };
+  const ic = (n) => `<svg viewBox="0 0 24 24">${ICON[n]}</svg>`;
+  const site = "kittiphun.rut.mcupr.ac.th";
+
+  const featured = (data.projects || []).filter((x) => x.featured);
+  const others = (data.projects || []).filter((x) => !x.featured);
+
+  document.getElementById("cv").innerHTML = `
+    <div class="topbar"></div>
+    <header class="hd">
+      <div>
+        <h1 class="name">${t(p.name)}</h1>
+        ${lang !== "en" ? `<p class="roman">${esc(p.romanName || "")}</p>` : ""}
+        <p class="title">${t(p.title)}</p>
+        <p class="org">${t(p.organization)}</p>
+      </div>
+      ${p.photo ? `<img class="photo" src="/site/${esc(p.photo)}" alt="">` : ""}
+    </header>
+    <div class="contact">
+      ${p.email ? `<span>${ic("mail")}${esc(p.email)}</span>` : ""}
+      ${p.phone ? `<span>${ic("phone")}${esc(p.phone)}</span>` : ""}
+      ${p.location ? `<span>${ic("pin")}${t(p.location)}</span>` : ""}
+      <span>${ic("web")}${site}</span>
+      ${p.github ? `<span>${ic("code")}${esc(p.github.replace(/^https?:\/\//, ""))}</span>` : ""}
+    </div>
+
+    <section><h2>${L.summary}</h2><p class="summary">${t(p.summary)}</p></section>
+
+    <section><h2>${L.skills}</h2>
+      <div class="skills">${(data.skills || []).map((sk) => `
+        <div class="skill"><b>${t(sk.title)}</b><span>${(sk.items || []).map(tr).map(esc).join(" · ")}</span></div>`).join("")}
+      </div>
+    </section>
+
+    <section><h2>${L.experience}</h2>${(data.experience || []).map((e) => `
+      <div class="entry">
+        <div class="row"><b>${t(e.role)}</b><span class="when">${range(e)}</span></div>
+        <div class="sub">${t(e.organization)}</div>
+        ${(e.highlights || []).length ? `<ul>${e.highlights.map((h) => `<li>${t(h)}</li>`).join("")}</ul>` : ""}
+      </div>`).join("")}
+    </section>
+
+    <section><h2>${L.projects}</h2>${featured.map((pr) => {
+      const f = pr.featured;
+      const pts = (f.highlights || []).map((hl) => (hl.points || [])[0]).filter(Boolean);
+      return `
+      <div class="project">
+        <div class="row"><b>${esc(f.name || tr(pr.title))}</b><span class="tags">${(pr.tags || []).map(esc).join(" · ")}</span></div>
+        <div class="sub">${t(f.subtitle)}</div>
+        <div class="metrics">${(f.metrics || []).map((m) => `${esc(m.value)} ${t(m.label)}`).join("  ·  ")}</div>
+        <ul>${pts.map((pt) => `<li>${t(pt)}</li>`).join("")}</ul>
+        ${pr.link ? `<div class="link">${esc(pr.link.replace(/^https?:\/\//, "").replace(/\/$/, ""))}</div>` : ""}
+      </div>`;
+    }).join("")}
+      ${others.length ? `<div class="entry others"><b>${L.others}</b><ul>${others.map((pr) =>
+        `<li><b>${t(pr.title)}</b> — ${t(pr.description)} <span class="tags">(${(pr.tags || []).map(esc).join(", ")})</span></li>`).join("")}</ul></div>` : ""}
+    </section>
+
+    <section><h2>${L.education}</h2>${(data.education || []).map((e) => `
+      <div class="entry">
+        <div class="row"><b>${t(e.degree)}</b><span class="when">${range(e)}</span></div>
+        <div class="sub">${t(e.institution)}</div>
+      </div>`).join("")}
+    </section>`;
+
+  await document.fonts.ready;
+  await Promise.all([...document.images].map((img) => img.complete ? 0 : new Promise((r) => { img.onload = img.onerror = r; })));
+  window.__resumeReady = true;
+})();
+</script>
+</body>
+</html>
