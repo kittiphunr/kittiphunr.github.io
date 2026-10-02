@@ -61,7 +61,7 @@
       w = rect.width; h = rect.height;
       canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
       canvas.style.width = w + "px"; canvas.style.height = h + "px";
-      const anchor = document.querySelector(".orb");
+      const anchor = document.getElementById("orb");
       if (anchor) {
         const a = anchor.getBoundingClientRect();
         cx = a.left - rect.left + a.width / 2;
@@ -272,7 +272,11 @@
   function onScroll() {
     const max = document.documentElement.scrollHeight - innerHeight;
     if (bar) bar.style.transform = "scaleX(" + (max > 0 ? scrollY / max : 0) + ")";
-    document.body.classList.toggle("scrolled", scrollY > 8);
+    const bar2 = document.getElementById("topbar");
+    if (bar2) {
+      bar2.classList.toggle("border-ink-600", scrollY > 8);
+      bar2.classList.toggle("border-transparent", scrollY <= 8);
+    }
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
@@ -292,8 +296,44 @@
     links.forEach((a) => { const sec = document.getElementById(a.dataset.spy); if (sec) spy.observe(sec); });
   }
 
+  // ---------- project carousel dots ----------
+  function carousel() {
+    const track = document.getElementById("carousel");
+    const dotsBox = document.getElementById("carousel-dots");
+    if (!track || !dotsBox) return;
+    const cards = Array.from(track.children);
+    let pages = 1;
+    function perView() {
+      const first = cards[0];
+      return first ? Math.max(1, Math.round(track.clientWidth / first.getBoundingClientRect().width)) : 1;
+    }
+    function build() {
+      pages = Math.max(1, Math.ceil(cards.length / perView()));
+      dotsBox.replaceChildren(...Array.from({ length: pages }, (_, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "dot-btn h-2 w-2 rounded-full bg-ink-500 transition-all";
+        b.setAttribute("aria-label", "Page " + (i + 1));
+        b.addEventListener("click", () => track.scrollTo({ left: i * track.clientWidth, behavior: reduceMotion ? "auto" : "smooth" }));
+        return b;
+      }));
+      dotsBox.hidden = pages < 2;
+      update();
+    }
+    function update() {
+      const max = track.scrollWidth - track.clientWidth;
+      const page = max > 0 ? Math.round((track.scrollLeft / max) * (pages - 1)) : 0;
+      Array.from(dotsBox.children).forEach((d, i) => d.setAttribute("aria-current", String(i === page)));
+    }
+    track.addEventListener("scroll", update, { passive: true });
+    build();
+    carousel.rebuild = build;
+  }
+  window.addEventListener("resize", () => carousel.rebuild && carousel.rebuild());
+
   window.Effects = {
     afterRender() {
+      carousel();
       scrollSpy();
       reveal();
       counters();

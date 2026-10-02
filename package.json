@@ -1,0 +1,13 @@
+{
+  "name": "kittiphunr-portfolio",
+  "private": true,
+  "description": "Portfolio website of Kittiphun Ruttanakorn (TH/EN/JA/ZH)",
+  "scripts": {
+    "build": "tailwindcss -i ./src/tailwind.css -o ./site/assets/css/tailwind.css --minify",
+    "dev": "tailwindcss -i ./src/tailwind.css -o ./site/assets/css/tailwind.css --watch",
+    "translate": "node scripts/translate.mjs"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}

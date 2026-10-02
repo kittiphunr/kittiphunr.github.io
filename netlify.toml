@@ -1,4 +1,4 @@
-# Static site: no build step, publish only the site/ folder.
+# Build Tailwind CSS, then publish only the site/ folder.
 [build]
   publish = "site"
-  command = ""
+  command = "npm ci && npm run build"
