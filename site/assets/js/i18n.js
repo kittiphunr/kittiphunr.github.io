@@ -9,6 +9,7 @@ window.LANGS = [
 
 window.UI = {
   th: {
+    phone: "โทรศัพท์",
     tryLive: "ทดลองใช้งานจริง",
     featuredBadge: "ผลงานเด่น",
     techStack: "เทคโนโลยีที่ใช้",
@@ -65,6 +66,7 @@ window.UI = {
     by: "โดย"
   },
   en: {
+    phone: "Phone",
     tryLive: "Try the live app",
     featuredBadge: "Featured project",
     techStack: "Tech stack",
@@ -121,6 +123,7 @@ window.UI = {
     by: "by"
   },
   ja: {
+    phone: "電話",
     tryLive: "実際に試す",
     featuredBadge: "注目プロジェクト",
     techStack: "技術スタック",
@@ -177,6 +180,7 @@ window.UI = {
     by: "by"
   },
   zh: {
+    phone: "电话",
     tryLive: "在线试用",
     featuredBadge: "重点项目",
     techStack: "技术栈",

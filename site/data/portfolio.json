@@ -50,10 +50,10 @@
       "zh": "IT 基础设施专家 · 网络与服务器管理员 · 全栈开发工程师"
     },
     "summary": {
-      "th": "นักวิชาการคอมพิวเตอร์ที่มีความเชี่ยวชาญทั้งด้านโครงสร้างพื้นฐานเทคโนโลยีสารสนเทศและการพัฒนาซอฟต์แวร์แบบครบวงจร รับผิดชอบการออกแบบ ติดตั้ง และดูแลระบบเครือข่ายองค์กรด้วยอุปกรณ์มาตรฐานระดับโลก เช่น Cisco บริหารจัดการเซิร์ฟเวอร์ทั้ง Windows Server และ Linux ผ่าน Command Line Interface อย่างมีประสิทธิภาพ ตลอดจนพัฒนาระบบสารสนเทศแบบ Full-Stack เพื่อยกระดับการบริหารงานและการให้บริการของมหาวิทยาลัยให้มีความมั่นคง ปลอดภัย และทันสมัย",
-      "en": "A computer technical officer with combined expertise in IT infrastructure and full-stack software development. I design, deploy, and maintain enterprise networks built on world-class equipment such as Cisco, administer Windows Server and Linux environments efficiently through the command-line interface, and build full-stack information systems that make the university's operations and services more reliable, secure, and modern.",
-      "ja": "ITインフラとフルスタックソフトウェア開発の両分野に精通したコンピュータ技術職員です。Cisco をはじめとする世界標準のネットワーク機器による企業ネットワークの設計・構築・運用を担当し、Windows Server および Linux 環境をコマンドラインインターフェースで効率的に管理しています。さらに、フルスタックの情報システムを開発し、大学の業務とサービスの安定性・安全性・先進性の向上に取り組んでいます。",
-      "zh": "兼具 IT 基础设施与全栈软件开发能力的计算机技术专员。负责使用 Cisco 等世界领先的网络设备设计、部署和维护企业级网络，通过命令行界面高效管理 Windows Server 与 Linux 服务器环境，并开发全栈信息系统，使大学的管理与服务更加稳定、安全、现代化。"
+      "th": "นักวิชาการคอมพิวเตอร์ที่มีความเชี่ยวชาญทั้งด้านโครงสร้างพื้นฐานเทคโนโลยีสารสนเทศและการพัฒนาซอฟต์แวร์แบบครบวงจร รับผิดชอบการออกแบบ ติดตั้ง และดูแลระบบเครือข่ายองค์กรด้วยอุปกรณ์มาตรฐานระดับโลก เช่น Cisco บริหารจัดการเซิร์ฟเวอร์ทั้ง Windows Server และ Linux ผ่าน Command Line Interface อย่างมีประสิทธิภาพ ตลอดจนพัฒนาระบบสารสนเทศแบบ Full-Stack เพื่อยกระดับการบริหารงานและการให้บริการของมหาวิทยาลัยให้มีความมั่นคง ปลอดภัย และทันสมัย นอกจากนี้ยังมีพื้นฐานด้านอิเล็กทรอนิกส์อุตสาหกรรม และประสบการณ์ระดับหัวหน้างานในภาคอุตสาหกรรม ทั้งงานทดสอบทางไฟฟ้าในส่วนงานวิจัยและพัฒนา และงานซ่อมบำรุงเครื่องจักรในสายการผลิต",
+      "en": "A computer technical officer with combined expertise in IT infrastructure and full-stack software development. I design, deploy, and maintain enterprise networks built on world-class equipment such as Cisco, administer Windows Server and Linux environments efficiently through the command-line interface, and build full-stack information systems that make the university's operations and services more reliable, secure, and modern. I also bring a background in industrial electronics and supervisory experience in manufacturing — leading electrical testing in R&D and machinery maintenance on production lines.",
+      "ja": "ITインフラとフルスタックソフトウェア開発の両分野に精通したコンピュータ技術職員です。Cisco をはじめとする世界標準のネットワーク機器による企業ネットワークの設計・構築・運用を担当し、Windows Server および Linux 環境をコマンドラインインターフェースで効率的に管理しています。さらに、フルスタックの情報システムを開発し、大学の業務とサービスの安定性・安全性・先進性の向上に取り組んでいます。 さらに、産業エレクトロニクスの基礎と、研究開発部門での電気試験や生産ラインの機械保全を統括した製造業での管理職経験を有しています。",
+      "zh": "兼具 IT 基础设施与全栈软件开发能力的计算机技术专员。负责使用 Cisco 等世界领先的网络设备设计、部署和维护企业级网络，通过命令行界面高效管理 Windows Server 与 Linux 服务器环境，并开发全栈信息系统，使大学的管理与服务更加稳定、安全、现代化。此外，我具备工业电子专业背景，并拥有制造业的主管经验——曾负责研发部门的电气测试以及生产线的机械维护。"
     },
     "motto": {
       "th": "เทคโนโลยีที่ดีต้องมั่นคง ปลอดภัย และช่วยให้งานของทุกคนง่ายขึ้น — นี่คือหลักที่ผมยึดถือในทุกระบบที่ดูแลและพัฒนา",
@@ -62,12 +62,13 @@
       "zh": "好的技术必须稳定、安全，并让每个人的工作更轻松——这是我管理和开发每一个系统所坚持的原则。"
     },
     "location": {
-      "th": "จังหวัดแพร่ ประเทศไทย",
-      "en": "Phrae, Thailand",
-      "ja": "タイ・プレー県",
-      "zh": "泰国 帕府"
+      "th": "อ.เมืองแพร่ จ.แพร่ 54000",
+      "en": "Mueang Phrae, Phrae 54000, Thailand",
+      "ja": "タイ・プレー県ムアンプレー郡 54000",
+      "zh": "泰国帕府帕府直辖县 54000"
     },
     "email": "kittiphun.rut@mcu.ac.th",
+    "phone": "089-955-4194",
     "github": "https://github.com/kittiphunr",
     "photo": "assets/img/profile.jpg",
     "cv": ""
@@ -263,15 +264,98 @@
           "zh": "开发支持行政管理、采购及学术工作的信息系统与数字化工具。"
         },
         {
+          "th": "ดูแลงานประชาสัมพันธ์ด้วยสื่อดิจิทัลของมหาวิทยาลัย",
+          "en": "Manage the university's digital-media public relations.",
+          "ja": "大学のデジタルメディアによる広報を担当。",
+          "zh": "负责大学的数字媒体宣传工作。"
+        },
+        {
           "th": "ให้คำปรึกษาและสนับสนุนด้านเทคนิคแก่บุคลากรและนิสิต",
           "en": "Provide technical consultation and support to staff and students.",
           "ja": "教職員および学生への技術相談とサポートを提供。",
           "zh": "为教职员工和学生提供技术咨询与支持。"
         }
+      ],
+      "description": {
+        "th": "สังกัดสำนักงานวิชาการ วิทยาเขตแพร่ ดูแลงานเทคโนโลยีสารสนเทศ และงานประชาสัมพันธ์ด้วยสื่อดิจิทัลของมหาวิทยาลัย",
+        "en": "Academic Office, Phrae Campus — responsible for information technology and the university's digital-media public relations.",
+        "ja": "プレー校 学務部所属。情報技術と、大学のデジタルメディアによる広報を担当。",
+        "zh": "隶属帕府校区学术办公室，负责信息技术工作以及大学的数字媒体宣传。"
+      }
+    },
+    {
+      "role": {
+        "th": "หัวหน้าฝ่ายงานซ่อมบำรุงเครื่องจักร",
+        "en": "Head of Machinery Maintenance",
+        "ja": "機械保全部門 責任者",
+        "zh": "机械维护部主管"
+      },
+      "organization": {
+        "th": "บริษัท ไทยอันเป่า ผลิตภัณฑ์กระดาษ จำกัด (สาขาเครือสหพัฒน์ ศรีราชา ชลบุรี)",
+        "en": "Thai An Pao Paper Products Co., Ltd. (Saha Group, Sriracha, Chonburi)",
+        "ja": "Thai An Pao Paper Products Co., Ltd.（サハグループ シーラチャー工場、チョンブリー県）",
+        "zh": "Thai An Pao Paper Products Co., Ltd.（盛泰集团是拉差分厂，春武里府）"
+      },
+      "highlights": [
+        {
+          "th": "รับผิดชอบงานซ่อมบำรุงเครื่องจักรในสายการผลิตถ้วยกระดาษและบรรจุภัณฑ์กระดาษและพลาสติก",
+          "en": "Led maintenance of production machinery for paper cups and paper/plastic packaging.",
+          "ja": "紙カップおよび紙・プラスチック包装の生産設備の保全を統括。",
+          "zh": "负责纸杯及纸质/塑料包装生产线的设备维护。"
+        },
+        {
+          "th": "ผลิตบรรจุภัณฑ์ให้กับ บริษัท ไทยเพรซิเดนท์ฟูดส์ จำกัด (มหาชน)",
+          "en": "Production supplied packaging to Thai President Foods PCL.",
+          "ja": "Thai President Foods PCL 向けの包装材を生産。",
+          "zh": "为泰国百胜食品大众有限公司（Thai President Foods PCL）供应包装。"
+        }
+      ]
+    },
+    {
+      "role": {
+        "th": "หัวหน้าห้องทดสอบทางไฟฟ้า ส่วนงานวิจัยและพัฒนา",
+        "en": "Head of Electrical Testing Laboratory, Research & Development",
+        "ja": "研究開発部 電気試験室 責任者",
+        "zh": "研发部电气测试实验室主管"
+      },
+      "organization": {
+        "th": "บริษัท สยามคอมเพรสเซอร์ อุตสาหกรรม จำกัด",
+        "en": "Siam Compressor Industry Co., Ltd.",
+        "ja": "Siam Compressor Industry Co., Ltd.",
+        "zh": "Siam Compressor Industry Co., Ltd."
+      },
+      "highlights": [
+        {
+          "th": "ทดสอบและพัฒนาโครงการด้านแพ็กเกจห่อหุ้มและการติดตั้งคอมเพรสเซอร์ ภายใต้สภาวะการทำงานต่าง ๆ ในระบบทำความเย็น",
+          "en": "Tested and developed projects on compressor packaging and installation under various operating conditions in refrigeration systems.",
+          "ja": "冷凍システムのさまざまな運転条件下における、コンプレッサーのパッケージおよび据付に関するプロジェクトの試験・開発。",
+          "zh": "在制冷系统各种工况下，对压缩机封装与安装相关项目进行测试与开发。"
+        },
+        {
+          "th": "กำกับดูแลงานทดสอบทางไฟฟ้าของห้องปฏิบัติการในส่วนงานวิจัยและพัฒนา",
+          "en": "Supervised the electrical testing laboratory within the R&D division.",
+          "ja": "研究開発部門の電気試験室を統括。",
+          "zh": "主管研发部门的电气测试实验室。"
+        }
       ]
     }
   ],
-  "education": [],
+  "education": [
+    {
+      "degree": {
+        "th": "ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.) สาขาวิชาอิเล็กทรอนิกส์ (อิเล็กทรอนิกส์อุตสาหกรรม)",
+        "en": "Higher Vocational Certificate in Electronics (Industrial Electronics)",
+        "ja": "高等職業教育修了証（電子工学・産業エレクトロニクス専攻）",
+        "zh": "高级职业教育文凭（电子专业·工业电子方向）"
+      },
+      "institution": {
+        "th": "วิทยาลัยเทคนิคแพร่",
+        "en": "Phrae Technical College",
+        "ja": "プレー技術短期大学",
+        "zh": "帕府技术学院"
+      }
+    }
+  ],
   "projects": [
     {
       "title": "TOR-MCU-Standard",

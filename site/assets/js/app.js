@@ -182,6 +182,7 @@
     user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
     heart: '<path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/>',
     check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/>',
+    phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/>',
     expand: '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>'
   };
 
@@ -239,7 +240,7 @@
     const s = UI[lang];
     const items = NAV.filter(([id]) => id !== "education" || hasItems(data.education));
     document.getElementById("nav-links").replaceChildren(...items.map(([id, key]) =>
-      h("a", { href: "#" + id, "data-spy": id, class: "nav-link relative px-2.5 py-1.5 text-[0.92rem] font-medium text-muted transition-colors hover:text-fg" }, s[key])));
+      h("a", { href: "#" + id, "data-spy": id, class: "nav-link relative whitespace-nowrap px-2 py-1.5 text-[0.9rem] font-medium text-muted transition-colors hover:text-fg" }, s[key])));
     document.getElementById("mobile-menu").replaceChildren(...items.map(([id, key]) =>
       h("a", { href: "#" + id, class: "rounded-lg px-3 py-2.5 text-muted hover:bg-ink-800 hover:text-fg" }, s[key])));
 
@@ -480,7 +481,8 @@
     return h("ol", { class: "relative mx-auto max-w-3xl border-l-2 border-brand-500/40 pl-7", "data-reveal-group": "" }, items.map((e) =>
       h("li", { class: "relative mb-6" },
         h("span", { class: "absolute -left-[35px] top-1.5 h-3 w-3 rounded-full bg-brand-500 shadow-[0_0_0_4px_rgba(236,72,153,.14),0_0_18px_rgba(236,72,153,.7)]" }),
-        h("div", { class: "mb-2 text-sm font-semibold text-accent" }, formatDate(e.start) + " — " + formatDate(e.end)),
+        // Entries without dates (e.g. earlier jobs) simply omit the date line.
+        e.start || e.end ? h("div", { class: "mb-2 text-sm font-semibold text-accent" }, formatDate(e.start) + " — " + formatDate(e.end)) : null,
         h("div", { class: "card tilt p-6 md:p-7" },
           t(e[roleKey], "h3", "mb-1 text-lg font-semibold"),
           t(e[orgKey], "p", "font-medium text-muted"),
@@ -565,6 +567,12 @@
     ));
   }
 
+  // "089-955-4194" -> "+66899554194" (Thai numbers drop the leading 0).
+  function telHref(phone) {
+    const digits = String(phone).replace(/[^\d+]/g, "");
+    return digits.startsWith("0") ? "+66" + digits.slice(1) : digits;
+  }
+
   function renderContact() {
     const p = data.profile;
     const s = UI[lang];
@@ -595,6 +603,7 @@
           p.email ? h("a", { class: social, href: "mailto:" + p.email, "aria-label": s.email }, icon("mail", "h-5 w-5")) : null
         ),
         p.email ? h("a", { class: row + " hover:text-fg", href: "mailto:" + p.email }, icon("mail", "text-accent"), p.email) : null,
+        p.phone ? h("a", { class: row + " hover:text-fg", href: "tel:" + telHref(p.phone), "aria-label": s.phone + " " + p.phone }, icon("phone", "text-accent"), p.phone) : null,
         p.location ? h("p", { class: row }, icon("pin", "text-accent"), t(p.location)) : null
       )
     ));
