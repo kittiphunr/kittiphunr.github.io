@@ -65,6 +65,8 @@
 
   .entry { break-inside: avoid; margin-bottom: 3.4mm; }
   .entry:last-child { margin-bottom: 0; }
+  .edu { display: grid; grid-template-columns: 1fr 1fr; gap: 2.6mm 6mm; }
+  .edu .entry { margin: 0; }
   .row { display: flex; justify-content: space-between; gap: 4mm; align-items: baseline; }
   .row b { font-size: 10pt; }
   .when { flex: none; color: var(--accent); font-weight: 600; font-size: 8.8pt; white-space: nowrap; }
@@ -177,11 +179,11 @@
         `<li><b>${t(pr.title)}</b> — ${t(pr.description)} <span class="tags">(${(pr.tags || []).map(esc).join(", ")})</span></li>`).join("")}</ul></div>` : ""}
     </section>
 
-    <section><h2>${L.education}</h2>${(data.education || []).map((e) => `
+    <section><h2>${L.education}</h2><div class="edu">${(data.education || []).map((e) => `
       <div class="entry">
         <div class="row"><b>${t(e.degree)}</b><span class="when">${range(e)}</span></div>
         <div class="sub">${t(e.institution)}</div>
-      </div>`).join("")}
+      </div>`).join("")}</div>
     </section>`;
 
   await document.fonts.ready;
