@@ -71,7 +71,12 @@
     "phone": "089-955-4194",
     "github": "https://github.com/kittiphunr",
     "photo": "assets/img/profile.jpg",
-    "cv": ""
+    "cv": {
+      "th": "assets/cv/Kittiphun-Ruttanakorn-Resume-TH.pdf",
+      "en": "assets/cv/Kittiphun-Ruttanakorn-Resume-EN.pdf",
+      "ja": "assets/cv/Kittiphun-Ruttanakorn-Resume-JA.pdf",
+      "zh": "assets/cv/Kittiphun-Ruttanakorn-Resume-ZH.pdf"
+    }
   },
   "skills": [
     {
