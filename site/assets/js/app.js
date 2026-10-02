@@ -640,7 +640,8 @@
     ));
   }
 
-  const SITE_URL = "https://kittiphunr.github.io/";
+  // Primary address: GitHub Pages copies point their canonical here too.
+  const SITE_URL = "https://kittiphun.rut.mcupr.ac.th/";
   const OG_LOCALE = { th: "th_TH", en: "en_US", ja: "ja_JP", zh: "zh_CN" };
 
   function setMeta(selector, value) {
