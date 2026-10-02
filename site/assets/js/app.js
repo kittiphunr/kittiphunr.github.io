@@ -237,15 +237,15 @@
     const s = UI[lang];
     const items = NAV.filter(([id]) => id !== "education" || hasItems(data.education));
     document.getElementById("nav-links").replaceChildren(...items.map(([id, key]) =>
-      h("a", { href: "#" + id, "data-spy": id, class: "nav-link relative px-2.5 py-1.5 text-[0.92rem] font-medium text-muted transition-colors hover:text-white" }, s[key])));
+      h("a", { href: "#" + id, "data-spy": id, class: "nav-link relative px-2.5 py-1.5 text-[0.92rem] font-medium text-muted transition-colors hover:text-fg" }, s[key])));
     document.getElementById("mobile-menu").replaceChildren(...items.map(([id, key]) =>
-      h("a", { href: "#" + id, class: "rounded-lg px-3 py-2.5 text-muted hover:bg-ink-800 hover:text-white" }, s[key])));
+      h("a", { href: "#" + id, class: "rounded-lg px-3 py-2.5 text-muted hover:bg-ink-800 hover:text-fg" }, s[key])));
 
     document.getElementById("lang-switch").replaceChildren(...LANGS.map((l) =>
       h("button", {
         type: "button", lang: l.code, "data-lang": l.code, "aria-pressed": String(l.code === lang),
         class: "rounded-full px-2 py-1 text-xs font-semibold leading-snug transition-colors sm:px-2.5 " +
-          (l.code === lang ? "bg-grad text-white" : "text-muted hover:text-white")
+          (l.code === lang ? "bg-grad text-white" : "text-muted hover:text-fg")
       }, l.label)
     ));
 
@@ -291,11 +291,13 @@
       ? h("img", { class: "absolute inset-4 h-[calc(100%-2rem)] w-[calc(100%-2rem)] rounded-full border-4 border-ink-950/60 object-cover", src: p.photo, alt: p.romanName || "" })
       : h("div", { class: "absolute inset-4 grid place-items-center rounded-full bg-ink-950 text-6xl font-bold" }, (p.romanName || "").split(/\s+/).map((w) => w[0]).join(""));
 
-    const art = h("div", { class: "relative mx-auto h-[440px] w-full max-w-[520px] lg:h-[500px] lg:max-w-none" },
-      h("div", { class: "absolute right-[2%] top-[4%] h-[90px] w-[110px] animate-drift bg-dots bg-[length:14px_14px] opacity-[.55]", "aria-hidden": "true" }),
-      h("div", { id: "orb", class: "orb-ring absolute left-1/2 top-[38%] -ml-[130px] -mt-[130px] h-[260px] w-[260px] animate-float rounded-full bg-orb shadow-orb sm:-ml-[170px] sm:-mt-[170px] sm:h-[340px] sm:w-[340px] lg:left-[42%] lg:top-[46%] lg:-ml-[180px] lg:-mt-[180px] lg:h-[360px] lg:w-[360px]" }, portrait),
+    // Mobile: portrait and code card stack. Desktop: portrait top-left, card
+    // bottom-right, so the card never covers the face.
+    const art = h("div", { class: "relative mx-auto flex w-full max-w-[520px] flex-col items-center gap-14 pb-4 pt-12 lg:block lg:h-[590px] lg:max-w-none lg:p-0" },
+      h("div", { class: "absolute right-[2%] top-0 h-[90px] w-[110px] animate-drift bg-dots bg-[length:14px_14px] opacity-[.55] lg:top-[2%]", "aria-hidden": "true" }),
+      h("div", { id: "orb", class: "orb-ring relative h-[260px] w-[260px] flex-none animate-float rounded-full bg-orb shadow-orb sm:h-[300px] sm:w-[300px] lg:absolute lg:left-[4%] lg:top-[24px] lg:h-[320px] lg:w-[320px]" }, portrait),
       renderCodeCard(p, since),
-      svg('<svg class="doodle absolute bottom-[10%] left-[2%] hidden w-16 fill-none stroke-white/55 sm:block" style="stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 80 90" aria-hidden="true"><path d="M70 8C40 6 18 22 22 44c3 16 22 16 22 3 0-12-20-12-28 2-6 11-6 24 0 34"/><path d="M8 74l8 10 8-9"/></svg>')
+      svg('<svg class="doodle absolute bottom-[6%] left-[4%] hidden w-16 fill-none stroke-fg/50 lg:block" style="stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 80 90" aria-hidden="true"><path d="M70 8C40 6 18 22 22 44c3 16 22 16 22 3 0-12-20-12-28 2-6 11-6 24 0 34"/><path d="M8 74l8 10 8-9"/></svg>')
     );
 
     document.getElementById("hero").replaceChildren(
@@ -317,8 +319,8 @@
       [pun("};")]
     ].filter(Boolean);
     return h("div", { lang: "en", "aria-hidden": "true",
-      class: "absolute -bottom-[4%] right-0 z-10 w-[250px] animate-float-rev rounded-xl border border-ink-500 bg-ink-900/85 font-mono text-[0.7rem] shadow-float backdrop-blur-md sm:w-[280px] sm:text-[0.76rem] lg:-bottom-[2%] lg:-right-2.5" },
-      h("div", { class: "flex items-center justify-between border-b border-ink-600 px-3.5 py-2 text-[0.74rem] text-muted" },
+      class: "relative z-10 w-full max-w-[300px] animate-float-rev rounded-xl border border-[#3a2f4f] bg-[#110d1b]/90 font-mono text-[0.72rem] text-[#f5eff9] shadow-float backdrop-blur-md sm:text-[0.76rem] lg:absolute lg:bottom-0 lg:right-0 lg:w-[300px] lg:max-w-none" },
+      h("div", { class: "flex items-center justify-between border-b border-[#2a2239] px-3.5 py-2 text-[0.74rem] text-[#a99fbb]" },
         h("span", null, "</> engineer.js"),
         h("i", { class: "h-2 w-2 rounded-full bg-green-400 shadow-[0_0_10px_#4ade80]" })),
       h("pre", { class: "m-0 whitespace-pre-wrap px-3.5 pb-3.5 pt-3 font-mono leading-[1.75]" },
@@ -378,11 +380,11 @@
     });
     const cards = (data.skills || []).map((sk) =>
       h("article", { class: "card tilt p-6 md:p-7" },
-        h("div", { class: "mb-4 grid h-12 w-12 place-items-center rounded-xl border border-brand-500/25 bg-brand-500/15 text-brand-300" }, icon(sk.icon, "h-6 w-6")),
+        h("div", { class: "mb-4 grid h-12 w-12 place-items-center rounded-xl border border-brand-500/25 bg-brand-500/15 text-accent" }, icon(sk.icon, "h-6 w-6")),
         t(sk.title, "h3", "mb-2 text-lg font-semibold"),
         t(sk.description, "p", "text-muted"),
         hasItems(sk.items) ? h("ul", { class: "mt-4 flex flex-wrap gap-2" }, sk.items.map((it) =>
-          t(it, "li", "rounded-md border border-ink-600 bg-ink-700 px-2.5 py-1 font-mono text-xs text-soft transition-colors hover:border-brand-500 hover:text-white"))) : null
+          t(it, "li", "rounded-md border border-ink-600 bg-ink-700 px-2.5 py-1 font-mono text-xs text-soft transition-colors hover:border-brand-500 hover:text-fg"))) : null
       )
     );
     document.getElementById("skills").replaceChildren(h("div", { class: WRAP },
@@ -397,7 +399,7 @@
     return h("ol", { class: "relative mx-auto max-w-3xl border-l-2 border-brand-500/40 pl-7", "data-reveal-group": "" }, items.map((e) =>
       h("li", { class: "relative mb-6" },
         h("span", { class: "absolute -left-[35px] top-1.5 h-3 w-3 rounded-full bg-brand-500 shadow-[0_0_0_4px_rgba(236,72,153,.14),0_0_18px_rgba(236,72,153,.7)]" }),
-        h("div", { class: "mb-2 text-sm font-semibold text-brand-300" }, formatDate(e.start) + " — " + formatDate(e.end)),
+        h("div", { class: "mb-2 text-sm font-semibold text-accent" }, formatDate(e.start) + " — " + formatDate(e.end)),
         h("div", { class: "card tilt p-6 md:p-7" },
           t(e[roleKey], "h3", "mb-1 text-lg font-semibold"),
           t(e[orgKey], "p", "font-medium text-muted"),
@@ -441,7 +443,7 @@
     return h("div", { class: frame + " grid place-items-center", "aria-hidden": "true",
       style: "background:radial-gradient(circle at 20% 20%,hsla(" + hue + ",85%,62%,.55),transparent 55%),radial-gradient(circle at 85% 80%,hsla(" + (hue - 50) + ",80%,55%,.5),transparent 55%),linear-gradient(135deg,hsl(" + hue + ",45%,14%),hsl(" + (hue - 40) + ",50%,10%))" },
       h("div", { class: "absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.12)_1px,transparent_1px)] bg-[length:22px_22px] opacity-25" }),
-      h("div", { class: "relative w-[62%] rounded-lg border border-white/15 bg-ink-950/70 shadow-[0_16px_30px_rgba(0,0,0,.4)] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:scale-105" },
+      h("div", { class: "relative w-[62%] rounded-lg border border-white/15 bg-[#0b0912]/70 shadow-[0_16px_30px_rgba(0,0,0,.4)] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:scale-105" },
         h("div", { class: "flex gap-1 border-b border-white/10 px-2 py-1.5" },
           h("i", { class: "h-1.5 w-1.5 rounded-full bg-white/30" }), h("i", { class: "h-1.5 w-1.5 rounded-full bg-white/30" }), h("i", { class: "h-1.5 w-1.5 rounded-full bg-white/30" })),
         h("div", { class: "grid gap-1.5 px-3 pb-3 pt-2.5" },
@@ -458,7 +460,7 @@
     const s = UI[lang];
     const cards = (data.projects || []).map((pr, i) =>
       h("article", { class: "card tilt group flex shrink-0 snap-start basis-full flex-col overflow-hidden sm:basis-[calc((100%-1.5rem)/2)] lg:basis-[calc((100%-3rem)/3)]" },
-        h("span", { class: "absolute left-3.5 top-3 z-10 rounded-md bg-ink-950/60 px-2 py-0.5 font-mono text-xs font-semibold text-white backdrop-blur" },
+        h("span", { class: "absolute left-3.5 top-3 z-10 rounded-md bg-black/50 px-2 py-0.5 font-mono text-xs font-semibold text-white backdrop-blur" },
           String(i + 1).padStart(2, "0")),
         projectCover(pr, i),
         h("div", { class: "flex flex-1 flex-col px-[22px] pb-[18px] pt-5" },
@@ -466,8 +468,8 @@
           t(pr.description, "p", "flex-1 text-[0.93rem] text-muted"),
           h("div", { class: "mt-4 flex items-end justify-between gap-3" },
             hasItems(pr.tags) ? h("ul", { class: "flex flex-wrap gap-2" }, pr.tags.map((tg) =>
-              h("li", { class: "rounded-full bg-brand-500/15 px-2.5 py-0.5 text-xs font-semibold text-brand-300" }, tg))) : h("span"),
-            pr.link ? h("a", { class: "inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-brand-300 hover:text-white", href: pr.link, target: "_blank", rel: "noopener" },
+              h("li", { class: "rounded-full bg-brand-500/15 px-2.5 py-0.5 text-xs font-semibold text-accent" }, tg))) : h("span"),
+            pr.link ? h("a", { class: "inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-accent hover:text-fg", href: pr.link, target: "_blank", rel: "noopener" },
               s.viewProject, icon("arrow", "ic-arrow h-[15px] w-[15px] transition-transform")) : null
           )
         )
@@ -484,7 +486,7 @@
     const p = data.profile;
     const s = UI[lang];
     const avatar = p.photo ? h("img", { class: "h-full w-full object-cover", src: p.photo, alt: "" }) : h("span", null, (p.romanName || "?")[0]);
-    const social = "grid h-[42px] w-[42px] place-items-center rounded-[10px] border border-ink-600 bg-ink-800 text-white transition hover:-translate-y-0.5 hover:border-brand-500 hover:text-brand-300";
+    const social = "grid h-[42px] w-[42px] place-items-center rounded-[10px] border border-ink-600 bg-ink-800 text-fg transition hover:-translate-y-0.5 hover:border-brand-500 hover:text-accent";
     const row = "mt-2.5 flex items-center gap-2.5 text-[0.92rem] text-soft [overflow-wrap:anywhere]";
 
     document.getElementById("contact").replaceChildren(h("div", { class: WRAP + " grid items-center gap-10 lg:grid-cols-[1fr_1.25fr_.85fr]", "data-reveal-group": "" },
@@ -509,8 +511,8 @@
             html: '<svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true"><path d="' + GITHUB_PATH + '"/></svg>' }) : null,
           p.email ? h("a", { class: social, href: "mailto:" + p.email, "aria-label": s.email }, icon("mail", "h-5 w-5")) : null
         ),
-        p.email ? h("a", { class: row + " hover:text-white", href: "mailto:" + p.email }, icon("mail", "text-brand-300"), p.email) : null,
-        p.location ? h("p", { class: row }, icon("pin", "text-brand-300"), t(p.location)) : null
+        p.email ? h("a", { class: row + " hover:text-fg", href: "mailto:" + p.email }, icon("mail", "text-accent"), p.email) : null,
+        p.location ? h("p", { class: row }, icon("pin", "text-accent"), t(p.location)) : null
       )
     ));
 
