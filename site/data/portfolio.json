@@ -643,6 +643,42 @@
         },
         "gallery": [
           {
+            "src": "assets/img/projects/iv-monitor/photo-device.jpg",
+            "caption": {
+              "th": "เครื่องประจำเตียงตัวจริงติดตั้งที่เสาน้ำเกลือ — หน้าจอแจ้งเตือน OCCLUSION เมื่อตรวจพบว่าสารน้ำไม่ไหล",
+              "en": "The real bedside unit mounted on an IV pole — raising an OCCLUSION alarm when the fluid stops flowing",
+              "ja": "点滴スタンドに取り付けた実機のベッドサイド機 — 輸液が止まると OCCLUSION 警告を表示",
+              "zh": "安装在输液架上的床旁设备实物——检测到液体停止流动时显示 OCCLUSION 警报"
+            }
+          },
+          {
+            "src": "assets/img/projects/iv-monitor/photo-demo.jpg",
+            "caption": {
+              "th": "สาธิตการติดตั้งและใช้งานเครื่องกับชุดให้สารน้ำจริง",
+              "en": "Demonstrating how to install and use the device on a real IV set",
+              "ja": "実際の輸液セットでデバイスの取り付けと使い方を実演",
+              "zh": "在真实输液装置上演示设备的安装与使用"
+            }
+          },
+          {
+            "src": "assets/img/projects/iv-monitor/photo-present.jpg",
+            "caption": {
+              "th": "นำเสนอแนวคิดและการทำงานของระบบ Smart IV Alert ในที่ประชุม",
+              "en": "Presenting the concept and workings of Smart IV Alert at a meeting",
+              "ja": "会議で Smart IV Alert の構想と仕組みを発表",
+              "zh": "在会议上介绍 Smart IV Alert 的理念与工作原理"
+            }
+          },
+          {
+            "src": "assets/img/projects/iv-monitor/photo-meeting.jpg",
+            "caption": {
+              "th": "การประชุมนำเสนอโครงการ ณ วิทยาลัยเทคนิคแพร่",
+              "en": "Project presentation meeting at Phrae Technical College",
+              "ja": "プレー技術短期大学でのプロジェクト発表会議",
+              "zh": "在帕府技术学院举行的项目汇报会议"
+            }
+          },
+          {
             "src": "assets/img/projects/iv-monitor/system.jpg",
             "caption": {
               "th": "ภาพรวมระบบ: เครื่องประจำเตียงหลายเครื่อง → เครื่องศูนย์กลาง → หน้าเว็บ (สื่อสารไร้สายโดยตรง ไม่ผ่านเครือข่ายโรงพยาบาล)",
