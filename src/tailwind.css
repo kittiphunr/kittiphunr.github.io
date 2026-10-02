@@ -91,6 +91,44 @@
   .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 
+/* Interactive cursor (effects.js). The native pointer is hidden only once
+   the custom one is active, so the page never ends up without a cursor. */
+html.has-cursor.cursor-visible, html.has-cursor.cursor-visible * { cursor: none !important; }
+.cursor-dot, .cursor-ring {
+  position: fixed; left: 0; top: 0; z-index: 70; pointer-events: none;
+  opacity: 0; transition: opacity .25s ease;
+}
+html.cursor-visible .cursor-dot, html.cursor-visible .cursor-ring { opacity: 1; }
+.cursor-dot {
+  width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%;
+  background: #ec4899; box-shadow: 0 0 10px rgba(236, 72, 153, .7);
+}
+.cursor-dot.is-hidden { opacity: 0 !important; }
+.cursor-ring {
+  width: 0; height: 0; display: grid; place-items: center;
+}
+.cursor-ring::before {
+  content: ""; position: absolute; width: 36px; height: 36px; left: -18px; top: -18px; border-radius: 50%;
+  border: 1.5px solid rgba(236, 72, 153, .65); background: transparent;
+  transition: width .3s cubic-bezier(.2, .7, .2, 1), height .3s cubic-bezier(.2, .7, .2, 1), left .3s cubic-bezier(.2, .7, .2, 1),
+    top .3s cubic-bezier(.2, .7, .2, 1), background .3s, border-color .3s;
+}
+.cursor-ring span {
+  position: absolute; transform: translate(-50%, -50%); white-space: nowrap;
+  font: 600 13px/1 Inter, "IBM Plex Sans Thai", system-ui, sans-serif; letter-spacing: .04em; color: #fff;
+  opacity: 0; transition: opacity .2s;
+}
+.cursor-ring.is-link::before { width: 56px; height: 56px; left: -28px; top: -28px; background: rgba(236, 72, 153, .16); border-color: rgba(236, 72, 153, .9); }
+.cursor-ring.is-media::before { width: 48px; height: 48px; left: -24px; top: -24px; border-color: rgba(168, 85, 247, .8); }
+.cursor-ring.is-view::before {
+  width: 84px; height: 84px; left: -42px; top: -42px; border-color: transparent;
+  background: linear-gradient(135deg, rgba(236, 72, 153, .92), rgba(168, 85, 247, .92));
+  box-shadow: 0 10px 30px rgba(236, 72, 153, .35);
+}
+.cursor-ring.is-view span { opacity: 1; }
+.cursor-ring.is-down::before { width: 26px; height: 26px; left: -13px; top: -13px; }
+.cursor-ring.is-view.is-down::before { width: 70px; height: 70px; left: -35px; top: -35px; }
+
 /* Shimmering sheen on primary buttons */
 .btn-primary::after {
   content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%;
