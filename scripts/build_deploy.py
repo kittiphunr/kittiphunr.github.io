@@ -6,8 +6,8 @@
 
 What it does
   1. Copies site/ to deploy/ (the folder to upload with FTP / cPanel).
-  2. Rewrites the GitHub Pages address in SEO tags, JSON-LD, sitemap,
-     robots.txt and app.js to the real base URL.
+  2. If --base-url differs from the primary address, rewrites it in SEO
+     tags, JSON-LD, sitemap, robots.txt and app.js.
   3. Adds ?v=<hash> to the CSS/JS links so browsers fetch new versions
      right after an update.
   4. Writes an .htaccess (compression, caching, security headers) that
@@ -30,8 +30,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
-GH_PAGES_URL = "https://kittiphunr.github.io/"
-DEFAULT_BASE_URL = "https://kittiphun.rut.mcupr.ac.th/"
+# site/ already uses the primary address (also the canonical for GitHub Pages).
+SOURCE_URL = "https://kittiphun.rut.mcupr.ac.th/"
+DEFAULT_BASE_URL = SOURCE_URL
 
 # Files whose absolute URLs point at the site itself.
 URL_FILES = ["index.html", "sitemap.xml", "robots.txt", "assets/js/app.js"]
@@ -97,7 +98,7 @@ def main() -> None:
 
     for rel in URL_FILES:
         f = out / rel
-        f.write_text(f.read_text(encoding="utf-8").replace(GH_PAGES_URL, base), encoding="utf-8")
+        f.write_text(f.read_text(encoding="utf-8").replace(SOURCE_URL, base), encoding="utf-8")
 
     sitemap = out / "sitemap.xml"
     sitemap.write_text(re.sub(r"<lastmod>[^<]*</lastmod>", f"<lastmod>{date.today().isoformat()}</lastmod>",
@@ -123,9 +124,10 @@ def main() -> None:
                 z.write(p, p.relative_to(out).as_posix())
         print(f"Packed {zpath.relative_to(ROOT)} ({zpath.stat().st_size / 1024 / 1024:.1f} MB)")
 
-    leftover = [rel for rel in URL_FILES if GH_PAGES_URL in (out / rel).read_text(encoding="utf-8")]
-    if leftover:
-        raise SystemExit(f"GitHub Pages URL still present in: {', '.join(leftover)}")
+    if base != SOURCE_URL:
+        leftover = [rel for rel in URL_FILES if SOURCE_URL in (out / rel).read_text(encoding="utf-8")]
+        if leftover:
+            raise SystemExit(f"Primary URL still present in: {', '.join(leftover)}")
 
 
 if __name__ == "__main__":

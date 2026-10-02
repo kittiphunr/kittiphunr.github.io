@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kittiphunr.github.io/sitemap.xml
+Sitemap: https://kittiphun.rut.mcupr.ac.th/sitemap.xml
