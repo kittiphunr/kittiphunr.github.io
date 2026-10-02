@@ -1,0 +1,4 @@
+# Build Tailwind CSS, then publish only the site/ folder.
+[build]
+  publish = "site"
+  command = "npm ci && npm run build"
