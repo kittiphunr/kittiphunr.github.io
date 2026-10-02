@@ -9,6 +9,7 @@ window.LANGS = [
 
 window.UI = {
   th: {
+    viewSource: "ดูซอร์สโค้ดบน GitHub",
     phone: "โทรศัพท์",
     tryLive: "ทดลองใช้งานจริง",
     featuredBadge: "ผลงานเด่น",
@@ -66,6 +67,7 @@ window.UI = {
     by: "โดย"
   },
   en: {
+    viewSource: "View source on GitHub",
     phone: "Phone",
     tryLive: "Try the live app",
     featuredBadge: "Featured project",
@@ -123,6 +125,7 @@ window.UI = {
     by: "by"
   },
   ja: {
+    viewSource: "GitHub でソースを見る",
     phone: "電話",
     tryLive: "実際に試す",
     featuredBadge: "注目プロジェクト",
@@ -180,6 +183,7 @@ window.UI = {
     by: "by"
   },
   zh: {
+    viewSource: "在 GitHub 查看源码",
     phone: "电话",
     tryLive: "在线试用",
     featuredBadge: "重点项目",

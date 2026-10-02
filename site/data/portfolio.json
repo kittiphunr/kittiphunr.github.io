@@ -226,6 +226,24 @@
       "icon": "git",
       "color": "#F05032",
       "level": 85
+    },
+    {
+      "name": "C++ (Embedded)",
+      "icon": "cplusplus",
+      "color": "#659AD2",
+      "level": 85
+    },
+    {
+      "name": "ESP32 / IoT",
+      "icon": "espressif",
+      "color": "#E7352C",
+      "level": 85
+    },
+    {
+      "name": "Electronics & PCB (KiCad)",
+      "icon": "kicad",
+      "color": "#6B8DFF",
+      "level": 80
     }
   ],
   "experience": [
@@ -576,7 +594,8 @@
           "Pure.css",
           "pytest",
           "GitHub Actions"
-        ]
+        ],
+        "name": "Precision QC"
       }
     },
     {
@@ -596,17 +615,258 @@
     {
       "title": "IV-Monitor-BCNPH",
       "description": {
-        "th": "ระบบติดตามการให้สารน้ำทางหลอดเลือดดำแบบเรียลไทม์ด้วยเทคโนโลยี IoT",
-        "en": "Real-time intravenous (IV) fluid monitoring system powered by IoT.",
-        "ja": "IoT を活用したリアルタイム点滴（IV）モニタリングシステム。",
-        "zh": "基于物联网的实时静脉输液（IV）监测系统。"
+        "th": "ระบบ IoT ตรวจวัดและแจ้งเตือนการให้สารน้ำทางหลอดเลือดดำแบบเรียลไทม์ — เฟิร์มแวร์ C++ บน ESP32-S3 สื่อสารด้วย ESP-NOW พร้อมออกแบบวงจรด้วย KiCad",
+        "en": "Real-time IoT monitoring and alerts for intravenous (IV) infusions — C++ firmware on ESP32-S3 over ESP-NOW, with circuits designed in KiCad.",
+        "ja": "点滴（静脈内輸液）をリアルタイムで監視・警告する IoT システム。ESP32-S3 上の C++ ファームウェアと ESP-NOW 通信、KiCad による回路設計。",
+        "zh": "实时监测并预警静脉输液的物联网系统——基于 ESP32-S3 的 C++ 固件、ESP-NOW 通信，并使用 KiCad 设计电路。"
       },
       "tags": [
         "C++",
+        "ESP32",
         "IoT",
-        "ESP32"
+        "KiCad"
       ],
-      "link": "https://github.com/kittiphunr/IV-Monitor-BCNPH"
+      "link": "https://github.com/kittiphunr/IV-Monitor-BCNPH",
+      "image": "assets/img/projects/iv-monitor/cover.jpg",
+      "featured": {
+        "subtitle": {
+          "th": "ระบบ IoT ตรวจวัดและแจ้งเตือนการให้สารน้ำทางหลอดเลือดดำ (Smart IV Alert)",
+          "en": "IoT system for monitoring and alerting IV infusions (Smart IV Alert)",
+          "ja": "点滴の監視・警告を行う IoT システム（Smart IV Alert）",
+          "zh": "静脉输液监测与预警物联网系统（Smart IV Alert）"
+        },
+        "summary": {
+          "th": "นวัตกรรมสำหรับหอผู้ป่วยอายุรกรรม โรงพยาบาลสูงเม่น จังหวัดแพร่ ร่วมกับวิทยาลัยพยาบาลบรมราชชนนี แพร่ เครื่องประจำเตียงใช้เซนเซอร์อินฟราเรดหนีบที่กระเปาะหยดเพื่อนับหยดและคำนวณอัตราการไหล แล้วส่งข้อมูลทุก 1 วินาทีผ่าน ESP-NOW ไปยังเครื่องศูนย์กลางที่เคาน์เตอร์พยาบาล ซึ่งแจ้งเตือนจุดเดียว แสดงผลทุกเตียง และเปิดหน้าเว็บ Dashboard ผ่าน Wi-Fi ของตัวเอง โดยไม่ต้องพึ่งเครือข่ายของโรงพยาบาลหรืออินเทอร์เน็ต",
+          "en": "Built for the medical ward of Sung Men Hospital, Phrae, with Boromarajonani College of Nursing, Phrae. A bedside unit clips an infrared sensor onto the drip chamber to count drops and compute the flow rate, then reports every second over ESP-NOW to a central unit at the nurses' station. The central unit raises alerts in one place, shows every bed, and serves a web dashboard over its own Wi-Fi — no hospital network or internet required.",
+          "ja": "プレー県スンメン病院の内科病棟とボロマラーチャチョンニー看護大学プレー校のために開発。ベッドサイド機は点滴筒に赤外線センサーを取り付けて滴下数を数え流量を算出し、ESP-NOW で毎秒ナースステーションの中央機へ送信します。中央機は警告を一元化し、全ベッドを表示し、自身の Wi-Fi で Web ダッシュボードを提供します。病院のネットワークやインターネットは不要です。",
+          "zh": "为帕府宋门医院内科病房与帕府博罗玛拉差翁尼护理学院开发。床旁设备将红外传感器夹在滴壶上计数滴数并计算流速，每秒通过 ESP-NOW 发送到护士站的中央设备。中央设备统一报警、显示所有床位，并通过自身 Wi-Fi 提供网页仪表盘——无需医院网络或互联网。"
+        },
+        "gallery": [
+          {
+            "src": "assets/img/projects/iv-monitor/system.jpg",
+            "caption": {
+              "th": "ภาพรวมระบบ: เครื่องประจำเตียงหลายเครื่อง → เครื่องศูนย์กลาง → หน้าเว็บ (สื่อสารไร้สายโดยตรง ไม่ผ่านเครือข่ายโรงพยาบาล)",
+              "en": "System overview: bedside units → central unit → web dashboard (direct wireless link, no hospital network)",
+              "ja": "システム全体図：ベッドサイド機 → 中央機 → Web（病院ネットワークを使わない直接無線通信）",
+              "zh": "系统概览：床旁设备 → 中央设备 → 网页（设备间直接无线通信，不经医院网络）"
+            }
+          },
+          {
+            "src": "assets/img/projects/iv-monitor/station.jpg",
+            "caption": {
+              "th": "หน้าจอเครื่องประจำเตียง (ESP32-S3 + TFT 1.47\") ที่วาดด้วยเฟิร์มแวร์ C++: ระดับสารน้ำ แผนการให้ สถานะลิงก์ และกราฟอัตราการไหล",
+              "en": "Bedside unit screens (ESP32-S3 + 1.47\" TFT) drawn by the C++ firmware: bag level, plan, link status and flow trend",
+              "ja": "C++ ファームウェアが描画するベッドサイド機の画面（ESP32-S3 + 1.47 インチ TFT）：残量・計画・リンク状態・流量推移",
+              "zh": "由 C++ 固件绘制的床旁设备界面（ESP32-S3 + 1.47 英寸 TFT）：液量、计划、链路状态与流速趋势"
+            }
+          },
+          {
+            "src": "assets/img/projects/iv-monitor/host.jpg",
+            "caption": {
+              "th": "หน้าจอเครื่องศูนย์กลาง: ดูทุกเตียงพร้อมกัน แจ้งเตือนสายพับ/ไม่ไหล และเตรียมถุงใหม่",
+              "en": "Central unit screens: every bed at a glance, with occlusion / no-flow and next-bag alerts",
+              "ja": "中央機の画面：全ベッドを一覧表示し、閉塞・滴下停止・次のバッグ準備を警告",
+              "zh": "中央设备界面：一览所有床位，并对堵塞/停滴及更换输液袋发出提醒"
+            }
+          },
+          {
+            "src": "assets/img/projects/iv-monitor/dashboard.jpg",
+            "caption": {
+              "th": "หน้าเว็บ Dashboard ที่เครื่องศูนย์กลางเปิดให้ผ่าน Wi-Fi (ข้อมูลผู้ป่วยเป็นข้อมูลจำลอง)",
+              "en": "Web dashboard served by the central unit over Wi-Fi (patient data is simulated)",
+              "ja": "中央機が Wi-Fi で提供する Web ダッシュボード（患者データは模擬）",
+              "zh": "中央设备通过 Wi-Fi 提供的网页仪表盘（患者数据为模拟数据）"
+            }
+          },
+          {
+            "src": "assets/img/projects/iv-monitor/schematic.jpg",
+            "caption": {
+              "th": "ผังวงจรเครื่องประจำเตียง (KiCad 7): ESP32-S3, จอ ST7789, เซนเซอร์ TCRT5000, บัซเซอร์ และปุ่ม",
+              "en": "Bedside unit schematic (KiCad 7): ESP32-S3, ST7789 display, TCRT5000 sensor, buzzer and button",
+              "ja": "ベッドサイド機の回路図（KiCad 7）：ESP32-S3、ST7789 ディスプレイ、TCRT5000 センサー、ブザー、ボタン",
+              "zh": "床旁设备原理图（KiCad 7）：ESP32-S3、ST7789 显示屏、TCRT5000 传感器、蜂鸣器与按键"
+            }
+          },
+          {
+            "src": "assets/img/projects/iv-monitor/pcb.jpg",
+            "caption": {
+              "th": "แบบแผ่นวงจรพิมพ์ (PCB) ของบอร์ดเครื่องประจำเตียง ออกแบบด้วย KiCad",
+              "en": "Printed circuit board (PCB) layout of the bedside carrier board, designed in KiCad",
+              "ja": "KiCad で設計したベッドサイド用キャリアボードのプリント基板（PCB）レイアウト",
+              "zh": "使用 KiCad 设计的床旁载板印刷电路板（PCB）布局"
+            }
+          }
+        ],
+        "metrics": [
+          {
+            "value": "28,000+",
+            "label": {
+              "th": "บรรทัดเฟิร์มแวร์ C++",
+              "en": "lines of C++ firmware",
+              "ja": "行の C++ ファームウェア",
+              "zh": "行 C++ 固件代码"
+            }
+          },
+          {
+            "value": "8",
+            "label": {
+              "th": "เตียงต่อเครื่องศูนย์กลาง",
+              "en": "beds per central unit",
+              "ja": "中央機 1 台あたりのベッド数",
+              "zh": "每台中央设备支持床位"
+            }
+          },
+          {
+            "value": "1 s",
+            "label": {
+              "th": "รอบส่งข้อมูลผ่าน ESP-NOW",
+              "en": "ESP-NOW reporting interval",
+              "ja": "ESP-NOW 送信間隔",
+              "zh": "ESP-NOW 上报间隔"
+            }
+          },
+          {
+            "value": "10/10",
+            "label": {
+              "th": "สถานการณ์ทดสอบอัลกอริทึมผ่าน",
+              "en": "detector test scenarios passed",
+              "ja": "検出アルゴリズム試験に合格",
+              "zh": "检测算法测试场景通过"
+            }
+          }
+        ],
+        "highlights": [
+          {
+            "icon": "kicad",
+            "color": "#6B8DFF",
+            "title": {
+              "th": "อิเล็กทรอนิกส์ & IoT",
+              "en": "Electronics & IoT",
+              "ja": "エレクトロニクス & IoT",
+              "zh": "电子与物联网"
+            },
+            "role": {
+              "th": "ออกแบบวงจรและระบบสื่อสารไร้สาย",
+              "en": "Circuit design & wireless networking",
+              "ja": "回路設計と無線通信",
+              "zh": "电路设计与无线通信"
+            },
+            "points": [
+              {
+                "th": "ออกแบบผังวงจรและ PCB ด้วย KiCad 7 โดยสร้างผังจากหมายเลขขาในเฟิร์มแวร์อัตโนมัติ ผังกับโค้ดจึงตรงกันเสมอ",
+                "en": "Schematics and PCBs in KiCad 7, generated from the pin numbers in the firmware so drawings and code never drift apart",
+                "ja": "KiCad 7 で回路図と PCB を設計。ファームウェアのピン番号から自動生成するため、図面とコードが常に一致",
+                "zh": "使用 KiCad 7 设计原理图与 PCB，并根据固件中的引脚号自动生成，确保图纸与代码始终一致"
+              },
+              {
+                "th": "เชื่อมเซนเซอร์อินฟราเรด TCRT5000 จอ TFT/OLED บัซเซอร์ และปุ่ม เข้ากับ ESP32-S3 โดยคำนึงถึงระดับแรงดัน 3.3V",
+                "en": "Interfaces the TCRT5000 infrared sensor, TFT/OLED displays, buzzer and buttons with the ESP32-S3, respecting 3.3 V logic levels",
+                "ja": "TCRT5000 赤外線センサー、TFT/OLED ディスプレイ、ブザー、ボタンを 3.3V ロジックに配慮して ESP32-S3 に接続",
+                "zh": "在遵循 3.3V 逻辑电平的前提下，将 TCRT5000 红外传感器、TFT/OLED 显示屏、蜂鸣器和按键接入 ESP32-S3"
+              },
+              {
+                "th": "เครือข่ายไร้สาย ESP-NOW ไม่ต้องใช้เราเตอร์ รองรับสูงสุด 8 เตียง พร้อมสุ่มจังหวะส่งกันข้อมูลชนกัน และหน้าวินิจฉัยคุณภาพลิงก์",
+                "en": "Router-less ESP-NOW network for up to 8 beds, with randomised send timing against collisions and a link-diagnostics screen",
+                "ja": "ルーター不要の ESP-NOW ネットワーク（最大 8 ベッド）。衝突を避ける送信タイミングのランダム化とリンク診断画面",
+                "zh": "无需路由器的 ESP-NOW 网络，最多支持 8 张床，随机化发送时机以避免冲突，并提供链路诊断界面"
+              },
+              {
+                "th": "เครื่องศูนย์กลางปล่อย Wi-Fi และเปิดหน้าเว็บ Dashboard สำหรับกรอกแผนการให้สารน้ำ ดูกราฟ และออกรายงานเวร",
+                "en": "The central unit runs its own Wi-Fi and serves a dashboard for infusion plans, graphs and shift reports",
+                "ja": "中央機が自前の Wi-Fi で Web ダッシュボードを提供し、輸液計画の入力・グラフ・勤務報告に対応",
+                "zh": "中央设备自建 Wi-Fi 并提供网页仪表盘，用于录入输液计划、查看图表和生成交班报告"
+              }
+            ]
+          },
+          {
+            "icon": "cplusplus",
+            "color": "#659AD2",
+            "title": "C++",
+            "role": {
+              "th": "เฟิร์มแวร์และอัลกอริทึม",
+              "en": "Firmware & algorithms",
+              "ja": "ファームウェアとアルゴリズム",
+              "zh": "固件与算法"
+            },
+            "points": [
+              {
+                "th": "เฟิร์มแวร์ C++ กว่า 28,000 บรรทัด แยกเป็นเครื่องประจำเตียง เครื่องศูนย์กลาง 3 แบบจอ และเครื่องจำลองการไหล",
+                "en": "28,000+ lines of C++ firmware across the bedside unit, three central-unit display variants and a flow simulator",
+                "ja": "ベッドサイド機、3 種類の中央機、流量シミュレーターにわたる 28,000 行以上の C++ ファームウェア",
+                "zh": "超过 28,000 行 C++ 固件，涵盖床旁设备、三种显示屏版本的中央设备以及流速模拟器"
+              },
+              {
+                "th": "อัลกอริทึมตรวจจับหยดที่เรียนรู้เอง ไม่ต้องคาลิเบรตด้วยมือ และทนต่อถุงแกว่งและสัญญาณรบกวน",
+                "en": "Self-learning drop-detection algorithm with no manual calibration, robust to swinging bags and noise",
+                "ja": "手動キャリブレーション不要の自己学習型滴下検出アルゴリズム。バッグの揺れやノイズに強い",
+                "zh": "自学习式滴落检测算法，无需手动校准，能抵抗输液袋摆动与噪声"
+              },
+              {
+                "th": "แยกอัลกอริทึมให้คอมไพล์และทดสอบบน PC ได้ ผ่านครบ 10/10 สถานการณ์ และตรวจว่าโครงสร้างแพ็กเก็ตของทุกเฟิร์มแวร์ตรงกันทุกไบต์",
+                "en": "Algorithm is isolated so it compiles and runs on a PC — passes 10/10 test scenarios — and a check keeps packet layouts byte-identical across firmware",
+                "ja": "アルゴリズムを分離し PC でコンパイル・テスト可能（10/10 シナリオ合格）。全ファームウェアのパケット構造がバイト単位で一致することも検証",
+                "zh": "算法独立出来可在 PC 上编译测试（10/10 场景通过），并校验所有固件的数据包结构逐字节一致"
+              },
+              {
+                "th": "สร้างเครื่องมือเรนเดอร์หน้าจอบน PC เพื่อออกแบบและตรวจ UI ก่อนลงบอร์ดจริง",
+                "en": "Built PC-side screen renderers to design and review the UI before flashing real boards",
+                "ja": "実機に書き込む前に UI を設計・確認するための PC 上の画面レンダラーを開発",
+                "zh": "开发了 PC 端界面渲染工具，在烧录实机前设计并审查界面"
+              }
+            ]
+          },
+          {
+            "icon": "espressif",
+            "color": "#E7352C",
+            "title": "ESP32-S3",
+            "role": {
+              "th": "ไมโครคอนโทรลเลอร์",
+              "en": "Microcontroller",
+              "ja": "マイクロコントローラー",
+              "zh": "微控制器"
+            },
+            "points": [
+              {
+                "th": "ใช้ ESP-NOW, Wi-Fi + WebServer, mDNS และ Preferences (NVS) เก็บค่าตั้งเครื่องถาวร",
+                "en": "ESP-NOW, Wi-Fi + WebServer, mDNS, and Preferences (NVS) for persistent settings",
+                "ja": "ESP-NOW、Wi-Fi + WebServer、mDNS、設定を永続保存する Preferences（NVS）を活用",
+                "zh": "使用 ESP-NOW、Wi-Fi + WebServer、mDNS，以及用 Preferences（NVS）持久保存设置"
+              },
+              {
+                "th": "Task Watchdog กันเครื่องค้าง และบันทึกสาเหตุการรีบูตไว้วินิจฉัย",
+                "en": "Task watchdog against silent hangs, plus logging of the last reset reason for diagnosis",
+                "ja": "タスクウォッチドッグでフリーズを防ぎ、診断のため直前のリセット要因を記録",
+                "zh": "任务看门狗防止设备卡死，并记录上次重启原因以便诊断"
+              },
+              {
+                "th": "อ่านเซนเซอร์ด้วย ADC 12 บิต ขับจอผ่าน SPI (ST7789) และ I²C (SH1106) พร้อมแอนิเมชันบนจอ",
+                "en": "12-bit ADC sensing, displays over SPI (ST7789) and I²C (SH1106), with on-screen animation",
+                "ja": "12 ビット ADC でセンサーを読み取り、SPI（ST7789）と I²C（SH1106）でディスプレイを駆動、画面アニメーションも実装",
+                "zh": "以 12 位 ADC 读取传感器，通过 SPI（ST7789）与 I²C（SH1106）驱动显示屏，并实现屏幕动画"
+              },
+              {
+                "th": "ปลุกเครื่องด้วยปุ่มผ่าน RTC GPIO และรองรับนาฬิกา DS3231 กับการบันทึกลงการ์ด SD (รุ่นจอสัมผัส)",
+                "en": "Button wake-up via RTC GPIO, plus DS3231 real-time clock and SD-card logging on the touchscreen model",
+                "ja": "RTC GPIO によるボタン起床、タッチ画面モデルでは DS3231 時計と SD カード記録に対応",
+                "zh": "通过 RTC GPIO 按键唤醒，触摸屏版本支持 DS3231 时钟与 SD 卡记录"
+              }
+            ]
+          }
+        ],
+        "stack": [
+          "C++",
+          "Arduino",
+          "ESP32-S3",
+          "ESP-NOW",
+          "Wi-Fi WebServer",
+          "ST7789 TFT",
+          "SH1106 OLED",
+          "TCRT5000",
+          "KiCad 7",
+          "Python (tools)"
+        ],
+        "name": "Smart IV Alert"
+      }
     },
     {
       "title": "Music Player ESP32-S3",
