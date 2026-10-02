@@ -123,6 +123,7 @@ npm run build      # build แบบย่อขนาดสำหรับข�
 - **SEO:** อยู่ใน `<head>` ของ `site/index.html` ได้แก่ title/description, Open Graph และ Twitter card (ภาพแชร์ `site/assets/img/og-image.jpg` ขนาด 1200×630), hreflang ทั้ง 4 ภาษา และข้อมูลโครงสร้าง JSON-LD (`Person`) — เมื่อเปลี่ยนภาษา title/description/canonical จะเปลี่ยนตาม
 - **ไฟล์สำหรับ search engine:** `site/robots.txt` และ `site/sitemap.xml` — แก้ `lastmod` เมื่ออัปเดตเนื้อหาสำคัญ
 - **แนะนำ:** ลงทะเบียนเว็บใน [Google Search Console](https://search.google.com/search-console) แล้วส่ง `https://kittiphunr.github.io/sitemap.xml`
+- **Smooth scroll:** ใช้ [Lenis](https://github.com/darkroomengineering/lenis) (MIT) เก็บไว้ที่ `site/assets/js/vendor/lenis.min.js` — เลื่อนด้วยเมาส์/ทัชแพดจะนุ่มนวล บนมือถือใช้การเลื่อนปกติของเครื่อง และปิดอัตโนมัติเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว อัปเดตเวอร์ชันด้วย `npm update lenis && npm run vendor`
 - **โหมดสว่าง/มืด:** ค่าเริ่มต้นตามธีมของเครื่อง กดปุ่ม ☾/☀ บนแถบเมนูเพื่อสลับ ระบบจะจำค่าที่เลือกไว้ในเบราว์เซอร์
 
 ## ทดสอบในเครื่อง
