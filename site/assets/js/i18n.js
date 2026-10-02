@@ -9,6 +9,10 @@ window.LANGS = [
 
 window.UI = {
   th: {
+    featuredBadge: "ผลงานเด่น",
+    techStack: "เทคโนโลยีที่ใช้",
+    viewFull: "ดูภาพขนาดเต็ม",
+    viewDetails: "ดูรายละเอียด",
     themeToggle: "สลับโหมดสว่าง/มืด",
     navHome: "หน้าแรก",
     navAbout: "เกี่ยวกับ",
@@ -60,6 +64,10 @@ window.UI = {
     by: "โดย"
   },
   en: {
+    featuredBadge: "Featured project",
+    techStack: "Tech stack",
+    viewFull: "Open full-size image",
+    viewDetails: "View details",
     themeToggle: "Toggle light/dark mode",
     navHome: "Home",
     navAbout: "About",
@@ -111,6 +119,10 @@ window.UI = {
     by: "by"
   },
   ja: {
+    featuredBadge: "注目プロジェクト",
+    techStack: "技術スタック",
+    viewFull: "原寸画像を開く",
+    viewDetails: "詳細を見る",
     themeToggle: "ライト/ダークモード切替",
     navHome: "ホーム",
     navAbout: "プロフィール",
@@ -162,6 +174,10 @@ window.UI = {
     by: "by"
   },
   zh: {
+    featuredBadge: "重点项目",
+    techStack: "技术栈",
+    viewFull: "查看大图",
+    viewDetails: "查看详情",
     themeToggle: "切换浅色/深色模式",
     navHome: "首页",
     navAbout: "关于",

@@ -180,7 +180,9 @@
     pin: '<path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
     quote: '<path d="M10 7H6a2 2 0 00-2 2v4h5v5H4M20 7h-4a2 2 0 00-2 2v4h5v5h-5"/>',
     user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
-    heart: '<path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/>'
+    heart: '<path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/>',
+    check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/>',
+    expand: '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>'
   };
 
   // SVG must be parsed from markup so it gets the SVG namespace.
@@ -281,7 +283,7 @@
       t(p.slogan, "p", "mt-3 text-2xl font-semibold leading-snug tracking-tight sm:text-3xl lg:text-[2.1rem]"),
       t(p.intro || p.summary, "p", "mt-5 max-w-xl text-muted"),
       h("div", { class: "mt-8 flex flex-wrap gap-3.5" },
-        h("a", { class: "btn btn-primary", href: "#projects" }, s.viewWork, icon("arrow")),
+        h("a", { class: "btn btn-primary", href: data.projects && data.projects.some((x) => x.featured) ? "#featured" : "#projects" }, s.viewWork, icon("arrow")),
         secondary
       ),
       tech
@@ -395,6 +397,83 @@
     ));
   }
 
+  // Spotlight for the project marked with "featured" in portfolio.json.
+  function renderFeatured() {
+    const el = document.getElementById("featured");
+    const pr = (data.projects || []).find((x) => x.featured);
+    if (!pr) { el.hidden = true; el.replaceChildren(); return; }
+    const f = pr.featured;
+    const s = UI[lang];
+    el.hidden = false;
+
+    const gallery = f.gallery || [];
+    let current = 0;
+    const mainImg = h("img", { class: "aspect-[16/11] w-full bg-[#0b0912] object-contain", src: gallery[0] ? gallery[0].src : pr.image, alt: "", decoding: "async" });
+    const mainLink = h("a", { href: mainImg.src, target: "_blank", rel: "noopener", class: "group relative block", title: s.viewFull, "aria-label": s.viewFull },
+      mainImg,
+      h("span", { class: "absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-lg bg-black/55 text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100" }, icon("expand", "h-4 w-4")));
+    const caption = h("p", { class: "mt-3 min-h-[3rem] text-sm text-muted" });
+    const fileLabel = h("span", { class: "ml-2 truncate font-mono text-xs text-muted" });
+    const thumbs = gallery.map((g, i) => h("button", {
+      type: "button", "aria-label": resolve(g.caption).text,
+      class: "thumb overflow-hidden rounded-lg border-2 border-transparent bg-ink-700 opacity-70 transition hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+    }, h("img", { class: "aspect-video w-full object-cover object-top", src: g.src, alt: "", loading: "lazy" })));
+
+    function show(i) {
+      current = i;
+      const g = gallery[i];
+      mainImg.src = g.src; mainLink.href = g.src;
+      bind(caption, g.caption);
+      fileLabel.textContent = "precision-qc / " + g.src.split("/").pop();
+      thumbs.forEach((b, j) => {
+        b.classList.toggle("border-brand-500", j === i);
+        b.classList.toggle("border-transparent", j !== i);
+        b.classList.toggle("opacity-100", j === i);
+        b.setAttribute("aria-current", String(j === i));
+      });
+    }
+    thumbs.forEach((b, i) => b.addEventListener("click", () => show(i)));
+    if (gallery.length) show(0);
+
+    const window_ = h("div", { class: "card reveal overflow-hidden shadow-card" },
+      h("div", { class: "flex items-center gap-2 border-b border-ink-600 px-4 py-2.5" },
+        h("i", { class: "h-2.5 w-2.5 rounded-full bg-[#fb7185]" }), h("i", { class: "h-2.5 w-2.5 rounded-full bg-[#fbbf24]" }), h("i", { class: "h-2.5 w-2.5 rounded-full bg-[#4ade80]" }),
+        fileLabel),
+      mainLink);
+
+    const metrics = h("div", { class: "mt-7 grid grid-cols-2 gap-3", "data-reveal-group": "" }, (f.metrics || []).map((m) =>
+      h("div", { class: "rounded-xl border border-ink-600 bg-ink-800 px-4 py-3.5" },
+        h("strong", { class: "block bg-grad bg-clip-text text-xl font-bold leading-tight text-transparent sm:text-2xl" }, m.value),
+        t(m.label, "span", "mt-1 block text-sm text-muted"))));
+
+    const stack = hasItems(f.stack) ? h("div", { class: "mt-7" },
+      h("p", { class: "mb-3 text-xs font-semibold uppercase tracking-[0.1em] text-muted" }, s.techStack),
+      h("ul", { class: "flex flex-wrap gap-2" }, f.stack.map((x) =>
+        h("li", { class: "rounded-md border border-ink-600 bg-ink-800 px-2.5 py-1 font-mono text-xs text-soft" }, x)))) : null;
+
+    const highlights = (f.highlights || []).map((hl) =>
+      h("article", { class: "card tilt p-6 md:p-7" },
+        h("div", { class: "flex items-center gap-4" },
+          brand(hl.icon, hl.color, "h-14 w-14 rounded-xl border border-ink-600 bg-ink-700 p-3"),
+          h("div", null,
+            h("h3", { class: "text-xl font-bold" }, hl.title),
+            t(hl.role, "p", "text-sm text-muted"))),
+        h("ul", { class: "mt-5 space-y-3" }, (hl.points || []).map((pt) =>
+          h("li", { class: "flex gap-3 text-soft" }, icon("check", "mt-1 h-[18px] w-[18px] flex-none text-accent"), t(pt, "span"))))
+      ));
+
+    el.replaceChildren(h("div", { class: WRAP },
+      h("header", { class: "section-head mb-10 text-center" },
+        badge(s.featuredBadge),
+        h("h2", { class: "mt-3 bg-grad bg-clip-text text-4xl font-bold leading-tight tracking-tight text-transparent md:text-5xl" }, resolveEn(pr.title).replace(/-/g, " ")),
+        t(f.subtitle, "p", "mx-auto mt-3 max-w-2xl text-lg text-muted")),
+      h("div", { class: "grid items-start gap-10 lg:grid-cols-[1.2fr_.8fr]" },
+        h("div", null, window_, caption, h("div", { class: "mt-1 grid grid-cols-4 gap-3" }, thumbs)),
+        h("div", { class: "reveal" }, t(f.summary, "p", "text-soft"), metrics, stack)),
+      highlights.length ? h("div", { class: "mt-12 grid gap-6 md:grid-cols-2", "data-reveal-group": "" }, highlights) : null
+    ));
+  }
+
   function timeline(items, roleKey, orgKey) {
     return h("ol", { class: "relative mx-auto max-w-3xl border-l-2 border-brand-500/40 pl-7", "data-reveal-group": "" }, items.map((e) =>
       h("li", { class: "relative mb-6" },
@@ -470,7 +549,9 @@
             hasItems(pr.tags) ? h("ul", { class: "flex flex-wrap gap-2" }, pr.tags.map((tg) =>
               h("li", { class: "rounded-full bg-brand-500/15 px-2.5 py-0.5 text-xs font-semibold text-accent" }, tg))) : h("span"),
             pr.link ? h("a", { class: "inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-accent hover:text-fg", href: pr.link, target: "_blank", rel: "noopener" },
-              s.viewProject, icon("arrow", "ic-arrow h-[15px] w-[15px] transition-transform")) : null
+              s.viewProject, icon("arrow", "ic-arrow h-[15px] w-[15px] transition-transform"))
+              : pr.featured ? h("a", { class: "inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-accent hover:text-fg", href: "#featured" },
+              s.viewDetails, icon("arrow", "ic-arrow h-[15px] w-[15px] transition-transform")) : null
           )
         )
       )
@@ -567,6 +648,7 @@
     renderHero();
     renderAbout();
     renderSkills();
+    renderFeatured();
     renderExperience();
     renderEducation();
     renderProjects();
