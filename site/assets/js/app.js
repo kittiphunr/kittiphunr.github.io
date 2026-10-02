@@ -203,15 +203,15 @@
     const since = hasItems(data.experience) ? data.experience[0].start : null;
     const initials = (p.romanName || "").split(/\s+/).map((w) => w[0]).join("").slice(0, 2);
 
-    const avatar = p.photo
+    const avatar = h("div", { class: "avatar-ring" }, p.photo
       ? h("img", { class: "avatar", src: p.photo, alt: p.romanName || "" })
-      : h("div", { class: "avatar avatar-mono", "aria-hidden": "true" }, initials);
+      : h("div", { class: "avatar avatar-mono", "aria-hidden": "true" }, initials));
 
-    const name = t(p.name, "h1");
+    const name = t(p.name, "h1", "gradient-text");
     const roman = lang !== "en" && p.romanName ? h("p", { class: "roman", lang: "en" }, p.romanName) : null;
 
     const hero = h("div", { class: "hero-grid" },
-      h("div", { class: "hero-main" },
+      h("div", { class: "hero-main hero-enter" },
         avatar,
         name,
         roman,
@@ -223,9 +223,9 @@
           h("a", { class: "btn", href: "#projects" }, s.viewProjects)
         )
       ),
-      renderTerminal(p, since)
+      h("div", { class: "hero-visual" }, renderTerminal(p, since))
     );
-    document.getElementById("hero").replaceChildren(hero);
+    document.getElementById("hero").replaceChildren(hero, renderStats(), renderTicker());
   }
 
   function renderTerminal(p, since) {
@@ -245,6 +245,30 @@
         h("div", { class: "t-cmd" }, h("span", { class: "t-prompt" }, host + ":~$ "), h("span", { class: "caret" }))
       )
     );
+  }
+
+  function renderStats() {
+    const s = UI[lang];
+    const techCount = (data.skills || []).reduce((n, sk) => n + (sk.items || []).length, 0);
+    const stats = [
+      [(data.projects || []).length, "+", s.statProjects],
+      [(data.skills || []).length, "", s.statDomains],
+      [techCount, "+", s.statTech],
+      [LANGS.length, "", s.statLangs]
+    ];
+    return h("div", { class: "stats" }, stats.map(([n, suffix, label]) =>
+      h("div", { class: "stat" },
+        h("strong", { "data-count": n, "data-suffix": suffix }, "0"),
+        h("span", null, label)
+      )
+    ));
+  }
+
+  function renderTicker() {
+    const items = (data.skills || []).flatMap((sk) => sk.items || []);
+    if (!items.length) return null;
+    const row = () => h("ul", null, items.map((it) => h("li", null, resolveEn(it))));
+    return h("div", { class: "ticker", "aria-hidden": "true" }, h("div", { class: "ticker-track" }, row(), row()));
   }
 
   function resolveEn(v) {
@@ -274,7 +298,7 @@
   function renderSkills() {
     const s = UI[lang];
     const cards = (data.skills || []).map((sk) =>
-      h("article", { class: "card skill" },
+      h("article", { class: "card skill tilt" },
         h("div", { class: "icon", html: ICONS[sk.icon] || ICONS.server }),
         t(sk.title, "h3"),
         t(sk.description, "p"),
@@ -283,15 +307,15 @@
     );
     document.getElementById("skills").replaceChildren(
       sectionHead(s.skillsTitle, s.skillsLead),
-      h("div", { class: "grid grid-2" }, cards)
+      h("div", { class: "grid grid-2", "data-reveal-group": "" }, cards)
     );
   }
 
   function timeline(items, roleKey, orgKey) {
-    return h("ol", { class: "timeline" }, items.map((e) =>
+    return h("ol", { class: "timeline", "data-reveal-group": "" }, items.map((e) =>
       h("li", null,
         h("div", { class: "when" }, formatDate(e.start) + " — " + formatDate(e.end)),
-        h("div", { class: "card" },
+        h("div", { class: "card tilt" },
           t(e[roleKey], "h3"),
           t(e[orgKey], "p", "org"),
           e.description ? t(e.description, "p") : null,
@@ -321,7 +345,7 @@
   function renderProjects() {
     const s = UI[lang];
     const cards = (data.projects || []).map((pr) =>
-      h("article", { class: "card project" },
+      h("article", { class: "card project tilt" },
         pr.image ? h("img", { class: "thumb", src: pr.image, alt: "", loading: "lazy" }) : null,
         t(pr.title, "h3"),
         t(pr.description, "p"),
@@ -333,7 +357,7 @@
     );
     document.getElementById("projects").replaceChildren(
       sectionHead(s.projectsTitle, s.projectsLead),
-      h("div", { class: "grid grid-3" }, cards)
+      h("div", { class: "grid grid-3", "data-reveal-group": "" }, cards)
     );
   }
 
@@ -347,7 +371,7 @@
     ];
     document.getElementById("contact").replaceChildren(
       sectionHead(s.contactTitle, s.contactLead),
-      h("div", { class: "contact-grid" }, links)
+      h("div", { class: "contact-grid", "data-reveal-group": "" }, links)
     );
     const year = new Date().getFullYear();
     document.getElementById("footer").replaceChildren(
@@ -382,6 +406,7 @@
     renderProjects();
     renderContact();
     updateMeta();
+    if (window.Effects) window.Effects.afterRender();
     runJobs(id);
   }
 
