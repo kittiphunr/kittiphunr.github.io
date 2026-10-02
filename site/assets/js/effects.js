@@ -284,41 +284,6 @@
     el.style.removeProperty("--rx"); el.style.removeProperty("--ry");
   }
 
-  // ---------- smooth scrolling (Lenis) ----------
-  // Mouse wheel / trackpad glide smoothly; touch keeps native scrolling.
-  // Skipped entirely when the visitor prefers reduced motion.
-  let lenis = null;
-  if (window.Lenis && !reduceMotion) {
-    lenis = new window.Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 1
-    });
-    const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
-    requestAnimationFrame(raf);
-  }
-
-  // In-page links glide to their section and stop just below the sticky header.
-  document.addEventListener("click", (e) => {
-    const a = e.target.closest && e.target.closest('a[href^="#"]');
-    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey) return;
-    const hash = a.getAttribute("href");
-    const target = hash.length > 1 && document.getElementById(decodeURIComponent(hash.slice(1)));
-    if (!target) return;
-    e.preventDefault();
-    // Lenis already honours the page's scroll-padding-top (sticky header), so no
-    // extra offset there; the native fallback has to subtract it by hand.
-    if (lenis) lenis.scrollTo(target);
-    else {
-      const pad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
-      window.scrollTo({ top: target.getBoundingClientRect().top + scrollY - pad, behavior: reduceMotion ? "auto" : "smooth" });
-    }
-    const url = new URL(location.href);
-    url.hash = hash;
-    history.replaceState(null, "", url);
-  });
-
   // ---------- scroll progress + nav shadow ----------
   const bar = document.getElementById("progress");
   function onScroll() {
