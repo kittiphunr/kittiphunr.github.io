@@ -194,21 +194,24 @@
     return svg('<svg class="ic ' + (cls || "") + '" viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[name] || ICONS.server) + "</svg>");
   }
 
-  function brand(name, color, label) {
+  function brand(name, color, cls, label) {
     const d = (window.BRAND_ICONS || {})[name];
-    const el = h("span", { class: "brand-ic", style: "--c:" + (color || "#f472b6"), title: label || null });
-    el.innerHTML = d
-      ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + '"/></svg>'
-      : '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg>';
+    const path = d ? '<path d="' + d + '"/>' : '<circle cx="12" cy="12" r="9"/>';
+    const el = h("span", { class: "inline-grid flex-none place-items-center " + (cls || ""), title: label || null });
+    el.innerHTML = '<svg viewBox="0 0 24 24" class="h-full w-full" style="fill:' + (color || "#f472b6") + '" aria-hidden="true">' + path + "</svg>";
     return el;
   }
 
   const GITHUB_PATH = "M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12C23.5 5.7 18.3.5 12 .5z";
 
+  const WRAP = "mx-auto max-w-6xl px-4 md:px-8";
+
   function badge(text) { return h("span", { class: "badge" }, text); }
 
   function sectionHead(badgeText, title, center) {
-    return h("header", { class: "section-head" + (center ? " center" : "") }, badgeText ? badge(badgeText) : null, h("h2", null, title));
+    return h("header", { class: "section-head mb-10 " + (center ? "text-center" : "") },
+      badgeText ? badge(badgeText) : null,
+      h("h2", { class: "mt-3 text-[1.7rem] font-bold leading-tight tracking-tight md:text-4xl" }, title));
   }
 
   function resolveEn(v) {
@@ -232,21 +235,21 @@
 
   function renderNav() {
     const s = UI[lang];
-    const nav = document.getElementById("nav-links");
-    nav.replaceChildren(...NAV
-      .filter(([id]) => id !== "education" || hasItems(data.education))
-      .map(([id, key]) => h("a", { href: "#" + id, "data-spy": id }, s[key])));
+    const items = NAV.filter(([id]) => id !== "education" || hasItems(data.education));
+    document.getElementById("nav-links").replaceChildren(...items.map(([id, key]) =>
+      h("a", { href: "#" + id, "data-spy": id, class: "nav-link relative px-2.5 py-1.5 text-[0.92rem] font-medium text-muted transition-colors hover:text-white" }, s[key])));
+    document.getElementById("mobile-menu").replaceChildren(...items.map(([id, key]) =>
+      h("a", { href: "#" + id, class: "rounded-lg px-3 py-2.5 text-muted hover:bg-ink-800 hover:text-white" }, s[key])));
 
-    const sw = document.getElementById("lang-switch");
-    sw.replaceChildren(...LANGS.map((l) =>
+    document.getElementById("lang-switch").replaceChildren(...LANGS.map((l) =>
       h("button", {
-        type: "button", lang: l.code, "data-lang": l.code,
-        "aria-pressed": String(l.code === lang), class: l.code === lang ? "active" : null
+        type: "button", lang: l.code, "data-lang": l.code, "aria-pressed": String(l.code === lang),
+        class: "rounded-full px-2 py-1 text-xs font-semibold leading-snug transition-colors sm:px-2.5 " +
+          (l.code === lang ? "bg-grad text-white" : "text-muted hover:text-white")
       }, l.label)
     ));
 
-    const hire = document.getElementById("hire-btn");
-    hire.replaceChildren(s.hireMe, icon("arrow"));
+    document.getElementById("hire-btn").replaceChildren(s.hireMe, icon("arrow"));
   }
 
   function renderHero() {
@@ -255,24 +258,29 @@
     const since = hasItems(data.experience) ? data.experience[0].start : null;
 
     const [before, after] = s.greeting.split("{name}");
-    const greet = h("h1", { class: "greet" }, before, t(p.firstName || p.name, "span", "accent"), after || "");
+    const greet = h("h1", { class: "mt-5 text-[2.3rem] font-bold leading-[1.15] tracking-tight sm:text-5xl lg:text-[3.6rem]" },
+      before,
+      t(p.firstName || p.name, "span", "animate-shimmer whitespace-nowrap bg-grad-text bg-[length:220%_100%] bg-clip-text text-transparent"),
+      after || "");
 
     const secondary = p.cv
-      ? h("a", { class: "btn btn-outline", href: p.cv, download: "" }, s.downloadCV, icon("download"))
-      : h("a", { class: "btn btn-outline", href: "#contact" }, s.contactMe, icon("mail"));
+      ? h("a", { class: "btn", href: p.cv, download: "" }, s.downloadCV, icon("download"))
+      : h("a", { class: "btn", href: "#contact" }, s.contactMe, icon("mail"));
 
     const tech = hasItems(data.proficiency)
-      ? h("div", { class: "tech-row" },
-          h("p", { class: "eyebrow" }, s.techWith),
-          h("ul", null, data.proficiency.map((pf) => h("li", null, brand(pf.icon, pf.color, resolveEn(pf.name))))))
+      ? h("div", { class: "mt-10" },
+          h("p", { class: "mb-3 text-xs font-semibold uppercase tracking-[0.1em] text-muted" }, s.techWith),
+          h("ul", { class: "flex flex-wrap gap-3" }, data.proficiency.map((pf) =>
+            h("li", { class: "transition-transform duration-200 hover:-translate-y-1" },
+              brand(pf.icon, pf.color, "h-11 w-11 rounded-[10px] border border-ink-600 bg-ink-800 p-2.5 transition-colors hover:border-brand-400", resolveEn(pf.name))))))
       : null;
 
-    const copy = h("div", { class: "hero-copy hero-enter" },
-      badge(resolveEn(p.tagline) ? resolve(p.tagline).text : resolve(p.title).text),
+    const copy = h("div", { class: "hero-enter" },
+      badge(resolve(p.tagline || p.title).text),
       greet,
-      t(p.slogan, "p", "slogan"),
-      t(p.intro || p.summary, "p", "intro"),
-      h("div", { class: "cta" },
+      t(p.slogan, "p", "mt-3 text-2xl font-semibold leading-snug tracking-tight sm:text-3xl lg:text-[2.1rem]"),
+      t(p.intro || p.summary, "p", "mt-5 max-w-xl text-muted"),
+      h("div", { class: "mt-8 flex flex-wrap gap-3.5" },
         h("a", { class: "btn btn-primary", href: "#projects" }, s.viewWork, icon("arrow")),
         secondary
       ),
@@ -280,36 +288,41 @@
     );
 
     const portrait = p.photo
-      ? h("img", { class: "portrait", src: p.photo, alt: p.romanName || "" })
-      : h("div", { class: "portrait portrait-mono" }, (p.romanName || "").split(/\s+/).map((w) => w[0]).join(""));
+      ? h("img", { class: "absolute inset-4 h-[calc(100%-2rem)] w-[calc(100%-2rem)] rounded-full border-4 border-ink-950/60 object-cover", src: p.photo, alt: p.romanName || "" })
+      : h("div", { class: "absolute inset-4 grid place-items-center rounded-full bg-ink-950 text-6xl font-bold" }, (p.romanName || "").split(/\s+/).map((w) => w[0]).join(""));
 
-    const art = h("div", { class: "hero-art" },
-      h("div", { class: "dots", "aria-hidden": "true" }),
-      h("div", { class: "orb" }, portrait),
+    const art = h("div", { class: "relative mx-auto h-[440px] w-full max-w-[520px] lg:h-[500px] lg:max-w-none" },
+      h("div", { class: "absolute right-[2%] top-[4%] h-[90px] w-[110px] animate-drift bg-dots bg-[length:14px_14px] opacity-[.55]", "aria-hidden": "true" }),
+      h("div", { id: "orb", class: "orb-ring absolute left-1/2 top-[38%] -ml-[130px] -mt-[130px] h-[260px] w-[260px] animate-float rounded-full bg-orb shadow-orb sm:-ml-[170px] sm:-mt-[170px] sm:h-[340px] sm:w-[340px] lg:left-[42%] lg:top-[46%] lg:-ml-[180px] lg:-mt-[180px] lg:h-[360px] lg:w-[360px]" }, portrait),
       renderCodeCard(p, since),
-      svg('<svg class="doodle" viewBox="0 0 80 90" aria-hidden="true"><path d="M70 8C40 6 18 22 22 44c3 16 22 16 22 3 0-12-20-12-28 2-6 11-6 24 0 34"/><path d="M8 74l8 10 8-9"/></svg>')
+      svg('<svg class="doodle absolute bottom-[10%] left-[2%] hidden w-16 fill-none stroke-white/55 sm:block" style="stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 80 90" aria-hidden="true"><path d="M70 8C40 6 18 22 22 44c3 16 22 16 22 3 0-12-20-12-28 2-6 11-6 24 0 34"/><path d="M8 74l8 10 8-9"/></svg>')
     );
 
-    document.getElementById("hero").replaceChildren(h("div", { class: "hero-grid" }, copy, art));
+    document.getElementById("hero").replaceChildren(
+      h("div", { class: "grid items-center gap-6 lg:min-h-[520px] lg:grid-cols-[1.05fr_.95fr] lg:gap-10" }, copy, art));
   }
 
   function renderCodeCard(p, since) {
-    const str = (v) => h("span", { class: "c-str" }, '"' + v + '"');
-    const key = (k) => h("span", { class: "c-key" }, k);
-    const pun = (v) => h("span", { class: "c-pun" }, v);
+    const str = (v) => h("span", { class: "text-orange-300" }, '"' + v + '"');
+    const key = (k) => h("span", { class: "text-purple-200" }, k);
+    const pun = (v) => h("span", { class: "text-[#8b8199]" }, v);
     const skills = (data.skills || []).map((sk) => resolveEn(sk.title).replace(/^Enterprise /, "").replace(/ & CLI$/, "").replace(/ Development$/, ""));
     const lines = [
-      [h("span", { class: "c-kw" }, "const "), h("span", { class: "c-var" }, "engineer"), pun(" = {")],
-      ["  ", key("name"), pun(": "), str((resolveEn(p.firstName) || p.romanName || "")), pun(",")],
+      [h("span", { class: "text-brand-400" }, "const "), h("span", { class: "text-violet-300" }, "engineer"), pun(" = {")],
+      ["  ", key("name"), pun(": "), str(resolveEn(p.firstName) || p.romanName || ""), pun(",")],
       ["  ", key("role"), pun(": "), str(resolveEn(p.title)), pun(",")],
       ["  ", key("skills"), pun(": ["), ...skills.flatMap((sk, i) => [str(sk), i < skills.length - 1 ? pun(", ") : null]), pun("],")],
       since ? ["  ", key("since"), pun(": "), str(since), pun(",")] : null,
       ["  ", key("passion"), pun(": "), str("Reliable systems"), pun(",")],
       [pun("};")]
     ].filter(Boolean);
-    return h("div", { class: "code-card", "aria-hidden": "true", lang: "en" },
-      h("div", { class: "code-head" }, h("span", null, "</> engineer.js"), h("i")),
-      h("pre", null, lines.map((parts, i) => h("span", { class: "code-line", style: "--i:" + i }, ...parts)))
+    return h("div", { lang: "en", "aria-hidden": "true",
+      class: "absolute -bottom-[4%] right-0 z-10 w-[250px] animate-float-rev rounded-xl border border-ink-500 bg-ink-900/85 font-mono text-[0.7rem] shadow-float backdrop-blur-md sm:w-[280px] sm:text-[0.76rem] lg:-bottom-[2%] lg:-right-2.5" },
+      h("div", { class: "flex items-center justify-between border-b border-ink-600 px-3.5 py-2 text-[0.74rem] text-muted" },
+        h("span", null, "</> engineer.js"),
+        h("i", { class: "h-2 w-2 rounded-full bg-green-400 shadow-[0_0_10px_#4ade80]" })),
+      h("pre", { class: "m-0 whitespace-pre-wrap px-3.5 pb-3.5 pt-3 font-mono leading-[1.75]" },
+        lines.map((parts, i) => h("span", { class: "code-line", style: "--i:" + i }, ...parts)))
     );
   }
 
@@ -324,21 +337,25 @@
       ["cpu", techCount, "+", s.statTech],
       ["target", (data.skills || []).length, "", s.statDomains]
     ].filter(Boolean);
+    // Divider lines between the 2×2 tiles, as in the reference layout.
+    const borders = ["border-b border-r", "border-b", "border-r", ""];
 
-    document.getElementById("about").replaceChildren(h("div", { class: "wrap about-grid" },
-      h("div", { class: "about-copy reveal" },
+    document.getElementById("about").replaceChildren(h("div", { class: WRAP + " grid items-center gap-10 lg:grid-cols-2 lg:gap-14" },
+      h("div", { class: "reveal" },
         badge(s.aboutBadge),
-        h("h2", null, s.aboutHeading),
-        t(p.summary, "p", "summary"),
-        since ? h("p", { class: "since" }, h("span", { class: "dot" }), s.sinceLabel + " " + formatDate(since, true)) : null,
-        h("a", { class: "btn btn-outline btn-sm", href: "#experience" }, s.learnMore, icon("user"))
+        h("h2", { class: "mb-4 mt-3.5 text-[1.6rem] font-bold leading-tight md:text-[2rem]" }, s.aboutHeading),
+        t(p.summary, "p", "text-muted"),
+        since ? h("p", { class: "mt-5 inline-flex items-center gap-2.5 text-sm" },
+          h("span", { class: "ping-dot relative h-2 w-2 rounded-full bg-green-400" }),
+          s.sinceLabel + " " + formatDate(since, true)) : null,
+        h("div", { class: "mt-6" }, h("a", { class: "btn btn-sm", href: "#experience" }, s.learnMore, icon("user")))
       ),
-      h("div", { class: "stats", "data-reveal-group": "" }, stats.map(([ic, n, suffix, label]) =>
-        h("div", { class: "stat" },
-          h("div", { class: "stat-ic" }, icon(ic)),
+      h("div", { class: "grid grid-cols-2", "data-reveal-group": "" }, stats.map(([ic, n, suffix, label], i) =>
+        h("div", { class: "flex flex-col items-start gap-3 border-ink-600 px-4 py-6 sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-7 " + borders[i] },
+          h("div", { class: "grid h-12 w-12 flex-none place-items-center rounded-xl bg-grad text-white shadow-glow" }, icon(ic, "h-[22px] w-[22px]")),
           h("div", null,
-            h("strong", { "data-count": n, "data-suffix": suffix }, "0"),
-            h("span", null, label)
+            h("strong", { class: "block text-[1.75rem] font-bold leading-none tabular-nums md:text-[2rem]", "data-count": n, "data-suffix": suffix }, "0"),
+            h("span", { class: "mt-1.5 block text-sm text-muted" }, label)
           )
         )
       ))
@@ -347,41 +364,46 @@
 
   function renderSkills() {
     const s = UI[lang];
-    const bars = (data.proficiency || []).map((pf) =>
-      h("div", { class: "bar-item", style: "--v:" + Math.max(0, Math.min(100, pf.level || 0)) + "%;--c:" + (pf.color || "#f472b6") },
-        h("div", { class: "bar-top" },
-          brand(pf.icon, pf.color),
-          t(pf.name, "span", "bar-name"),
-          h("span", { class: "bar-val" }, (pf.level || 0) + "%")
+    const bars = (data.proficiency || []).map((pf) => {
+      const level = Math.max(0, Math.min(100, pf.level || 0));
+      return h("div", { style: "--v:" + level + "%" },
+        h("div", { class: "mb-2.5 flex items-center gap-3" },
+          brand(pf.icon, pf.color, "h-[22px] w-[22px]"),
+          t(pf.name, "span", "text-[0.95rem] font-semibold"),
+          h("span", { class: "ml-auto text-sm tabular-nums text-muted" }, level + "%")
         ),
-        h("div", { class: "bar" }, h("i"))
-      )
-    );
+        h("div", { class: "h-1.5 overflow-hidden rounded-full bg-ink-600" },
+          h("i", { class: "bar-fill block h-full rounded-full bg-grad shadow-[0_0_12px_rgba(236,72,153,.5)]" }))
+      );
+    });
     const cards = (data.skills || []).map((sk) =>
-      h("article", { class: "card skill tilt" },
-        h("div", { class: "skill-ic" }, icon(sk.icon)),
-        t(sk.title, "h3"),
-        t(sk.description, "p"),
-        hasItems(sk.items) ? h("ul", { class: "chips" }, sk.items.map((it) => t(it, "li"))) : null
+      h("article", { class: "card tilt p-6 md:p-7" },
+        h("div", { class: "mb-4 grid h-12 w-12 place-items-center rounded-xl border border-brand-500/25 bg-brand-500/15 text-brand-300" }, icon(sk.icon, "h-6 w-6")),
+        t(sk.title, "h3", "mb-2 text-lg font-semibold"),
+        t(sk.description, "p", "text-muted"),
+        hasItems(sk.items) ? h("ul", { class: "mt-4 flex flex-wrap gap-2" }, sk.items.map((it) =>
+          t(it, "li", "rounded-md border border-ink-600 bg-ink-700 px-2.5 py-1 font-mono text-xs text-soft transition-colors hover:border-brand-500 hover:text-white"))) : null
       )
     );
-    document.getElementById("skills").replaceChildren(h("div", { class: "wrap" },
+    document.getElementById("skills").replaceChildren(h("div", { class: WRAP },
       sectionHead(s.skillsBadge, s.skillsHeading, true),
-      bars.length ? h("div", { class: "bars", "data-reveal-group": "" }, bars) : null,
-      h("div", { class: "subhead" }, sectionHead(s.expertiseBadge, s.expertiseHeading, true)),
-      h("div", { class: "grid grid-2", "data-reveal-group": "" }, cards)
+      bars.length ? h("div", { class: "grid gap-x-12 gap-y-7 sm:grid-cols-2 lg:grid-cols-3", "data-reveal-group": "" }, bars) : null,
+      h("div", { class: "mt-24" }, sectionHead(s.expertiseBadge, s.expertiseHeading, true)),
+      h("div", { class: "grid gap-6 md:grid-cols-2", "data-reveal-group": "" }, cards)
     ));
   }
 
   function timeline(items, roleKey, orgKey) {
-    return h("ol", { class: "timeline", "data-reveal-group": "" }, items.map((e) =>
-      h("li", null,
-        h("div", { class: "when" }, formatDate(e.start) + " — " + formatDate(e.end)),
-        h("div", { class: "card tilt" },
-          t(e[roleKey], "h3"),
-          t(e[orgKey], "p", "org"),
-          e.description ? t(e.description, "p") : null,
-          hasItems(e.highlights) ? h("ul", { class: "bullets" }, e.highlights.map((x) => t(x, "li"))) : null
+    return h("ol", { class: "relative mx-auto max-w-3xl border-l-2 border-brand-500/40 pl-7", "data-reveal-group": "" }, items.map((e) =>
+      h("li", { class: "relative mb-6" },
+        h("span", { class: "absolute -left-[35px] top-1.5 h-3 w-3 rounded-full bg-brand-500 shadow-[0_0_0_4px_rgba(236,72,153,.14),0_0_18px_rgba(236,72,153,.7)]" }),
+        h("div", { class: "mb-2 text-sm font-semibold text-brand-300" }, formatDate(e.start) + " — " + formatDate(e.end)),
+        h("div", { class: "card tilt p-6 md:p-7" },
+          t(e[roleKey], "h3", "mb-1 text-lg font-semibold"),
+          t(e[orgKey], "p", "font-medium text-muted"),
+          e.description ? t(e.description, "p", "mt-2 text-muted") : null,
+          hasItems(e.highlights) ? h("ul", { class: "mt-4 list-disc space-y-1.5 pl-5 text-soft marker:text-brand-500" },
+            e.highlights.map((x) => t(x, "li"))) : null
         )
       )
     ));
@@ -389,7 +411,7 @@
 
   function renderExperience() {
     const s = UI[lang];
-    document.getElementById("experience").replaceChildren(h("div", { class: "wrap" },
+    document.getElementById("experience").replaceChildren(h("div", { class: WRAP },
       sectionHead(s.experienceBadge, s.experienceTitle, true),
       timeline(data.experience || [], "role", "organization")
     ));
@@ -400,7 +422,7 @@
     if (!hasItems(data.education)) { el.hidden = true; el.replaceChildren(); return; }
     const s = UI[lang];
     el.hidden = false;
-    el.replaceChildren(h("div", { class: "wrap" },
+    el.replaceChildren(h("div", { class: WRAP },
       sectionHead(s.educationBadge, s.educationTitle, true),
       timeline(data.education, "degree", "institution")
     ));
@@ -409,16 +431,24 @@
   const COVER_HUES = [330, 285, 205, 350, 260, 190];
 
   function projectCover(pr, i) {
-    if (pr.image) return h("div", { class: "cover" }, h("img", { src: pr.image, alt: "", loading: "lazy" }));
+    const frame = "relative aspect-video overflow-hidden border-b border-ink-600";
+    if (pr.image) {
+      return h("div", { class: frame },
+        h("img", { class: "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105", src: pr.image, alt: "", loading: "lazy" }));
+    }
+    const hue = COVER_HUES[i % COVER_HUES.length];
     const label = (pr.tags && pr.tags[0]) || resolveEn(pr.title).slice(0, 3);
-    return h("div", { class: "cover cover-art", style: "--h:" + COVER_HUES[i % COVER_HUES.length], "aria-hidden": "true" },
-      h("div", { class: "mock" },
-        h("div", { class: "mock-bar" }, h("i"), h("i"), h("i")),
-        h("div", { class: "mock-body" },
-          h("span", { class: "mock-label" }, label),
-          h("span", { class: "mock-line", style: "--w:70%" }),
-          h("span", { class: "mock-line", style: "--w:50%" }),
-          h("span", { class: "mock-line", style: "--w:62%" })
+    return h("div", { class: frame + " grid place-items-center", "aria-hidden": "true",
+      style: "background:radial-gradient(circle at 20% 20%,hsla(" + hue + ",85%,62%,.55),transparent 55%),radial-gradient(circle at 85% 80%,hsla(" + (hue - 50) + ",80%,55%,.5),transparent 55%),linear-gradient(135deg,hsl(" + hue + ",45%,14%),hsl(" + (hue - 40) + ",50%,10%))" },
+      h("div", { class: "absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.12)_1px,transparent_1px)] bg-[length:22px_22px] opacity-25" }),
+      h("div", { class: "relative w-[62%] rounded-lg border border-white/15 bg-ink-950/70 shadow-[0_16px_30px_rgba(0,0,0,.4)] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:scale-105" },
+        h("div", { class: "flex gap-1 border-b border-white/10 px-2 py-1.5" },
+          h("i", { class: "h-1.5 w-1.5 rounded-full bg-white/30" }), h("i", { class: "h-1.5 w-1.5 rounded-full bg-white/30" }), h("i", { class: "h-1.5 w-1.5 rounded-full bg-white/30" })),
+        h("div", { class: "grid gap-1.5 px-3 pb-3 pt-2.5" },
+          h("span", { class: "font-mono text-[1.05rem] font-bold text-white" }, label),
+          h("span", { class: "block h-[5px] w-[70%] rounded bg-white/15" }),
+          h("span", { class: "block h-[5px] w-1/2 rounded bg-white/15" }),
+          h("span", { class: "block h-[5px] w-[62%] rounded bg-white/15" })
         )
       )
     );
@@ -427,63 +457,68 @@
   function renderProjects() {
     const s = UI[lang];
     const cards = (data.projects || []).map((pr, i) =>
-      h("article", { class: "card project tilt" },
-        h("span", { class: "num" }, String(i + 1).padStart(2, "0")),
+      h("article", { class: "card tilt group flex shrink-0 snap-start basis-full flex-col overflow-hidden sm:basis-[calc((100%-1.5rem)/2)] lg:basis-[calc((100%-3rem)/3)]" },
+        h("span", { class: "absolute left-3.5 top-3 z-10 rounded-md bg-ink-950/60 px-2 py-0.5 font-mono text-xs font-semibold text-white backdrop-blur" },
+          String(i + 1).padStart(2, "0")),
         projectCover(pr, i),
-        h("div", { class: "project-body" },
-          t(pr.title, "h3"),
-          t(pr.description, "p"),
-          h("div", { class: "project-foot" },
-            hasItems(pr.tags) ? h("ul", { class: "tags" }, pr.tags.map((tg) => h("li", null, tg))) : h("span"),
-            pr.link ? h("a", { class: "more", href: pr.link, target: "_blank", rel: "noopener" }, s.viewProject, icon("arrow")) : null
+        h("div", { class: "flex flex-1 flex-col px-[22px] pb-[18px] pt-5" },
+          t(pr.title, "h3", "mb-2 text-lg font-semibold"),
+          t(pr.description, "p", "flex-1 text-[0.93rem] text-muted"),
+          h("div", { class: "mt-4 flex items-end justify-between gap-3" },
+            hasItems(pr.tags) ? h("ul", { class: "flex flex-wrap gap-2" }, pr.tags.map((tg) =>
+              h("li", { class: "rounded-full bg-brand-500/15 px-2.5 py-0.5 text-xs font-semibold text-brand-300" }, tg))) : h("span"),
+            pr.link ? h("a", { class: "inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-brand-300 hover:text-white", href: pr.link, target: "_blank", rel: "noopener" },
+              s.viewProject, icon("arrow", "ic-arrow h-[15px] w-[15px] transition-transform")) : null
           )
         )
       )
     );
-    document.getElementById("projects").replaceChildren(h("div", { class: "wrap" },
+    document.getElementById("projects").replaceChildren(h("div", { class: WRAP },
       sectionHead(s.projectsBadge, s.projectsHeading, true),
-      h("div", { class: "grid grid-3", "data-reveal-group": "" }, cards)
+      h("div", { id: "carousel", class: "no-scrollbar -mx-2 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-2 py-4", "data-reveal-group": "" }, cards),
+      h("div", { id: "carousel-dots", class: "mt-6 flex justify-center gap-2" })
     ));
   }
 
   function renderContact() {
     const p = data.profile;
     const s = UI[lang];
-    const avatar = p.photo ? h("img", { src: p.photo, alt: "" }) : h("span", null, (p.romanName || "?")[0]);
+    const avatar = p.photo ? h("img", { class: "h-full w-full object-cover", src: p.photo, alt: "" }) : h("span", null, (p.romanName || "?")[0]);
+    const social = "grid h-[42px] w-[42px] place-items-center rounded-[10px] border border-ink-600 bg-ink-800 text-white transition hover:-translate-y-0.5 hover:border-brand-500 hover:text-brand-300";
+    const row = "mt-2.5 flex items-center gap-2.5 text-[0.92rem] text-soft [overflow-wrap:anywhere]";
 
-    const socials = [
-      p.github ? h("a", { class: "social", href: p.github, target: "_blank", rel: "noopener", "aria-label": "GitHub",
-        html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + GITHUB_PATH + '"/></svg>' }) : null,
-      p.email ? h("a", { class: "social", href: "mailto:" + p.email, "aria-label": s.email }, icon("mail")) : null
-    ];
-
-    document.getElementById("contact").replaceChildren(h("div", { class: "wrap cta-grid", "data-reveal-group": "" },
-      h("div", { class: "cta-copy" },
+    document.getElementById("contact").replaceChildren(h("div", { class: WRAP + " grid items-center gap-10 lg:grid-cols-[1fr_1.25fr_.85fr]", "data-reveal-group": "" },
+      h("div", null,
         badge(s.ctaBadge),
-        h("h2", null, s.ctaHeading),
-        h("p", null, s.ctaText),
+        h("h2", { class: "mb-2.5 mt-3.5 text-[1.6rem] font-bold leading-tight md:text-[1.9rem]" }, s.ctaHeading),
+        h("p", { class: "mb-6 text-muted" }, s.ctaText),
         p.email ? h("a", { class: "btn btn-primary btn-sm", href: "mailto:" + p.email }, s.getInTouch, icon("arrow")) : null
       ),
-      p.motto ? h("figure", { class: "quote-card" },
-        icon("quote", "quote-ic"),
-        h("blockquote", null, t(p.motto)),
-        h("figcaption", null,
-          h("div", { class: "q-avatar" }, avatar),
-          h("div", null, t(p.name, "strong"), h("span", null, s.mottoLabel))
+      p.motto ? h("figure", { class: "card m-0 px-7 py-6" },
+        icon("quote", "h-[34px] w-[34px] text-brand-500 [stroke-width:2.4]"),
+        h("blockquote", { class: "mb-5 mt-2.5 text-soft" }, t(p.motto)),
+        h("figcaption", { class: "flex items-center gap-3" },
+          h("div", { class: "grid h-11 w-11 flex-none place-items-center overflow-hidden rounded-full border-2 border-brand-500 bg-grad font-bold" }, avatar),
+          h("div", null, t(p.name, "strong", "block text-[0.95rem]"), h("span", { class: "text-[0.82rem] text-muted" }, s.mottoLabel))
         )
       ) : h("div"),
-      h("div", { class: "follow" },
+      h("div", null,
         badge(s.followMe),
-        h("div", { class: "socials" }, socials),
-        p.email ? h("a", { class: "c-row", href: "mailto:" + p.email }, icon("mail"), p.email) : null,
-        p.location ? h("p", { class: "c-row" }, icon("pin"), t(p.location)) : null
+        h("div", { class: "mb-4 mt-4 flex gap-3" },
+          p.github ? h("a", { class: social, href: p.github, target: "_blank", rel: "noopener", "aria-label": "GitHub",
+            html: '<svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true"><path d="' + GITHUB_PATH + '"/></svg>' }) : null,
+          p.email ? h("a", { class: social, href: "mailto:" + p.email, "aria-label": s.email }, icon("mail", "h-5 w-5")) : null
+        ),
+        p.email ? h("a", { class: row + " hover:text-white", href: "mailto:" + p.email }, icon("mail", "text-brand-300"), p.email) : null,
+        p.location ? h("p", { class: row }, icon("pin", "text-brand-300"), t(p.location)) : null
       )
     ));
 
     const year = new Date().getFullYear();
-    document.getElementById("footer").replaceChildren(h("div", { class: "wrap footer-inner" },
+    document.getElementById("footer").replaceChildren(h("div", { class: WRAP + " flex flex-wrap justify-between gap-3" },
       h("p", null, "© " + year + " ", t(p.name), ". " + s.rights + "."),
-      h("p", null, s.madeWith + " ", icon("heart", "heart"), " " + s.by + " " + (resolveEn(p.firstName) || p.romanName || ""))
+      h("p", { class: "flex items-center gap-1" }, s.madeWith + " ", icon("heart", "h-[15px] w-[15px] animate-beat fill-brand-500 stroke-brand-500"),
+        " " + s.by + " " + (resolveEn(p.firstName) || p.romanName || ""))
     ));
   }
 
@@ -544,12 +579,15 @@
     if (btn) setLang(btn.dataset.lang, true);
   });
 
-  document.getElementById("menu-toggle").addEventListener("click", () => {
-    document.body.classList.toggle("menu-open");
-  });
-  document.getElementById("nav-links").addEventListener("click", (e) => {
-    if (e.target.closest("a")) document.body.classList.remove("menu-open");
-  });
+  const menu = document.getElementById("mobile-menu");
+  const menuBtn = document.getElementById("menu-toggle");
+  function setMenu(open) {
+    menu.classList.toggle("hidden", !open);
+    menu.classList.toggle("flex", open);
+    menuBtn.setAttribute("aria-expanded", String(open));
+  }
+  menuBtn.addEventListener("click", () => setMenu(menu.classList.contains("hidden")));
+  menu.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
 
   lang = initialLang();
   fetch(DATA_URL, { cache: "no-cache" })
@@ -557,6 +595,6 @@
     .then((json) => { data = json; render(); })
     .catch((err) => {
       console.error(err);
-      document.getElementById("hero").replaceChildren(h("p", { class: "error" }, UI[lang].loadError));
+      document.getElementById("hero").replaceChildren(h("p", { class: "py-20 text-muted" }, UI[lang].loadError));
     });
 })();

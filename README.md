@@ -7,12 +7,15 @@
 ไฟล์ที่ขึ้นเว็บไซต์จริงอยู่ในโฟลเดอร์ `site/` เท่านั้น ส่วนสคริปต์ เอกสาร และ workflow อยู่นอกโฟลเดอร์นี้และจะไม่ถูก deploy
 
 ```
-site/            ← deploy ขึ้นเว็บ (GitHub Pages / Netlify)
+site/                 ← deploy ขึ้นเว็บ (GitHub Pages / Netlify)
 ├── index.html
-├── assets/
+├── assets/css/tailwind.css   (ไฟล์ที่ build แล้ว — ห้ามแก้ตรง)
+├── assets/js/  assets/img/
 └── data/portfolio.json
-scripts/         ← เครื่องมือแปลภาษา (ไม่ขึ้นเว็บ)
-.github/         ← GitHub Action (ไม่ขึ้นเว็บ)
+src/tailwind.css      ← CSS ต้นฉบับของ Tailwind (เอฟเฟกต์ที่ utility ทำไม่ได้)
+tailwind.config.js    ← สี ฟอนต์ แอนิเมชันของธีม
+scripts/              ← สคริปต์แปลภาษา
+.github/              ← GitHub Action (build CSS → แปลภาษา → deploy)
 ```
 
 
@@ -21,7 +24,9 @@ scripts/         ← เครื่องมือแปลภาษา (ไม
 | `site/data/portfolio.json` | **ข้อมูลทั้งหมดของเว็บไซต์** (ประวัติ ทักษะ ประสบการณ์ การศึกษา ผลงาน) แก้ไขที่ไฟล์นี้ไฟล์เดียว |
 | `site/assets/js/i18n.js` | ข้อความเมนู/หัวข้อของหน้าเว็บในแต่ละภาษา |
 | `site/assets/js/app.js` | แสดงผลข้อมูล และแปลภาษาอัตโนมัติฝั่งเบราว์เซอร์ (สำรอง) |
-| `site/assets/css/style.css` | รูปแบบการแสดงผล (รองรับโหมดมืด และมือถือ) |
+| `tailwind.config.js` | ธีมของ Tailwind: สีแบรนด์ (ชมพู → ม่วง), ฟอนต์, เงา, แอนิเมชัน |
+| `src/tailwind.css` | ไฟล์ต้นฉบับ CSS: ปุ่ม/ป้าย (`@apply`) และเอฟเฟกต์พิเศษ |
+| `site/assets/css/tailwind.css` | CSS ที่ build แล้ว (สร้างจากคำสั่ง `npm run build`) |
 | `site/assets/js/icons.js` | ไอคอนโลโก้เทคโนโลยี (Simple Icons) |
 | `site/assets/js/effects.js` | เอฟเฟกต์: ลูกโลกเครือข่าย 3 มิติ, แอนิเมชันเมื่อเลื่อนหน้า, แถบทักษะ, ไฮไลต์เมนูตามตำแหน่ง, การ์ดเอียง 3 มิติ, ตัวนับสถิติ (ปิดอัตโนมัติเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว) |
 | `scripts/translate.mjs` | สคริปต์เติมคำแปลที่ขาดลงใน `site/data/portfolio.json` |
@@ -95,6 +100,20 @@ scripts/         ← เครื่องมือแปลภาษา (ไม
 node scripts/translate.mjs            # เติมคำแปลลงไฟล์
 node scripts/translate.mjs --dry-run  # ทดสอบโดยไม่บันทึก
 ```
+
+## การจัดหน้าด้วย Tailwind CSS
+
+หน้าเว็บจัดด้วย [Tailwind CSS](https://tailwindcss.com) v3 โดยใส่ class ไว้ใน `site/index.html` และใน `site/assets/js/app.js` (ฟังก์ชัน `render…` ของแต่ละส่วน) Tailwind จะสแกน class จากไฟล์เหล่านี้แล้วสร้าง CSS เฉพาะที่ใช้จริง
+
+```bash
+npm install        # ครั้งแรกครั้งเดียว
+npm run dev        # build ใหม่อัตโนมัติทุกครั้งที่แก้ไฟล์
+npm run build      # build แบบย่อขนาดสำหรับขึ้นเว็บ
+```
+
+- เปลี่ยนสีทั้งเว็บ: แก้ `brand` และ `backgroundImage.grad` ใน `tailwind.config.js`
+- เมื่อ push ขึ้น `main` GitHub Action จะ build CSS ให้อัตโนมัติ แต่ควร `npm run build` และ commit ไฟล์ `site/assets/css/tailwind.css` ด้วย เพื่อให้เปิดดูในเครื่องได้ทันที
+- เขียนชื่อ class ให้ครบเป็นข้อความเดียว (เช่น `"text-brand-300"`) อย่าต่อสตริงเป็นชิ้น ๆ ไม่เช่นนั้น Tailwind จะหา class ไม่เจอ
 
 ## ทดสอบในเครื่อง
 
