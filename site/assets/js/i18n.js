@@ -8,6 +8,10 @@ window.LANGS = [
 
 window.UI = {
   th: {
+    statProjects: "ผลงานที่พัฒนา",
+    statDomains: "ด้านความเชี่ยวชาญ",
+    statTech: "เทคโนโลยีที่ใช้งาน",
+    statLangs: "ภาษาบนเว็บไซต์",
     position: "ตำแหน่ง",
     organization: "หน่วยงาน",
     navAbout: "เกี่ยวกับ",
@@ -37,6 +41,10 @@ window.UI = {
     rights: "สงวนลิขสิทธิ์"
   },
   en: {
+    statProjects: "Projects delivered",
+    statDomains: "Areas of expertise",
+    statTech: "Technologies",
+    statLangs: "Site languages",
     position: "Position",
     organization: "Organization",
     navAbout: "About",
@@ -66,6 +74,10 @@ window.UI = {
     rights: "All rights reserved"
   },
   ja: {
+    statProjects: "開発実績",
+    statDomains: "専門分野",
+    statTech: "使用技術",
+    statLangs: "対応言語",
     position: "役職",
     organization: "所属",
     navAbout: "プロフィール",
@@ -95,6 +107,10 @@ window.UI = {
     rights: "All rights reserved"
   },
   zh: {
+    statProjects: "完成项目",
+    statDomains: "专业领域",
+    statTech: "掌握技术",
+    statLangs: "网站语言",
     position: "职位",
     organization: "所属单位",
     navAbout: "关于",
