@@ -307,10 +307,11 @@
     spy = new IntersectionObserver((entries) => {
       for (const en of entries) {
         if (!en.isIntersecting) continue;
-        links.forEach((a) => a.classList.toggle("active", a.dataset.spy === en.target.id));
+        const id = en.target.dataset.spyAs || en.target.id;
+        links.forEach((a) => a.classList.toggle("active", a.dataset.spy === id));
       }
     }, { rootMargin: "-45% 0px -50% 0px" });
-    links.forEach((a) => { const sec = document.getElementById(a.dataset.spy); if (sec) spy.observe(sec); });
+    document.querySelectorAll("main > section[id]").forEach((sec) => spy.observe(sec));
   }
 
   // ---------- project carousel dots ----------

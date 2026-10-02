@@ -303,16 +303,197 @@
     {
       "title": "Precision-QC",
       "description": {
-        "th": "ระบบตรวจสอบและควบคุมคุณภาพ",
-        "en": "A quality inspection and control system.",
-        "ja": "品質検査・品質管理システム。",
-        "zh": "质量检验与控制系统。"
+        "th": "ระบบตรวจสอบคุณภาพเชื้อราจากภาพจานเพาะเชื้อ ตัดสินผลผ่าน/ไม่ผ่านอัตโนมัติ — Python ประมวลผลภาพ รันในเบราว์เซอร์ด้วย JavaScript + WebAssembly",
+        "en": "Quality control for fungal cultures from Petri-dish photos with automatic PASS/FAIL — a Python image engine running in the browser via JavaScript + WebAssembly.",
+        "ja": "シャーレ画像から菌糸の品質を自動で合否判定。Python の画像解析エンジンを JavaScript + WebAssembly でブラウザ上で実行。",
+        "zh": "根据培养皿照片自动判定菌丝质量合格/不合格——Python 图像引擎通过 JavaScript + WebAssembly 在浏览器中运行。"
       },
       "tags": [
         "JavaScript",
-        "Web App"
+        "Python",
+        "WebAssembly"
       ],
-      "link": ""
+      "link": "https://kittiphun.rut.mcupr.ac.th/projects/precision-qc-web/",
+      "image": "assets/img/projects/precision-qc/cover.jpg",
+      "featured": {
+        "subtitle": {
+          "th": "ระบบตรวจสอบคุณภาพเชื้อราด้วยการวิเคราะห์ภาพ (Computer Vision)",
+          "en": "Image-based quality control for fungal cultures",
+          "ja": "画像解析による菌糸培養の品質検査システム",
+          "zh": "基于图像分析的菌丝培养质量检测系统"
+        },
+        "summary": {
+          "th": "วิเคราะห์ภาพโคโลนีเชื้อราบนจานเพาะเชื้อ แล้วตัดสินผล ผ่าน / ไม่ผ่าน พร้อมคะแนน เกรด และภาพวิเคราะห์ 8 ส่วน ทั้งความขาว ความฟู การปนเปื้อน สัดส่วนสี และความกลมของโคโลนี ตัวประมวลผลเขียนด้วย Python ชุดเดียว ใช้ได้ทั้งบนเว็บ (รันในเบราว์เซอร์ ไม่ต้องมีเซิร์ฟเวอร์ ภาพไม่ถูกส่งออกนอกเครื่อง) บน GitHub Actions และผ่าน Command Line",
+          "en": "Analyzes photos of fungal colonies on Petri dishes and returns a PASS / FAIL verdict with a score, a grade and 8 analysis panels covering whiteness, fluffiness, contamination, colour ratio and colony circularity. A single Python engine powers the web app (running entirely in the browser, with no server and no image uploads), GitHub Actions batches and the command line.",
+          "ja": "シャーレ上の菌糸コロニー画像を解析し、スコア・グレード・8 つの解析パネル（白さ、ふわふわ感、汚染、色比率、円形度）とともに合否を判定します。1 つの Python エンジンで、Web アプリ（サーバー不要・画像は外部送信なしでブラウザ内実行）、GitHub Actions の一括処理、コマンドラインのすべてに対応します。",
+          "zh": "分析培养皿上菌落的照片，给出合格/不合格判定以及评分、等级和 8 个分析面板（白度、蓬松度、污染、颜色比例、菌落圆度）。同一个 Python 引擎同时支持网页应用（完全在浏览器中运行，无需服务器，图片不外传）、GitHub Actions 批处理和命令行。"
+        },
+        "gallery": [
+          {
+            "src": "assets/img/projects/precision-qc/app.jpg",
+            "caption": {
+              "th": "เว็บแอป: อัปโหลดภาพจานเพาะเชื้อ และสรุปผลการตรวจทั้งชุด",
+              "en": "Web app: upload plate photos and get a batch summary",
+              "ja": "Web アプリ：シャーレ画像をアップロードし、一括で結果を確認",
+              "zh": "网页应用：上传培养皿照片并查看批量汇总结果"
+            }
+          },
+          {
+            "src": "assets/img/projects/precision-qc/result.jpg",
+            "caption": {
+              "th": "ผลการตรวจรายภาพ พร้อมเกณฑ์และภาพประกอบการวิเคราะห์ (โหมดมืด)",
+              "en": "Per-plate result with pass criteria and analysis images (dark mode)",
+              "ja": "判定基準と解析画像付きの個別結果（ダークモード）",
+              "zh": "单个样本结果，含判定标准与分析图（深色模式）"
+            }
+          },
+          {
+            "src": "assets/img/projects/precision-qc/report-pass.jpg",
+            "caption": {
+              "th": "รายงาน 8 ส่วนที่สร้างด้วย Python — ตัวอย่างที่ผ่านเกณฑ์ (เกรด A)",
+              "en": "8-panel report rendered in Python — a passing plate (grade A)",
+              "ja": "Python で生成した 8 パネルのレポート — 合格例（グレード A）",
+              "zh": "由 Python 生成的 8 面板报告——合格样本（A 级）"
+            }
+          },
+          {
+            "src": "assets/img/projects/precision-qc/report-fail.jpg",
+            "caption": {
+              "th": "ตรวจพบการปนเปื้อนและการเจริญต่ำ — ไม่ผ่านเกณฑ์",
+              "en": "Contamination and low growth detected — FAIL",
+              "ja": "汚染と生育不良を検出 — 不合格",
+              "zh": "检测到污染与生长不足——不合格"
+            }
+          }
+        ],
+        "metrics": [
+          {
+            "value": "8",
+            "label": {
+              "th": "ส่วนของการวิเคราะห์",
+              "en": "analysis panels",
+              "ja": "解析パネル",
+              "zh": "分析面板"
+            }
+          },
+          {
+            "value": "100%",
+            "label": {
+              "th": "ประมวลผลในเบราว์เซอร์",
+              "en": "in-browser processing",
+              "ja": "ブラウザ内処理",
+              "zh": "浏览器端处理"
+            }
+          },
+          {
+            "value": "ISO/IEC 17025",
+            "label": {
+              "th": "โครงสร้างรายงาน PDF",
+              "en": "PDF report structure",
+              "ja": "PDF レポート構成",
+              "zh": "PDF 报告结构"
+            }
+          },
+          {
+            "value": "3",
+            "label": {
+              "th": "ภาษาในระบบ",
+              "en": "UI languages",
+              "ja": "対応言語",
+              "zh": "界面语言"
+            }
+          }
+        ],
+        "highlights": [
+          {
+            "icon": "javascript",
+            "color": "#F7DF1E",
+            "title": "JavaScript",
+            "role": {
+              "th": "เว็บแอปและการแสดงผล",
+              "en": "Web app & UI",
+              "ja": "Web アプリと UI",
+              "zh": "网页应用与界面"
+            },
+            "points": [
+              {
+                "th": "โหลด Pyodide (WebAssembly) เพื่อรันโค้ด Python ในเบราว์เซอร์โดยตรง ไม่ต้องมีเซิร์ฟเวอร์ และภาพไม่ถูกส่งออกนอกเครื่อง",
+                "en": "Loads Pyodide (WebAssembly) to run the Python engine directly in the browser — no server, and images never leave the device",
+                "ja": "Pyodide（WebAssembly）で Python エンジンをブラウザ内で直接実行。サーバー不要で画像は端末外に送信されません",
+                "zh": "通过 Pyodide（WebAssembly）在浏览器中直接运行 Python 引擎——无需服务器，图片不离开设备"
+              },
+              {
+                "th": "อัปโหลดหลายภาพแบบลากวาง แสดงผลทันที พร้อมตารางสรุปและส่งออก CSV",
+                "en": "Drag-and-drop multi-image upload with instant results, a summary table and CSV export",
+                "ja": "複数画像のドラッグ＆ドロップ、即時表示、集計表と CSV 出力",
+                "zh": "支持多图拖放上传、即时出结果、汇总表与 CSV 导出"
+              },
+              {
+                "th": "สร้างรายงาน PDF ขนาด A4 ตามโครงสร้าง ISO/IEC 17025 ด้วย jsPDF และ html2canvas",
+                "en": "Generates A4 PDF reports following the ISO/IEC 17025 structure with jsPDF and html2canvas",
+                "ja": "jsPDF と html2canvas で ISO/IEC 17025 構成の A4 PDF レポートを生成",
+                "zh": "使用 jsPDF 与 html2canvas 生成符合 ISO/IEC 17025 结构的 A4 PDF 报告"
+              },
+              {
+                "th": "รองรับ 3 ภาษา (ไทย / English / 中文) และโหมดสว่าง / มืด / อัตโนมัติ",
+                "en": "Three UI languages (Thai / English / Chinese) and light / dark / auto themes",
+                "ja": "3 言語（タイ語・英語・中国語）とライト／ダーク／自動テーマに対応",
+                "zh": "支持三种界面语言（泰文 / 英文 / 中文）及浅色 / 深色 / 自动主题"
+              }
+            ]
+          },
+          {
+            "icon": "python",
+            "color": "#4B8BBE",
+            "title": "Python",
+            "role": {
+              "th": "ตัวประมวลผลภาพ (Image processing engine)",
+              "en": "Image-processing engine",
+              "ja": "画像処理エンジン",
+              "zh": "图像处理引擎"
+            },
+            "points": [
+              {
+                "th": "ประมวลผลภาพด้วย NumPy + Pillow ตรวจจับขอบจานด้วย Hough transform แล้วแปลงพิกเซลเป็นเซนติเมตร",
+                "en": "Image processing with NumPy + Pillow: detects the dish with a Hough transform and converts pixels to centimetres",
+                "ja": "NumPy + Pillow による画像処理。ハフ変換でシャーレを検出し、ピクセルをセンチメートルに換算",
+                "zh": "基于 NumPy + Pillow 的图像处理：用霍夫变换检测培养皿，并将像素换算为厘米"
+              },
+              {
+                "th": "จำแนกพิกเซลในปริภูมิสี CIE L*a*b* เพื่อวัดความขาว และแยกการปนเปื้อน วุ้นเปลือย และหมึกปากกาออกจากกัน",
+                "en": "Classifies pixels in CIE L*a*b* colour space to measure whiteness and separate contamination, bare agar and pen ink",
+                "ja": "CIE L*a*b* 色空間でピクセルを分類し、白さを測定。汚染・露出寒天・ペンのインクを区別",
+                "zh": "在 CIE L*a*b* 色彩空间中分类像素，测量白度并区分污染、裸露琼脂与笔迹墨水"
+              },
+              {
+                "th": "วัดรูปทรงโคโลนี (Circularity, IoU, Symmetry) และคำนวณคะแนนถ่วงน้ำหนักพร้อมเกรด A–D",
+                "en": "Measures colony shape (circularity, IoU, symmetry) and computes a weighted score with grades A–D",
+                "ja": "コロニー形状（円形度・IoU・対称性）を測定し、重み付きスコアと A〜D のグレードを算出",
+                "zh": "测量菌落形状（圆度、IoU、对称性），计算加权得分及 A–D 等级"
+              },
+              {
+                "th": "มี CLI สำหรับตรวจภาพเป็นชุด ระบบ batch บน GitHub Actions และชุดทดสอบอัตโนมัติด้วย pytest",
+                "en": "Batch CLI, a GitHub Actions batch workflow and an automated pytest suite",
+                "ja": "一括処理 CLI、GitHub Actions のバッチワークフロー、pytest による自動テスト",
+                "zh": "提供批处理命令行、GitHub Actions 批量工作流及 pytest 自动化测试"
+              }
+            ]
+          }
+        ],
+        "stack": [
+          "Python",
+          "NumPy",
+          "Pillow",
+          "JavaScript",
+          "Pyodide",
+          "WebAssembly",
+          "jsPDF",
+          "html2canvas",
+          "Pure.css",
+          "pytest",
+          "GitHub Actions"
+        ]
+      }
     },
     {
       "title": "MCUPR-CANTEEN",

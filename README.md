@@ -81,6 +81,8 @@ scripts/              ← สคริปต์แปลภาษา
 { "name": "Docker", "icon": "docker", "color": "#2496ED", "level": 75 }
 ```
 
+**ผลงานเด่น (Featured)** — ใส่ `"featured": { … }` ในผลงานชิ้นใดก็ได้ (ตอนนี้คือ Precision-QC) ระบบจะสร้างส่วน "ผลงานเด่น" ต่อจากทักษะ ประกอบด้วย `subtitle`, `summary`, `gallery` (ภาพ + คำบรรยาย), `metrics`, `highlights` (การ์ด JavaScript / Python พร้อมรายการจุดเด่น) และ `stack` — ภาพอยู่ใน `site/assets/img/projects/<ชื่อโปรเจกต์>/`
+
 **รูปโปรไฟล์** — วางรูปไว้ที่ `site/assets/img/` แล้วใส่ path ใน `profile.photo`
 
 **ไฟล์ CV** — วางไฟล์ PDF ไว้ที่ `site/assets/` แล้วใส่ path ใน `profile.cv` (เช่น `"assets/cv.pdf"`) ปุ่ม "ดาวน์โหลด CV" จะแสดงขึ้นอัตโนมัติ
