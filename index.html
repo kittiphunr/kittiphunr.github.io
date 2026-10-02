@@ -3,49 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>กิตติพันธ์ รัตนคร | ผลงาน</title>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f7f7f5;--card:#fff;--text:#1f2328;--muted:#59636e;--accent:#b5651d;--line:#e3e3df}
-@media (prefers-color-scheme:dark){:root{--bg:#111315;--card:#1b1e21;--text:#e6e6e6;--muted:#9aa3ab;--accent:#e0a060;--line:#2c3035}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:'Sarabun',system-ui,sans-serif;line-height:1.6}
-.wrap{max-width:960px;margin:0 auto;padding:48px 16px}
-header h1{margin:0;font-size:2rem}
-header p{margin:4px 0;color:var(--muted)}
-.tag{display:inline-block;margin-top:12px;padding:4px 12px;border:1px solid var(--line);border-radius:999px;font-size:.9rem;color:var(--muted)}
-h2{margin:48px 0 16px;font-size:1.3rem;border-bottom:2px solid var(--accent);display:inline-block}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
-.card h3{margin:0 0 6px;font-size:1.05rem}
-.card p{margin:0 0 12px;color:var(--muted);font-size:.95rem}
-.lang{font-size:.8rem;color:var(--accent);font-weight:600}
-a{color:var(--accent)}
-footer{margin-top:56px;color:var(--muted);font-size:.9rem}
-</style>
+<title>กิตติพันธ์ รัตนคร | นักวิชาการคอมพิวเตอร์</title>
+<meta name="description" content="IT Infrastructure Specialist · Network & Server Administrator · Full-Stack Developer">
+<meta property="og:title" content="Kittiphun Ruttanakorn — Portfolio">
+<meta property="og:description" content="Computer Technical Officer, Mahachulalongkornrajavidyalaya University, Phrae Campus. Networking (Cisco), Windows Server, Linux, Full-Stack Development.">
+<meta property="og:type" content="profile">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563eb'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'%3EKR%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<div class="wrap">
-<header>
-<h1>กิตติพันธ์ รัตนคร</h1>
-<p>Kittiphun Ruttanakorn</p>
-<p>นักวิชาการคอมพิวเตอร์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่</p>
-<span class="tag">พัฒนาเครื่องมือดิจิทัลเพื่องานบริหาร งานพัสดุ และงานวิชาการ</span>
-</header>
+<nav class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="#top"><span class="brand-mark">KR</span><span class="brand-name">Kittiphun R.</span></a>
+    <div class="nav-links" id="nav-links"></div>
+    <div class="lang-switch" id="lang-switch" role="group" aria-label="Language"></div>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
 
-<h2>ผลงาน</h2>
-<div class="grid">
-<div class="card"><h3>TOR-MCU-Standard</h3><p>ชุดเครื่องมือจัดทำเอกสาร TOR ตามมาตรฐาน มจร.</p><span class="lang">VBA</span></div>
-<div class="card"><h3>BOQ-MCU</h3><p>เครื่องมือจัดทำ BOQ และประมาณราคา</p><span class="lang">Python</span></div>
-<div class="card"><h3>Precision-QC</h3><p>ระบบตรวจสอบคุณภาพ</p><span class="lang">JavaScript</span></div>
-<div class="card"><h3>MCUPR-CANTEEN</h3><p>ระบบโรงอาหาร มจร. วิทยาเขตแพร่</p><span class="lang">C++</span></div>
-<div class="card"><h3>IV-Monitor-BCNPH</h3><p>ระบบติดตามสารน้ำทางหลอดเลือด (IoT)</p><span class="lang">C++</span> · <a href="https://github.com/kittiphunr/IV-Monitor-BCNPH">ดูโค้ด</a></div>
-<div class="card"><h3>Music Player ESP32-S3</h3><p>เครื่องเล่นเพลงบนจอ 2.8 นิ้ว ESP32-S3</p><span class="lang">C</span></div>
-</div>
+<main id="top">
+  <section class="hero"><div class="wrap" id="hero"><div class="loading"></div></div></section>
+  <div class="wrap">
+    <section id="about" class="section"></section>
+    <section id="skills" class="section"></section>
+    <section id="experience" class="section"></section>
+    <section id="education" class="section" hidden></section>
+    <section id="projects" class="section"></section>
+    <section id="contact" class="section"></section>
+  </div>
+</main>
 
-<footer>
-ติดต่อ: <a href="mailto:kittiphun.rut@mcu.ac.th">kittiphun.rut@mcu.ac.th</a> · <a href="https://github.com/kittiphunr">GitHub</a>
-</footer>
-</div>
+<footer class="footer"><div class="wrap" id="footer"></div></footer>
+
+<noscript><p class="wrap">กิตติพันธ์ รัตนคร — นักวิชาการคอมพิวเตอร์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่ · <a href="mailto:kittiphun.rut@mcu.ac.th">kittiphun.rut@mcu.ac.th</a></p></noscript>
+
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>
