@@ -117,16 +117,20 @@
 <main>
   <section id="home" class="relative isolate overflow-hidden pb-16 pt-9 lg:pb-20 lg:pt-14">
     <div class="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(700px_420px_at_78%_40%,rgba(192,38,211,.16),transparent_70%),radial-gradient(600px_400px_at_10%_0%,rgba(236,72,153,.08),transparent_70%)]"></div>
+    <div class="circuit-bg circuit-hero" data-circuit="bg" data-seed="5" aria-hidden="true"></div>
     <canvas id="globe" class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></canvas>
     <div id="hero" class="mx-auto max-w-6xl px-4 md:px-8"><div class="h-[520px]"></div></div>
   </section>
-  <section id="about" class="border-y border-ink-600 bg-ink-900 py-20 lg:py-24"></section>
+  <div class="circuit-divider" data-circuit="divider" data-seed="3" aria-hidden="true"></div>
+  <section id="about" class="relative isolate overflow-hidden border-y border-ink-600 bg-ink-900 py-20 lg:py-24"></section>
   <section id="skills" class="py-20 lg:py-24"></section>
-  <section id="featured" data-spy-as="projects" class="border-y border-ink-600 bg-ink-900 py-20 lg:py-24" hidden></section>
+  <div class="circuit-divider" data-circuit="divider" data-seed="9" aria-hidden="true"></div>
+  <section id="featured" data-spy-as="projects" class="relative isolate overflow-hidden border-y border-ink-600 bg-ink-900 py-20 lg:py-24" hidden></section>
   <section id="experience" class="py-20 lg:py-24"></section>
   <section id="education" class="py-20 lg:py-24" hidden></section>
   <section id="projects" class="py-20 lg:py-24"></section>
-  <section id="contact" class="border-y border-ink-600 bg-ink-900 py-16 lg:py-20"></section>
+  <div class="circuit-divider" data-circuit="divider" data-seed="14" aria-hidden="true"></div>
+  <section id="contact" class="relative isolate overflow-hidden border-y border-ink-600 bg-ink-900 py-16 lg:py-20"></section>
 </main>
 
 <footer id="footer" class="py-6 text-sm text-muted"></footer>
@@ -147,6 +151,7 @@
 
 <script src="assets/js/i18n.js"></script>
 <script src="assets/js/icons.js"></script>
+<script src="assets/js/circuit.js"></script>
 <script src="assets/js/effects.js"></script>
 <script src="assets/js/app.js"></script>
 </body>
