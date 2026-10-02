@@ -5,16 +5,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Theme colours come from CSS variables (src/tailwind.css) so the
+        // whole site follows the device's light/dark setting.
         ink: {
-          950: "#0b0912",
-          900: "#110d1b",
-          800: "#151120",
-          700: "#1c1729",
-          600: "#2a2239",
-          500: "#3a2f4f"
+          950: "rgb(var(--ink-950) / <alpha-value>)",
+          900: "rgb(var(--ink-900) / <alpha-value>)",
+          800: "rgb(var(--ink-800) / <alpha-value>)",
+          700: "rgb(var(--ink-700) / <alpha-value>)",
+          600: "rgb(var(--ink-600) / <alpha-value>)",
+          500: "rgb(var(--ink-500) / <alpha-value>)"
         },
-        muted: "#a99fbb",
-        soft: "#ddd3e8",
+        fg: "rgb(var(--fg) / <alpha-value>)",
+        muted: "rgb(var(--muted) / <alpha-value>)",
+        soft: "rgb(var(--soft) / <alpha-value>)",
+        accent: "rgb(var(--accent) / <alpha-value>)",
         // Brand colours: pink for the institution, fading into violet.
         brand: {
           200: "#fbcfe8",
@@ -33,7 +37,7 @@ module.exports = {
         grad: "linear-gradient(135deg, #ec4899 0%, #c026d3 55%, #a855f7 100%)",
         "grad-text": "linear-gradient(100deg, #f472b6 0%, #e879f9 40%, #a855f7 60%, #f472b6 100%)",
         orb: "radial-gradient(circle at 35% 30%, #f472b6, #c026d3 50%, #6d28d9 100%)",
-        dots: "radial-gradient(circle, #f9a8d4 1.4px, transparent 1.6px)"
+        dots: "radial-gradient(circle, rgb(var(--dot)) 1.4px, transparent 1.6px)"
       },
       boxShadow: {
         glow: "0 8px 24px rgba(236, 72, 153, .35)",
