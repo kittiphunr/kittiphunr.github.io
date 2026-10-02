@@ -415,9 +415,9 @@
     {
       "degree": {
         "th": "ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.) สาขาวิชาอิเล็กทรอนิกส์ (อิเล็กทรอนิกส์อุตสาหกรรม)",
-        "en": "Higher Vocational Certificate in Electronics (Industrial Electronics)",
-        "ja": "高等職業教育修了証（電子工学・産業エレクトロニクス専攻）",
-        "zh": "高级职业教育文凭（电子专业·工业电子方向）"
+        "en": "Higher Vocational Certificate (High Voc. Cert.) in Electronics (Industrial Electronics)",
+        "ja": "高等職業教育修了証（High Voc. Cert.）電子工学専攻・産業エレクトロニクス",
+        "zh": "高级职业教育文凭（High Voc. Cert.）电子专业·工业电子方向"
       },
       "institution": {
         "th": "วิทยาลัยเทคนิคแพร่",
@@ -429,9 +429,9 @@
     {
       "degree": {
         "th": "ประกาศนียบัตรวิชาชีพ (ปวช.) สาขาวิชาอิเล็กทรอนิกส์",
-        "en": "Vocational Certificate in Electronics",
-        "ja": "職業教育修了証（電子工学専攻）",
-        "zh": "中等职业教育文凭（电子专业）"
+        "en": "Vocational Certificate (Voc. Cert.) in Electronics",
+        "ja": "職業教育修了証（Voc. Cert.）電子工学専攻",
+        "zh": "中等职业教育文凭（Voc. Cert.）电子专业"
       },
       "institution": {
         "th": "วิทยาลัยเทคนิคแพร่",
