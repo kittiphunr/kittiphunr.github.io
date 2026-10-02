@@ -72,10 +72,10 @@
     "github": "https://github.com/kittiphunr",
     "photo": "assets/img/profile.jpg",
     "cv": {
-      "th": "assets/cv/Kittiphun-Ruttanakorn-Portfolio-TH.pdf",
-      "en": "assets/cv/Kittiphun-Ruttanakorn-Portfolio-EN.pdf",
-      "ja": "assets/cv/Kittiphun-Ruttanakorn-Portfolio-JA.pdf",
-      "zh": "assets/cv/Kittiphun-Ruttanakorn-Portfolio-ZH.pdf"
+      "th": "assets/cv/Kittiphun-Ruttanakorn-Resume-TH.pdf",
+      "en": "assets/cv/Kittiphun-Ruttanakorn-Resume-EN.pdf",
+      "ja": "assets/cv/Kittiphun-Ruttanakorn-Resume-JA.pdf",
+      "zh": "assets/cv/Kittiphun-Ruttanakorn-Resume-ZH.pdf"
     }
   },
   "skills": [

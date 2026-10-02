@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// Builds the downloadable resume / portfolio PDFs (A4) for every language.
+// Builds the downloadable resume PDFs (A4) for every language.
 //
-//   npm run pdf                  # writes site/assets/cv/Kittiphun-Ruttanakorn-Portfolio-{TH,EN,JA,ZH}.pdf
+//   npm run pdf                  # writes site/assets/cv/Kittiphun-Ruttanakorn-Resume-{TH,EN,JA,ZH}.pdf
 //   npm run pdf -- --serve       # preview the template at http://localhost:8123/resume/?lang=en
 //
 // The template (resume/index.html) reads site/data/portfolio.json, so re-run this
@@ -22,7 +22,7 @@ const PORT = 8123;
 const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".json": "application/json",
   ".jpg": "image/jpeg", ".png": "image/png", ".woff2": "font/woff2", ".woff": "font/woff", ".svg": "image/svg+xml" };
 
-export const pdfName = (lang) => `Kittiphun-Ruttanakorn-Portfolio-${lang.toUpperCase()}.pdf`;
+export const pdfName = (lang) => `Kittiphun-Ruttanakorn-Resume-${lang.toUpperCase()}.pdf`;
 
 // Minimal static server for the repo root (template, site data and node_modules fonts).
 function serve() {
