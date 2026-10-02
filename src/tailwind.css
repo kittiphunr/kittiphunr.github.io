@@ -129,6 +129,42 @@ html.cursor-visible .cursor-dot, html.cursor-visible .cursor-ring { opacity: 1; 
 .cursor-ring.is-down::before { width: 26px; height: 26px; left: -13px; top: -13px; }
 .cursor-ring.is-view.is-down::before { width: 70px; height: 70px; left: -35px; top: -35px; }
 
+/* ---------- PCB circuit traces with running current (circuit.js) ---------- */
+.circuit-divider { position: relative; height: 72px; overflow: hidden; pointer-events: none; }
+@media (min-width: 768px) { .circuit-divider { height: 110px; } }
+.circuit-divider .circuit-svg, .circuit-bg .circuit-svg { display: block; width: 100%; height: 100%; }
+/* Behind section content (sections are isolate), under the hero globe. */
+.circuit-bg {
+  position: absolute; inset: 0; z-index: -15; pointer-events: none; opacity: .75;
+  /* fade towards the middle so text stays easy to read */
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.18) 0%, rgba(0,0,0,.55) 45%, #000 85%);
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.18) 0%, rgba(0,0,0,.55) 45%, #000 85%);
+}
+.c-trace { fill: none; stroke: rgb(var(--accent) / .22); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.c-faint { stroke: rgb(var(--accent) / .12); }
+.c-pad { fill: rgb(var(--ink-950)); stroke: rgb(var(--accent) / .38); stroke-width: 1.6; }
+.c-via { fill: none; stroke: rgb(var(--accent) / .3); stroke-width: 1.5; }
+.c-smd { fill: rgb(var(--accent) / .12); }
+.c-body { fill: rgb(var(--ink-800)); stroke: rgb(var(--accent) / .5); stroke-width: 1.5; }
+.c-pin { fill: rgb(var(--accent) / .55); }
+.c-dot { fill: rgb(var(--accent) / .55); }
+.c-label { font: 600 10px "JetBrains Mono", ui-monospace, monospace; letter-spacing: .08em; fill: rgb(var(--muted)); }
+/* A short bright dash travels the whole trace: dasharray "28 len", offset 28 → -len. */
+.c-pulse {
+  fill: none; stroke-linecap: round; stroke-dasharray: 28 calc(var(--len) * 1px);
+  animation: c-run var(--dur, 4s) linear var(--delay, 0s) infinite; animation-play-state: paused;
+}
+.is-live .c-pulse { animation-play-state: running; }
+.c-glow { stroke: rgba(236, 72, 153, .35); stroke-width: 7; }
+.c-core { stroke: #ffd6ec; stroke-width: 2.2; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .c-glow { stroke: rgba(219, 39, 119, .28); }
+  :root:not([data-theme="dark"]) .c-core { stroke: #db2777; }
+}
+:root[data-theme="light"] .c-glow { stroke: rgba(219, 39, 119, .28); }
+:root[data-theme="light"] .c-core { stroke: #db2777; }
+@keyframes c-run { from { stroke-dashoffset: 28px; } to { stroke-dashoffset: calc(var(--len) * -1px); } }
+
 /* Shimmering sheen on primary buttons */
 .btn-primary::after {
   content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%;
