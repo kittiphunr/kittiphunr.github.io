@@ -9,6 +9,7 @@ window.LANGS = [
 
 window.UI = {
   th: {
+    cursorView: "ดู",
     viewSource: "ดูซอร์สโค้ดบน GitHub",
     phone: "โทรศัพท์",
     tryLive: "ทดลองใช้งานจริง",
@@ -67,6 +68,7 @@ window.UI = {
     by: "โดย"
   },
   en: {
+    cursorView: "View",
     viewSource: "View source on GitHub",
     phone: "Phone",
     tryLive: "Try the live app",
@@ -125,6 +127,7 @@ window.UI = {
     by: "by"
   },
   ja: {
+    cursorView: "見る",
     viewSource: "GitHub でソースを見る",
     phone: "電話",
     tryLive: "実際に試す",
@@ -183,6 +186,7 @@ window.UI = {
     by: "by"
   },
   zh: {
+    cursorView: "查看",
     viewSource: "在 GitHub 查看源码",
     phone: "电话",
     tryLive: "在线试用",

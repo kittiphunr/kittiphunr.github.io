@@ -284,6 +284,106 @@
     el.style.removeProperty("--rx"); el.style.removeProperty("--ry");
   }
 
+  // ---------- eased smooth scrolling for in-page links ----------
+  // Navbar / button links glide to their section with an ease-in-out curve
+  // whose duration grows with distance. Wheel or touch input cancels it.
+  let scrollAnim = 0;
+  function cancelScroll() {
+    if (!scrollAnim) return;
+    cancelAnimationFrame(scrollAnim);
+    scrollAnim = 0;
+    document.documentElement.style.scrollBehavior = "";
+  }
+  function smoothScrollTo(y) {
+    cancelScroll();
+    const startY = scrollY;
+    const maxY = document.documentElement.scrollHeight - innerHeight;
+    const endY = Math.max(0, Math.min(maxY, y));
+    const dist = Math.abs(endY - startY);
+    if (reduceMotion || dist < 2) { window.scrollTo(0, endY); return; }
+    const duration = Math.min(1400, Math.max(600, 400 + dist * 0.35));
+    const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2); // easeInOutCubic
+    // Native CSS smooth scrolling would animate every step again; pause it.
+    document.documentElement.style.scrollBehavior = "auto";
+    const t0 = performance.now();
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / duration);
+      window.scrollTo(0, startY + (endY - startY) * ease(p));
+      if (p < 1) scrollAnim = requestAnimationFrame(step);
+      else { scrollAnim = 0; document.documentElement.style.scrollBehavior = ""; }
+    };
+    scrollAnim = requestAnimationFrame(step);
+  }
+  ["wheel", "touchstart", "keydown"].forEach((ev) => window.addEventListener(ev, cancelScroll, { passive: true }));
+
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    const hash = a.getAttribute("href");
+    const target = hash.length > 1 && document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (!target) return;
+    e.preventDefault();
+    const pad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    smoothScrollTo(target.getBoundingClientRect().top + scrollY - pad);
+    const url = new URL(location.href);
+    url.hash = hash;
+    history.replaceState(null, "", url);
+  });
+
+  // ---------- interactive cursor ----------
+  // A dot that tracks the pointer and a ring that trails it. The ring grows
+  // over links/buttons and becomes a labelled "view" bubble over clickable
+  // images. Mouse-only: touch devices and reduced motion keep the normal cursor.
+  if (finePointer && !reduceMotion) {
+    const dot = document.createElement("div");
+    const ring = document.createElement("div");
+    const label = document.createElement("span");
+    dot.className = "cursor-dot";
+    ring.className = "cursor-ring";
+    ring.append(label);
+    dot.setAttribute("aria-hidden", "true");
+    ring.setAttribute("aria-hidden", "true");
+    document.body.append(ring, dot);
+    document.documentElement.classList.add("has-cursor");
+
+    let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y, shown = false;
+    window.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      x = e.clientX; y = e.clientY;
+      dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      if (!shown) { shown = true; rx = x; ry = y; document.documentElement.classList.add("cursor-visible"); }
+    }, { passive: true });
+    document.addEventListener("pointerleave", () => { shown = false; document.documentElement.classList.remove("cursor-visible"); });
+    window.addEventListener("pointerdown", () => ring.classList.add("is-down"));
+    window.addEventListener("pointerup", () => ring.classList.remove("is-down"));
+
+    (function follow() {
+      rx += (x - rx) * 0.18; ry += (y - ry) * 0.18;
+      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+      requestAnimationFrame(follow);
+    })();
+
+    const CLICKABLE = 'a, button, [role="button"], label, summary';
+    document.addEventListener("pointerover", (e) => {
+      const t = e.target;
+      const clickable = t.closest && t.closest(CLICKABLE);
+      const isImage = t.tagName === "IMG" || (t.closest && t.closest(".thumb"));
+      ring.classList.remove("is-link", "is-view", "is-media");
+      dot.classList.remove("is-hidden");
+      if (clickable && isImage) {
+        const ui = (window.UI || {})[document.documentElement.lang] || {};
+        label.textContent = ui.cursorView || "View";
+        ring.classList.add("is-view");
+        dot.classList.add("is-hidden");
+      } else if (clickable) {
+        ring.classList.add("is-link");
+        dot.classList.add("is-hidden");
+      } else if (isImage) {
+        ring.classList.add("is-media");
+      }
+    }, { passive: true });
+  }
+
   // ---------- scroll progress + nav shadow ----------
   const bar = document.getElementById("progress");
   function onScroll() {
