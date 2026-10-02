@@ -1,0 +1,260 @@
+{
+  "profile": {
+    "name": {
+      "th": "กิตติพันธ์ รัตนคร",
+      "en": "Kittiphun Ruttanakorn",
+      "ja": "キッティパン・ラッタナコーン",
+      "zh": "吉迪攀·叻达那功"
+    },
+    "romanName": "Kittiphun Ruttanakorn",
+    "title": {
+      "th": "นักวิชาการคอมพิวเตอร์",
+      "en": "Computer Technical Officer",
+      "ja": "コンピュータ技術職員",
+      "zh": "计算机技术专员"
+    },
+    "organization": {
+      "th": "มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่",
+      "en": "Mahachulalongkornrajavidyalaya University, Phrae Campus",
+      "ja": "マハーチュラーロンコーンラージャウィッタヤーライ大学 プレー校",
+      "zh": "摩诃朱拉隆功佛教大学 帕府校区"
+    },
+    "headline": {
+      "th": "ผู้เชี่ยวชาญโครงสร้างพื้นฐานไอที · ผู้ดูแลระบบเครือข่ายและเซิร์ฟเวอร์ · Full-Stack Developer",
+      "en": "IT Infrastructure Specialist · Network & Server Administrator · Full-Stack Developer",
+      "ja": "ITインフラ専門家 · ネットワーク／サーバー管理者 · フルスタック開発者",
+      "zh": "IT 基础设施专家 · 网络与服务器管理员 · 全栈开发工程师"
+    },
+    "summary": {
+      "th": "นักวิชาการคอมพิวเตอร์ที่มีความเชี่ยวชาญทั้งด้านโครงสร้างพื้นฐานเทคโนโลยีสารสนเทศและการพัฒนาซอฟต์แวร์แบบครบวงจร รับผิดชอบการออกแบบ ติดตั้ง และดูแลระบบเครือข่ายองค์กรด้วยอุปกรณ์มาตรฐานระดับโลก เช่น Cisco บริหารจัดการเซิร์ฟเวอร์ทั้ง Windows Server และ Linux ผ่าน Command Line Interface อย่างมีประสิทธิภาพ ตลอดจนพัฒนาระบบสารสนเทศแบบ Full-Stack เพื่อยกระดับการบริหารงานและการให้บริการของมหาวิทยาลัยให้มีความมั่นคง ปลอดภัย และทันสมัย",
+      "en": "A computer technical officer with combined expertise in IT infrastructure and full-stack software development. I design, deploy, and maintain enterprise networks built on world-class equipment such as Cisco, administer Windows Server and Linux environments efficiently through the command-line interface, and build full-stack information systems that make the university's operations and services more reliable, secure, and modern.",
+      "ja": "ITインフラとフルスタックソフトウェア開発の両分野に精通したコンピュータ技術職員です。Cisco をはじめとする世界標準のネットワーク機器による企業ネットワークの設計・構築・運用を担当し、Windows Server および Linux 環境をコマンドラインインターフェースで効率的に管理しています。さらに、フルスタックの情報システムを開発し、大学の業務とサービスの安定性・安全性・先進性の向上に取り組んでいます。",
+      "zh": "兼具 IT 基础设施与全栈软件开发能力的计算机技术专员。负责使用 Cisco 等世界领先的网络设备设计、部署和维护企业级网络，通过命令行界面高效管理 Windows Server 与 Linux 服务器环境，并开发全栈信息系统，使大学的管理与服务更加稳定、安全、现代化。"
+    },
+    "location": {
+      "th": "จังหวัดแพร่ ประเทศไทย",
+      "en": "Phrae, Thailand",
+      "ja": "タイ・プレー県",
+      "zh": "泰国 帕府"
+    },
+    "email": "kittiphun.rut@mcu.ac.th",
+    "github": "https://github.com/kittiphunr",
+    "photo": ""
+  },
+
+  "skills": [
+    {
+      "icon": "network",
+      "title": {
+        "th": "ระบบเครือข่ายองค์กร",
+        "en": "Enterprise Networking",
+        "ja": "エンタープライズネットワーク",
+        "zh": "企业网络"
+      },
+      "description": {
+        "th": "ออกแบบ ติดตั้ง และดูแลระบบเครือข่ายด้วยอุปกรณ์ชั้นนำระดับโลก เช่น Cisco ครอบคลุมทั้ง Routing, Switching และความปลอดภัยของเครือข่าย",
+        "en": "Designing, deploying, and maintaining networks on industry-leading equipment such as Cisco, covering routing, switching, and network security.",
+        "ja": "Cisco などの業界トップクラスの機器を用いたネットワークの設計・構築・運用。ルーティング、スイッチング、ネットワークセキュリティまで対応します。",
+        "zh": "基于 Cisco 等业界领先设备进行网络设计、部署与维护，涵盖路由、交换及网络安全。"
+      },
+      "items": [
+        "Cisco IOS / IOS-XE CLI",
+        "Routing & Switching",
+        "VLAN · Trunking · STP",
+        "OSPF · Static Routing",
+        "ACL & Network Security",
+        "Wireless LAN",
+        "Monitoring & Troubleshooting"
+      ]
+    },
+    {
+      "icon": "windows",
+      "title": {
+        "th": "Windows Server",
+        "en": "Windows Server",
+        "ja": "Windows Server",
+        "zh": "Windows Server"
+      },
+      "description": {
+        "th": "บริหารจัดการโครงสร้างพื้นฐาน Microsoft สำหรับองค์กร ทั้งบริการไดเรกทอรี การกำหนดนโยบาย และบริการเครือข่ายหลัก",
+        "en": "Managing Microsoft infrastructure for the organization, including directory services, policy management, and core network services.",
+        "ja": "ディレクトリサービス、ポリシー管理、主要ネットワークサービスを含む組織向け Microsoft インフラの管理。",
+        "zh": "管理组织的 Microsoft 基础设施，包括目录服务、策略管理及核心网络服务。"
+      },
+      "items": [
+        "Active Directory (AD DS)",
+        "DNS · DHCP",
+        "Group Policy",
+        "File & Print Services",
+        "Hyper-V",
+        "IIS",
+        "PowerShell"
+      ]
+    },
+    {
+      "icon": "terminal",
+      "title": {
+        "th": "Linux Server & CLI",
+        "en": "Linux Server & CLI",
+        "ja": "Linux サーバー & CLI",
+        "zh": "Linux 服务器与命令行"
+      },
+      "description": {
+        "th": "ติดตั้งและดูแลเซิร์ฟเวอร์ Linux ผ่าน Command Line อย่างคล่องแคล่ว พร้อมการเสริมความปลอดภัยและการทำงานอัตโนมัติด้วยสคริปต์",
+        "en": "Deploying and operating Linux servers fluently from the command line, with security hardening and script-based automation.",
+        "ja": "コマンドラインによる Linux サーバーの構築・運用。セキュリティ強化とスクリプトによる自動化にも対応します。",
+        "zh": "熟练通过命令行部署和运维 Linux 服务器，并进行安全加固与脚本自动化。"
+      },
+      "items": [
+        "Ubuntu · Debian · RHEL-based",
+        "Bash Scripting",
+        "SSH & Hardening",
+        "Nginx · Apache",
+        "Docker",
+        "systemd · cron",
+        "Log Analysis"
+      ]
+    },
+    {
+      "icon": "code",
+      "title": {
+        "th": "Full-Stack Development",
+        "en": "Full-Stack Development",
+        "ja": "フルスタック開発",
+        "zh": "全栈开发"
+      },
+      "description": {
+        "th": "พัฒนาระบบสารสนเทศครบวงจรตั้งแต่ส่วนติดต่อผู้ใช้ ระบบหลังบ้าน ฐานข้อมูล ไปจนถึงอุปกรณ์ IoT",
+        "en": "Building end-to-end information systems — from user interfaces and back-end services to databases and IoT devices.",
+        "ja": "ユーザーインターフェース、バックエンド、データベースから IoT デバイスまで、一貫した情報システムの開発。",
+        "zh": "开发端到端的信息系统——从用户界面、后端服务、数据库到物联网设备。"
+      },
+      "items": [
+        "HTML · CSS · JavaScript",
+        "Node.js",
+        "Python",
+        "REST API",
+        "SQL Databases",
+        "Git & GitHub",
+        "IoT (ESP32)",
+        "VBA Automation"
+      ]
+    }
+  ],
+
+  "experience": [
+    {
+      "start": "2024-10-01",
+      "end": null,
+      "role": {
+        "th": "นักวิชาการคอมพิวเตอร์",
+        "en": "Computer Technical Officer",
+        "ja": "コンピュータ技術職員",
+        "zh": "计算机技术专员"
+      },
+      "organization": {
+        "th": "มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่",
+        "en": "Mahachulalongkornrajavidyalaya University, Phrae Campus",
+        "ja": "マハーチュラーロンコーンラージャウィッタヤーライ大学 プレー校",
+        "zh": "摩诃朱拉隆功佛教大学 帕府校区"
+      },
+      "highlights": [
+        {
+          "th": "ออกแบบ กำหนดค่า และดูแลระบบเครือข่ายของวิทยาเขตด้วยอุปกรณ์ Cisco ให้มีเสถียรภาพและความปลอดภัยสูง",
+          "en": "Design, configure, and maintain the campus network on Cisco equipment for high stability and security.",
+          "ja": "Cisco 機器によるキャンパスネットワークの設計・設定・保守を行い、高い安定性とセキュリティを確保。",
+          "zh": "基于 Cisco 设备设计、配置并维护校区网络，确保高稳定性与安全性。"
+        },
+        {
+          "th": "บริหารจัดการเซิร์ฟเวอร์ Windows Server และ Linux ทั้งบัญชีผู้ใช้ บริการระบบ ความปลอดภัย และการสำรองข้อมูล",
+          "en": "Administer Windows Server and Linux servers, including user accounts, system services, security, and backups.",
+          "ja": "Windows Server および Linux サーバーのユーザーアカウント、システムサービス、セキュリティ、バックアップを管理。",
+          "zh": "管理 Windows Server 与 Linux 服务器，包括用户账户、系统服务、安全与备份。"
+        },
+        {
+          "th": "พัฒนาระบบสารสนเทศและเครื่องมือดิจิทัลเพื่อสนับสนุนงานบริหาร งานพัสดุ และงานวิชาการ",
+          "en": "Develop information systems and digital tools that support administration, procurement, and academic work.",
+          "ja": "管理業務、調達業務、学術業務を支援する情報システムとデジタルツールを開発。",
+          "zh": "开发支持行政管理、采购及学术工作的信息系统与数字化工具。"
+        },
+        {
+          "th": "ให้คำปรึกษาและสนับสนุนด้านเทคนิคแก่บุคลากรและนิสิต",
+          "en": "Provide technical consultation and support to staff and students.",
+          "ja": "教職員および学生への技術相談とサポートを提供。",
+          "zh": "为教职员工和学生提供技术咨询与支持。"
+        }
+      ]
+    }
+  ],
+
+  "education": [],
+
+  "projects": [
+    {
+      "title": "TOR-MCU-Standard",
+      "description": {
+        "th": "ชุดเครื่องมือจัดทำเอกสารขอบเขตของงาน (TOR) ตามมาตรฐานของมหาวิทยาลัย",
+        "en": "A toolkit for preparing Terms of Reference (TOR) documents according to university standards.",
+        "ja": "大学の基準に沿った業務仕様書（TOR）を作成するためのツールキット。",
+        "zh": "按照大学标准编制工作范围说明书（TOR）的工具集。"
+      },
+      "tags": ["VBA", "Automation"],
+      "link": ""
+    },
+    {
+      "title": "BOQ-MCU",
+      "description": {
+        "th": "เครื่องมือจัดทำบัญชีแสดงปริมาณวัสดุและราคา (BOQ) และประมาณราคางานก่อสร้าง",
+        "en": "A tool for preparing Bills of Quantities (BOQ) and construction cost estimates.",
+        "ja": "数量明細書（BOQ）の作成と工事費見積りのためのツール。",
+        "zh": "用于编制工程量清单（BOQ）及工程造价估算的工具。"
+      },
+      "tags": ["Python"],
+      "link": ""
+    },
+    {
+      "title": "Precision-QC",
+      "description": {
+        "th": "ระบบตรวจสอบและควบคุมคุณภาพ",
+        "en": "A quality inspection and control system.",
+        "ja": "品質検査・品質管理システム。",
+        "zh": "质量检验与控制系统。"
+      },
+      "tags": ["JavaScript", "Web App"],
+      "link": ""
+    },
+    {
+      "title": "MCUPR-CANTEEN",
+      "description": {
+        "th": "ระบบบริหารจัดการโรงอาหาร มจร. วิทยาเขตแพร่",
+        "en": "Canteen management system for MCU Phrae Campus.",
+        "ja": "MCU プレー校の食堂管理システム。",
+        "zh": "MCU 帕府校区食堂管理系统。"
+      },
+      "tags": ["C++", "Embedded"],
+      "link": ""
+    },
+    {
+      "title": "IV-Monitor-BCNPH",
+      "description": {
+        "th": "ระบบติดตามการให้สารน้ำทางหลอดเลือดดำแบบเรียลไทม์ด้วยเทคโนโลยี IoT",
+        "en": "Real-time intravenous (IV) fluid monitoring system powered by IoT.",
+        "ja": "IoT を活用したリアルタイム点滴（IV）モニタリングシステム。",
+        "zh": "基于物联网的实时静脉输液（IV）监测系统。"
+      },
+      "tags": ["C++", "IoT", "ESP32"],
+      "link": "https://github.com/kittiphunr/IV-Monitor-BCNPH"
+    },
+    {
+      "title": "Music Player ESP32-S3",
+      "description": {
+        "th": "เครื่องเล่นเพลงบนจอแสดงผลขนาด 2.8 นิ้ว ด้วยไมโครคอนโทรลเลอร์ ESP32-S3",
+        "en": "A music player with a 2.8-inch display built on the ESP32-S3 microcontroller.",
+        "ja": "ESP32-S3 マイコンと 2.8 インチディスプレイで構築した音楽プレーヤー。",
+        "zh": "基于 ESP32-S3 微控制器、配备 2.8 英寸显示屏的音乐播放器。"
+      },
+      "tags": ["C", "ESP32", "Embedded"],
+      "link": ""
+    }
+  ]
+}
