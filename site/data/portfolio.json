@@ -770,15 +770,6 @@
               "ja": "ベッドサイド機の回路図（KiCad 7）：ESP32-S3、ST7789 ディスプレイ、TCRT5000 センサー、ブザー、ボタン",
               "zh": "床旁设备原理图（KiCad 7）：ESP32-S3、ST7789 显示屏、TCRT5000 传感器、蜂鸣器与按键"
             }
-          },
-          {
-            "src": "assets/img/projects/iv-monitor/pcb.jpg",
-            "caption": {
-              "th": "แบบแผ่นวงจรพิมพ์ (PCB) ของบอร์ดเครื่องประจำเตียง ออกแบบด้วย KiCad",
-              "en": "Printed circuit board (PCB) layout of the bedside carrier board, designed in KiCad",
-              "ja": "KiCad で設計したベッドサイド用キャリアボードのプリント基板（PCB）レイアウト",
-              "zh": "使用 KiCad 设计的床旁载板印刷电路板（PCB）布局"
-            }
           }
         ],
         "metrics": [
