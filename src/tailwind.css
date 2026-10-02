@@ -85,6 +85,14 @@
   .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 
+/* Lenis smooth scrolling (from lenis/dist/lenis.css). While Lenis drives the
+   page, native CSS smooth scrolling must be off or the two fight each other. */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto !important; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent], .lenis [data-lenis-prevent-wheel], .lenis [data-lenis-prevent-touch] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
 /* Shimmering sheen on primary buttons */
 .btn-primary::after {
   content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%;
