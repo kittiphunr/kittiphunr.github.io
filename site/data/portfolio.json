@@ -361,6 +361,20 @@
   "education": [
     {
       "degree": {
+        "th": "ปริญญาตรี เทคโนโลยีบัณฑิต (ทล.บ.) สาขาวิชาเทคโนโลยีอิเล็กทรอนิกส์",
+        "en": "Bachelor of Technology (B.Tech.) in Electronics Technology",
+        "ja": "技術学士（B.Tech.）電子技術専攻",
+        "zh": "技术学士（B.Tech.）电子技术专业"
+      },
+      "institution": {
+        "th": "สถาบันการอาชีวศึกษาภาคเหนือ 2",
+        "en": "Institute of Vocational Education: Northern Region 2",
+        "ja": "北部第2職業教育機構（Institute of Vocational Education: Northern Region 2）",
+        "zh": "北部第二职业教育学院（Institute of Vocational Education: Northern Region 2）"
+      }
+    },
+    {
+      "degree": {
         "th": "ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.) สาขาวิชาอิเล็กทรอนิกส์ (อิเล็กทรอนิกส์อุตสาหกรรม)",
         "en": "Higher Vocational Certificate in Electronics (Industrial Electronics)",
         "ja": "高等職業教育修了証（電子工学・産業エレクトロニクス専攻）",
