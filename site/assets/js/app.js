@@ -162,113 +162,53 @@
 
   function hasItems(list) { return Array.isArray(list) && list.length > 0; }
 
+  // ---------- icons ----------
   const ICONS = {
-    network: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="5" rx="1"/><rect x="2" y="17" width="6" height="5" rx="1"/><rect x="16" y="17" width="6" height="5" rx="1"/><path d="M12 7v5M5 17v-2.5h14V17M12 12v2.5"/></svg>',
-    windows: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>',
-    terminal: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 9l3 3-3 3M12 15h6"/></svg>',
-    code: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>',
-    server: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="18" height="7" rx="1.5"/><path d="M7 6.5h.01M7 17.5h.01"/></svg>',
-    shield: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/></svg>'
+    network: '<path d="M9 2h6v5H9zM2 17h6v5H2zM16 17h6v5h-6zM12 7v5M5 17v-2.5h14V17M12 12v2.5"/>',
+    windows: '<path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z"/>',
+    terminal: '<path d="M2 4h20v16H2zM6 9l3 3-3 3M12 15h6"/>',
+    code: '<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/>',
+    server: '<path d="M3 3h18v7H3zM3 14h18v7H3zM7 6.5h.01M7 17.5h.01"/>',
+    shield: '<path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/>',
+    calendar: '<path d="M4 5h16v16H4zM4 10h16M9 3v4M15 3v4"/>',
+    layers: '<path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/>',
+    cpu: '<path d="M7 7h10v10H7zM10 10h4v4h-4zM10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/>',
+    target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+    arrow: '<path d="M7 17L17 7M9 7h8v8"/>',
+    download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+    mail: '<path d="M3 5h18v14H3zM3 6l9 7 9-7"/>',
+    pin: '<path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+    quote: '<path d="M10 7H6a2 2 0 00-2 2v4h5v5H4M20 7h-4a2 2 0 00-2 2v4h5v5h-5"/>',
+    user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+    heart: '<path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/>'
   };
 
-  // ---------- sections ----------
-  function renderNav() {
-    const s = UI[lang];
-    const links = [
-      ["about", s.navAbout],
-      ["skills", s.navSkills],
-      ["experience", s.navExperience],
-      hasItems(data.education) ? ["education", s.navEducation] : null,
-      ["projects", s.navProjects],
-      ["contact", s.navContact]
-    ].filter(Boolean);
-    const nav = document.getElementById("nav-links");
-    nav.replaceChildren(...links.map(([id, label]) => h("a", { href: "#" + id }, label)));
-
-    const sw = document.getElementById("lang-switch");
-    sw.replaceChildren(...LANGS.map((l) =>
-      h("button", {
-        type: "button",
-        lang: l.code,
-        "data-lang": l.code,
-        "aria-pressed": String(l.code === lang),
-        class: l.code === lang ? "active" : null
-      }, l.label)
-    ));
+  // SVG must be parsed from markup so it gets the SVG namespace.
+  function svg(markup) {
+    const tmp = document.createElement("span");
+    tmp.innerHTML = markup;
+    return tmp.firstChild;
   }
 
-  function renderHero() {
-    const p = data.profile;
-    const s = UI[lang];
-    const since = hasItems(data.experience) ? data.experience[0].start : null;
-    const initials = (p.romanName || "").split(/\s+/).map((w) => w[0]).join("").slice(0, 2);
-
-    const avatar = h("div", { class: "avatar-ring" }, p.photo
-      ? h("img", { class: "avatar", src: p.photo, alt: p.romanName || "" })
-      : h("div", { class: "avatar avatar-mono", "aria-hidden": "true" }, initials));
-
-    const name = t(p.name, "h1", "gradient-text");
-    const roman = lang !== "en" && p.romanName ? h("p", { class: "roman", lang: "en" }, p.romanName) : null;
-
-    const hero = h("div", { class: "hero-grid" },
-      h("div", { class: "hero-main hero-enter" },
-        avatar,
-        name,
-        roman,
-        h("p", { class: "role" }, t(p.title), h("span", { class: "sep" }, " · "), t(p.organization)),
-        t(p.headline, "p", "headline"),
-        since ? h("p", { class: "since" }, h("span", { class: "dot" }), s.sinceLabel + " " + formatDate(since, true)) : null,
-        h("div", { class: "cta" },
-          h("a", { class: "btn btn-primary", href: "#contact" }, s.contactMe),
-          h("a", { class: "btn", href: "#projects" }, s.viewProjects)
-        )
-      ),
-      h("div", { class: "hero-visual" }, renderTerminal(p, since))
-    );
-    document.getElementById("hero").replaceChildren(hero, renderStats(), renderTicker());
+  function icon(name, cls) {
+    return svg('<svg class="ic ' + (cls || "") + '" viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[name] || ICONS.server) + "</svg>");
   }
 
-  function renderTerminal(p, since) {
-    const host = "kittiphun@mcu-phrae";
-    const line = (cmd, out) => [
-      h("div", { class: "t-cmd" }, h("span", { class: "t-prompt" }, host + ":~$ "), cmd),
-      h("div", { class: "t-out" }, out)
-    ];
-    const skills = (data.skills || []).map((sk) => resolveEn(sk.title)).join(" · ");
-    return h("div", { class: "terminal", "aria-hidden": "true", lang: "en" },
-      h("div", { class: "t-bar" }, h("i"), h("i"), h("i")),
-      h("div", { class: "t-body" },
-        line("whoami", p.romanName || ""),
-        line("cat role.txt", resolveEn(p.title)),
-        line("show skills", skills),
-        since ? line("uptime", "since " + since) : null,
-        h("div", { class: "t-cmd" }, h("span", { class: "t-prompt" }, host + ":~$ "), h("span", { class: "caret" }))
-      )
-    );
+  function brand(name, color, label) {
+    const d = (window.BRAND_ICONS || {})[name];
+    const el = h("span", { class: "brand-ic", style: "--c:" + (color || "#f472b6"), title: label || null });
+    el.innerHTML = d
+      ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + '"/></svg>'
+      : '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg>';
+    return el;
   }
 
-  function renderStats() {
-    const s = UI[lang];
-    const techCount = (data.skills || []).reduce((n, sk) => n + (sk.items || []).length, 0);
-    const stats = [
-      [(data.projects || []).length, "+", s.statProjects],
-      [(data.skills || []).length, "", s.statDomains],
-      [techCount, "+", s.statTech],
-      [LANGS.length, "", s.statLangs]
-    ];
-    return h("div", { class: "stats" }, stats.map(([n, suffix, label]) =>
-      h("div", { class: "stat" },
-        h("strong", { "data-count": n, "data-suffix": suffix }, "0"),
-        h("span", null, label)
-      )
-    ));
-  }
+  const GITHUB_PATH = "M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12C23.5 5.7 18.3.5 12 .5z";
 
-  function renderTicker() {
-    const items = (data.skills || []).flatMap((sk) => sk.items || []);
-    if (!items.length) return null;
-    const row = () => h("ul", null, items.map((it) => h("li", null, resolveEn(it))));
-    return h("div", { class: "ticker", "aria-hidden": "true" }, h("div", { class: "ticker-track" }, row(), row()));
+  function badge(text) { return h("span", { class: "badge" }, text); }
+
+  function sectionHead(badgeText, title, center) {
+    return h("header", { class: "section-head" + (center ? " center" : "") }, badgeText ? badge(badgeText) : null, h("h2", null, title));
   }
 
   function resolveEn(v) {
@@ -276,39 +216,161 @@
     return v.en || v.th || Object.values(v)[0] || "";
   }
 
-  function sectionHead(title, lead) {
-    return h("header", { class: "section-head" }, h("h2", null, title), lead ? h("p", { class: "lead" }, lead) : null);
+  function yearsSince(iso) {
+    if (!iso) return 0;
+    const start = new Date(iso + "T00:00:00"), now = new Date();
+    let y = now.getFullYear() - start.getFullYear();
+    if (now.getMonth() < start.getMonth() || (now.getMonth() === start.getMonth() && now.getDate() < start.getDate())) y--;
+    return Math.max(1, y);
+  }
+
+  // ---------- sections ----------
+  const NAV = [
+    ["home", "navHome"], ["about", "navAbout"], ["skills", "navSkills"],
+    ["experience", "navExperience"], ["education", "navEducation"], ["projects", "navProjects"], ["contact", "navContact"]
+  ];
+
+  function renderNav() {
+    const s = UI[lang];
+    const nav = document.getElementById("nav-links");
+    nav.replaceChildren(...NAV
+      .filter(([id]) => id !== "education" || hasItems(data.education))
+      .map(([id, key]) => h("a", { href: "#" + id, "data-spy": id }, s[key])));
+
+    const sw = document.getElementById("lang-switch");
+    sw.replaceChildren(...LANGS.map((l) =>
+      h("button", {
+        type: "button", lang: l.code, "data-lang": l.code,
+        "aria-pressed": String(l.code === lang), class: l.code === lang ? "active" : null
+      }, l.label)
+    ));
+
+    const hire = document.getElementById("hire-btn");
+    hire.replaceChildren(s.hireMe, icon("arrow"));
+  }
+
+  function renderHero() {
+    const p = data.profile;
+    const s = UI[lang];
+    const since = hasItems(data.experience) ? data.experience[0].start : null;
+
+    const [before, after] = s.greeting.split("{name}");
+    const greet = h("h1", { class: "greet" }, before, t(p.firstName || p.name, "span", "accent"), after || "");
+
+    const secondary = p.cv
+      ? h("a", { class: "btn btn-outline", href: p.cv, download: "" }, s.downloadCV, icon("download"))
+      : h("a", { class: "btn btn-outline", href: "#contact" }, s.contactMe, icon("mail"));
+
+    const tech = hasItems(data.proficiency)
+      ? h("div", { class: "tech-row" },
+          h("p", { class: "eyebrow" }, s.techWith),
+          h("ul", null, data.proficiency.map((pf) => h("li", null, brand(pf.icon, pf.color, resolveEn(pf.name))))))
+      : null;
+
+    const copy = h("div", { class: "hero-copy hero-enter" },
+      badge(resolveEn(p.tagline) ? resolve(p.tagline).text : resolve(p.title).text),
+      greet,
+      t(p.slogan, "p", "slogan"),
+      t(p.intro || p.summary, "p", "intro"),
+      h("div", { class: "cta" },
+        h("a", { class: "btn btn-primary", href: "#projects" }, s.viewWork, icon("arrow")),
+        secondary
+      ),
+      tech
+    );
+
+    const portrait = p.photo
+      ? h("img", { class: "portrait", src: p.photo, alt: p.romanName || "" })
+      : h("div", { class: "portrait portrait-mono" }, (p.romanName || "").split(/\s+/).map((w) => w[0]).join(""));
+
+    const art = h("div", { class: "hero-art" },
+      h("div", { class: "dots", "aria-hidden": "true" }),
+      h("div", { class: "orb" }, portrait),
+      renderCodeCard(p, since),
+      svg('<svg class="doodle" viewBox="0 0 80 90" aria-hidden="true"><path d="M70 8C40 6 18 22 22 44c3 16 22 16 22 3 0-12-20-12-28 2-6 11-6 24 0 34"/><path d="M8 74l8 10 8-9"/></svg>')
+    );
+
+    document.getElementById("hero").replaceChildren(h("div", { class: "hero-grid" }, copy, art));
+  }
+
+  function renderCodeCard(p, since) {
+    const str = (v) => h("span", { class: "c-str" }, '"' + v + '"');
+    const key = (k) => h("span", { class: "c-key" }, k);
+    const pun = (v) => h("span", { class: "c-pun" }, v);
+    const skills = (data.skills || []).map((sk) => resolveEn(sk.title).replace(/^Enterprise /, "").replace(/ & CLI$/, "").replace(/ Development$/, ""));
+    const lines = [
+      [h("span", { class: "c-kw" }, "const "), h("span", { class: "c-var" }, "engineer"), pun(" = {")],
+      ["  ", key("name"), pun(": "), str((resolveEn(p.firstName) || p.romanName || "")), pun(",")],
+      ["  ", key("role"), pun(": "), str(resolveEn(p.title)), pun(",")],
+      ["  ", key("skills"), pun(": ["), ...skills.flatMap((sk, i) => [str(sk), i < skills.length - 1 ? pun(", ") : null]), pun("],")],
+      since ? ["  ", key("since"), pun(": "), str(since), pun(",")] : null,
+      ["  ", key("passion"), pun(": "), str("Reliable systems"), pun(",")],
+      [pun("};")]
+    ].filter(Boolean);
+    return h("div", { class: "code-card", "aria-hidden": "true", lang: "en" },
+      h("div", { class: "code-head" }, h("span", null, "</> engineer.js"), h("i")),
+      h("pre", null, lines.map((parts, i) => h("span", { class: "code-line", style: "--i:" + i }, ...parts)))
+    );
   }
 
   function renderAbout() {
     const p = data.profile;
     const s = UI[lang];
-    const facts = h("dl", { class: "facts" },
-      h("div", null, h("dt", null, s.position), h("dd", null, t(p.title))),
-      h("div", null, h("dt", null, s.organization), h("dd", null, t(p.organization))),
-      h("div", null, h("dt", null, s.location), h("dd", null, t(p.location))),
-      p.email ? h("div", null, h("dt", null, s.email), h("dd", null, h("a", { href: "mailto:" + p.email }, p.email))) : null
-    );
-    document.getElementById("about").replaceChildren(
-      sectionHead(s.aboutTitle),
-      h("div", { class: "about-grid" }, t(p.summary, "p", "summary"), facts)
-    );
+    const since = hasItems(data.experience) ? data.experience[0].start : null;
+    const techCount = (data.skills || []).reduce((n, sk) => n + (sk.items || []).length, 0);
+    const stats = [
+      since ? ["calendar", yearsSince(since), "+", s.statYears] : null,
+      ["layers", (data.projects || []).length, "+", s.statProjects],
+      ["cpu", techCount, "+", s.statTech],
+      ["target", (data.skills || []).length, "", s.statDomains]
+    ].filter(Boolean);
+
+    document.getElementById("about").replaceChildren(h("div", { class: "wrap about-grid" },
+      h("div", { class: "about-copy reveal" },
+        badge(s.aboutBadge),
+        h("h2", null, s.aboutHeading),
+        t(p.summary, "p", "summary"),
+        since ? h("p", { class: "since" }, h("span", { class: "dot" }), s.sinceLabel + " " + formatDate(since, true)) : null,
+        h("a", { class: "btn btn-outline btn-sm", href: "#experience" }, s.learnMore, icon("user"))
+      ),
+      h("div", { class: "stats", "data-reveal-group": "" }, stats.map(([ic, n, suffix, label]) =>
+        h("div", { class: "stat" },
+          h("div", { class: "stat-ic" }, icon(ic)),
+          h("div", null,
+            h("strong", { "data-count": n, "data-suffix": suffix }, "0"),
+            h("span", null, label)
+          )
+        )
+      ))
+    ));
   }
 
   function renderSkills() {
     const s = UI[lang];
+    const bars = (data.proficiency || []).map((pf) =>
+      h("div", { class: "bar-item", style: "--v:" + Math.max(0, Math.min(100, pf.level || 0)) + "%;--c:" + (pf.color || "#f472b6") },
+        h("div", { class: "bar-top" },
+          brand(pf.icon, pf.color),
+          t(pf.name, "span", "bar-name"),
+          h("span", { class: "bar-val" }, (pf.level || 0) + "%")
+        ),
+        h("div", { class: "bar" }, h("i"))
+      )
+    );
     const cards = (data.skills || []).map((sk) =>
       h("article", { class: "card skill tilt" },
-        h("div", { class: "icon", html: ICONS[sk.icon] || ICONS.server }),
+        h("div", { class: "skill-ic" }, icon(sk.icon)),
         t(sk.title, "h3"),
         t(sk.description, "p"),
         hasItems(sk.items) ? h("ul", { class: "chips" }, sk.items.map((it) => t(it, "li"))) : null
       )
     );
-    document.getElementById("skills").replaceChildren(
-      sectionHead(s.skillsTitle, s.skillsLead),
+    document.getElementById("skills").replaceChildren(h("div", { class: "wrap" },
+      sectionHead(s.skillsBadge, s.skillsHeading, true),
+      bars.length ? h("div", { class: "bars", "data-reveal-group": "" }, bars) : null,
+      h("div", { class: "subhead" }, sectionHead(s.expertiseBadge, s.expertiseHeading, true)),
       h("div", { class: "grid grid-2", "data-reveal-group": "" }, cards)
-    );
+    ));
   }
 
   function timeline(items, roleKey, orgKey) {
@@ -326,57 +388,103 @@
   }
 
   function renderExperience() {
-    document.getElementById("experience").replaceChildren(
-      sectionHead(UI[lang].experienceTitle),
+    const s = UI[lang];
+    document.getElementById("experience").replaceChildren(h("div", { class: "wrap" },
+      sectionHead(s.experienceBadge, s.experienceTitle, true),
       timeline(data.experience || [], "role", "organization")
-    );
+    ));
   }
 
   function renderEducation() {
     const el = document.getElementById("education");
     if (!hasItems(data.education)) { el.hidden = true; el.replaceChildren(); return; }
+    const s = UI[lang];
     el.hidden = false;
-    el.replaceChildren(
-      sectionHead(UI[lang].educationTitle),
+    el.replaceChildren(h("div", { class: "wrap" },
+      sectionHead(s.educationBadge, s.educationTitle, true),
       timeline(data.education, "degree", "institution")
+    ));
+  }
+
+  const COVER_HUES = [330, 285, 205, 350, 260, 190];
+
+  function projectCover(pr, i) {
+    if (pr.image) return h("div", { class: "cover" }, h("img", { src: pr.image, alt: "", loading: "lazy" }));
+    const label = (pr.tags && pr.tags[0]) || resolveEn(pr.title).slice(0, 3);
+    return h("div", { class: "cover cover-art", style: "--h:" + COVER_HUES[i % COVER_HUES.length], "aria-hidden": "true" },
+      h("div", { class: "mock" },
+        h("div", { class: "mock-bar" }, h("i"), h("i"), h("i")),
+        h("div", { class: "mock-body" },
+          h("span", { class: "mock-label" }, label),
+          h("span", { class: "mock-line", style: "--w:70%" }),
+          h("span", { class: "mock-line", style: "--w:50%" }),
+          h("span", { class: "mock-line", style: "--w:62%" })
+        )
+      )
     );
   }
 
   function renderProjects() {
     const s = UI[lang];
-    const cards = (data.projects || []).map((pr) =>
+    const cards = (data.projects || []).map((pr, i) =>
       h("article", { class: "card project tilt" },
-        pr.image ? h("img", { class: "thumb", src: pr.image, alt: "", loading: "lazy" }) : null,
-        t(pr.title, "h3"),
-        t(pr.description, "p"),
-        h("div", { class: "project-foot" },
-          hasItems(pr.tags) ? h("ul", { class: "tags" }, pr.tags.map((tg) => h("li", null, tg))) : h("span"),
-          pr.link ? h("a", { class: "more", href: pr.link, target: "_blank", rel: "noopener" }, s.viewCode + " →") : null
+        h("span", { class: "num" }, String(i + 1).padStart(2, "0")),
+        projectCover(pr, i),
+        h("div", { class: "project-body" },
+          t(pr.title, "h3"),
+          t(pr.description, "p"),
+          h("div", { class: "project-foot" },
+            hasItems(pr.tags) ? h("ul", { class: "tags" }, pr.tags.map((tg) => h("li", null, tg))) : h("span"),
+            pr.link ? h("a", { class: "more", href: pr.link, target: "_blank", rel: "noopener" }, s.viewProject, icon("arrow")) : null
+          )
         )
       )
     );
-    document.getElementById("projects").replaceChildren(
-      sectionHead(s.projectsTitle, s.projectsLead),
+    document.getElementById("projects").replaceChildren(h("div", { class: "wrap" },
+      sectionHead(s.projectsBadge, s.projectsHeading, true),
       h("div", { class: "grid grid-3", "data-reveal-group": "" }, cards)
-    );
+    ));
   }
 
   function renderContact() {
     const p = data.profile;
     const s = UI[lang];
-    const links = [
-      p.email ? h("a", { class: "contact-item", href: "mailto:" + p.email }, h("span", null, s.email), h("strong", null, p.email)) : null,
-      p.github ? h("a", { class: "contact-item", href: p.github, target: "_blank", rel: "noopener" }, h("span", null, "GitHub"), h("strong", null, p.github.replace(/^https?:\/\//, ""))) : null,
-      p.location ? h("div", { class: "contact-item" }, h("span", null, s.location), t(p.location, "strong")) : null
+    const avatar = p.photo ? h("img", { src: p.photo, alt: "" }) : h("span", null, (p.romanName || "?")[0]);
+
+    const socials = [
+      p.github ? h("a", { class: "social", href: p.github, target: "_blank", rel: "noopener", "aria-label": "GitHub",
+        html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + GITHUB_PATH + '"/></svg>' }) : null,
+      p.email ? h("a", { class: "social", href: "mailto:" + p.email, "aria-label": s.email }, icon("mail")) : null
     ];
-    document.getElementById("contact").replaceChildren(
-      sectionHead(s.contactTitle, s.contactLead),
-      h("div", { class: "contact-grid", "data-reveal-group": "" }, links)
-    );
+
+    document.getElementById("contact").replaceChildren(h("div", { class: "wrap cta-grid", "data-reveal-group": "" },
+      h("div", { class: "cta-copy" },
+        badge(s.ctaBadge),
+        h("h2", null, s.ctaHeading),
+        h("p", null, s.ctaText),
+        p.email ? h("a", { class: "btn btn-primary btn-sm", href: "mailto:" + p.email }, s.getInTouch, icon("arrow")) : null
+      ),
+      p.motto ? h("figure", { class: "quote-card" },
+        icon("quote", "quote-ic"),
+        h("blockquote", null, t(p.motto)),
+        h("figcaption", null,
+          h("div", { class: "q-avatar" }, avatar),
+          h("div", null, t(p.name, "strong"), h("span", null, s.mottoLabel))
+        )
+      ) : h("div"),
+      h("div", { class: "follow" },
+        badge(s.followMe),
+        h("div", { class: "socials" }, socials),
+        p.email ? h("a", { class: "c-row", href: "mailto:" + p.email }, icon("mail"), p.email) : null,
+        p.location ? h("p", { class: "c-row" }, icon("pin"), t(p.location)) : null
+      )
+    ));
+
     const year = new Date().getFullYear();
-    document.getElementById("footer").replaceChildren(
-      h("p", null, "© " + year + " ", t(p.name), ". " + s.rights + ".")
-    );
+    document.getElementById("footer").replaceChildren(h("div", { class: "wrap footer-inner" },
+      h("p", null, "© " + year + " ", t(p.name), ". " + s.rights + "."),
+      h("p", null, s.madeWith + " ", icon("heart", "heart"), " " + s.by + " " + (resolveEn(p.firstName) || p.romanName || ""))
+    ));
   }
 
   function updateMeta() {
@@ -384,7 +492,7 @@
     document.documentElement.lang = lang;
     document.title = resolve(p.name).text + " | " + resolve(p.title).text;
     const desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.setAttribute("content", resolve(p.headline).text);
+    if (desc) desc.setAttribute("content", resolve(p.slogan || p.headline).text);
   }
 
   function loadFont(code) {

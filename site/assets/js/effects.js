@@ -61,17 +61,14 @@
       w = rect.width; h = rect.height;
       canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
       canvas.style.width = w + "px"; canvas.style.height = h + "px";
-      const anchor = document.querySelector(".hero-visual");
-      if (anchor && w > 900) {
+      const anchor = document.querySelector(".orb");
+      if (anchor) {
         const a = anchor.getBoundingClientRect();
         cx = a.left - rect.left + a.width / 2;
-        cy = a.top - rect.top + a.height * 0.42;
-        R = Math.min(a.width, a.height) * 0.42;
-      } else if (anchor) {
-        const a = anchor.getBoundingClientRect();
-        cx = w / 2; cy = a.top - rect.top + 150; R = Math.min(w * 0.36, 130);
+        cy = a.top - rect.top + a.height / 2;
+        R = a.width / 2 * 1.32;
       } else {
-        cx = w * 0.5; cy = h * 0.32; R = Math.min(w, h) * 0.42;
+        cx = w * 0.7; cy = h * 0.45; R = Math.min(w, h) * 0.3;
       }
       if (!running) draw();
     }
@@ -194,44 +191,6 @@
     return { layout };
   })();
 
-  // ---------- terminal typing ----------
-  let typedOnce = false;
-  function typeTerminal() {
-    const body = document.querySelector(".t-body");
-    if (!body) return;
-    const rows = Array.from(body.children);
-    if (typedOnce || reduceMotion) return;
-    typedOnce = true;
-
-    const steps = rows.map((row) => {
-      const isCmd = row.classList.contains("t-cmd");
-      const prompt = row.querySelector(".t-prompt");
-      const textNode = isCmd ? Array.from(row.childNodes).find((n) => n.nodeType === 3) : null;
-      const full = textNode ? textNode.textContent : "";
-      if (textNode) textNode.textContent = "";
-      row.style.visibility = "hidden";
-      return { row, isCmd, textNode, full, prompt };
-    });
-
-    let i = 0;
-    (function next() {
-      if (i >= steps.length || !document.body.contains(body)) return;
-      const s = steps[i++];
-      s.row.style.visibility = "";
-      if (!s.textNode) { setTimeout(next, s.isCmd ? 0 : 220); return; }
-      let c = 0;
-      const caret = document.createElement("span");
-      caret.className = "caret";
-      s.row.append(caret);
-      (function type() {
-        if (!document.body.contains(body)) return;
-        s.textNode.textContent = s.full.slice(0, ++c);
-        if (c < s.full.length) setTimeout(type, 45 + Math.random() * 55);
-        else { caret.remove(); setTimeout(next, 260); }
-      })();
-    })();
-  }
-
   // ---------- scroll reveal ----------
   const revealer = "IntersectionObserver" in window && !reduceMotion
     ? new IntersectionObserver((entries) => {
@@ -249,7 +208,7 @@
         el.style.setProperty("--d", Math.min(i, 8) * 80 + "ms");
       });
     });
-    document.querySelectorAll(".section-head, .about-grid > *, .stat, .reveal").forEach((el) => {
+    document.querySelectorAll(".section-head, .reveal").forEach((el) => {
       el.classList.add("reveal");
       if (revealer) revealer.observe(el); else el.classList.add("in");
     });
@@ -318,9 +277,24 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  // ---------- active nav link ----------
+  let spy = null;
+  function scrollSpy() {
+    if (spy) spy.disconnect();
+    if (!("IntersectionObserver" in window)) return;
+    const links = Array.from(document.querySelectorAll("[data-spy]"));
+    spy = new IntersectionObserver((entries) => {
+      for (const en of entries) {
+        if (!en.isIntersecting) continue;
+        links.forEach((a) => a.classList.toggle("active", a.dataset.spy === en.target.id));
+      }
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    links.forEach((a) => { const sec = document.getElementById(a.dataset.spy); if (sec) spy.observe(sec); });
+  }
+
   window.Effects = {
     afterRender() {
-      typeTerminal();
+      scrollSpy();
       reveal();
       counters();
       Globe.layout();

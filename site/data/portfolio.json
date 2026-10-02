@@ -6,6 +6,12 @@
       "ja": "キッティパン・ラッタナコーン",
       "zh": "吉迪攀·叻达那功"
     },
+    "firstName": {
+      "th": "กิตติพันธ์",
+      "en": "Kittiphun",
+      "ja": "キッティパン",
+      "zh": "吉迪攀"
+    },
     "romanName": "Kittiphun Ruttanakorn",
     "title": {
       "th": "นักวิชาการคอมพิวเตอร์",
@@ -19,6 +25,24 @@
       "ja": "マハーチュラーロンコーンラージャウィッタヤーライ大学 プレー校",
       "zh": "摩诃朱拉隆功佛教大学 帕府校区"
     },
+    "tagline": {
+      "th": "Network · Server · Full-Stack",
+      "en": "Network · Server · Full-Stack",
+      "ja": "Network · Server · Full-Stack",
+      "zh": "Network · Server · Full-Stack"
+    },
+    "slogan": {
+      "th": "วางระบบให้มั่นคง พัฒนาซอฟต์แวร์ให้ใช้งานได้จริง",
+      "en": "I build reliable networks and the software that runs on them.",
+      "ja": "堅牢なネットワークと、その上で動くソフトウェアを。",
+      "zh": "构建稳定的网络，以及运行其上的软件。"
+    },
+    "intro": {
+      "th": "นักวิชาการคอมพิวเตอร์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่ เชี่ยวชาญการดูแลระบบเครือข่าย Cisco, Windows Server และ Linux พร้อมพัฒนาระบบสารสนเทศแบบ Full-Stack ที่ตอบโจทย์งานจริงขององค์กร",
+      "en": "Computer Technical Officer at Mahachulalongkornrajavidyalaya University, Phrae Campus — specializing in Cisco networking, Windows Server and Linux administration, and full-stack information systems that solve real organizational needs.",
+      "ja": "マハーチュラーロンコーンラージャウィッタヤーライ大学 プレー校のコンピュータ技術職員。Cisco ネットワーク、Windows Server・Linux の管理、そして組織の実課題を解決するフルスタック情報システム開発を専門としています。",
+      "zh": "摩诃朱拉隆功佛教大学帕府校区计算机技术专员，专注于 Cisco 网络、Windows Server 与 Linux 管理，以及解决组织实际需求的全栈信息系统开发。"
+    },
     "headline": {
       "th": "ผู้เชี่ยวชาญโครงสร้างพื้นฐานไอที · ผู้ดูแลระบบเครือข่ายและเซิร์ฟเวอร์ · Full-Stack Developer",
       "en": "IT Infrastructure Specialist · Network & Server Administrator · Full-Stack Developer",
@@ -31,6 +55,12 @@
       "ja": "ITインフラとフルスタックソフトウェア開発の両分野に精通したコンピュータ技術職員です。Cisco をはじめとする世界標準のネットワーク機器による企業ネットワークの設計・構築・運用を担当し、Windows Server および Linux 環境をコマンドラインインターフェースで効率的に管理しています。さらに、フルスタックの情報システムを開発し、大学の業務とサービスの安定性・安全性・先進性の向上に取り組んでいます。",
       "zh": "兼具 IT 基础设施与全栈软件开发能力的计算机技术专员。负责使用 Cisco 等世界领先的网络设备设计、部署和维护企业级网络，通过命令行界面高效管理 Windows Server 与 Linux 服务器环境，并开发全栈信息系统，使大学的管理与服务更加稳定、安全、现代化。"
     },
+    "motto": {
+      "th": "เทคโนโลยีที่ดีต้องมั่นคง ปลอดภัย และช่วยให้งานของทุกคนง่ายขึ้น — นี่คือหลักที่ผมยึดถือในทุกระบบที่ดูแลและพัฒนา",
+      "en": "Good technology must be stable, secure, and make everyone's work easier — the principle behind every system I manage and build.",
+      "ja": "良い技術とは、安定し、安全で、皆の仕事を楽にするもの。それが私が管理・開発するすべてのシステムの信条です。",
+      "zh": "好的技术必须稳定、安全，并让每个人的工作更轻松——这是我管理和开发每一个系统所坚持的原则。"
+    },
     "location": {
       "th": "จังหวัดแพร่ ประเทศไทย",
       "en": "Phrae, Thailand",
@@ -39,9 +69,9 @@
     },
     "email": "kittiphun.rut@mcu.ac.th",
     "github": "https://github.com/kittiphunr",
-    "photo": "assets/img/profile.jpg"
+    "photo": "assets/img/profile.jpg",
+    "cv": ""
   },
-
   "skills": [
     {
       "icon": "network",
@@ -141,7 +171,62 @@
       ]
     }
   ],
-
+  "proficiency": [
+    {
+      "name": "Cisco Networking",
+      "icon": "cisco",
+      "color": "#1BA0D7",
+      "level": 90
+    },
+    {
+      "name": "Windows Server",
+      "icon": "windows",
+      "color": "#3B9EFF",
+      "level": 85
+    },
+    {
+      "name": "Linux / CLI",
+      "icon": "linux",
+      "color": "#FCC624",
+      "level": 85
+    },
+    {
+      "name": "HTML / CSS",
+      "icon": "html5",
+      "color": "#E34F26",
+      "level": 90
+    },
+    {
+      "name": "JavaScript",
+      "icon": "javascript",
+      "color": "#F7DF1E",
+      "level": 85
+    },
+    {
+      "name": "Node.js",
+      "icon": "nodedotjs",
+      "color": "#5FA04E",
+      "level": 80
+    },
+    {
+      "name": "Python",
+      "icon": "python",
+      "color": "#4B8BBE",
+      "level": 80
+    },
+    {
+      "name": "SQL / MySQL",
+      "icon": "mysql",
+      "color": "#5B9BD5",
+      "level": 80
+    },
+    {
+      "name": "Git & GitHub",
+      "icon": "git",
+      "color": "#F05032",
+      "level": 85
+    }
+  ],
   "experience": [
     {
       "start": "2024-10-01",
@@ -186,9 +271,7 @@
       ]
     }
   ],
-
   "education": [],
-
   "projects": [
     {
       "title": "TOR-MCU-Standard",
@@ -198,7 +281,10 @@
         "ja": "大学の基準に沿った業務仕様書（TOR）を作成するためのツールキット。",
         "zh": "按照大学标准编制工作范围说明书（TOR）的工具集。"
       },
-      "tags": ["VBA", "Automation"],
+      "tags": [
+        "VBA",
+        "Automation"
+      ],
       "link": ""
     },
     {
@@ -209,7 +295,9 @@
         "ja": "数量明細書（BOQ）の作成と工事費見積りのためのツール。",
         "zh": "用于编制工程量清单（BOQ）及工程造价估算的工具。"
       },
-      "tags": ["Python"],
+      "tags": [
+        "Python"
+      ],
       "link": ""
     },
     {
@@ -220,7 +308,10 @@
         "ja": "品質検査・品質管理システム。",
         "zh": "质量检验与控制系统。"
       },
-      "tags": ["JavaScript", "Web App"],
+      "tags": [
+        "JavaScript",
+        "Web App"
+      ],
       "link": ""
     },
     {
@@ -231,7 +322,10 @@
         "ja": "MCU プレー校の食堂管理システム。",
         "zh": "MCU 帕府校区食堂管理系统。"
       },
-      "tags": ["C++", "Embedded"],
+      "tags": [
+        "C++",
+        "Embedded"
+      ],
       "link": ""
     },
     {
@@ -242,7 +336,11 @@
         "ja": "IoT を活用したリアルタイム点滴（IV）モニタリングシステム。",
         "zh": "基于物联网的实时静脉输液（IV）监测系统。"
       },
-      "tags": ["C++", "IoT", "ESP32"],
+      "tags": [
+        "C++",
+        "IoT",
+        "ESP32"
+      ],
       "link": "https://github.com/kittiphunr/IV-Monitor-BCNPH"
     },
     {
@@ -253,7 +351,11 @@
         "ja": "ESP32-S3 マイコンと 2.8 インチディスプレイで構築した音楽プレーヤー。",
         "zh": "基于 ESP32-S3 微控制器、配备 2.8 英寸显示屏的音乐播放器。"
       },
-      "tags": ["C", "ESP32", "Embedded"],
+      "tags": [
+        "C",
+        "ESP32",
+        "Embedded"
+      ],
       "link": ""
     }
   ]
