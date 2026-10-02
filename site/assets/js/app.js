@@ -244,7 +244,7 @@
     document.getElementById("lang-switch").replaceChildren(...LANGS.map((l) =>
       h("button", {
         type: "button", lang: l.code, "data-lang": l.code, "aria-pressed": String(l.code === lang),
-        class: "rounded-full px-2 py-1 text-xs font-semibold leading-snug transition-colors sm:px-2.5 " +
+        class: "whitespace-nowrap rounded-full px-[7px] py-1 text-xs font-semibold leading-snug transition-colors sm:px-2.5 " +
           (l.code === lang ? "bg-grad text-white" : "text-muted hover:text-fg")
       }, l.label)
     ));
@@ -524,12 +524,33 @@
     ));
   }
 
+  const SITE_URL = "https://kittiphunr.github.io/";
+  const OG_LOCALE = { th: "th_TH", en: "en_US", ja: "ja_JP", zh: "zh_CN" };
+
+  function setMeta(selector, value) {
+    const el = document.querySelector(selector);
+    if (el) el.setAttribute(el.tagName === "LINK" ? "href" : "content", value);
+  }
+
+  // Keep title, description and social tags in the visitor's language.
   function updateMeta() {
     const p = data.profile;
+    const name = resolve(p.name).text;
+    const title = name + " | " + resolve(p.title).text + " · Network · Server · Full-Stack";
+    const desc = resolve(p.intro || p.summary).text.slice(0, 300);
+    const url = lang === DEFAULT_LANG ? SITE_URL : SITE_URL + "?lang=" + lang;
     document.documentElement.lang = lang;
-    document.title = resolve(p.name).text + " | " + resolve(p.title).text;
-    const desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.setAttribute("content", resolve(p.slogan || p.headline).text);
+    document.title = title;
+    setMeta('meta[name="description"]', desc);
+    setMeta('link[rel="canonical"]', url);
+    setMeta('meta[property="og:url"]', url);
+    setMeta('meta[property="og:title"]', name + (lang === "en" ? "" : " — " + (p.romanName || "")));
+    setMeta('meta[property="og:description"]', desc);
+    setMeta('meta[property="og:locale"]', OG_LOCALE[lang]);
+    setMeta('meta[name="twitter:title"]', name);
+    setMeta('meta[name="twitter:description"]', desc);
+    const tt = document.getElementById("theme-toggle");
+    if (tt) { tt.setAttribute("aria-label", UI[lang].themeToggle); tt.title = UI[lang].themeToggle; }
   }
 
   function loadFont(code) {
@@ -574,6 +595,26 @@
     if (CODES.includes(saved)) return saved;
     return DEFAULT_LANG;
   }
+
+  // ---------- light / dark toggle ----------
+  const THEME_KEY = "portfolio.theme";
+  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") || (darkQuery.matches ? "dark" : "light");
+  }
+  function syncThemeColor() {
+    const color = currentTheme() === "dark" ? "#0b0912" : "#fdf8fb";
+    document.querySelectorAll('meta[name="theme-color"]').forEach((m) => { m.removeAttribute("media"); m.setAttribute("content", color); });
+  }
+  document.getElementById("theme-toggle").addEventListener("click", () => {
+    const next = currentTheme() === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    storeSet(THEME_KEY, next);
+    syncThemeColor();
+    document.dispatchEvent(new CustomEvent("themechange", { detail: next }));
+  });
+  darkQuery.addEventListener("change", syncThemeColor);
+  syncThemeColor();
 
   // ---------- boot ----------
   document.getElementById("lang-switch").addEventListener("click", (e) => {
