@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tailwindcss -i ./src/tailwind.css -o ./site/assets/css/tailwind.css --minify",
     "dev": "tailwindcss -i ./src/tailwind.css -o ./site/assets/css/tailwind.css --watch",
-    "translate": "node scripts/translate.mjs"
+    "translate": "node scripts/translate.mjs",
+    "deploy": "npm run build && python3 scripts/build_deploy.py"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.19"
