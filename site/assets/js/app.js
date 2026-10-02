@@ -398,34 +398,44 @@
     ));
   }
 
-  // Spotlight for the project marked with "featured" in portfolio.json.
+  function featuredId(pr) {
+    return "featured-" + resolveEn(pr.title).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  }
+
+  // Thumbnail grid columns by image count (full class names so Tailwind keeps them).
+  const THUMB_COLS = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-4", 5: "grid-cols-5", 6: "grid-cols-3 sm:grid-cols-6" };
+
+  // Spotlights for every project marked with "featured" in portfolio.json.
   function renderFeatured() {
     const el = document.getElementById("featured");
-    const pr = (data.projects || []).find((x) => x.featured);
-    if (!pr) { el.hidden = true; el.replaceChildren(); return; }
+    const list = (data.projects || []).filter((x) => x.featured);
+    if (!list.length) { el.hidden = true; el.replaceChildren(); return; }
+    el.hidden = false;
+    el.replaceChildren(h("div", { class: WRAP }, list.map((pr, i) => featuredBlock(pr, i))));
+  }
+
+  function featuredBlock(pr, index) {
     const f = pr.featured;
     const s = UI[lang];
-    el.hidden = false;
+    const isRepo = /github\.com/.test(pr.link || "");
 
     const gallery = f.gallery || [];
-    let current = 0;
     const mainImg = h("img", { class: "aspect-[16/11] w-full bg-[#0b0912] object-contain", src: gallery[0] ? gallery[0].src : pr.image, alt: "", decoding: "async" });
     const mainLink = h("a", { href: mainImg.src, target: "_blank", rel: "noopener", class: "group relative block", title: s.viewFull, "aria-label": s.viewFull },
       mainImg,
       h("span", { class: "absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-lg bg-black/55 text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100" }, icon("expand", "h-4 w-4")));
     const caption = h("p", { class: "mt-3 min-h-[3rem] text-sm text-muted" });
     const fileLabel = h("span", { class: "ml-2 truncate font-mono text-xs text-muted" });
-    const thumbs = gallery.map((g, i) => h("button", {
+    const thumbs = gallery.map((g) => h("button", {
       type: "button", "aria-label": resolve(g.caption).text,
       class: "thumb overflow-hidden rounded-lg border-2 border-transparent bg-ink-700 opacity-70 transition hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
     }, h("img", { class: "aspect-video w-full object-cover object-top", src: g.src, alt: "", loading: "lazy" })));
 
     function show(i) {
-      current = i;
       const g = gallery[i];
       mainImg.src = g.src; mainLink.href = g.src;
       bind(caption, g.caption);
-      fileLabel.textContent = pr.link ? pr.link.replace(/^https?:\/\//, "") : "precision-qc / " + g.src.split("/").pop();
+      fileLabel.textContent = pr.link ? pr.link.replace(/^https?:\/\//, "").replace(/\/$/, "") : resolveEn(pr.title).toLowerCase() + " / " + g.src.split("/").pop();
       thumbs.forEach((b, j) => {
         b.classList.toggle("border-brand-500", j === i);
         b.classList.toggle("border-transparent", j !== i);
@@ -436,11 +446,16 @@
     thumbs.forEach((b, i) => b.addEventListener("click", () => show(i)));
     if (gallery.length) show(0);
 
-    const window_ = h("div", { class: "card reveal overflow-hidden shadow-card" },
+    const frame = h("div", { class: "card reveal overflow-hidden shadow-card" },
       h("div", { class: "flex items-center gap-2 border-b border-ink-600 px-4 py-2.5" },
-        h("i", { class: "h-2.5 w-2.5 rounded-full bg-[#fb7185]" }), h("i", { class: "h-2.5 w-2.5 rounded-full bg-[#fbbf24]" }), h("i", { class: "h-2.5 w-2.5 rounded-full bg-[#4ade80]" }),
+        h("i", { class: "h-2.5 w-2.5 flex-none rounded-full bg-[#fb7185]" }), h("i", { class: "h-2.5 w-2.5 flex-none rounded-full bg-[#fbbf24]" }), h("i", { class: "h-2.5 w-2.5 flex-none rounded-full bg-[#4ade80]" }),
         fileLabel),
       mainLink);
+
+    const action = pr.link ? h("div", { class: "mt-6" },
+      h("a", { class: "btn btn-primary", href: pr.link, target: "_blank", rel: "noopener" },
+        isRepo ? svg('<svg viewBox="0 0 24 24" class="h-[18px] w-[18px] fill-current" aria-hidden="true"><path d="' + GITHUB_PATH + '"/></svg>') : null,
+        isRepo ? s.viewSource : s.tryLive, icon("arrow"))) : null;
 
     const metrics = h("div", { class: "mt-7 grid grid-cols-2 gap-3", "data-reveal-group": "" }, (f.metrics || []).map((m) =>
       h("div", { class: "rounded-xl border border-ink-600 bg-ink-800 px-4 py-3.5" },
@@ -455,26 +470,26 @@
     const highlights = (f.highlights || []).map((hl) =>
       h("article", { class: "card tilt p-6 md:p-7" },
         h("div", { class: "flex items-center gap-4" },
-          brand(hl.icon, hl.color, "h-14 w-14 rounded-xl border border-ink-600 bg-ink-700 p-3"),
+          brand(hl.icon, hl.color, "h-14 w-14 flex-none rounded-xl border border-ink-600 bg-ink-700 p-3"),
           h("div", null,
-            h("h3", { class: "text-xl font-bold" }, hl.title),
+            t(hl.title, "h3", "text-xl font-bold"),
             t(hl.role, "p", "text-sm text-muted"))),
         h("ul", { class: "mt-5 space-y-3" }, (hl.points || []).map((pt) =>
           h("li", { class: "flex gap-3 text-soft" }, icon("check", "mt-1 h-[18px] w-[18px] flex-none text-accent"), t(pt, "span"))))
       ));
+    const hlCols = highlights.length >= 3 ? "lg:grid-cols-3" : "md:grid-cols-2";
 
-    el.replaceChildren(h("div", { class: WRAP },
+    return h("article", { id: featuredId(pr), class: index ? "mt-24 border-t border-ink-600 pt-24" : "" },
       h("header", { class: "section-head mb-10 text-center" },
         badge(s.featuredBadge),
-        h("h2", { class: "mt-3 bg-grad bg-clip-text text-4xl font-bold leading-tight tracking-tight text-transparent md:text-5xl" }, resolveEn(pr.title).replace(/-/g, " ")),
+        h("h2", { class: "mt-3 bg-grad bg-clip-text text-4xl font-bold leading-tight tracking-tight text-transparent md:text-5xl" }, f.name || resolveEn(pr.title).replace(/-/g, " ")),
         t(f.subtitle, "p", "mx-auto mt-3 max-w-2xl text-lg text-muted")),
       h("div", { class: "grid items-start gap-10 lg:grid-cols-[1.2fr_.8fr]" },
-        h("div", null, window_, caption, h("div", { class: "mt-1 grid grid-cols-4 gap-3" }, thumbs)),
-        h("div", { class: "reveal" }, t(f.summary, "p", "text-soft"),
-          pr.link ? h("div", { class: "mt-6" }, h("a", { class: "btn btn-primary", href: pr.link, target: "_blank", rel: "noopener" }, s.tryLive, icon("arrow"))) : null,
-          metrics, stack)),
-      highlights.length ? h("div", { class: "mt-12 grid gap-6 md:grid-cols-2", "data-reveal-group": "" }, highlights) : null
-    ));
+        // min-w-0 lets the long address-bar text truncate instead of widening the grid.
+        h("div", { class: "min-w-0" }, frame, caption, h("div", { class: "mt-1 grid gap-3 " + (THUMB_COLS[thumbs.length] || "grid-cols-4") }, thumbs)),
+        h("div", { class: "reveal min-w-0" }, t(f.summary, "p", "text-soft"), action, metrics, stack)),
+      highlights.length ? h("div", { class: "mt-12 grid gap-6 " + hlCols, "data-reveal-group": "" }, highlights) : null
+    );
   }
 
   function timeline(items, roleKey, orgKey) {
@@ -552,10 +567,11 @@
           h("div", { class: "mt-4 flex items-end justify-between gap-3" },
             hasItems(pr.tags) ? h("ul", { class: "flex flex-wrap gap-2" }, pr.tags.map((tg) =>
               h("li", { class: "rounded-full bg-brand-500/15 px-2.5 py-0.5 text-xs font-semibold text-accent" }, tg))) : h("span"),
-            pr.link ? h("a", { class: "inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-accent hover:text-fg", href: pr.link, target: "_blank", rel: "noopener" },
-              s.viewProject, icon("arrow", "ic-arrow h-[15px] w-[15px] transition-transform"))
-              : pr.featured ? h("a", { class: "inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-accent hover:text-fg", href: "#featured" },
-              s.viewDetails, icon("arrow", "ic-arrow h-[15px] w-[15px] transition-transform")) : null
+            // Featured projects link to their spotlight; others to their external link.
+            pr.featured ? h("a", { class: "inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-accent hover:text-fg", href: "#" + featuredId(pr) },
+              s.viewDetails, icon("arrow", "ic-arrow h-[15px] w-[15px] transition-transform"))
+              : pr.link ? h("a", { class: "inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-accent hover:text-fg", href: pr.link, target: "_blank", rel: "noopener" },
+              s.viewProject, icon("arrow", "ic-arrow h-[15px] w-[15px] transition-transform")) : null
           )
         )
       )
