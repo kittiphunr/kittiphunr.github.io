@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://kittiphunr.github.io/</loc>
+    <lastmod>2026-10-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="th" href="https://kittiphunr.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kittiphunr.github.io/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphunr.github.io/?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://kittiphunr.github.io/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kittiphunr.github.io/"/>
+  </url>
+  <url>
+    <loc>https://kittiphunr.github.io/?lang=en</loc>
+    <lastmod>2026-10-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="th" href="https://kittiphunr.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kittiphunr.github.io/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphunr.github.io/?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://kittiphunr.github.io/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kittiphunr.github.io/"/>
+  </url>
+  <url>
+    <loc>https://kittiphunr.github.io/?lang=ja</loc>
+    <lastmod>2026-10-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="th" href="https://kittiphunr.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kittiphunr.github.io/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphunr.github.io/?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://kittiphunr.github.io/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kittiphunr.github.io/"/>
+  </url>
+  <url>
+    <loc>https://kittiphunr.github.io/?lang=zh</loc>
+    <lastmod>2026-10-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="th" href="https://kittiphunr.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kittiphunr.github.io/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphunr.github.io/?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://kittiphunr.github.io/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kittiphunr.github.io/"/>
+  </url>
+</urlset>

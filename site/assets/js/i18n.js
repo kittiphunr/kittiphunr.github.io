@@ -9,6 +9,7 @@ window.LANGS = [
 
 window.UI = {
   th: {
+    themeToggle: "สลับโหมดสว่าง/มืด",
     navHome: "หน้าแรก",
     navAbout: "เกี่ยวกับ",
     navSkills: "ทักษะ",
@@ -59,6 +60,7 @@ window.UI = {
     by: "โดย"
   },
   en: {
+    themeToggle: "Toggle light/dark mode",
     navHome: "Home",
     navAbout: "About",
     navSkills: "Skills",
@@ -109,6 +111,7 @@ window.UI = {
     by: "by"
   },
   ja: {
+    themeToggle: "ライト/ダークモード切替",
     navHome: "ホーム",
     navAbout: "プロフィール",
     navSkills: "スキル",
@@ -159,6 +162,7 @@ window.UI = {
     by: "by"
   },
   zh: {
+    themeToggle: "切换浅色/深色模式",
     navHome: "首页",
     navAbout: "关于",
     navSkills: "技能",
