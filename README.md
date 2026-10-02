@@ -123,7 +123,8 @@ npm run build      # build แบบย่อขนาดสำหรับข�
 - **SEO:** อยู่ใน `<head>` ของ `site/index.html` ได้แก่ title/description, Open Graph และ Twitter card (ภาพแชร์ `site/assets/img/og-image.jpg` ขนาด 1200×630), hreflang ทั้ง 4 ภาษา และข้อมูลโครงสร้าง JSON-LD (`Person`) — เมื่อเปลี่ยนภาษา title/description/canonical จะเปลี่ยนตาม
 - **ไฟล์สำหรับ search engine:** `site/robots.txt` และ `site/sitemap.xml` — แก้ `lastmod` เมื่ออัปเดตเนื้อหาสำคัญ
 - **แนะนำ:** ลงทะเบียนเว็บใน [Google Search Console](https://search.google.com/search-console) แล้วส่ง `https://kittiphunr.github.io/sitemap.xml`
-- **Smooth scroll:** ใช้ CSS ล้วน (`scroll-behavior: smooth` และ `scroll-padding-top` ใน `src/tailwind.css`) กดเมนูแล้วเลื่อนนุ่มนวลไปหยุดใต้แถบเมนู และปิดอัตโนมัติเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว
+- **Smooth scroll:** กดเมนูหรือปุ่มในหน้าแล้วเลื่อนแบบค่อย ๆ เร่งและค่อย ๆ ชะลอ (easeInOutCubic) ระยะเวลา 0.6–1.4 วินาทีตามระยะทาง หยุดใต้แถบเมนูพอดี (`smoothScrollTo` ใน `site/assets/js/effects.js`) หมุนล้อเมาส์ระหว่างเลื่อนจะยกเลิกทันที
+- **เคอร์เซอร์แบบโต้ตอบ:** จุดสีชมพูกับวงแหวนที่ตามเมาส์ วงแหวนขยายเมื่อชี้ลิงก์/ปุ่ม และกลายเป็นวง "ดู" เมื่อชี้ภาพที่กดได้ (สไตล์อยู่ใน `src/tailwind.css` ส่วน Interactive cursor) — ใช้เฉพาะเมาส์ ปิดบนอุปกรณ์สัมผัสและเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว
 - **โหมดสว่าง/มืด:** ค่าเริ่มต้นตามธีมของเครื่อง กดปุ่ม ☾/☀ บนแถบเมนูเพื่อสลับ ระบบจะจำค่าที่เลือกไว้ในเบราว์เซอร์
 
 ## ทดสอบในเครื่อง
