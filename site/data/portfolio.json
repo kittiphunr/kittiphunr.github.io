@@ -302,6 +302,36 @@
       }
     },
     {
+      "start": "2019",
+      "end": "2023",
+      "role": {
+        "th": "Freelance Full-Stack Developer",
+        "en": "Freelance Full-Stack Developer",
+        "ja": "フリーランス フルスタック開発者",
+        "zh": "自由职业全栈开发工程师"
+      },
+      "organization": {
+        "th": "งานอิสระ (ฟรีแลนซ์)",
+        "en": "Self-employed",
+        "ja": "個人事業（フリーランス）",
+        "zh": "自由职业"
+      },
+      "highlights": [
+        {
+          "th": "พัฒนาเว็บแอปพลิเคชันและระบบสารสนเทศแบบ Full-Stack ครอบคลุมส่วนติดต่อผู้ใช้ ระบบหลังบ้าน และฐานข้อมูล",
+          "en": "Built full-stack web applications and information systems, covering the user interface, back end and database.",
+          "ja": "ユーザーインターフェース、バックエンド、データベースまでを含むフルスタックの Web アプリケーションと情報システムを開発。",
+          "zh": "开发全栈 Web 应用与信息系统，涵盖用户界面、后端与数据库。"
+        },
+        {
+          "th": "ดูแลงานตั้งแต่รับความต้องการ ออกแบบ พัฒนา ไปจนถึงส่งมอบระบบให้ผู้ว่าจ้าง",
+          "en": "Handled projects end to end — from gathering requirements and design through development to delivery.",
+          "ja": "要件ヒアリング、設計、開発から納品までを一貫して担当。",
+          "zh": "负责项目全流程——从需求收集、设计、开发到交付。"
+        }
+      ]
+    },
+    {
       "start": "2017",
       "end": "2018",
       "role": {
