@@ -22,7 +22,8 @@ scripts/         ← เครื่องมือแปลภาษา (ไม
 | `site/assets/js/i18n.js` | ข้อความเมนู/หัวข้อของหน้าเว็บในแต่ละภาษา |
 | `site/assets/js/app.js` | แสดงผลข้อมูล และแปลภาษาอัตโนมัติฝั่งเบราว์เซอร์ (สำรอง) |
 | `site/assets/css/style.css` | รูปแบบการแสดงผล (รองรับโหมดมืด และมือถือ) |
-| `site/assets/js/effects.js` | เอฟเฟกต์: ลูกโลกเครือข่าย 3 มิติ, terminal พิมพ์อัตโนมัติ, แอนิเมชันเมื่อเลื่อนหน้า, การ์ดเอียง 3 มิติ, ตัวนับสถิติ (ปิดอัตโนมัติเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว) |
+| `site/assets/js/icons.js` | ไอคอนโลโก้เทคโนโลยี (Simple Icons) |
+| `site/assets/js/effects.js` | เอฟเฟกต์: ลูกโลกเครือข่าย 3 มิติ, แอนิเมชันเมื่อเลื่อนหน้า, แถบทักษะ, ไฮไลต์เมนูตามตำแหน่ง, การ์ดเอียง 3 มิติ, ตัวนับสถิติ (ปิดอัตโนมัติเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว) |
 | `scripts/translate.mjs` | สคริปต์เติมคำแปลที่ขาดลงใน `site/data/portfolio.json` |
 | `.github/workflows/static.yml` | GitHub Action: แปลภาษาอัตโนมัติ → commit กลับ → deploy |
 
@@ -69,7 +70,17 @@ scripts/         ← เครื่องมือแปลภาษา (ไม
 
 **ทักษะ** (`skills`) — `icon` เลือกได้จาก `network`, `windows`, `terminal`, `code`, `server`, `shield`
 
+**ระดับทักษะ** (`proficiency`, แสดงเป็นแถบเปอร์เซ็นต์และไอคอนในหน้าแรก) — `level` คือ 0–100 ปรับตามจริงได้ `icon` เลือกจาก `cisco`, `windows`, `linux`, `ubuntu`, `html5`, `javascript`, `nodedotjs`, `python`, `mysql`, `docker`, `git`
+
+```json
+{ "name": "Docker", "icon": "docker", "color": "#2496ED", "level": 75 }
+```
+
 **รูปโปรไฟล์** — วางรูปไว้ที่ `site/assets/img/` แล้วใส่ path ใน `profile.photo`
+
+**ไฟล์ CV** — วางไฟล์ PDF ไว้ที่ `site/assets/` แล้วใส่ path ใน `profile.cv` (เช่น `"assets/cv.pdf"`) ปุ่ม "ดาวน์โหลด CV" จะแสดงขึ้นอัตโนมัติ
+
+**ข้อความหน้าแรก** — `profile.tagline` (ป้ายเล็ก), `profile.slogan` (ข้อความตัวใหญ่), `profile.intro` (คำแนะนำตัว), `profile.motto` (ปณิธานในส่วนติดต่อ)
 
 วันที่ใช้รูปแบบ ค.ศ. `YYYY-MM-DD` เมื่อแสดงเป็นภาษาไทยจะเปลี่ยนเป็น พ.ศ. ให้อัตโนมัติ
 
