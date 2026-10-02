@@ -29,6 +29,7 @@ scripts/              ← สคริปต์แปลภาษา
 | `site/assets/css/tailwind.css` | CSS ที่ build แล้ว (สร้างจากคำสั่ง `npm run build`) |
 | `site/assets/js/icons.js` | ไอคอนโลโก้เทคโนโลยี (Simple Icons) |
 | `site/assets/js/effects.js` | เอฟเฟกต์: ลูกโลกเครือข่าย 3 มิติ, แอนิเมชันเมื่อเลื่อนหน้า, แถบทักษะ, ไฮไลต์เมนูตามตำแหน่ง, การ์ดเอียง 3 มิติ, ตัวนับสถิติ (ปิดอัตโนมัติเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว) |
+| `site/assets/js/circuit.js` | ลายวงจร PCB พร้อมกระแสไฟวิ่งตามลายวงจร (แถบคั่นมีชิป IC และพื้นหลังจาง ๆ ของบางส่วน) |
 | `scripts/translate.mjs` | สคริปต์เติมคำแปลที่ขาดลงใน `site/data/portfolio.json` |
 | `.github/workflows/static.yml` | GitHub Action: แปลภาษาอัตโนมัติ → commit กลับ → deploy |
 
@@ -126,6 +127,7 @@ npm run build      # build แบบย่อขนาดสำหรับข�
 - **แนะนำ:** ลงทะเบียน `https://kittiphun.rut.mcupr.ac.th/` ใน [Google Search Console](https://search.google.com/search-console) แล้วส่ง `https://kittiphun.rut.mcupr.ac.th/sitemap.xml`
 - **Smooth scroll:** กดเมนูหรือปุ่มในหน้าแล้วเลื่อนแบบค่อย ๆ เร่งและค่อย ๆ ชะลอ (easeInOutCubic) ระยะเวลา 0.6–1.4 วินาทีตามระยะทาง หยุดใต้แถบเมนูพอดี (`smoothScrollTo` ใน `site/assets/js/effects.js`) หมุนล้อเมาส์ระหว่างเลื่อนจะยกเลิกทันที
 - **เคอร์เซอร์แบบโต้ตอบ:** จุดสีชมพูกับวงแหวนที่ตามเมาส์ วงแหวนขยายเมื่อชี้ลิงก์/ปุ่ม และกลายเป็นวง "ดู" เมื่อชี้ภาพที่กดได้ (สไตล์อยู่ใน `src/tailwind.css` ส่วน Interactive cursor) — ใช้เฉพาะเมาส์ ปิดบนอุปกรณ์สัมผัสและเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว
+- **ลายวงจร + กระแสไฟ:** `site/assets/js/circuit.js` วาดลายวงจรแบบ PCB (ลายทองแดงหักมุม 45°, pad, via, ชิป IC) จาก seed จึงได้ลายเดิมทุกครั้ง ใส่ได้สองแบบ: `<div class="circuit-divider" data-circuit="divider" data-seed="3"></div>` เป็นแถบคั่นระหว่างส่วน และ `data-circuit="bg"` เป็นพื้นหลังจาง ๆ (ส่วนที่ app.js เรนเดอร์ใหม่กำหนดใน `SECTION_BG`) กระแสไฟเป็นแอนิเมชัน CSS ที่หยุดเมื่ออยู่นอกจอ และไม่สร้างเลยเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว สีปรับในส่วน Circuit traces ของ `src/tailwind.css`
 - **โหมดสว่าง/มืด:** ค่าเริ่มต้นตามธีมของเครื่อง กดปุ่ม ☾/☀ บนแถบเมนูเพื่อสลับ ระบบจะจำค่าที่เลือกไว้ในเบราว์เซอร์
 
 ## เรซูเม่แบบ PDF (ปุ่มดาวน์โหลด)

@@ -451,6 +451,7 @@
 
   window.Effects = {
     afterRender() {
+      if (window.Circuits) window.Circuits.mount();
       carousel();
       scrollSpy();
       reveal();
