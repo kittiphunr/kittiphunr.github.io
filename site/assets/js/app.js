@@ -815,5 +815,6 @@
     .catch((err) => {
       console.error(err);
       document.getElementById("hero").replaceChildren(h("p", { class: "py-20 text-muted" }, UI[lang].loadError));
-    });
+    })
+    .finally(() => document.dispatchEvent(new Event("pageready"))); // hides the loading screen
 })();
