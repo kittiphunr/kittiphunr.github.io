@@ -1,7 +1,7 @@
 // Visual effects: 3D network globe, scroll reveal, card tilt, animated counters,
 // eased in-page scrolling, interactive cursor and scroll progress.
-// Motion follows <html data-motion="on|off"> (device setting or the toggle
-// button) and switches live on the "motionchange" event.
+// Motion follows <html data-motion="on|off"> (device setting or the display
+// settings menu) and switches live on the "motionchange" event.
 (function () {
   "use strict";
 
@@ -486,6 +486,11 @@
     carousel.rebuild = build;
   }
   window.addEventListener("resize", () => carousel.rebuild && carousel.rebuild());
+  // Text size changes move the portrait and card widths.
+  document.addEventListener("fontsizechange", () => {
+    Globe.layout();
+    if (carousel.rebuild) carousel.rebuild();
+  });
 
   window.Effects = {
     afterRender() {
