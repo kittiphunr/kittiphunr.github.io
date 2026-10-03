@@ -669,8 +669,10 @@
     setMeta('meta[property="og:locale"]', OG_LOCALE[lang]);
     setMeta('meta[name="twitter:title"]', name);
     setMeta('meta[name="twitter:description"]', desc);
-    const tt = document.getElementById("theme-toggle");
-    if (tt) { tt.setAttribute("aria-label", UI[lang].themeToggle); tt.title = UI[lang].themeToggle; }
+    [["theme-toggle", "themeToggle"], ["motion-toggle", "motionToggle"]].forEach(([id, key]) => {
+      const btn = document.getElementById(id);
+      if (btn) { btn.setAttribute("aria-label", UI[lang][key]); btn.title = UI[lang][key]; }
+    });
   }
 
   function loadFont(code) {
@@ -736,6 +738,27 @@
   });
   darkQuery.addEventListener("change", syncThemeColor);
   syncThemeColor();
+
+  // ---------- animations on / off ----------
+  // <html data-motion> is set before first paint (index.html); effects.js and
+  // the CSS follow it and react to the "motionchange" event.
+  const MOTION_KEY = "portfolio.motion";
+  const motionBtn = document.getElementById("motion-toggle");
+  function setMotion(on) {
+    document.documentElement.setAttribute("data-motion", on ? "on" : "off");
+    motionBtn.setAttribute("aria-pressed", String(on));
+    document.dispatchEvent(new CustomEvent("motionchange", { detail: on }));
+  }
+  motionBtn.setAttribute("aria-pressed", String(document.documentElement.dataset.motion !== "off"));
+  motionBtn.addEventListener("click", () => {
+    const on = document.documentElement.dataset.motion === "off";
+    storeSet(MOTION_KEY, on ? "on" : "off");
+    setMotion(on);
+  });
+  // Without a saved choice, keep following the device setting.
+  window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", (e) => {
+    if (!storeGet(MOTION_KEY)) setMotion(!e.matches);
+  });
 
   // ---------- boot ----------
   document.getElementById("lang-switch").addEventListener("click", (e) => {
