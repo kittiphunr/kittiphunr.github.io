@@ -172,6 +172,48 @@ html.cursor-visible .cursor-dot, html.cursor-visible .cursor-ring { opacity: 1; 
 :root[data-theme="light"] .c-core { stroke: #db2777; }
 @keyframes c-run { from { stroke-dashoffset: 28px; } to { stroke-dashoffset: calc(var(--len) * -1px); } }
 
+/* ---------- Loading screen (index.html) ---------- */
+.loader {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+  background: radial-gradient(520px 360px at 50% 45%, rgba(192, 38, 211, .14), transparent 70%), rgb(var(--ink-950));
+  transition: opacity .55s ease .3s, visibility 0s linear .85s;
+}
+.loader-core { display: flex; flex-direction: column; align-items: center; transition: opacity .4s ease .15s, transform .55s cubic-bezier(.2, .7, .2, 1) .15s; }
+.loader-chip { width: 168px; height: 168px; overflow: visible; filter: drop-shadow(0 0 26px rgba(236, 72, 153, .28)); }
+.loader-chip .c-trace { stroke-width: 2.4; }
+.loader-body { fill: rgb(var(--ink-800)); stroke: url(#loader-grad); stroke-width: 2.2; animation: loader-breathe 2.4s ease-in-out infinite; }
+.loader-logo { font: 700 22px "JetBrains Mono", ui-monospace, monospace; fill: url(#loader-grad); }
+/* Current runs from each pad into the chip (pathLength = 100). */
+.ld-pulse {
+  fill: none; stroke: #f472b6; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 16 100; stroke-dashoffset: 16;
+  filter: drop-shadow(0 0 4px rgba(236, 72, 153, .9));
+  animation: loader-run 1.6s cubic-bezier(.5, 0, .5, 1) var(--delay, 0s) infinite;
+}
+.loader-name {
+  margin-top: 26px; font-weight: 700; font-size: 1.05rem; letter-spacing: .02em;
+  background: linear-gradient(100deg, #f472b6, #e879f9 40%, #a855f7 60%, #f472b6) 0 0 / 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: loader-shine 2.4s linear infinite;
+}
+.loader-bar { position: relative; margin-top: 14px; width: 168px; height: 3px; border-radius: 3px; overflow: hidden; background: rgb(var(--ink-600)); }
+.loader-bar span {
+  position: absolute; inset: 0 auto 0 0; width: 0; border-radius: inherit;
+  background: linear-gradient(135deg, #ec4899, #c026d3 55%, #a855f7); box-shadow: 0 0 10px rgba(236, 72, 153, .7);
+  animation: loader-fill 2.6s cubic-bezier(.2, .7, .2, 1) forwards;
+}
+/* Finished: the bar completes, the chip lifts away and the screen fades. */
+.loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader.is-done .loader-core { opacity: 0; transform: translateY(-14px) scale(.96); }
+.loader.is-done .loader-bar span { width: 100%; animation: none; transition: width .3s ease; }
+@keyframes loader-run { from { stroke-dashoffset: 16; } to { stroke-dashoffset: -100; } }
+@keyframes loader-breathe { 50% { stroke-width: 3.2; } }
+@keyframes loader-shine { to { background-position: -200% 0; } }
+@keyframes loader-fill { 0% { width: 0; } 60% { width: 70%; } 100% { width: 88%; } }
+/* Hold the hero's entrance until the loading screen goes. */
+html.is-loading .hero-enter > *, html.is-loading .code-line, html.is-loading .doodle path { animation-play-state: paused; }
+html[data-motion="off"] .ld-pulse { display: none; }
+html[data-motion="off"] .loader-bar span { width: 60%; }
+
 /* Shimmering sheen on primary buttons */
 .btn-primary::after {
   content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%;
