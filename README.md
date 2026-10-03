@@ -28,7 +28,7 @@ scripts/              ← สคริปต์แปลภาษา
 | `src/tailwind.css` | ไฟล์ต้นฉบับ CSS: ปุ่ม/ป้าย (`@apply`) และเอฟเฟกต์พิเศษ |
 | `site/assets/css/tailwind.css` | CSS ที่ build แล้ว (สร้างจากคำสั่ง `npm run build`) |
 | `site/assets/js/icons.js` | ไอคอนโลโก้เทคโนโลยี (Simple Icons) |
-| `site/assets/js/effects.js` | เอฟเฟกต์: ลูกโลกเครือข่าย 3 มิติ, แอนิเมชันเมื่อเลื่อนหน้า, แถบทักษะ, ไฮไลต์เมนูตามตำแหน่ง, การ์ดเอียง 3 มิติ, ตัวนับสถิติ (ปิดอัตโนมัติเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว) |
+| `site/assets/js/effects.js` | เอฟเฟกต์: ลูกโลกเครือข่าย 3 มิติ, แอนิเมชันเมื่อเลื่อนหน้า, แถบทักษะ, ไฮไลต์เมนูตามตำแหน่ง, การ์ดเอียง 3 มิติ, ตัวนับสถิติ, เคอร์เซอร์แบบโต้ตอบ (เปิด/ปิดตามสถานะแอนิเมชัน) |
 | `site/assets/js/circuit.js` | ลายวงจร PCB พร้อมกระแสไฟวิ่งตามลายวงจร (แถบคั่นมีชิป IC และพื้นหลังจาง ๆ ของบางส่วน) |
 | `scripts/translate.mjs` | สคริปต์เติมคำแปลที่ขาดลงใน `site/data/portfolio.json` |
 | `.github/workflows/static.yml` | GitHub Action: แปลภาษาอัตโนมัติ → commit กลับ → deploy |
@@ -126,8 +126,9 @@ npm run build      # build แบบย่อขนาดสำหรับข�
 - **ที่อยู่หลัก (canonical):** `https://kittiphun.rut.mcupr.ac.th/` — ฉบับบน GitHub Pages ก็ชี้ canonical / hreflang / sitemap มาที่ mcupr.ac.th เพื่อให้ Google นับเป็นหน้าเดียวกันและจัดอันดับที่ mcupr.ac.th (ค่าอยู่ใน `<head>` ของ `site/index.html`, `SITE_URL` ใน `site/assets/js/app.js`, `site/sitemap.xml` และ `site/robots.txt`)
 - **แนะนำ:** ลงทะเบียน `https://kittiphun.rut.mcupr.ac.th/` ใน [Google Search Console](https://search.google.com/search-console) แล้วส่ง `https://kittiphun.rut.mcupr.ac.th/sitemap.xml`
 - **Smooth scroll:** กดเมนูหรือปุ่มในหน้าแล้วเลื่อนแบบค่อย ๆ เร่งและค่อย ๆ ชะลอ (easeInOutCubic) ระยะเวลา 0.6–1.4 วินาทีตามระยะทาง หยุดใต้แถบเมนูพอดี (`smoothScrollTo` ใน `site/assets/js/effects.js`) หมุนล้อเมาส์ระหว่างเลื่อนจะยกเลิกทันที
-- **เคอร์เซอร์แบบโต้ตอบ:** จุดสีชมพูกับวงแหวนที่ตามเมาส์ วงแหวนขยายเมื่อชี้ลิงก์/ปุ่ม และกลายเป็นวง "ดู" เมื่อชี้ภาพที่กดได้ (สไตล์อยู่ใน `src/tailwind.css` ส่วน Interactive cursor) — ใช้เฉพาะเมาส์ ปิดบนอุปกรณ์สัมผัสและเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว
-- **ลายวงจร + กระแสไฟ:** `site/assets/js/circuit.js` วาดลายวงจรแบบ PCB (ลายทองแดงหักมุม 45°, pad, via, ชิป IC) จาก seed จึงได้ลายเดิมทุกครั้ง ใส่ได้สองแบบ: `<div class="circuit-divider" data-circuit="divider" data-seed="3"></div>` เป็นแถบคั่นระหว่างส่วน และ `data-circuit="bg"` เป็นพื้นหลังจาง ๆ (ส่วนที่ app.js เรนเดอร์ใหม่กำหนดใน `SECTION_BG`) กระแสไฟเป็นแอนิเมชัน CSS ที่หยุดเมื่ออยู่นอกจอ และไม่สร้างเลยเมื่อผู้ใช้ตั้งค่าลดการเคลื่อนไหว สีปรับในส่วน Circuit traces ของ `src/tailwind.css`
+- **เคอร์เซอร์แบบโต้ตอบ:** จุดสีชมพูกับวงแหวนที่ตามเมาส์ วงแหวนขยายเมื่อชี้ลิงก์/ปุ่ม และกลายเป็นวง "ดู" เมื่อชี้ภาพที่กดได้ (สไตล์อยู่ใน `src/tailwind.css` ส่วน Interactive cursor) — ใช้เฉพาะเมาส์ ปิดบนอุปกรณ์สัมผัสและเมื่อปิดแอนิเมชัน
+- **ลายวงจร + กระแสไฟ:** `site/assets/js/circuit.js` วาดลายวงจรแบบ PCB (ลายทองแดงหักมุม 45°, pad, via, ชิป IC) จาก seed จึงได้ลายเดิมทุกครั้ง ใส่ได้สองแบบ: `<div class="circuit-divider" data-circuit="divider" data-seed="3"></div>` เป็นแถบคั่นระหว่างส่วน และ `data-circuit="bg"` เป็นพื้นหลังจาง ๆ (ส่วนที่ app.js เรนเดอร์ใหม่กำหนดใน `SECTION_BG`) กระแสไฟเป็นแอนิเมชัน CSS ที่หยุดเมื่ออยู่นอกจอ และซ่อนเมื่อปิดแอนิเมชัน สีปรับในส่วน Circuit traces ของ `src/tailwind.css`
+- **ปุ่มเปิด/ปิดแอนิเมชัน:** ปุ่ม ⏸/▶ ข้างปุ่มสลับธีม สถานะเก็บใน `<html data-motion="on|off">` ซึ่งสคริปต์ใน `<head>` ของ `site/index.html` ตั้งไว้ก่อนหน้าเว็บแสดงผล (ค่าที่ผู้ใช้เลือกไว้ใน localStorage `portfolio.motion` ถ้าไม่เคยเลือกจะตามการตั้งค่าลดการเคลื่อนไหวของเครื่อง) เมื่อกดปุ่ม `app.js` จะส่งเหตุการณ์ `motionchange` ให้ `effects.js` หยุดหรือเริ่มลูกโลก เคอร์เซอร์ และการเลื่อนแบบนุ่ม ส่วน CSS ใช้ `html[data-motion="off"]` ปิดแอนิเมชันที่เหลือทั้งหมด
 - **โหมดสว่าง/มืด:** ค่าเริ่มต้นตามธีมของเครื่อง กดปุ่ม ☾/☀ บนแถบเมนูเพื่อสลับ ระบบจะจำค่าที่เลือกไว้ในเบราว์เซอร์
 
 ## เรซูเม่แบบ PDF (ปุ่มดาวน์โหลด)

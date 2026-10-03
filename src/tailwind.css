@@ -56,11 +56,9 @@
   }
   /* Smooth scrolling in pure CSS: in-page links glide to their section, and
      scroll-padding keeps the heading clear of the sticky header (64px + gap).
-     Only enabled when the visitor has not asked for reduced motion. */
+     Only while animations are on (data-motion is set in index.html). */
   html { scroll-padding-top: 76px; }
-  @media (prefers-reduced-motion: no-preference) {
-    html { scroll-behavior: smooth; }
-  }
+  html[data-motion="on"] { scroll-behavior: smooth; }
   body { @apply bg-ink-950 text-fg font-sans antialiased overflow-x-hidden leading-relaxed transition-colors; }
   html[lang="ja"] body { font-family: Inter, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif; }
   html[lang="zh"] body { font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
@@ -235,19 +233,26 @@ html.cursor-visible .cursor-dot, html.cursor-visible .cursor-ring { opacity: 1; 
 /* Carousel dots */
 .dot-btn[aria-current="true"] { width: 22px; background: linear-gradient(135deg, #ec4899, #a855f7); }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
-  .reveal, .tilt.reveal { opacity: 1; transform: none; }
-  .bar-fill { width: var(--v); }
-  .doodle path:first-child { stroke-dashoffset: 0; }
+/* Animations off: the device asks for reduced motion, or the visitor used the
+   toggle button. Everything shows in its final state. */
+html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after {
+  animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important;
 }
+html[data-motion="off"] .reveal, html[data-motion="off"] .tilt.reveal { opacity: 1; transform: none; }
+html[data-motion="off"] .bar-fill { width: var(--v); }
+html[data-motion="off"] .doodle path:first-child { stroke-dashoffset: 0; }
+html[data-motion="off"] .c-pulse { display: none; }
 
 /* Deeper gradient for the highlighted name on the light background */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) .bg-grad-text { background-image: linear-gradient(100deg, #db2777 0%, #c026d3 40%, #9333ea 60%, #db2777 100%); }
 }
 :root[data-theme="light"] .bg-grad-text { background-image: linear-gradient(100deg, #db2777 0%, #c026d3 40%, #9333ea 60%, #db2777 100%); }
+
+/* Motion toggle: pause while animating, play while stopped */
+.icon-play { display: none; }
+html[data-motion="off"] .icon-play { display: block; }
+html[data-motion="off"] .icon-pause { display: none; }
 
 /* Theme toggle: show the moon in light mode, the sun in dark mode */
 .icon-sun { display: none; }

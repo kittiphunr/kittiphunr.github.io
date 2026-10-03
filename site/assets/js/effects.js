@@ -1,15 +1,17 @@
-// Visual effects: 3D network globe, terminal typing, scroll reveal, card tilt,
-// animated counters and scroll progress. Everything respects prefers-reduced-motion.
+// Visual effects: 3D network globe, scroll reveal, card tilt, animated counters,
+// eased in-page scrolling, interactive cursor and scroll progress.
+// Motion follows <html data-motion="on|off"> (device setting or the toggle
+// button) and switches live on the "motionchange" event.
 (function () {
   "use strict";
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const motionOn = () => document.documentElement.dataset.motion !== "off";
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   // ---------- 3D network globe ----------
   const Globe = (function () {
     const canvas = document.getElementById("globe");
-    if (!canvas || !canvas.getContext) return { layout() {} };
+    if (!canvas || !canvas.getContext) return { layout() {}, syncMotion() {} };
     const ctx = canvas.getContext("2d");
     const hero = canvas.parentElement;
 
@@ -182,7 +184,7 @@
     }
 
     function start() {
-      if (running || reduceMotion || !visible || document.hidden) return;
+      if (running || !motionOn() || !visible || document.hidden) return;
       running = true; raf = requestAnimationFrame(tick);
     }
     function stop() { running = false; cancelAnimationFrame(raf); }
@@ -203,13 +205,18 @@
     document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
     window.addEventListener("resize", layout);
 
+    // Turning motion off freezes the globe on its current frame.
+    function syncMotion() { motionOn() ? start() : stop(); }
+
     layout();
     start();
-    return { layout };
+    return { layout, syncMotion };
   })();
 
   // ---------- scroll reveal ----------
-  const revealer = "IntersectionObserver" in window && !reduceMotion
+  // With motion off the CSS shows .reveal elements at once; they are still
+  // observed so turning motion back on does not hide anything already seen.
+  const revealer = "IntersectionObserver" in window
     ? new IntersectionObserver((entries) => {
         for (const en of entries) {
           if (en.isIntersecting) { en.target.classList.add("in"); revealer.unobserve(en.target); }
@@ -245,7 +252,7 @@
   function animateCount(el) {
     const target = Number(el.dataset.count) || 0;
     const suffix = el.dataset.suffix || "";
-    if (reduceMotion) { el.textContent = target + suffix; return; }
+    if (!motionOn()) { el.textContent = target + suffix; return; }
     const t0 = performance.now(), dur = 1400;
     (function step(now) {
       const p = Math.min(1, (now - t0) / dur);
@@ -262,10 +269,10 @@
   }
 
   // ---------- 3D tilt on cards ----------
-  if (finePointer && !reduceMotion) {
+  if (finePointer) {
     let active = null;
     document.addEventListener("pointermove", (e) => {
-      const el = e.target.closest && e.target.closest(".tilt");
+      const el = motionOn() && e.target.closest ? e.target.closest(".tilt") : null;
       if (active && active !== el) resetTilt(active);
       active = el;
       if (!el) return;
@@ -300,7 +307,7 @@
     const maxY = document.documentElement.scrollHeight - innerHeight;
     const endY = Math.max(0, Math.min(maxY, y));
     const dist = Math.abs(endY - startY);
-    if (reduceMotion || dist < 2) { window.scrollTo(0, endY); return; }
+    if (!motionOn() || dist < 2) { window.scrollTo(0, endY); return; }
     const duration = Math.min(1400, Math.max(600, 400 + dist * 0.35));
     const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2); // easeInOutCubic
     // Native CSS smooth scrolling would animate every step again; pause it.
@@ -333,66 +340,97 @@
   // ---------- interactive cursor ----------
   // A dot that tracks the pointer and a ring that trails it. The ring grows
   // over links/buttons and becomes a labelled "view" bubble over clickable
-  // images. Mouse-only: touch devices and reduced motion keep the normal cursor.
-  if (finePointer && !reduceMotion) {
-    const dot = document.createElement("div");
-    const ring = document.createElement("div");
-    const label = document.createElement("span");
-    dot.className = "cursor-dot";
-    ring.className = "cursor-ring";
-    ring.append(label);
-    dot.setAttribute("aria-hidden", "true");
-    ring.setAttribute("aria-hidden", "true");
-    document.body.append(ring, dot);
-    document.documentElement.classList.add("has-cursor");
+  // images. Mouse-only, and only while motion is on; otherwise the normal
+  // cursor stays.
+  const Cursor = (function () {
+    if (!finePointer) return { syncMotion() {} };
+    const root = document.documentElement;
+    const CLICKABLE = 'a, button, [role="button"], label, summary';
+    let dot = null, ring = null, label = null, raf = 0, on = false, shown = false;
+    let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y;
 
-    let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y, shown = false;
-    window.addEventListener("pointermove", (e) => {
-      if (e.pointerType !== "mouse") return;
-      x = e.clientX; y = e.clientY;
-      dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      if (!shown) { shown = true; rx = x; ry = y; document.documentElement.classList.add("cursor-visible"); }
-    }, { passive: true });
-    document.addEventListener("pointerleave", () => { shown = false; document.documentElement.classList.remove("cursor-visible"); });
-    window.addEventListener("pointerdown", () => ring.classList.add("is-down"));
-    window.addEventListener("pointerup", () => ring.classList.remove("is-down"));
+    function build() {
+      dot = document.createElement("div");
+      ring = document.createElement("div");
+      label = document.createElement("span");
+      dot.className = "cursor-dot";
+      ring.className = "cursor-ring";
+      ring.append(label);
+      dot.setAttribute("aria-hidden", "true");
+      ring.setAttribute("aria-hidden", "true");
+      document.body.append(ring, dot);
 
-    (function follow() {
+      window.addEventListener("pointermove", (e) => {
+        if (!on || e.pointerType !== "mouse") return;
+        x = e.clientX; y = e.clientY;
+        dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        if (!shown) { shown = true; rx = x; ry = y; root.classList.add("cursor-visible"); }
+      }, { passive: true });
+      document.addEventListener("pointerleave", hide);
+      window.addEventListener("pointerdown", () => ring.classList.add("is-down"));
+      window.addEventListener("pointerup", () => ring.classList.remove("is-down"));
+      document.addEventListener("pointerover", (e) => {
+        if (!on) return;
+        const t = e.target;
+        const clickable = t.closest && t.closest(CLICKABLE);
+        const isImage = t.tagName === "IMG" || (t.closest && t.closest(".thumb"));
+        ring.classList.remove("is-link", "is-view", "is-media");
+        dot.classList.remove("is-hidden");
+        if (clickable && isImage) {
+          const ui = (window.UI || {})[root.lang] || {};
+          label.textContent = ui.cursorView || "View";
+          ring.classList.add("is-view");
+          dot.classList.add("is-hidden");
+        } else if (clickable) {
+          ring.classList.add("is-link");
+          dot.classList.add("is-hidden");
+        } else if (isImage) {
+          ring.classList.add("is-media");
+        }
+      }, { passive: true });
+    }
+
+    function hide() { shown = false; root.classList.remove("cursor-visible"); }
+
+    function follow() {
       rx += (x - rx) * 0.18; ry += (y - ry) * 0.18;
       ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-      requestAnimationFrame(follow);
-    })();
+      raf = requestAnimationFrame(follow);
+    }
 
-    const CLICKABLE = 'a, button, [role="button"], label, summary';
-    document.addEventListener("pointerover", (e) => {
-      const t = e.target;
-      const clickable = t.closest && t.closest(CLICKABLE);
-      const isImage = t.tagName === "IMG" || (t.closest && t.closest(".thumb"));
-      ring.classList.remove("is-link", "is-view", "is-media");
-      dot.classList.remove("is-hidden");
-      if (clickable && isImage) {
-        const ui = (window.UI || {})[document.documentElement.lang] || {};
-        label.textContent = ui.cursorView || "View";
-        ring.classList.add("is-view");
-        dot.classList.add("is-hidden");
-      } else if (clickable) {
-        ring.classList.add("is-link");
-        dot.classList.add("is-hidden");
-      } else if (isImage) {
-        ring.classList.add("is-media");
+    function syncMotion() {
+      if (on === motionOn()) return;
+      on = !on;
+      if (on) {
+        if (!dot) build();
+        root.classList.add("has-cursor");
+        raf = requestAnimationFrame(follow);
+      } else {
+        cancelAnimationFrame(raf);
+        hide();
+        root.classList.remove("has-cursor");
       }
-    }, { passive: true });
-  }
+    }
+
+    syncMotion();
+    return { syncMotion };
+  })();
+
+  document.addEventListener("motionchange", () => {
+    if (!motionOn()) cancelScroll();
+    Globe.syncMotion();
+    Cursor.syncMotion();
+  });
 
   // ---------- scroll progress + nav shadow ----------
-  const bar = document.getElementById("progress");
+  const progress = document.getElementById("progress");
+  const topbar = document.getElementById("topbar");
   function onScroll() {
     const max = document.documentElement.scrollHeight - innerHeight;
-    if (bar) bar.style.transform = "scaleX(" + (max > 0 ? scrollY / max : 0) + ")";
-    const bar2 = document.getElementById("topbar");
-    if (bar2) {
-      bar2.classList.toggle("border-ink-600", scrollY > 8);
-      bar2.classList.toggle("border-transparent", scrollY <= 8);
+    if (progress) progress.style.transform = "scaleX(" + (max > 0 ? scrollY / max : 0) + ")";
+    if (topbar) {
+      topbar.classList.toggle("border-ink-600", scrollY > 8);
+      topbar.classList.toggle("border-transparent", scrollY <= 8);
     }
   }
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -432,7 +470,7 @@
         b.type = "button";
         b.className = "dot-btn h-2 w-2 rounded-full bg-ink-500 transition-all";
         b.setAttribute("aria-label", "Page " + (i + 1));
-        b.addEventListener("click", () => track.scrollTo({ left: i * track.clientWidth, behavior: reduceMotion ? "auto" : "smooth" }));
+        b.addEventListener("click", () => track.scrollTo({ left: i * track.clientWidth, behavior: motionOn() ? "smooth" : "auto" }));
         return b;
       }));
       dotsBox.hidden = pages < 2;
