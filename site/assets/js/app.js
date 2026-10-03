@@ -304,7 +304,7 @@
 
     // Mobile: portrait and code card stack. Desktop: portrait top-left, card
     // bottom-right, so the card never covers the face.
-    const art = h("div", { class: "relative mx-auto flex w-full max-w-[520px] flex-col items-center gap-14 pb-4 pt-12 lg:block lg:h-[590px] lg:max-w-none lg:p-0" },
+    const art = h("div", { class: "relative order-first mx-auto flex w-full max-w-[520px] flex-col items-center gap-14 pb-4 pt-6 lg:order-none lg:block lg:h-[590px] lg:max-w-none lg:p-0" },
       h("div", { class: "absolute right-[2%] top-0 h-[90px] w-[110px] animate-drift bg-dots bg-[length:14px_14px] opacity-[.55] lg:top-[2%]", "aria-hidden": "true" }),
       h("div", { id: "orb", class: "orb-ring relative h-[260px] w-[260px] flex-none animate-float rounded-full bg-orb shadow-orb sm:h-[300px] sm:w-[300px] lg:absolute lg:left-[4%] lg:top-[24px] lg:h-[320px] lg:w-[320px]" }, portrait),
       renderCodeCard(p, since),
