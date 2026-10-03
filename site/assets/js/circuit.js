@@ -4,12 +4,11 @@
 //   <div data-circuit="bg" data-seed="7"></div>        faint traces behind a section
 //
 // Layouts are generated from a seed, so every visit draws the same board.
-// Pulses are CSS stroke-dash animations; they pause off-screen and are not
-// created at all when the visitor prefers reduced motion.
+// Pulses are CSS stroke-dash animations; they pause off-screen and are hidden
+// while animations are off (html[data-motion="off"]).
 (function () {
   "use strict";
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const NS = "http://www.w3.org/2000/svg";
 
   function prng(seed) { // mulberry32
@@ -93,7 +92,7 @@
     board.traces.forEach((t) => {
       const path = d(t.rev ? [...t.pts].reverse() : t.pts);
       base.append(el("path", { d: path, class: t.faint ? "c-trace c-faint" : "c-trace" }));
-      if (t.pulse && !reduceMotion) {
+      if (t.pulse) {
         // Two layers: a soft wide glow and a bright core, sharing one animation.
         pulses.append(el("path", { d: path, class: "c-pulse c-glow" }), el("path", { d: path, class: "c-pulse c-core" }));
       }
