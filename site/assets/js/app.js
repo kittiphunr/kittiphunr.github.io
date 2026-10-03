@@ -25,6 +25,9 @@
   function storeSet(key, value) {
     try { localStorage.setItem(key, value); } catch (e) { /* ignore */ }
   }
+  function storeDel(key) {
+    try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+  }
 
   let cache = {};
   try { cache = JSON.parse(storeGet(CACHE_KEY) || "{}") || {}; } catch (e) { cache = {}; }
@@ -669,10 +672,9 @@
     setMeta('meta[property="og:locale"]', OG_LOCALE[lang]);
     setMeta('meta[name="twitter:title"]', name);
     setMeta('meta[name="twitter:description"]', desc);
-    [["theme-toggle", "themeToggle"], ["motion-toggle", "motionToggle"]].forEach(([id, key]) => {
-      const btn = document.getElementById(id);
-      if (btn) { btn.setAttribute("aria-label", UI[lang][key]); btn.title = UI[lang][key]; }
-    });
+    const st = document.getElementById("settings-toggle");
+    st.setAttribute("aria-label", UI[lang].settings); st.title = UI[lang].settings;
+    document.querySelectorAll("#settings-panel [data-ui]").forEach((el) => { el.textContent = UI[lang][el.dataset.ui]; });
   }
 
   function loadFont(code) {
@@ -719,46 +721,76 @@
     return DEFAULT_LANG;
   }
 
-  // ---------- light / dark toggle ----------
-  const THEME_KEY = "portfolio.theme";
+  // ---------- display settings: theme, animations, text size ----------
+  // Each setting lives on an <html> attribute that index.html restores before
+  // first paint; CSS and effects.js follow the attributes and the events below.
+  const root = document.documentElement;
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const emit = (name, detail) => document.dispatchEvent(new CustomEvent(name, { detail }));
+  const setAttr = (name, value) => (value == null ? root.removeAttribute(name) : root.setAttribute(name, value));
+
   function currentTheme() {
-    return document.documentElement.getAttribute("data-theme") || (darkQuery.matches ? "dark" : "light");
+    return root.getAttribute("data-theme") || (darkQuery.matches ? "dark" : "light");
   }
   function syncThemeColor() {
     const color = currentTheme() === "dark" ? "#0b0912" : "#fdf8fb";
     document.querySelectorAll('meta[name="theme-color"]').forEach((m) => { m.removeAttribute("media"); m.setAttribute("content", color); });
   }
-  document.getElementById("theme-toggle").addEventListener("click", () => {
-    const next = currentTheme() === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", next);
-    storeSet(THEME_KEY, next);
-    syncThemeColor();
-    document.dispatchEvent(new CustomEvent("themechange", { detail: next }));
-  });
-  darkQuery.addEventListener("change", syncThemeColor);
-  syncThemeColor();
 
-  // ---------- animations on / off ----------
-  // <html data-motion> is set before first paint (index.html); effects.js and
-  // the CSS follow it and react to the "motionchange" event.
-  const MOTION_KEY = "portfolio.motion";
-  const motionBtn = document.getElementById("motion-toggle");
-  function setMotion(on) {
-    document.documentElement.setAttribute("data-motion", on ? "on" : "off");
-    motionBtn.setAttribute("aria-pressed", String(on));
-    document.dispatchEvent(new CustomEvent("motionchange", { detail: on }));
+  // value(): current choice; apply(v): show it. A default value is not stored,
+  // so the page keeps following the device for theme and motion.
+  const SETTINGS = {
+    theme: {
+      key: "portfolio.theme", fallback: "auto",
+      value: () => root.getAttribute("data-theme") || "auto",
+      apply(v) { setAttr("data-theme", v === "auto" ? null : v); syncThemeColor(); emit("themechange", currentTheme()); }
+    },
+    motion: {
+      key: "portfolio.motion", fallback: null,
+      value: () => root.dataset.motion,
+      apply(v) { setAttr("data-motion", v); emit("motionchange", v === "on"); }
+    },
+    font: {
+      key: "portfolio.font", fallback: "md",
+      value: () => root.dataset.font || "md",
+      apply(v) { setAttr("data-font", v === "md" ? null : v); emit("fontsizechange", v); }
+    }
+  };
+
+  const panel = document.getElementById("settings-panel");
+  const settingsBtn = document.getElementById("settings-toggle");
+  function syncPressed() {
+    panel.querySelectorAll("button[data-set]").forEach((b) => {
+      b.setAttribute("aria-pressed", String(SETTINGS[b.dataset.set].value() === b.dataset.value));
+    });
   }
-  motionBtn.setAttribute("aria-pressed", String(document.documentElement.dataset.motion !== "off"));
-  motionBtn.addEventListener("click", () => {
-    const on = document.documentElement.dataset.motion === "off";
-    storeSet(MOTION_KEY, on ? "on" : "off");
-    setMotion(on);
+  panel.addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-set]");
+    if (!b) return;
+    const set = SETTINGS[b.dataset.set], v = b.dataset.value;
+    if (v === set.fallback) storeDel(set.key); else storeSet(set.key, v);
+    set.apply(v);
+    syncPressed();
   });
-  // Without a saved choice, keep following the device setting.
-  window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", (e) => {
-    if (!storeGet(MOTION_KEY)) setMotion(!e.matches);
+
+  function openSettings(open) {
+    panel.hidden = !open;
+    settingsBtn.setAttribute("aria-expanded", String(open));
+  }
+  settingsBtn.addEventListener("click", () => openSettings(panel.hidden));
+  document.addEventListener("click", (e) => { if (!panel.hidden && !e.target.closest("#settings")) openSettings(false); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !panel.hidden) { openSettings(false); settingsBtn.focus(); }
   });
+
+  // Follow device changes unless the visitor picked something.
+  darkQuery.addEventListener("change", () => { syncThemeColor(); syncPressed(); });
+  motionQuery.addEventListener("change", (e) => {
+    if (!storeGet(SETTINGS.motion.key)) { SETTINGS.motion.apply(e.matches ? "off" : "on"); syncPressed(); }
+  });
+  syncThemeColor();
+  syncPressed();
 
   // ---------- boot ----------
   document.getElementById("lang-switch").addEventListener("click", (e) => {

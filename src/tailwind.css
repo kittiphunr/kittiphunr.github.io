@@ -80,6 +80,15 @@
   }
   .btn-sm { @apply px-[18px] py-[9px] text-[0.88rem]; }
   .card { @apply relative min-w-0 rounded-2xl border border-ink-600 bg-ink-800; }
+  /* Display settings menu: a label above a segmented control. */
+  .settings-label { @apply mb-1.5 mt-3.5 text-xs font-semibold uppercase tracking-[0.08em] text-muted; }
+  .seg { @apply grid gap-1 rounded-xl border border-ink-600 bg-ink-950 p-1; }
+  .seg-2 { @apply grid-cols-2; }
+  .seg-3 { @apply grid-cols-3; }
+  .seg > button {
+    @apply whitespace-nowrap rounded-lg px-1.5 py-1.5 text-sm font-medium text-muted transition-colors hover:text-fg
+      aria-pressed:bg-grad aria-pressed:text-white aria-pressed:shadow-glow;
+  }
   .ic { @apply h-[18px] w-[18px] flex-none fill-none stroke-current; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 }
 
@@ -233,8 +242,8 @@ html.cursor-visible .cursor-dot, html.cursor-visible .cursor-ring { opacity: 1; 
 /* Carousel dots */
 .dot-btn[aria-current="true"] { width: 22px; background: linear-gradient(135deg, #ec4899, #a855f7); }
 
-/* Animations off: the device asks for reduced motion, or the visitor used the
-   toggle button. Everything shows in its final state. */
+/* Animations off: the device asks for reduced motion, or the visitor chose it
+   in the display settings menu. Everything shows in its final state. */
 html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after {
   animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important;
 }
@@ -249,16 +258,6 @@ html[data-motion="off"] .c-pulse { display: none; }
 }
 :root[data-theme="light"] .bg-grad-text { background-image: linear-gradient(100deg, #db2777 0%, #c026d3 40%, #9333ea 60%, #db2777 100%); }
 
-/* Motion toggle: pause while animating, play while stopped */
-.icon-play { display: none; }
-html[data-motion="off"] .icon-play { display: block; }
-html[data-motion="off"] .icon-pause { display: none; }
-
-/* Theme toggle: show the moon in light mode, the sun in dark mode */
-.icon-sun { display: none; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .icon-sun { display: block; }
-  :root:not([data-theme="light"]) .icon-moon { display: none; }
-}
-:root[data-theme="dark"] .icon-sun { display: block; }
-:root[data-theme="dark"] .icon-moon { display: none; }
+/* Text size from the display settings menu; layouts are in rem, so they scale with it. */
+html[data-font="sm"] { font-size: 87.5%; }
+html[data-font="lg"] { font-size: 112.5%; }
