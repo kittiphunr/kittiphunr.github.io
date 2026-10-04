@@ -12,7 +12,7 @@ site/                 ← deploy ขึ้นเว็บ (GitHub Pages / Netlif
 ├── assets/css/tailwind.css   (ไฟล์ที่ build แล้ว — ห้ามแก้ตรง)
 ├── assets/js/  assets/img/
 ├── data/portfolio.json
-└── projects/bda-mcu-phrae/   (ทัวร์ 360° หอพุทธศิลป์ — คัดลอกมาจาก repo BDA-MCU-PHRAE)
+└── projects/bda-mcu-phrae/   (ทัวร์ 360° + โมเดล 3 มิติ หอพุทธศิลป์ — คัดลอกมาจาก repo BDA-MCU-PHRAE)
 src/tailwind.css      ← CSS ต้นฉบับของ Tailwind (เอฟเฟกต์ที่ utility ทำไม่ได้)
 tailwind.config.js    ← สี ฟอนต์ แอนิเมชันของธีม
 scripts/              ← สคริปต์แปลภาษา
@@ -153,7 +153,7 @@ npm run deploy       # build CSS แล้วสร้างโฟลเดอ�
 - **วิธีอัปโหลด:** อัปโหลด*ไฟล์ทั้งหมดในโฟลเดอร์* `deploy/` (หรือแตกไฟล์ zip) ขึ้น `public_html/` ด้วย FTP/SFTP หรือ File Manager ของ cPanel — อย่าลืมไฟล์ซ่อน `.htaccess` (FileZilla: *Server → Force showing hidden files*)
 - **ถ้าใน `public_html/` มี `.htaccess` เดิมอยู่แล้ว** ให้เปิดดูก่อน แล้วนำเนื้อหาของเราไปต่อท้าย แทนการเขียนทับ
 - อัปเดตครั้งต่อไป: แก้ข้อมูล → `npm run deploy` → อัปโหลดทับทั้งหมด
-- ทัวร์ 360° หอพุทธศิลป์ (`site/projects/bda-mcu-phrae/`, ~27 MB) รวมอยู่ใน `deploy/` และ zip แล้ว เปิดได้ที่ `https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/` (มี `.htaccess` ของตัวเอง)
+- ทัวร์ 360° และโมเดล 3 มิติ หอพุทธศิลป์ (`site/projects/bda-mcu-phrae/`, ~30 MB) รวมอยู่ใน `deploy/` และ zip แล้ว เปิดได้ที่ `https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/` (มี `.htaccess` ของตัวเอง)
 - โฟลเดอร์ `deploy/` และไฟล์ zip ไม่ถูก commit (อยู่ใน `.gitignore`) สร้างใหม่ได้ทุกเมื่อ
 
 ### อัปเดตทัวร์ 360° (BDA-MCU-PHRAE)
