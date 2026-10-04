@@ -11,7 +11,8 @@ site/                 ← deploy ขึ้นเว็บ (GitHub Pages / Netlif
 ├── index.html
 ├── assets/css/tailwind.css   (ไฟล์ที่ build แล้ว — ห้ามแก้ตรง)
 ├── assets/js/  assets/img/
-└── data/portfolio.json
+├── data/portfolio.json
+└── projects/bda-mcu-phrae/   (ทัวร์ 360° หอพุทธศิลป์ — คัดลอกมาจาก repo BDA-MCU-PHRAE)
 src/tailwind.css      ← CSS ต้นฉบับของ Tailwind (เอฟเฟกต์ที่ utility ทำไม่ได้)
 tailwind.config.js    ← สี ฟอนต์ แอนิเมชันของธีม
 scripts/              ← สคริปต์แปลภาษา
@@ -82,7 +83,7 @@ scripts/              ← สคริปต์แปลภาษา
 { "name": "Docker", "icon": "docker", "color": "#2496ED", "level": 75 }
 ```
 
-**ผลงานเด่น (Featured)** — ใส่ `"featured": { … }` ในผลงานชิ้นใดก็ได้ (ตอนนี้คือ Precision-QC) ระบบจะสร้างส่วน "ผลงานเด่น" ต่อจากทักษะ ประกอบด้วย `subtitle`, `summary`, `gallery` (ภาพ + คำบรรยาย), `metrics`, `highlights` (การ์ด JavaScript / Python พร้อมรายการจุดเด่น) และ `stack` — ภาพอยู่ใน `site/assets/img/projects/<ชื่อโปรเจกต์>/`
+**ผลงานเด่น (Featured)** — ใส่ `"featured": { … }` ในผลงานชิ้นใดก็ได้ (ตอนนี้คือ Precision-QC, IV-Monitor-BCNPH และ BDA-MCU-PHRAE) ระบบจะสร้างส่วน "ผลงานเด่น" ต่อจากทักษะ ประกอบด้วย `subtitle`, `summary`, `gallery` (ภาพ + คำบรรยาย), `metrics`, `highlights` (การ์ด JavaScript / Python พร้อมรายการจุดเด่น) และ `stack` — ภาพอยู่ใน `site/assets/img/projects/<ชื่อโปรเจกต์>/`
 
 **รูปโปรไฟล์** — วางรูปไว้ที่ `site/assets/img/` แล้วใส่ path ใน `profile.photo`
 
@@ -148,11 +149,22 @@ npm run deploy       # build CSS แล้วสร้างโฟลเดอ�
 ```
 
 - ค่าเริ่มต้นสร้างสำหรับ `https://kittiphun.rut.mcupr.ac.th/` ถ้าติดตั้งที่อื่นใช้ `python3 scripts/build_deploy.py --base-url https://โดเมน/โฟลเดอร์/`
-- สคริปต์จะเปลี่ยนลิงก์ SEO / ภาพแชร์ / sitemap ให้ชี้ที่อยู่จริง ใส่เลขเวอร์ชัน (`?v=`) ให้ไฟล์ CSS/JS และสร้าง `.htaccess` (บีบอัด, cache, security headers) ที่**ไม่ยุ่งกับโฟลเดอร์ `/projects/`** ของ Precision QC
+- สคริปต์จะเปลี่ยนลิงก์ SEO / ภาพแชร์ / sitemap ให้ชี้ที่อยู่จริง ใส่เลขเวอร์ชัน (`?v=`) ให้ไฟล์ CSS/JS และสร้าง `.htaccess` (บีบอัด, cache, security headers) ที่**ไม่ยุ่งกับโฟลเดอร์ `/projects/`** (Precision QC และทัวร์ 360° ใช้การตั้งค่าของตัวเอง)
 - **วิธีอัปโหลด:** อัปโหลด*ไฟล์ทั้งหมดในโฟลเดอร์* `deploy/` (หรือแตกไฟล์ zip) ขึ้น `public_html/` ด้วย FTP/SFTP หรือ File Manager ของ cPanel — อย่าลืมไฟล์ซ่อน `.htaccess` (FileZilla: *Server → Force showing hidden files*)
 - **ถ้าใน `public_html/` มี `.htaccess` เดิมอยู่แล้ว** ให้เปิดดูก่อน แล้วนำเนื้อหาของเราไปต่อท้าย แทนการเขียนทับ
 - อัปเดตครั้งต่อไป: แก้ข้อมูล → `npm run deploy` → อัปโหลดทับทั้งหมด
+- ทัวร์ 360° หอพุทธศิลป์ (`site/projects/bda-mcu-phrae/`, ~27 MB) รวมอยู่ใน `deploy/` และ zip แล้ว เปิดได้ที่ `https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/` (มี `.htaccess` ของตัวเอง)
 - โฟลเดอร์ `deploy/` และไฟล์ zip ไม่ถูก commit (อยู่ใน `.gitignore`) สร้างใหม่ได้ทุกเมื่อ
+
+### อัปเดตทัวร์ 360° (BDA-MCU-PHRAE)
+
+ไฟล์ใน `site/projects/bda-mcu-phrae/` คือ `deploy/dist/` ของ repo [BDA-MCU-PHRAE](https://github.com/kittiphunr/BDA-MCU-PHRAE) เมื่อแก้ทัวร์แล้วให้คัดลอกมาใหม่:
+
+```bash
+git clone --depth 1 https://github.com/kittiphunr/BDA-MCU-PHRAE ../BDA-MCU-PHRAE   # ครั้งแรก
+rm -rf site/projects/bda-mcu-phrae && cp -r ../BDA-MCU-PHRAE/deploy/dist site/projects/bda-mcu-phrae
+npm run deploy
+```
 
 ## ทดสอบในเครื่อง
 

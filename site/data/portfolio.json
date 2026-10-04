@@ -963,6 +963,237 @@
       }
     },
     {
+      "title": "BDA-MCU-PHRAE",
+      "description": {
+        "th": "ทัวร์เสมือนจริง 360° หอพุทธศิลป์ มจร วิทยาเขตแพร่ เดินชมแบบ Street View พร้อมข้อมูลงานศิลปะ 70 ชิ้น — ผูกภาพและสร้างแผนผังอัตโนมัติด้วย Python + OpenCV",
+        "en": "A 360° virtual tour of the Buddhist Art Gallery at MCU Phrae Campus — Street View-style walking with 70 documented artworks, with the panoramas linked and mapped automatically by Python + OpenCV.",
+        "ja": "MCU プレー校・仏教美術館の 360° バーチャルツアー。ストリートビュー式に館内を歩き、70 点の作品解説を閲覧可能。パノラマの接続と館内図は Python + OpenCV で自動生成。",
+        "zh": "MCU 帕府校区佛教艺术馆 360° 虚拟导览——以街景方式漫游并查看 70 件艺术品介绍，全景图的连接与平面图由 Python + OpenCV 自动生成。"
+      },
+      "tags": [
+        "JavaScript",
+        "Python",
+        "OpenCV",
+        "360°"
+      ],
+      "link": "https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/",
+      "image": "assets/img/projects/bda-mcu-phrae/cover.jpg",
+      "featured": {
+        "subtitle": {
+          "th": "ทัวร์เสมือนจริง 360° แบบ Street View · มจร วิทยาเขตแพร่",
+          "en": "Street View-style 360° virtual tour · MCU Phrae Campus",
+          "ja": "ストリートビュー式 360° バーチャルツアー · MCU プレー校",
+          "zh": "街景式 360° 虚拟导览 · MCU 帕府校区"
+        },
+        "summary": {
+          "th": "เว็บไซต์พิพิธภัณฑ์เสมือนจริงของหอพุทธศิลป์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่ ผู้ชมคลิกลูกศรบนพื้นเพื่อเดินจากจุดหนึ่งไปอีกจุดแบบ Street View ระบบหันหน้าต่อเนื่องตามทิศที่เดิน มีแผนผังขนาดเล็กบอกตำแหน่งและทิศที่มอง และคลิก ⓘ ที่วัตถุเพื่ออ่านป้ายข้อมูลงานศิลปะได้ 70 ชิ้น ตำแหน่งของทุกจุด ทิศของลูกศร และตำแหน่งงานศิลปะในภาพ คำนวณอัตโนมัติจากภาพ 360° ด้วย Computer Vision แทนการกำหนดด้วยมือ",
+          "en": "A virtual museum for the Buddhist Art Gallery of Mahachulalongkornrajavidyalaya University, Phrae Campus. Visitors click arrows on the floor to walk from spot to spot like Street View, keeping their heading as they move; a mini-map shows where they are and which way they face, and ⓘ hotspots open the information cards of 70 artworks. Every spot's position, every arrow's direction and each artwork's place in the panoramas are computed automatically from the 360° photos with computer vision rather than set by hand.",
+          "ja": "マハーチュラーロンコーンラーチャウィタヤーラ大学プレー校・仏教美術館のバーチャルミュージアム。床の矢印をクリックしてストリートビューのように移動でき、進行方向を保ったまま視点がつながります。ミニマップで現在地と向きを表示し、ⓘ から 70 点の作品解説カードを開けます。各地点の位置、矢印の方向、パノラマ内の作品位置は、手作業ではなくコンピュータビジョンで 360° 写真から自動算出しています。",
+          "zh": "为摩诃朱拉隆功大学帕府校区佛教艺术馆打造的虚拟博物馆。观众点击地面箭头即可像街景一样在各点之间行走，并保持前进方向；小地图显示当前位置与朝向，点击 ⓘ 可查看 70 件艺术品的介绍卡片。每个点位的位置、箭头方向以及艺术品在全景图中的位置，均通过计算机视觉从 360° 照片自动计算，而非手动设定。"
+        },
+        "gallery": [
+          {
+            "src": "assets/img/projects/bda-mcu-phrae/hall.jpg",
+            "caption": {
+              "th": "โซนพระพุทธรูปในห้องจัดแสดง — ลูกศรบนพื้นสำหรับเดินต่อ และแผนผังที่มีกรวยบอกทิศที่กำลังมอง",
+              "en": "The Buddha-image zone in the main hall — a floor arrow to walk on and a mini-map with a cone showing the view direction",
+              "ja": "展示室の仏像ゾーン — 移動用の床の矢印と、視線方向を扇形で示すミニマップ",
+              "zh": "展厅中的佛像区——用于前进的地面箭头，以及以扇形显示视线方向的小地图"
+            }
+          },
+          {
+            "src": "assets/img/projects/bda-mcu-phrae/artwork.jpg",
+            "caption": {
+              "th": "เลือกจากรายการงานศิลปะ 70 ชิ้น (ค้นหาได้) แล้วเปิดป้ายข้อมูลเต็มใบ พร้อมบอกจุดที่มองเห็นชิ้นงานนั้น",
+              "en": "Pick from the searchable list of 70 artworks to open the full information card and see which spots show it",
+              "ja": "検索可能な 70 点の作品リストから選ぶと解説カード全体と、その作品が見える地点を表示",
+              "zh": "从可搜索的 70 件艺术品列表中选择，即可打开完整介绍卡片并显示可看到该作品的点位"
+            }
+          },
+          {
+            "src": "assets/img/projects/bda-mcu-phrae/buddha-zone.jpg",
+            "caption": {
+              "th": "เดินต่อเนื่องระหว่างจุดชม ระบบหันหน้าไปทิศเดียวกับที่เดินมาให้อัตโนมัติ",
+              "en": "Walking between spots keeps the same heading automatically",
+              "ja": "地点間を移動しても進行方向の視点が自動で保たれる",
+              "zh": "在点位之间行走时自动保持相同的前进方向"
+            }
+          },
+          {
+            "src": "assets/img/projects/bda-mcu-phrae/painting-zone.jpg",
+            "caption": {
+              "th": "โซนจิตรกรรมร่วมสมัย — ภาพ 360° ย่อเหลือ 4096×2048 ให้เปิดลื่นบนมือถือ",
+              "en": "The contemporary painting zone — panoramas downsized to 4096×2048 to stay smooth on phones",
+              "ja": "現代絵画ゾーン — スマートフォンでも快適なようにパノラマを 4096×2048 に縮小",
+              "zh": "当代绘画区——全景图缩小至 4096×2048，在手机上也能流畅浏览"
+            }
+          },
+          {
+            "src": "assets/img/projects/bda-mcu-phrae/intro.jpg",
+            "caption": {
+              "th": "หน้าต้อนรับพร้อมวิธีใช้งาน: ลากเพื่อมองรอบ คลิกลูกศรเพื่อเดิน คลิก ⓘ เพื่ออ่านข้อมูล",
+              "en": "Welcome screen with how-to: drag to look around, click arrows to walk, click ⓘ to read",
+              "ja": "使い方付きのウェルカム画面：ドラッグで見回し、矢印で移動、ⓘ で解説",
+              "zh": "带使用说明的欢迎界面：拖动环视、点击箭头行走、点击 ⓘ 阅读介绍"
+            }
+          },
+          {
+            "src": "assets/img/projects/bda-mcu-phrae/entrance.jpg",
+            "caption": {
+              "th": "จุดเริ่มต้นที่ระเบียงทางเข้าหอพุทธศิลป์ ปุ่ม “เดินหน้า” (คีย์ W) ไปยังจุดที่อยู่ในทิศที่มอง",
+              "en": "Starting point on the entrance veranda — the “Forward” button (W key) goes to the spot in the direction you face",
+              "ja": "入口の回廊が出発点 —「前進」ボタン（W キー）で向いている方向の地点へ",
+              "zh": "起点位于入口走廊——“前进”按钮（W 键）可前往视线方向上的点位"
+            }
+          }
+        ],
+        "metrics": [
+          {
+            "value": "28",
+            "label": {
+              "th": "จุดชม 360°",
+              "en": "360° viewpoints",
+              "ja": "360° 視点",
+              "zh": "360° 观景点"
+            }
+          },
+          {
+            "value": "70",
+            "label": {
+              "th": "งานศิลปะพร้อมป้ายข้อมูล",
+              "en": "artworks with info cards",
+              "ja": "解説付きの作品",
+              "zh": "附介绍的艺术品"
+            }
+          },
+          {
+            "value": "276",
+            "label": {
+              "th": "คู่ภาพที่วิเคราะห์ด้วย SIFT",
+              "en": "image pairs matched with SIFT",
+              "ja": "SIFT で照合した画像ペア",
+              "zh": "经 SIFT 匹配的图像对"
+            }
+          },
+          {
+            "value": "2–6",
+            "label": {
+              "th": "ทิศที่เดินได้ต่อจุด",
+              "en": "walkable directions per spot",
+              "ja": "地点ごとの移動方向",
+              "zh": "每个点位可行走方向"
+            }
+          }
+        ],
+        "highlights": [
+          {
+            "icon": "javascript",
+            "color": "#F7DF1E",
+            "title": "JavaScript",
+            "role": {
+              "th": "ตัวชมภาพ 360° แบบ Street View",
+              "en": "Street View-style 360° viewer",
+              "ja": "ストリートビュー式 360° ビューア",
+              "zh": "街景式 360° 浏览器"
+            },
+            "points": [
+              {
+                "th": "สร้างบน Pannellum (WebGL) ลูกศรบนพื้นคำนวณทิศเองจากตำแหน่งบนแผนผัง ลิงก์กลับสร้างให้อัตโนมัติ และเดินแล้วหันหน้าต่อเนื่อง",
+                "en": "Built on Pannellum (WebGL): floor arrows aim themselves from map positions, return links are added automatically, and the heading carries over as you walk",
+                "ja": "Pannellum（WebGL）上に構築。床の矢印は館内図の位置から方向を自動計算し、戻りリンクも自動生成、移動しても向きが連続",
+                "zh": "基于 Pannellum（WebGL）构建：地面箭头根据平面图位置自动计算方向，自动生成返回链接，行走时保持朝向连续"
+              },
+              {
+                "th": "แผนผังขนาดเล็กพร้อมกรวยบอกทิศ คลิกเพื่อวาร์ป ปุ่ม/คีย์ W เดินหน้า และลิงก์ตรงไปยังแต่ละจุด เช่น #p145",
+                "en": "Mini-map with a view cone and click-to-warp, a Forward button / W key, and deep links to each spot such as #p145",
+                "ja": "視線の扇形付きミニマップとクリックでワープ、「前進」ボタン／W キー、#p145 のような地点への直接リンク",
+                "zh": "带视线扇形的小地图、点击瞬移、“前进”按钮 / W 键，以及 #p145 这样的点位直达链接"
+              },
+              {
+                "th": "รายการงานศิลปะ 70 ชิ้นพร้อมช่องค้นหา จุด ⓘ ในภาพ หมุนอัตโนมัติ เต็มจอ หน้าโหลด และรองรับมือถือ",
+                "en": "Searchable list of 70 artworks, ⓘ hotspots, auto-rotate, fullscreen, a loading screen and mobile support",
+                "ja": "検索付き 70 作品リスト、ⓘ ホットスポット、自動回転、全画面、ローディング画面、モバイル対応",
+                "zh": "可搜索的 70 件艺术品列表、ⓘ 热点、自动旋转、全屏、加载页及移动端支持"
+              }
+            ]
+          },
+          {
+            "icon": "python",
+            "color": "#4B8BBE",
+            "title": "Python",
+            "role": {
+              "th": "Computer Vision สร้างแผนผังและผูกภาพอัตโนมัติ",
+              "en": "Computer vision that maps and links the tour",
+              "ja": "館内図とリンクを自動生成するコンピュータビジョン",
+              "zh": "自动生成平面图与链接的计算机视觉"
+            },
+            "points": [
+              {
+                "th": "จับคู่จุดเด่นด้วย SIFT (OpenCV) แล้วหา Essential matrix บนทรงกลม ได้ทิศและมุมหมุนระหว่างภาพ 360° ทุกคู่ที่อยู่ใกล้กัน รวม 276 คู่",
+                "en": "Matches SIFT features (OpenCV) and solves a spherical essential matrix to get the direction and rotation between every nearby pair of panoramas — 276 pairs",
+                "ja": "SIFT 特徴点（OpenCV）を照合し、球面上の基本行列から近接する全パノラマ対の方向と回転を算出（計 276 対）",
+                "zh": "使用 SIFT 特征（OpenCV）匹配并求解球面本质矩阵，得到所有相邻全景图对之间的方向与旋转（共 276 对）"
+              },
+              {
+                "th": "คำนวณแผนผังทั้งหมดพร้อมกันจาก 141 คู่ที่เชื่อถือได้ (NumPy/SciPy) ตัดคู่ที่ขัดแย้งออกอัตโนมัติ และหมุนให้ผนังขนานแกน",
+                "en": "Solves the whole floor plan at once from 141 reliable pairs (NumPy/SciPy), dropping inconsistent pairs automatically and aligning walls to the axes",
+                "ja": "信頼できる 141 対から館内図全体を一括計算（NumPy/SciPy）。矛盾する対は自動除外し、壁を軸に揃える",
+                "zh": "基于 141 对可靠图像一次性求解整张平面图（NumPy/SciPy），自动剔除矛盾的图像对并使墙面与坐标轴对齐"
+              },
+              {
+                "th": "คัดภาพจาก 54 เหลือ 28 จุดโดยงานศิลปะทุกชิ้นยังมองเห็นได้ และหาตำแหน่งงานศิลปะในภาพ 360° จากภาพถ่ายในป้ายข้อมูล",
+                "en": "Selects 28 of 54 panoramas while keeping every artwork visible, and locates artworks in the panoramas from the photos on their info cards",
+                "ja": "全作品が見える状態を保ちつつ 54 枚から 28 地点を選定し、解説カードの写真からパノラマ内の作品位置を特定",
+                "zh": "在保证每件艺术品可见的前提下从 54 张中精选 28 个点位，并根据介绍卡片上的照片定位艺术品在全景图中的位置"
+              }
+            ]
+          },
+          {
+            "icon": "linux",
+            "color": "#FCC624",
+            "title": {
+              "th": "การ Deploy",
+              "en": "Deployment",
+              "ja": "デプロイ",
+              "zh": "部署"
+            },
+            "role": {
+              "th": "เว็บ static ขึ้นได้ทุกเซิร์ฟเวอร์",
+              "en": "Static site that runs on any server",
+              "ja": "どのサーバーでも動く静的サイト",
+              "zh": "可在任意服务器运行的静态网站"
+            },
+            "points": [
+              {
+                "th": "สคริปต์ build รวมเฉพาะไฟล์ที่เว็บใช้ (~27 MB จากภาพต้นฉบับ ~720 MB) และใส่เลขเวอร์ชันท้ายไฟล์ css/js",
+                "en": "A build script packs only the files the site uses (~27 MB out of ~720 MB of originals) and versions the CSS/JS URLs",
+                "ja": "ビルドスクリプトがサイトで使うファイルだけ（元画像約 720 MB から約 27 MB）をまとめ、CSS/JS にバージョンを付与",
+                "zh": "构建脚本仅打包网站使用的文件（约 720 MB 原图中的约 27 MB），并为 CSS/JS 添加版本号"
+              },
+              {
+                "th": "ตั้งค่าพร้อมใช้สำหรับ Apache (.htaccess), Nginx, Docker และ GitHub Pages — ไลบรารี Pannellum อยู่ในเครื่อง ไม่ต้องโหลดจาก CDN",
+                "en": "Ready-made configs for Apache (.htaccess), Nginx, Docker and GitHub Pages — Pannellum is bundled locally, not loaded from a CDN",
+                "ja": "Apache（.htaccess）、Nginx、Docker、GitHub Pages 用の設定を用意。Pannellum は同梱で CDN から読み込まない",
+                "zh": "提供 Apache（.htaccess）、Nginx、Docker 与 GitHub Pages 的现成配置——Pannellum 本地打包，不从 CDN 加载"
+              }
+            ]
+          }
+        ],
+        "stack": [
+          "JavaScript",
+          "Pannellum (WebGL)",
+          "HTML5 / CSS3",
+          "Python",
+          "OpenCV (SIFT)",
+          "NumPy",
+          "SciPy",
+          "Apache / Nginx",
+          "Docker"
+        ],
+        "name": "Buddhist Art Gallery 360°"
+      }
+    },
+    {
       "title": "Music Player ESP32-S3",
       "description": {
         "th": "เครื่องเล่นเพลงบนจอแสดงผลขนาด 2.8 นิ้ว ด้วยไมโครคอนโทรลเลอร์ ESP32-S3",
