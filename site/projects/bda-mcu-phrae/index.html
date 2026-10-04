@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>หอพุทธศิลป์ · ทัวร์เสมือนจริง 360°</title>
+  <meta name="description" content="เยี่ยมชมหอพุทธศิลป์แบบเสมือนจริง 360 องศา เดินชมแต่ละห้องได้แบบ Street View">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/logo/icon-192.png">
+  <link rel="apple-touch-icon" href="images/logo/apple-touch-icon.png">
+  <link rel="preload" as="image" href="images/logo/mcu-logo.png">
+  <link rel="stylesheet" href="vendor/pannellum/pannellum.css">
+  <link rel="stylesheet" href="css/style.css?v=d434078">
+</head>
+<body>
+  <!-- หน้าโหลด: แสดงจนภาพ 360° แรกโหลดเสร็จ -->
+  <div id="preloader" class="preloader" role="status" aria-live="polite">
+    <div class="preloader-logo">
+      <span class="preloader-ring" aria-hidden="true"></span>
+      <img src="images/logo/mcu-logo.png" alt="ตราสัญลักษณ์มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย" width="128" height="128">
+    </div>
+    <p class="preloader-title">หอพุทธศิลป์</p>
+    <p class="preloader-text">มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่</p>
+    <div class="preloader-bar" aria-hidden="true"><span id="preloader-fill"></span></div>
+    <p class="preloader-status" id="preloader-status">กำลังโหลดภาพ 360°…</p>
+  </div>
+
+  <div id="viewer" aria-label="ภาพ 360 องศา"></div>
+
+  <!-- แถบหัวเรื่อง -->
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-mark" src="images/logo/mcu-logo.png" alt="ตราสัญลักษณ์ มจร" width="42" height="42">
+      <div>
+        <h1 id="tour-title">หอพุทธศิลป์</h1>
+        <p id="scene-title" class="scene-title"></p>
+      </div>
+    </div>
+    <nav class="tools" aria-label="เครื่องมือ">
+      <button id="btn-art" class="icon-btn" title="งานศิลปะทั้งหมด" aria-label="งานศิลปะทั้งหมด">❖</button>
+      <button id="btn-list" class="icon-btn" title="รายการจุดชม" aria-label="รายการจุดชม">☰</button>
+      <button id="btn-map" class="icon-btn" title="แผนผัง" aria-label="แผนผัง">◎</button>
+      <button id="btn-rotate" class="icon-btn" title="หมุนอัตโนมัติ" aria-label="หมุนอัตโนมัติ">⟳</button>
+      <button id="btn-share" class="icon-btn" title="คัดลอกลิงก์จุดนี้" aria-label="คัดลอกลิงก์จุดนี้">⤴</button>
+      <button id="btn-full" class="icon-btn" title="เต็มจอ" aria-label="เต็มจอ">⛶</button>
+    </nav>
+  </header>
+
+  <!-- แผนผัง (mini-map) -->
+  <aside id="minimap" class="panel minimap" aria-label="แผนผังอาคาร">
+    <div class="panel-head">
+      <span>แผนผัง</span>
+      <button class="close" data-close="minimap" aria-label="ปิด">×</button>
+    </div>
+    <svg id="map-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
+  </aside>
+
+  <!-- รายการจุดชม -->
+  <aside id="scene-list" class="panel scene-list" aria-label="รายการจุดชม" hidden>
+    <div class="panel-head">
+      <span>จุดชมทั้งหมด</span>
+      <button class="close" data-close="scene-list" aria-label="ปิด">×</button>
+    </div>
+    <ol id="scene-items"></ol>
+  </aside>
+
+  <!-- รายการงานศิลปะ -->
+  <aside id="art-list" class="panel scene-list art-list" aria-label="งานศิลปะทั้งหมด" hidden>
+    <div class="panel-head">
+      <span>งานศิลปะ <small id="art-count"></small></span>
+      <button class="close" data-close="art-list" aria-label="ปิด">×</button>
+    </div>
+    <input id="art-search" class="art-search" type="search" placeholder="ค้นหา เช่น พระพุทธรูป, ตุง, ขันหมาก" aria-label="ค้นหางานศิลปะ">
+    <ol id="art-items"></ol>
+  </aside>
+
+  <!-- กล่องข้อมูลวัตถุจัดแสดง -->
+  <aside id="info-card" class="info-card" hidden aria-live="polite">
+    <button class="close" data-close="info-card" aria-label="ปิด">×</button>
+    <h2 id="info-title"></h2>
+    <p id="info-sub" class="info-sub"></p>
+    <p id="info-text"></p>
+    <a id="info-link" class="info-img-link" target="_blank" rel="noopener" hidden>
+      <img id="info-img" alt="">
+    </a>
+    <p id="info-where" class="info-where"></p>
+  </aside>
+
+  <!-- คำอธิบายจุดและปุ่มเดิน -->
+  <footer class="bottombar">
+    <p id="scene-desc" class="scene-desc"></p>
+    <button id="btn-forward" class="forward" title="เดินไปข้างหน้า (W)">เดินหน้า ▲</button>
+  </footer>
+
+  <!-- โหมดแก้ไข: ?edit=1 -->
+  <div id="edit-hud" class="edit-hud" hidden></div>
+
+  <!-- หน้าต้อนรับ -->
+  <section id="intro" class="intro">
+    <div class="intro-card">
+      <img class="intro-mark" src="images/logo/mcu-logo.png" alt="ตราสัญลักษณ์มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย" width="96" height="96">
+      <h2 id="intro-title">หอพุทธศิลป์</h2>
+      <p id="intro-sub"></p>
+      <ul class="intro-help">
+        <li>ลากเมาส์ / นิ้ว เพื่อมองรอบ ๆ</li>
+        <li>คลิก <b>ลูกศรบนพื้น</b> เพื่อเดินไปยังจุดถัดไป</li>
+        <li>คลิก <b>ⓘ</b> ที่วัตถุ หรือปุ่ม ❖ เพื่ออ่านข้อมูลงานศิลปะ</li>
+        <li>คลิกจุดบน <b>แผนผัง</b> หรือ ☰ เพื่อไปยังจุดที่ต้องการ</li>
+      </ul>
+      <button id="btn-start" class="start">เริ่มชมนิทรรศการ</button>
+    </div>
+  </section>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="vendor/pannellum/pannellum.js"></script>
+  <script src="data/tour.js?v=d434078"></script>
+  <script src="js/app.js?v=d434078"></script>
+</body>
+</html>
