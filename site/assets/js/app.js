@@ -660,7 +660,7 @@
     const p = data.profile;
     const name = resolve(p.name).text;
     const title = name + " | " + resolve(p.title).text + " · Network · Server · Full-Stack";
-    const desc = resolve(p.intro || p.summary).text.slice(0, 300);
+    const desc = resolve(p.seoDescription || p.intro || p.summary).text.slice(0, 300);
     const url = lang === DEFAULT_LANG ? SITE_URL : SITE_URL + "?lang=" + lang;
     document.documentElement.lang = lang;
     document.title = title;
