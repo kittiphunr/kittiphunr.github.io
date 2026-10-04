@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="images/logo/apple-touch-icon.png">
   <link rel="preload" as="image" href="images/logo/mcu-logo.png">
   <link rel="stylesheet" href="vendor/pannellum/pannellum.css">
-  <link rel="stylesheet" href="css/style.css?v=d434078">
+  <link rel="stylesheet" href="css/style.css?v=5934983">
 </head>
 <body>
   <!-- หน้าโหลด: แสดงจนภาพ 360° แรกโหลดเสร็จ -->
@@ -40,6 +40,7 @@
       </div>
     </div>
     <nav class="tools" aria-label="เครื่องมือ">
+      <button id="btn-3d" class="icon-btn btn-3d" title="โมเดล 3 มิติของห้อง" aria-label="โมเดล 3 มิติของห้อง" hidden>3D</button>
       <button id="btn-art" class="icon-btn" title="งานศิลปะทั้งหมด" aria-label="งานศิลปะทั้งหมด">❖</button>
       <button id="btn-list" class="icon-btn" title="รายการจุดชม" aria-label="รายการจุดชม">☰</button>
       <button id="btn-map" class="icon-btn" title="แผนผัง" aria-label="แผนผัง">◎</button>
@@ -48,6 +49,25 @@
       <button id="btn-full" class="icon-btn" title="เต็มจอ" aria-label="เต็มจอ">⛶</button>
     </nav>
   </header>
+
+  <!-- เข็มทิศ -->
+  <button id="compass" class="compass" type="button" hidden
+          title="เข็มทิศ — คลิกเพื่อหันไปทางทิศเหนือ" aria-label="เข็มทิศ คลิกเพื่อหันไปทางทิศเหนือ">
+    <svg viewBox="-50 -50 100 100" aria-hidden="true">
+      <circle r="47" class="ring"/>
+      <g id="compass-rose">
+        <path d="M0 -40 L7 0 L0 40 L-7 0 Z" class="needle-s"/>
+        <path d="M0 -40 L7 0 L-7 0 Z" class="needle-n"/>
+        <text y="-28" class="n">N</text>
+        <text x="31" y="4" class="t">E</text>
+        <text y="36" class="t">S</text>
+        <text x="-31" y="4" class="t">W</text>
+      </g>
+      <circle r="4" class="hub"/>
+      <path d="M0 -50 L5 -42 L-5 -42 Z" class="mark"/>
+    </svg>
+    <span id="compass-text" class="compass-text"></span>
+  </button>
 
   <!-- แผนผัง (mini-map) -->
   <aside id="minimap" class="panel minimap" aria-label="แผนผังอาคาร">
@@ -114,10 +134,27 @@
     </div>
   </section>
 
+  <!-- โมเดล 3 มิติ (dollhouse) -->
+  <section id="model3d" class="model3d" hidden aria-label="โมเดล 3 มิติของหอพุทธศิลป์">
+    <div id="model3d-canvas" class="model3d-canvas"></div>
+    <header class="model3d-head">
+      <div>
+        <h2>โมเดล 3 มิติ หอพุทธศิลป์</h2>
+        <p>ลากเพื่อหมุน · เลื่อน/บีบเพื่อซูม · คลิก <span class="dot"></span> เพื่อเข้าชมจุดนั้น · คลิก <span class="gem">◆</span> เพื่ออ่านข้อมูลงานศิลปะ</p>
+      </div>
+      <button id="model3d-close" class="icon-btn" aria-label="ปิดโมเดล 3 มิติ">×</button>
+    </header>
+    <p class="model3d-note">แบบจำลองโดยประมาณ สร้างจากภาพ 360° และขนาดห้องที่วัดจากภาพ</p>
+    <p id="model3d-status" class="model3d-status" hidden>กำลังสร้างโมเดล 3 มิติ…</p>
+  </section>
+  <div id="model3d-tip" class="model3d-tip" hidden></div>
+
   <div id="toast" class="toast" role="status"></div>
 
   <script src="vendor/pannellum/pannellum.js"></script>
-  <script src="data/tour.js?v=d434078"></script>
-  <script src="js/app.js?v=d434078"></script>
+  <script src="data/tour.js?v=5934983"></script>
+  <script src="js/app.js?v=5934983"></script>
+  <script type="importmap">{ "imports": { "three": "./vendor/three/three.module.min.js" } }</script>
+  <script type="module" src="js/model3d.js?v=5934983"></script>
 </body>
 </html>
