@@ -12,7 +12,67 @@
   --radius: 14px;
   --font: "Sarabun", system-ui, sans-serif;
   --font-head: "Noto Serif Thai", "Sarabun", serif;
+  --accent-text: #f1d98a;
+  --scrim: rgba(10, 5, 3, 0.85);
+  --node: #2a1a10;
+  --intro-bg: radial-gradient(ellipse at center, rgba(60, 20, 15, 0.82), rgba(8, 4, 2, 0.95));
+  --intro-card: rgba(20, 11, 7, 0.7);
+  --preloader-bg: radial-gradient(ellipse at center, #3a1712, #120b07 70%);
+  --compass-fill: rgba(0, 0, 0, .35);
+  --needle-s: #e8e0cc;
+  --input: rgba(0, 0, 0, 0.3);
+  color-scheme: dark;
 }
+
+/* ---------- โหมดสว่าง: เลือกเอง หรือตามเครื่องเมื่อไม่ได้เลือก ---------- */
+:root[data-theme="light"] {
+  --bg: #f6efe2;
+  --panel: rgba(255, 250, 240, 0.92);
+  --panel-solid: #fffaf0;
+  --line: rgba(150, 105, 20, 0.35);
+  --gold: #b8892a;
+  --gold-soft: #f1d98a;
+  --text: #2b1a10;
+  --muted: #6b5844;
+  --shadow: 0 10px 30px rgba(80, 50, 10, 0.18);
+  --accent-text: #7a4410;
+  --scrim: rgba(246, 239, 226, 0.92);
+  --node: #fffaf0;
+  --intro-bg: radial-gradient(ellipse at center, rgba(250, 244, 232, 0.86), rgba(226, 211, 186, 0.96));
+  --intro-card: rgba(255, 250, 240, 0.85);
+  --preloader-bg: radial-gradient(ellipse at center, #fff6e3, #e6d6b9 70%);
+  --compass-fill: rgba(255, 250, 240, .8);
+  --needle-s: #8a7a62;
+  --input: rgba(255, 255, 255, 0.75);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f6efe2;
+    --panel: rgba(255, 250, 240, 0.92);
+    --panel-solid: #fffaf0;
+    --line: rgba(150, 105, 20, 0.35);
+    --gold: #b8892a;
+    --gold-soft: #f1d98a;
+    --text: #2b1a10;
+    --muted: #6b5844;
+    --shadow: 0 10px 30px rgba(80, 50, 10, 0.18);
+    --accent-text: #7a4410;
+    --scrim: rgba(246, 239, 226, 0.92);
+    --node: #fffaf0;
+    --intro-bg: radial-gradient(ellipse at center, rgba(250, 244, 232, 0.86), rgba(226, 211, 186, 0.96));
+    --intro-card: rgba(255, 250, 240, 0.85);
+    --preloader-bg: radial-gradient(ellipse at center, #fff6e3, #e6d6b9 70%);
+    --compass-fill: rgba(255, 250, 240, .8);
+    --needle-s: #8a7a62;
+    --input: rgba(255, 255, 255, 0.75);
+    color-scheme: light;
+  }
+}
+
+/* ภาษาญี่ปุ่น / จีน ใช้ฟอนต์ที่มีอักษร CJK */
+:root:lang(ja) { --font: "Noto Sans JP", "Sarabun", system-ui, sans-serif; --font-head: "Noto Sans JP", "Noto Serif Thai", serif; }
+:root:lang(zh) { --font: "Noto Sans SC", "Sarabun", system-ui, sans-serif; --font-head: "Noto Sans SC", "Noto Serif Thai", serif; }
 
 * { box-sizing: border-box; }
 
@@ -39,7 +99,7 @@ button { font: inherit; color: inherit; }
   align-items: center;
   gap: 12px;
   padding: max(12px, env(safe-area-inset-top)) 16px 28px;
-  background: linear-gradient(to bottom, rgba(10, 5, 3, 0.85), transparent);
+  background: linear-gradient(to bottom, var(--scrim), transparent);
   pointer-events: none;
   z-index: 10;
 }
@@ -56,7 +116,7 @@ button { font: inherit; color: inherit; }
   margin: 0;
   font-family: var(--font-head);
   font-size: 20px;
-  color: var(--gold-soft);
+  color: var(--accent-text);
   line-height: 1.2;
 }
 .scene-title {
@@ -96,7 +156,7 @@ button { font: inherit; color: inherit; }
   align-items: center;
   padding: 8px 10px 6px 14px;
   font-family: var(--font-head);
-  color: var(--gold-soft);
+  color: var(--accent-text);
   font-size: 14px;
 }
 .close {
@@ -108,7 +168,7 @@ button { font: inherit; color: inherit; }
   color: var(--muted);
   padding: 2px 6px;
 }
-.close:hover { color: var(--gold-soft); }
+.close:hover { color: var(--accent-text); }
 
 .minimap {
   right: 16px;
@@ -121,7 +181,7 @@ button { font: inherit; color: inherit; }
 #map-svg .path { stroke: var(--gold); stroke-width: .55; opacity: .6; }
 #map-svg .cone path { fill: rgba(241, 217, 138, 0.35); stroke: none; }
 #map-svg .node { cursor: pointer; }
-#map-svg .node circle { fill: #2a1a10; stroke: var(--gold); stroke-width: .45; transition: r .2s; }
+#map-svg .node circle { fill: var(--node); stroke: var(--gold); stroke-width: .45; transition: r .2s; }
 #map-svg .node:hover circle, #map-svg .node:focus circle { fill: var(--gold); outline: none; }
 #map-svg .node.current circle { fill: var(--gold-soft); stroke: #fff; stroke-width: .6; }
 
@@ -144,7 +204,7 @@ button { font: inherit; color: inherit; }
   cursor: pointer;
 }
 .scene-list button:hover { background: rgba(212, 175, 55, 0.12); }
-.scene-list button.active { background: rgba(212, 175, 55, 0.22); color: var(--gold-soft); }
+.scene-list button.active { background: rgba(212, 175, 55, 0.22); color: var(--accent-text); }
 .scene-list .num {
   flex: none;
   display: grid; place-items: center;
@@ -164,7 +224,7 @@ button { font: inherit; color: inherit; }
   justify-content: space-between;
   gap: 12px;
   padding: 36px 16px max(16px, env(safe-area-inset-bottom));
-  background: linear-gradient(to top, rgba(10, 5, 3, 0.85), transparent);
+  background: linear-gradient(to top, var(--scrim), transparent);
   pointer-events: none;
   z-index: 8;
 }
@@ -176,7 +236,7 @@ button { font: inherit; color: inherit; }
   border-radius: 999px;
   border: 1px solid var(--gold);
   background: var(--maroon);
-  color: var(--gold-soft);
+  color: #f1d98a;
   font-weight: 600;
   cursor: pointer;
   max-width: 60vw;
@@ -184,7 +244,7 @@ button { font: inherit; color: inherit; }
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.forward:disabled { opacity: .55; cursor: default; border-color: var(--line); background: var(--panel); font-weight: 400; }
+.forward:disabled { opacity: .55; cursor: default; border-color: var(--line); background: var(--panel); color: var(--text); font-weight: 400; }
 
 /* ---------- ลูกศรแบบ Street View ---------- */
 .sv-arrow {
@@ -282,7 +342,7 @@ button { font: inherit; color: inherit; }
   box-shadow: var(--shadow);
 }
 .info-card .close { position: absolute; top: 8px; right: 8px; }
-.info-card h2 { margin: 0 24px 8px 0; font-family: var(--font-head); color: var(--gold-soft); font-size: 20px; }
+.info-card h2 { margin: 0 24px 8px 0; font-family: var(--font-head); color: var(--accent-text); font-size: 20px; }
 .info-card p { margin: 0; line-height: 1.7; color: var(--text); }
 
 /* ---------- หน้าต้อนรับ ---------- */
@@ -291,7 +351,7 @@ button { font: inherit; color: inherit; }
   z-index: 20;
   display: grid; place-items: center;
   padding: 16px;
-  background: radial-gradient(ellipse at center, rgba(60, 20, 15, 0.82), rgba(8, 4, 2, 0.95));
+  background: var(--intro-bg);
   transition: opacity .6s;
 }
 .intro.gone { opacity: 0; pointer-events: none; }
@@ -301,7 +361,7 @@ button { font: inherit; color: inherit; }
   padding: 32px 24px;
   border: 1px solid var(--line);
   border-radius: 20px;
-  background: rgba(20, 11, 7, 0.7);
+  background: var(--intro-card);
 }
 .intro-mark {
   display: block;
@@ -314,7 +374,7 @@ button { font: inherit; color: inherit; }
   margin: 6px 0 4px;
   font-family: var(--font-head);
   font-size: clamp(30px, 7vw, 44px);
-  color: var(--gold-soft);
+  color: var(--accent-text);
 }
 .intro p { margin: 0 0 18px; color: var(--muted); }
 .intro-help { list-style: none; padding: 0; margin: 0 0 24px; line-height: 1.9; }
@@ -411,7 +471,7 @@ button { font: inherit; color: inherit; }
   padding: 8px 10px;
   border-radius: 8px;
   border: 1px solid var(--line);
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--input);
   color: var(--text);
   font: inherit;
 }
@@ -435,7 +495,7 @@ button { font: inherit; color: inherit; }
   gap: 4px;
   padding: 16px;
   text-align: center;
-  background: radial-gradient(ellipse at center, #3a1712, var(--bg) 70%);
+  background: var(--preloader-bg);
   transition: opacity .6s ease, visibility .6s;
 }
 .preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -463,7 +523,7 @@ button { font: inherit; color: inherit; }
   margin: 0;
   font-family: var(--font-head);
   font-size: clamp(26px, 6vw, 36px);
-  color: var(--gold-soft);
+  color: var(--accent-text);
 }
 .preloader-text { margin: 0; color: var(--muted); font-size: 15px; }
 .preloader-bar {
@@ -508,7 +568,7 @@ button { font: inherit; color: inherit; }
 .pnlm-lbar-fill { background: var(--gold); }
 
 /* ---------- โมเดล 3 มิติ ---------- */
-.btn-3d { font-size: 13px; font-weight: 700; letter-spacing: .5px; color: var(--gold-soft); }
+.btn-3d { font-size: 13px; font-weight: 700; letter-spacing: .5px; color: var(--accent-text); }
 .model3d { position: fixed; inset: 0; z-index: 25; background: var(--bg); }
 .model3d-canvas { position: absolute; inset: 0; }
 .model3d-canvas canvas { display: block; width: 100%; height: 100%; touch-action: none; }
@@ -516,11 +576,11 @@ button { font: inherit; color: inherit; }
   position: absolute; top: 0; left: 0; right: 0;
   display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
   padding: max(12px, env(safe-area-inset-top)) 16px 24px;
-  background: linear-gradient(to bottom, rgba(10, 5, 3, .85), transparent);
+  background: linear-gradient(to bottom, var(--scrim), transparent);
   pointer-events: none;
 }
 .model3d-head > * { pointer-events: auto; }
-.model3d-head h2 { margin: 0; font-family: var(--font-head); color: var(--gold-soft); font-size: 20px; }
+.model3d-head h2 { margin: 0; font-family: var(--font-head); color: var(--accent-text); font-size: 20px; }
 .model3d-head p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
 .model3d-head .dot {
   display: inline-block; width: 10px; height: 10px; border-radius: 50%;
@@ -560,9 +620,9 @@ button { font: inherit; color: inherit; }
 }
 .compass:hover, .compass:focus-visible { border-color: var(--gold); outline: none; }
 .compass svg { width: 64px; height: 64px; display: block; }
-.compass .ring { fill: rgba(0, 0, 0, .35); stroke: var(--gold); stroke-width: 2; }
+.compass .ring { fill: var(--compass-fill); stroke: var(--gold); stroke-width: 2; }
 .compass .needle-n { fill: #c0392b; }
-.compass .needle-s { fill: #e8e0cc; }
+.compass .needle-s { fill: var(--needle-s); }
 .compass .hub { fill: var(--gold); }
 .compass .mark { fill: var(--gold-soft); }
 .compass text { font: 700 11px var(--font); text-anchor: middle; fill: var(--muted); }
@@ -578,7 +638,7 @@ button { font: inherit; color: inherit; }
 }
 
 /* ---------- หน้าข้อมูล (about) ---------- */
-.btn-about { font-weight: 700; color: var(--gold-soft); }
+.btn-about { font-weight: 700; color: var(--accent-text); }
 .about {
   position: fixed; inset: 0; z-index: 35;
   display: grid; place-items: center;
@@ -600,13 +660,13 @@ button { font: inherit; color: inherit; }
 .about-card .close { position: absolute; top: 10px; right: 10px; }
 .about-head { display: flex; gap: 14px; align-items: center; margin-bottom: 8px; padding-right: 28px; }
 .about-head img { flex: none; border-radius: 50%; box-shadow: 0 0 0 2px var(--gold); }
-.about-head h2 { margin: 0; font-family: var(--font-head); font-size: 21px; color: var(--gold-soft); }
+.about-head h2 { margin: 0; font-family: var(--font-head); font-size: 21px; color: var(--accent-text); }
 .about-head p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
 .about-sec { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 12px; }
 .about-sec h3 { margin: 0 0 8px; font-family: var(--font-head); font-size: 16px; color: var(--gold); }
 .about-sec p { margin: 0 0 6px; line-height: 1.7; }
 .about-list { margin: 4px 0 0; padding-left: 20px; line-height: 1.8; color: var(--text); }
-.about-list a { color: var(--gold-soft); }
+.about-list a { color: var(--accent-text); }
 .dev { display: flex; gap: 14px; align-items: center; }
 .dev-photo {
   flex: none; width: 88px; height: 88px; border-radius: 50%; object-fit: cover;
@@ -620,7 +680,7 @@ button { font: inherit; color: inherit; }
 }
 .dev-contact li { display: flex; gap: 8px; font-size: 14px; min-width: 0; }
 .dev-contact span { flex: none; width: 56px; color: var(--muted); }
-.dev-contact a { color: var(--gold-soft); text-decoration: none; overflow-wrap: anywhere; }
+.dev-contact a { color: var(--accent-text); text-decoration: none; overflow-wrap: anywhere; }
 .dev-contact a:hover { text-decoration: underline; }
 .dev-avatar {
   flex: none; display: grid; place-items: center;
@@ -630,15 +690,44 @@ button { font: inherit; color: inherit; }
 }
 .dev p { margin: 0; }
 .dev-name { font-size: 18px; font-weight: 600; color: var(--text); }
-.dev-role { color: var(--gold-soft); }
+.dev-role { color: var(--accent-text); }
 .dev-org { color: var(--muted); font-size: 14px; }
 .intro-credit { margin: 16px 0 0 !important; font-size: 13px; color: var(--muted); }
 .link-btn {
   border: 0; background: none; padding: 0; cursor: pointer;
-  color: var(--gold-soft); text-decoration: underline; font: inherit;
+  color: var(--accent-text); text-decoration: underline; font: inherit;
 }
 @media (max-width: 720px) {
   #btn-full { display: none; }
   .about-card { padding: 18px 16px 14px; }
   .about-head h2 { font-size: 18px; }
 }
+
+/* ---------- ภาษาและโหมดสี ---------- */
+.settings { right: 16px; top: 86px; width: 340px; z-index: 11; }
+.settings-body { padding: 0 14px 14px; }
+.settings-label { margin: 8px 0 6px; font-size: 13px; color: var(--muted); }
+.seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.theme-switch { grid-template-columns: repeat(3, 1fr); }
+.seg button, .intro-langs button {
+  min-width: 0;
+  padding: 7px 6px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+}
+.seg button:hover, .intro-langs button:hover { border-color: var(--gold); }
+.seg button[aria-pressed="true"], .intro-langs button[aria-pressed="true"] {
+  background: var(--gold); border-color: var(--gold); color: #2b1a10; font-weight: 600;
+}
+.intro-langs { display: flex; justify-content: center; gap: 6px; margin: 16px 0 0; }
+.intro-langs button { flex: none; min-width: 0; padding: 5px 10px; font-size: 13px; }
+.info-card .info-note { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+.info-card .info-note::before { content: "ⓘ "; color: var(--gold); }
+@media (max-width: 720px) {
+  .settings { left: 12px; right: 12px; top: 74px; width: auto; }
+}
+.brand > div { min-width: 0; }
+.brand h1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

@@ -216,7 +216,9 @@ async function build() {
   renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
   box.appendChild(renderer.domElement);
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x120b07);
+  const bg = () => (window.i18n && window.i18n.currentTheme() === "light" ? 0xe9dfcb : 0x120b07);
+  scene.background = new THREE.Color(bg());
+  document.addEventListener("themechange", () => scene.background.set(bg()));
   camera = new THREE.PerspectiveCamera(45, 1, 0.05, 200);
 
   const atlas = await new THREE.TextureLoader().loadAsync(M.atlas.image);
@@ -326,7 +328,7 @@ async function open() {
     $("model3d-status").hidden = false;
     try { await build(); } catch (err) {
       console.error(err);
-      $("model3d-status").textContent = "เปิดโมเดล 3 มิติไม่ได้ (เบราว์เซอร์ต้องรองรับ WebGL 2)";
+      $("model3d-status").textContent = window.i18n.t("m3dFail");
       return;
     }
     $("model3d-status").hidden = true;

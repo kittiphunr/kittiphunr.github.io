@@ -8,6 +8,11 @@
   <meta name="author" content="Kittiphun Ruttanakorn">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/">
+  <link rel="alternate" hreflang="th" href="https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/">
+  <link rel="alternate" hreflang="en" href="https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/?lang=en">
+  <link rel="alternate" hreflang="ja" href="https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/?lang=ja">
+  <link rel="alternate" hreflang="zh" href="https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/?lang=zh">
+  <link rel="alternate" hreflang="x-default" href="https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kittiphun Ruttanakorn">
   <meta property="og:url" content="https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/">
@@ -18,6 +23,9 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="โมเดล 3 มิติของห้องจัดแสดง หอพุทธศิลป์">
   <meta property="og:locale" content="th_TH">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:locale:alternate" content="zh_CN">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="หอพุทธศิลป์ มจร วิทยาเขตแพร่ · โมเดล 3 มิติ และทัวร์เสมือนจริง 360°">
   <meta name="twitter:description" content="ชมหอพุทธศิลป์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่ แบบเสมือนจริง: โมเดล 3 มิติของห้องที่หมุน/ซูมได้ และเดินชมภาพ 360° แบบ Street View พร้อมข้อมูลงานศิลปะ 70 ชิ้น">
@@ -66,53 +74,55 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=Sarabun:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" sizes="32x32" href="images/logo/favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="images/logo/icon-192.png">
   <link rel="apple-touch-icon" href="images/logo/apple-touch-icon.png">
   <link rel="preload" as="image" href="images/logo/mcu-logo.png">
   <link rel="stylesheet" href="vendor/pannellum/pannellum.css">
-  <link rel="stylesheet" href="css/style.css?v=6192330">
+  <link rel="stylesheet" href="css/style.css?v=afc691b">
+  <script src="js/i18n.js?v=afc691b"></script>
 </head>
 <body>
   <!-- หน้าโหลด: แสดงจนภาพ 360° แรกโหลดเสร็จ -->
   <div id="preloader" class="preloader" role="status" aria-live="polite">
     <div class="preloader-logo">
       <span class="preloader-ring" aria-hidden="true"></span>
-      <img src="images/logo/mcu-logo.png" alt="ตราสัญลักษณ์มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย" width="128" height="128">
+      <img src="images/logo/mcu-logo.png" data-i18n-attr="alt:logoAlt" alt="ตราสัญลักษณ์มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย" width="128" height="128">
     </div>
-    <p class="preloader-title">หอพุทธศิลป์</p>
-    <p class="preloader-text">มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่</p>
+    <p class="preloader-title" data-i18n="tourName">หอพุทธศิลป์</p>
+    <p class="preloader-text" data-i18n="org">มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่</p>
     <div class="preloader-bar" aria-hidden="true"><span id="preloader-fill"></span></div>
-    <p class="preloader-status" id="preloader-status">กำลังโหลดภาพ 360°…</p>
+    <p class="preloader-status" id="preloader-status" data-i18n="loading">กำลังโหลดภาพ 360°…</p>
   </div>
 
-  <div id="viewer" aria-label="ภาพ 360 องศา"></div>
+  <div id="viewer" data-i18n-attr="aria-label:viewer" aria-label="ภาพ 360 องศา"></div>
 
   <!-- แถบหัวเรื่อง -->
   <header class="topbar">
     <div class="brand">
-      <img class="brand-mark" src="images/logo/mcu-logo.png" alt="ตราสัญลักษณ์ มจร" width="42" height="42">
+      <img class="brand-mark" src="images/logo/mcu-logo.png" data-i18n-attr="alt:logoAlt" alt="ตราสัญลักษณ์ มจร" width="42" height="42">
       <div>
         <h1 id="tour-title">หอพุทธศิลป์</h1>
         <p id="scene-title" class="scene-title"></p>
       </div>
     </div>
-    <nav class="tools" aria-label="เครื่องมือ">
-      <button id="btn-about" class="icon-btn btn-about" title="ข้อมูลโครงการและผู้พัฒนา" aria-label="ข้อมูลโครงการและผู้พัฒนา">?</button>
-      <button id="btn-3d" class="icon-btn btn-3d" title="โมเดล 3 มิติของห้อง" aria-label="โมเดล 3 มิติของห้อง" hidden>3D</button>
-      <button id="btn-art" class="icon-btn" title="งานศิลปะทั้งหมด" aria-label="งานศิลปะทั้งหมด">❖</button>
-      <button id="btn-list" class="icon-btn" title="รายการจุดชม" aria-label="รายการจุดชม">☰</button>
-      <button id="btn-map" class="icon-btn" title="แผนผัง" aria-label="แผนผัง">◎</button>
-      <button id="btn-rotate" class="icon-btn" title="หมุนอัตโนมัติ" aria-label="หมุนอัตโนมัติ">⟳</button>
-      <button id="btn-share" class="icon-btn" title="คัดลอกลิงก์จุดนี้" aria-label="คัดลอกลิงก์จุดนี้">⤴</button>
-      <button id="btn-full" class="icon-btn" title="เต็มจอ" aria-label="เต็มจอ">⛶</button>
+    <nav class="tools" data-i18n-attr="aria-label:tools" aria-label="เครื่องมือ">
+      <button id="btn-settings" class="icon-btn" data-i18n-attr="title:settings;aria-label:settings" title="ภาษาและโหมดสี" aria-label="ภาษาและโหมดสี" aria-expanded="false" aria-controls="settings">⚙</button>
+      <button id="btn-about" class="icon-btn btn-about" data-i18n-attr="title:about;aria-label:about" title="ข้อมูลโครงการและผู้พัฒนา" aria-label="ข้อมูลโครงการและผู้พัฒนา">?</button>
+      <button id="btn-3d" class="icon-btn btn-3d" data-i18n-attr="title:model3d;aria-label:model3d" title="โมเดล 3 มิติของห้อง" aria-label="โมเดล 3 มิติของห้อง" hidden>3D</button>
+      <button id="btn-art" class="icon-btn" data-i18n-attr="title:artworks;aria-label:artworks" title="งานศิลปะทั้งหมด" aria-label="งานศิลปะทั้งหมด">❖</button>
+      <button id="btn-list" class="icon-btn" data-i18n-attr="title:scenes;aria-label:scenes" title="รายการจุดชม" aria-label="รายการจุดชม">☰</button>
+      <button id="btn-map" class="icon-btn" data-i18n-attr="title:map;aria-label:map" title="แผนผัง" aria-label="แผนผัง">◎</button>
+      <button id="btn-rotate" class="icon-btn" data-i18n-attr="title:rotate;aria-label:rotate" title="หมุนอัตโนมัติ" aria-label="หมุนอัตโนมัติ">⟳</button>
+      <button id="btn-share" class="icon-btn" data-i18n-attr="title:share;aria-label:share" title="คัดลอกลิงก์จุดนี้" aria-label="คัดลอกลิงก์จุดนี้">⤴</button>
+      <button id="btn-full" class="icon-btn" data-i18n-attr="title:fullscreen;aria-label:fullscreen" title="เต็มจอ" aria-label="เต็มจอ">⛶</button>
     </nav>
   </header>
 
   <!-- เข็มทิศ -->
   <button id="compass" class="compass" type="button" hidden
-          title="เข็มทิศ — คลิกเพื่อหันไปทางทิศเหนือ" aria-label="เข็มทิศ คลิกเพื่อหันไปทางทิศเหนือ">
+          data-i18n-attr="title:compass;aria-label:compass" title="เข็มทิศ — คลิกเพื่อหันไปทางทิศเหนือ" aria-label="เข็มทิศ คลิกเพื่อหันไปทางทิศเหนือ">
     <svg viewBox="-50 -50 100 100" aria-hidden="true">
       <circle r="47" class="ring"/>
       <g id="compass-rose">
@@ -130,49 +140,68 @@
   </button>
 
   <!-- แผนผัง (mini-map) -->
-  <aside id="minimap" class="panel minimap" aria-label="แผนผังอาคาร">
+  <aside id="minimap" class="panel minimap" data-i18n-attr="aria-label:mapLabel" aria-label="แผนผังอาคาร">
     <div class="panel-head">
-      <span>แผนผัง</span>
-      <button class="close" data-close="minimap" aria-label="ปิด">×</button>
+      <span data-i18n="map">แผนผัง</span>
+      <button class="close" data-close="minimap" data-i18n-attr="aria-label:close" aria-label="ปิด">×</button>
     </div>
     <svg id="map-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
   </aside>
 
   <!-- รายการจุดชม -->
-  <aside id="scene-list" class="panel scene-list" aria-label="รายการจุดชม" hidden>
+  <aside id="scene-list" class="panel scene-list" data-i18n-attr="aria-label:scenes" aria-label="รายการจุดชม" hidden>
     <div class="panel-head">
-      <span>จุดชมทั้งหมด</span>
-      <button class="close" data-close="scene-list" aria-label="ปิด">×</button>
+      <span data-i18n="allScenes">จุดชมทั้งหมด</span>
+      <button class="close" data-close="scene-list" data-i18n-attr="aria-label:close" aria-label="ปิด">×</button>
     </div>
     <ol id="scene-items"></ol>
   </aside>
 
   <!-- รายการงานศิลปะ -->
-  <aside id="art-list" class="panel scene-list art-list" aria-label="งานศิลปะทั้งหมด" hidden>
+  <aside id="art-list" class="panel scene-list art-list" data-i18n-attr="aria-label:artworks" aria-label="งานศิลปะทั้งหมด" hidden>
     <div class="panel-head">
-      <span>งานศิลปะ <small id="art-count"></small></span>
-      <button class="close" data-close="art-list" aria-label="ปิด">×</button>
+      <span><span data-i18n="artTitle">งานศิลปะ</span> <small id="art-count"></small></span>
+      <button class="close" data-close="art-list" data-i18n-attr="aria-label:close" aria-label="ปิด">×</button>
     </div>
-    <input id="art-search" class="art-search" type="search" placeholder="ค้นหา เช่น พระพุทธรูป, ตุง, ขันหมาก" aria-label="ค้นหางานศิลปะ">
+    <input id="art-search" class="art-search" type="search" data-i18n-attr="placeholder:artSearch;aria-label:artSearchLabel" placeholder="ค้นหา เช่น พระพุทธรูป, ตุง, ขันหมาก" aria-label="ค้นหางานศิลปะ">
     <ol id="art-items"></ol>
+  </aside>
+
+  <!-- ภาษาและโหมดสี -->
+  <aside id="settings" class="panel settings" data-i18n-attr="aria-label:settings" aria-label="ภาษาและโหมดสี" hidden>
+    <div class="panel-head">
+      <span data-i18n="settings">ภาษาและโหมดสี</span>
+      <button class="close" data-close="settings" data-i18n-attr="aria-label:close" aria-label="ปิด">×</button>
+    </div>
+    <div class="settings-body">
+      <p class="settings-label" data-i18n="language">ภาษา</p>
+      <div class="seg lang-switch" role="group" data-i18n-attr="aria-label:language" aria-label="ภาษา"></div>
+      <p class="settings-label" data-i18n="theme">โหมดสี</p>
+      <div class="seg theme-switch" role="group" data-i18n-attr="aria-label:theme" aria-label="โหมดสี">
+        <button type="button" data-theme-set="auto" data-i18n="themeAuto">ตามเครื่อง</button>
+        <button type="button" data-theme-set="light" data-i18n="themeLight">สว่าง</button>
+        <button type="button" data-theme-set="dark" data-i18n="themeDark">มืด</button>
+      </div>
+    </div>
   </aside>
 
   <!-- กล่องข้อมูลวัตถุจัดแสดง -->
   <aside id="info-card" class="info-card" hidden aria-live="polite">
-    <button class="close" data-close="info-card" aria-label="ปิด">×</button>
+    <button class="close" data-close="info-card" data-i18n-attr="aria-label:close" aria-label="ปิด">×</button>
     <h2 id="info-title"></h2>
     <p id="info-sub" class="info-sub"></p>
     <p id="info-text"></p>
     <a id="info-link" class="info-img-link" target="_blank" rel="noopener" hidden>
       <img id="info-img" alt="">
     </a>
+    <p id="info-note" class="info-note" hidden></p>
     <p id="info-where" class="info-where"></p>
   </aside>
 
   <!-- คำอธิบายจุดและปุ่มเดิน -->
   <footer class="bottombar">
     <p id="scene-desc" class="scene-desc"></p>
-    <button id="btn-forward" class="forward" title="เดินไปข้างหน้า (W)">เดินหน้า ▲</button>
+    <button id="btn-forward" class="forward" data-i18n="forward" data-i18n-attr="title:forwardTitle" title="เดินไปข้างหน้า (W)">เดินหน้า ▲</button>
   </footer>
 
   <!-- โหมดแก้ไข: ?edit=1 -->
@@ -181,84 +210,85 @@
   <!-- หน้าต้อนรับ -->
   <section id="intro" class="intro">
     <div class="intro-card">
-      <img class="intro-mark" src="images/logo/mcu-logo.png" alt="ตราสัญลักษณ์มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย" width="96" height="96">
+      <img class="intro-mark" src="images/logo/mcu-logo.png" data-i18n-attr="alt:logoAlt" alt="ตราสัญลักษณ์มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย" width="96" height="96">
       <h2 id="intro-title">หอพุทธศิลป์</h2>
       <p id="intro-sub"></p>
       <ul class="intro-help">
-        <li>ลากเมาส์ / นิ้ว เพื่อมองรอบ ๆ</li>
-        <li>คลิก <b>ลูกศรบนพื้น</b> เพื่อเดินไปยังจุดถัดไป</li>
-        <li>คลิก <b>ⓘ</b> ที่วัตถุ หรือปุ่ม ❖ เพื่ออ่านข้อมูลงานศิลปะ</li>
-        <li>คลิกจุดบน <b>แผนผัง</b> หรือ ☰ เพื่อไปยังจุดที่ต้องการ</li>
+        <li data-i18n-html="help1">ลากเมาส์ / นิ้ว เพื่อมองรอบ ๆ</li>
+        <li data-i18n-html="help2">คลิก <b>ลูกศรบนพื้น</b> เพื่อเดินไปยังจุดถัดไป</li>
+        <li data-i18n-html="help3">คลิก <b>ⓘ</b> ที่วัตถุ หรือปุ่ม ❖ เพื่ออ่านข้อมูลงานศิลปะ</li>
+        <li data-i18n-html="help4">คลิกจุดบน <b>แผนผัง</b> หรือ ☰ เพื่อไปยังจุดที่ต้องการ</li>
       </ul>
-      <button id="btn-start" class="start">เริ่มชมนิทรรศการ</button>
-      <p class="intro-credit">พัฒนาโดย นายกิตติพันธ์ รัตนคร · <button type="button" class="link-btn" data-open-about>ข้อมูลเพิ่มเติม</button></p>
+      <button id="btn-start" class="start" data-i18n="start">เริ่มชมนิทรรศการ</button>
+      <div class="intro-langs lang-switch" role="group" data-i18n-attr="aria-label:language" aria-label="ภาษา"></div>
+      <p class="intro-credit"><span id="intro-dev">พัฒนาโดย นายกิตติพันธ์ รัตนคร</span> · <button type="button" class="link-btn" data-open-about data-i18n="moreInfo">ข้อมูลเพิ่มเติม</button></p>
     </div>
   </section>
 
   <!-- โมเดล 3 มิติ (dollhouse) -->
-  <section id="model3d" class="model3d" hidden aria-label="โมเดล 3 มิติของหอพุทธศิลป์">
+  <section id="model3d" class="model3d" hidden data-i18n-attr="aria-label:m3dTitle" aria-label="โมเดล 3 มิติของหอพุทธศิลป์">
     <div id="model3d-canvas" class="model3d-canvas"></div>
     <header class="model3d-head">
       <div>
-        <h2>โมเดล 3 มิติ หอพุทธศิลป์</h2>
-        <p>ลากเพื่อหมุน · เลื่อน/บีบเพื่อซูม · คลิก <span class="dot"></span> เพื่อเข้าชมจุดนั้น · คลิก <span class="gem">◆</span> เพื่ออ่านข้อมูลงานศิลปะ</p>
+        <h2 data-i18n="m3dTitle">โมเดล 3 มิติ หอพุทธศิลป์</h2>
+        <p data-i18n-html="m3dHelp">ลากเพื่อหมุน · เลื่อน/บีบเพื่อซูม · คลิก <span class="dot"></span> เพื่อเข้าชมจุดนั้น · คลิก <span class="gem">◆</span> เพื่ออ่านข้อมูลงานศิลปะ</p>
       </div>
-      <button id="model3d-close" class="icon-btn" aria-label="ปิดโมเดล 3 มิติ">×</button>
+      <button id="model3d-close" class="icon-btn" data-i18n-attr="aria-label:m3dClose" aria-label="ปิดโมเดล 3 มิติ">×</button>
     </header>
-    <p class="model3d-note">แบบจำลองโดยประมาณ สร้างจากภาพ 360° และขนาดห้องที่วัดจากภาพ</p>
-    <p id="model3d-status" class="model3d-status" hidden>กำลังสร้างโมเดล 3 มิติ…</p>
+    <p class="model3d-note" data-i18n="m3dNote">แบบจำลองโดยประมาณ สร้างจากภาพ 360° และขนาดห้องที่วัดจากภาพ</p>
+    <p id="model3d-status" class="model3d-status" hidden data-i18n="m3dLoading">กำลังสร้างโมเดล 3 มิติ…</p>
   </section>
   <div id="model3d-tip" class="model3d-tip" hidden></div>
 
   <!-- หน้าข้อมูล (information) -->
   <section id="about" class="about" hidden role="dialog" aria-modal="true" aria-labelledby="about-title">
     <div class="about-card">
-      <button class="close" data-close="about" aria-label="ปิด">×</button>
+      <button class="close" data-close="about" data-i18n-attr="aria-label:close" aria-label="ปิด">×</button>
       <header class="about-head">
         <img src="images/logo/mcu-logo.png" alt="" width="64" height="64">
         <div>
-          <h2 id="about-title">เกี่ยวกับ หอพุทธศิลป์เสมือนจริง</h2>
-          <p>พิพิธภัณฑ์เสมือนจริง 360° · มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่</p>
+          <h2 id="about-title" data-i18n="aboutTitle">เกี่ยวกับ หอพุทธศิลป์เสมือนจริง</h2>
+          <p data-i18n="aboutSub">พิพิธภัณฑ์เสมือนจริง 360° · มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่</p>
         </div>
       </header>
 
       <section class="about-sec">
-        <h3>ผู้พัฒนา</h3>
+        <h3 data-i18n="developer">ผู้พัฒนา</h3>
         <div class="dev">
-          <img class="dev-photo" src="images/about/developer.jpg" alt="นายกิตติพันธ์ รัตนคร" width="88" height="88">
+          <img class="dev-photo" src="images/about/developer.jpg" data-i18n-attr="alt:devName" alt="นายกิตติพันธ์ รัตนคร" width="88" height="88">
           <div>
-            <p class="dev-name">นายกิตติพันธ์ รัตนคร</p>
+            <p class="dev-name" data-i18n="devName">นายกิตติพันธ์ รัตนคร</p>
             <p class="dev-en">Kittiphun Ruttanakorn</p>
-            <p class="dev-role">นักวิชาการคอมพิวเตอร์</p>
-            <p class="dev-org">มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่</p>
+            <p class="dev-role" data-i18n="devRole">นักวิชาการคอมพิวเตอร์</p>
+            <p class="dev-org" data-i18n="org">มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่</p>
             <p class="dev-tag">Network · Server · Full-Stack</p>
           </div>
         </div>
         <ul class="dev-contact">
-          <li><span>อีเมล</span><a href="mailto:kittiphun.rut@mcu.ac.th">kittiphun.rut@mcu.ac.th</a></li>
-          <li><span>โทร</span><a href="tel:0899554194">089-955-4194</a></li>
+          <li><span data-i18n="email">อีเมล</span><a href="mailto:kittiphun.rut@mcu.ac.th">kittiphun.rut@mcu.ac.th</a></li>
+          <li><span data-i18n="phone">โทร</span><a href="tel:0899554194">089-955-4194</a></li>
           <li><span>GitHub</span><a href="https://github.com/kittiphunr" target="_blank" rel="noopener">github.com/kittiphunr</a></li>
-          <li><span>เว็บไซต์</span><a href="https://kittiphunr.github.io/" target="_blank" rel="noopener">kittiphunr.github.io</a></li>
+          <li><span data-i18n="website">เว็บไซต์</span><a href="https://kittiphunr.github.io/" target="_blank" rel="noopener">kittiphunr.github.io</a></li>
         </ul>
       </section>
 
       <section class="about-sec">
-        <h3>เกี่ยวกับโครงการ</h3>
-        <p>เว็บไซต์นำชมหอพุทธศิลป์ด้วยภาพ 360° เดินชมได้แบบ Street View พร้อมแผนผัง เข็มทิศ
-          โมเดล 3 มิติของห้อง และข้อมูลงานศิลปะ <span id="about-art-count"></span></p>
+        <h3 data-i18n="project">เกี่ยวกับโครงการ</h3>
+        <p><span data-i18n="projectText">เว็บไซต์นำชมหอพุทธศิลป์ด้วยภาพ 360° เดินชมได้แบบ Street View พร้อมแผนผัง เข็มทิศ
+          โมเดล 3 มิติของห้อง และข้อมูลงานศิลปะ</span> <span id="about-art-count"></span></p>
         <ul class="about-list">
-          <li>ภาพ 360° และป้ายข้อมูลงานศิลปะ: หอพุทธศิลป์ มจร วิทยาเขตแพร่</li>
-          <li>แสดงภาพ 360°: <a href="https://pannellum.org/" target="_blank" rel="noopener">Pannellum</a> (MIT License)</li>
-          <li>โมเดล 3 มิติ: <a href="https://threejs.org/" target="_blank" rel="noopener">three.js</a> (MIT License)</li>
+          <li data-i18n="credit1">ภาพ 360° และป้ายข้อมูลงานศิลปะ: หอพุทธศิลป์ มจร วิทยาเขตแพร่</li>
+          <li><span data-i18n="credit2">แสดงภาพ 360°:</span> <a href="https://pannellum.org/" target="_blank" rel="noopener">Pannellum</a> (MIT License)</li>
+          <li><span data-i18n="credit3">โมเดล 3 มิติ:</span> <a href="https://threejs.org/" target="_blank" rel="noopener">three.js</a> (MIT License)</li>
         </ul>
       </section>
 
       <section class="about-sec">
-        <h3>วิธีใช้งาน</h3>
+        <h3 data-i18n="howto">วิธีใช้งาน</h3>
         <ul class="about-list">
-          <li>ลากเมาส์หรือนิ้วเพื่อมองรอบ ๆ · คลิกลูกศรบนพื้นหรือกด <b>W</b> เพื่อเดิน</li>
-          <li><b>ⓘ</b> / <b>❖</b> ข้อมูลงานศิลปะ · <b>☰</b> รายการจุดชม · <b>◎</b> แผนผัง · <b>3D</b> โมเดล 3 มิติ</li>
-          <li>คลิกเข็มทิศเพื่อหันไปทางทิศเหนือ</li>
+          <li data-i18n-html="howto1">ลากเมาส์หรือนิ้วเพื่อมองรอบ ๆ · คลิกลูกศรบนพื้นหรือกด <b>W</b> เพื่อเดิน</li>
+          <li data-i18n-html="howto2"><b>ⓘ</b> / <b>❖</b> ข้อมูลงานศิลปะ · <b>☰</b> รายการจุดชม · <b>◎</b> แผนผัง · <b>3D</b> โมเดล 3 มิติ</li>
+          <li data-i18n-html="howto3">คลิกเข็มทิศเพื่อหันไปทางทิศเหนือ · <b>⚙</b> เปลี่ยนภาษาและโหมดสี</li>
         </ul>
       </section>
     </div>
@@ -267,9 +297,10 @@
   <div id="toast" class="toast" role="status"></div>
 
   <script src="vendor/pannellum/pannellum.js"></script>
-  <script src="data/tour.js?v=6192330"></script>
-  <script src="js/app.js?v=6192330"></script>
+  <script src="data/tour.js?v=afc691b"></script>
+  <script src="data/translations.js?v=afc691b"></script>
+  <script src="js/app.js?v=afc691b"></script>
   <script type="importmap">{ "imports": { "three": "./vendor/three/three.module.min.js" } }</script>
-  <script type="module" src="js/model3d.js?v=6192330"></script>
+  <script type="module" src="js/model3d.js?v=afc691b"></script>
 </body>
 </html>
