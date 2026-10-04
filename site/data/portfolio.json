@@ -478,70 +478,107 @@
     {
       "title": "Precision-QC",
       "description": {
-        "th": "ระบบตรวจสอบคุณภาพเชื้อราจากภาพจานเพาะเชื้อ ตัดสินผลผ่าน/ไม่ผ่านอัตโนมัติ — Python ประมวลผลภาพ รันในเบราว์เซอร์ด้วย JavaScript + WebAssembly",
-        "en": "Quality control for fungal cultures from Petri-dish photos with automatic PASS/FAIL — a Python image engine running in the browser via JavaScript + WebAssembly.",
-        "ja": "シャーレ画像から菌糸の品質を自動で合否判定。Python の画像解析エンジンを JavaScript + WebAssembly でブラウザ上で実行。",
-        "zh": "根据培养皿照片自动判定菌丝质量合格/不合格——Python 图像引擎通过 JavaScript + WebAssembly 在浏览器中运行。"
+        "th": "ระบบตรวจคุณภาพเชื้อราจากภาพจานเพาะเชื้อ แดชบอร์ดแสดงผลผ่าน/ไม่ผ่านทันที และออกรายงาน PDF ตามโครงสร้าง ISO/IEC 17025 — Python ประมวลผลภาพ รันในเบราว์เซอร์ด้วย WebAssembly",
+        "en": "Quality control for fungal cultures from Petri-dish photos — a dashboard with instant PASS/FAIL results and PDF test reports structured to ISO/IEC 17025, powered by a Python image engine running in the browser via WebAssembly.",
+        "ja": "シャーレ画像から菌糸の品質を検査。ダッシュボードで合否を即時表示し、ISO/IEC 17025 構成の PDF 試験報告書を出力。Python 画像エンジンを WebAssembly でブラウザ実行。",
+        "zh": "根据培养皿照片检测菌丝质量——仪表盘即时显示合格/不合格结果，并生成符合 ISO/IEC 17025 结构的 PDF 检测报告；Python 图像引擎通过 WebAssembly 在浏览器中运行。"
       },
       "tags": [
-        "JavaScript",
         "Python",
-        "WebAssembly"
+        "JavaScript",
+        "WebAssembly",
+        "ISO/IEC 17025"
       ],
       "link": "https://kittiphun.rut.mcupr.ac.th/projects/precision-qc-web/",
       "image": "assets/img/projects/precision-qc/cover.jpg",
       "featured": {
         "subtitle": {
-          "th": "ระบบตรวจสอบคุณภาพเชื้อราด้วยการวิเคราะห์ภาพ (Computer Vision)",
-          "en": "Image-based quality control for fungal cultures",
-          "ja": "画像解析による菌糸培養の品質検査システム",
-          "zh": "基于图像分析的菌丝培养质量检测系统"
+          "th": "แดชบอร์ดตรวจคุณภาพเชื้อรา พร้อมรายงานผลการทดสอบตามมาตรฐาน ISO/IEC 17025",
+          "en": "Fungal-culture QC dashboard with test reports structured to ISO/IEC 17025",
+          "ja": "ISO/IEC 17025 構成の試験報告書を備えた菌糸培養 QC ダッシュボード",
+          "zh": "附 ISO/IEC 17025 结构检测报告的菌丝培养质量检测仪表盘"
         },
         "summary": {
-          "th": "วิเคราะห์ภาพโคโลนีเชื้อราบนจานเพาะเชื้อ แล้วตัดสินผล ผ่าน / ไม่ผ่าน พร้อมคะแนน เกรด และภาพวิเคราะห์ 8 ส่วน ทั้งความขาว ความฟู การปนเปื้อน สัดส่วนสี และความกลมของโคโลนี ตัวประมวลผลเขียนด้วย Python ชุดเดียว ใช้ได้ทั้งบนเว็บ (รันในเบราว์เซอร์ ไม่ต้องมีเซิร์ฟเวอร์ ภาพไม่ถูกส่งออกนอกเครื่อง) บน GitHub Actions และผ่าน Command Line",
-          "en": "Analyzes photos of fungal colonies on Petri dishes and returns a PASS / FAIL verdict with a score, a grade and 8 analysis panels covering whiteness, fluffiness, contamination, colour ratio and colony circularity. A single Python engine powers the web app (running entirely in the browser, with no server and no image uploads), GitHub Actions batches and the command line.",
-          "ja": "シャーレ上の菌糸コロニー画像を解析し、スコア・グレード・8 つの解析パネル（白さ、ふわふわ感、汚染、色比率、円形度）とともに合否を判定します。1 つの Python エンジンで、Web アプリ（サーバー不要・画像は外部送信なしでブラウザ内実行）、GitHub Actions の一括処理、コマンドラインのすべてに対応します。",
-          "zh": "分析培养皿上菌落的照片，给出合格/不合格判定以及评分、等级和 8 个分析面板（白度、蓬松度、污染、颜色比例、菌落圆度）。同一个 Python 引擎同时支持网页应用（完全在浏览器中运行，无需服务器，图片不外传）、GitHub Actions 批处理和命令行。"
+          "th": "เวอร์ชัน Dashboard ล่าสุด: อัปโหลดภาพหรือถ่ายจากกล้อง ระบบวิเคราะห์โคโลนีเชื้อราบนจานเพาะเชื้อ แล้วแสดงผลบนแดชบอร์ด — จำนวนผ่าน/ไม่ผ่าน ตารางสรุป และหน้าผลการตรวจรายภาพพร้อมคะแนน เกรด และค่าวัดทุกเกณฑ์ (พื้นที่เจริญ การปนเปื้อน วุ้นเปลือย ความกลม ความขาว ความฟู) จากนั้นออกรายงานผลการทดสอบ PDF ขนาด A4 ตามโครงสร้าง ISO/IEC 17025:2017 ข้อ 7.8 มีเลขที่รายงาน ข้อมูลตัวอย่าง วิธีทดสอบ ผลพร้อมหน่วยและเกณฑ์ คำแถลงความสอดคล้องตามกฎการตัดสิน ILAC-G8:09/2019 และภาคผนวกภาพวิเคราะห์ ทั้งหมดประมวลผลในเบราว์เซอร์ ภาพไม่ถูกส่งออกนอกเครื่อง",
+          "en": "The latest Dashboard edition: upload or capture a plate photo and the fungal colony is analysed and shown on a dashboard — pass/fail counts, a summary table, and a per-plate result view with the score, grade and every measured criterion (growth area, contamination, exposed agar, circularity, whiteness, fluffiness). It then issues an A4 PDF test report structured to ISO/IEC 17025:2017 clause 7.8, with a report number, sample details, test method, results with units and limits, a statement of conformity under the ILAC-G8:09/2019 decision rule, and an appendix of analysis images. Everything runs in the browser; images never leave the device.",
+          "ja": "最新のダッシュボード版：シャーレ画像をアップロードまたはカメラで撮影すると菌糸コロニーを解析し、ダッシュボードに合否件数・集計表・個別結果（スコア、グレード、生育面積・汚染・寒天露出・円形度・白さ・ふわふわ感の全測定値）を表示。さらに ISO/IEC 17025:2017 7.8 項の構成に沿った A4 PDF 試験報告書（報告書番号、試料情報、試験方法、単位と基準付きの結果、ILAC-G8:09/2019 判定規則による適合性の表明、解析画像の付録）を発行します。処理はすべてブラウザ内で行い、画像は端末外に送信されません。",
+          "zh": "最新仪表盘版：上传或用摄像头拍摄培养皿照片后，系统分析菌落并在仪表盘上显示合格/不合格数量、汇总表，以及含评分、等级和全部测量指标（生长面积、污染、裸露琼脂、圆度、白度、蓬松度）的单样结果页。随后生成符合 ISO/IEC 17025:2017 第 7.8 条结构的 A4 PDF 检测报告，包含报告编号、样品信息、检测方法、带单位和限值的结果、依据 ILAC-G8:09/2019 判定规则的符合性声明以及分析图像附录。全部在浏览器中处理，图片不离开设备。"
         },
         "gallery": [
           {
-            "src": "assets/img/projects/precision-qc/app.jpg",
+            "src": "assets/img/projects/precision-qc/dashboard.jpg",
             "caption": {
-              "th": "เว็บแอป: อัปโหลดภาพจานเพาะเชื้อ และสรุปผลการตรวจทั้งชุด",
-              "en": "Web app: upload plate photos and get a batch summary",
-              "ja": "Web アプリ：シャーレ画像をアップロードし、一括で結果を確認",
-              "zh": "网页应用：上传培养皿照片并查看批量汇总结果"
+              "th": "แดชบอร์ด: จำนวนผ่าน/ไม่ผ่าน ขั้นตอนใช้งาน อัปโหลดหรือถ่ายภาพจากกล้อง และตารางสรุปผลการตรวจทั้งชุด",
+              "en": "Dashboard: pass/fail counts, how-to steps, upload or camera capture, and the batch summary table",
+              "ja": "ダッシュボード：合否件数、手順、アップロード／カメラ撮影、一括結果の集計表",
+              "zh": "仪表盘：合格/不合格数量、使用步骤、上传或摄像头拍摄，以及批量结果汇总表"
             }
           },
           {
-            "src": "assets/img/projects/precision-qc/result.jpg",
+            "src": "assets/img/projects/precision-qc/result-pass.jpg",
             "caption": {
-              "th": "ผลการตรวจรายภาพ พร้อมเกณฑ์และภาพประกอบการวิเคราะห์ (โหมดมืด)",
-              "en": "Per-plate result with pass criteria and analysis images (dark mode)",
-              "ja": "判定基準と解析画像付きの個別結果（ダークモード）",
-              "zh": "单个样本结果，含判定标准与分析图（深色模式）"
+              "th": "หน้าผลการตรวจรายภาพ — ผ่าน คะแนน 83.0 เกรด A พร้อมค่าวัดเทียบเกณฑ์ทุกข้อและภาพประกอบการวิเคราะห์",
+              "en": "Per-plate result — PASS, score 83.0, grade A, with every measurement against its limit and the analysis images",
+              "ja": "個別結果 — 合格、スコア 83.0・グレード A、全測定値と基準、解析画像",
+              "zh": "单样结果——合格，评分 83.0、A 级，列出各项测量值与限值及分析图像"
+            }
+          },
+          {
+            "src": "assets/img/projects/precision-qc/result-fail-dark.jpg",
+            "caption": {
+              "th": "ตรวจพบวุ้นเปลือยเกินเกณฑ์ — ไม่ผ่าน พร้อมบอกสาเหตุ (โหมดมืด)",
+              "en": "Exposed agar above the limit — FAIL, with the reason shown (dark mode)",
+              "ja": "寒天露出が基準超過 — 不合格と理由を表示（ダークモード）",
+              "zh": "裸露琼脂超出限值——不合格并显示原因（深色模式）"
             }
           },
           {
             "src": "assets/img/projects/precision-qc/report-pass.jpg",
             "caption": {
-              "th": "รายงาน 8 ส่วนที่สร้างด้วย Python — ตัวอย่างที่ผ่านเกณฑ์ (เกรด A)",
-              "en": "8-panel report rendered in Python — a passing plate (grade A)",
-              "ja": "Python で生成した 8 パネルのレポート — 合格例（グレード A）",
-              "zh": "由 Python 生成的 8 面板报告——合格样本（A 级）"
+              "th": "รายงานผลการทดสอบ PDF ตามโครงสร้าง ISO/IEC 17025 — เลขที่รายงาน ข้อมูลตัวอย่าง วิธีทดสอบ ผลพร้อมเกณฑ์ และคำแถลงความสอดคล้อง",
+              "en": "PDF test report structured to ISO/IEC 17025 — report number, sample details, method, results with limits and a statement of conformity",
+              "ja": "ISO/IEC 17025 構成の PDF 試験報告書 — 報告書番号、試料情報、試験方法、基準付き結果、適合性の表明",
+              "zh": "符合 ISO/IEC 17025 结构的 PDF 检测报告——报告编号、样品信息、检测方法、带限值的结果及符合性声明"
             }
           },
           {
             "src": "assets/img/projects/precision-qc/report-fail.jpg",
             "caption": {
-              "th": "ตรวจพบการปนเปื้อนและการเจริญต่ำ — ไม่ผ่านเกณฑ์",
-              "en": "Contamination and low growth detected — FAIL",
-              "ja": "汚染と生育不良を検出 — 不合格",
-              "zh": "检测到污染与生长不足——不合格"
+              "th": "รายงานกรณีไม่ผ่าน — ระบุข้อที่ไม่เป็นไปตามข้อกำหนด และกฎการตัดสินแบบ simple acceptance (ILAC-G8:09/2019)",
+              "en": "A failing report — the requirement not met, under the simple-acceptance decision rule (ILAC-G8:09/2019)",
+              "ja": "不合格の報告書 — 満たさない要件と単純受入れ判定規則（ILAC-G8:09/2019）",
+              "zh": "不合格报告——列出未满足的要求，采用简单接受判定规则（ILAC-G8:09/2019）"
+            }
+          },
+          {
+            "src": "assets/img/projects/precision-qc/report-appendix.jpg",
+            "caption": {
+              "th": "ภาคผนวกของรายงาน: ภาพวิเคราะห์ 6 ภาพ และการเทียบสีอ้างอิง พร้อมเครื่องหมายสิ้นสุดรายงาน",
+              "en": "Report appendix: six analysis images and reference-colour comparison, with the end-of-report mark",
+              "ja": "報告書付録：6 枚の解析画像と基準色比較、報告書終了の表示",
+              "zh": "报告附录：六张分析图像与参考颜色比对，并带报告结束标记"
             }
           }
         ],
         "metrics": [
+          {
+            "value": "ISO/IEC 17025",
+            "label": {
+              "th": "โครงสร้างรายงานผลการทดสอบ (ข้อ 7.8)",
+              "en": "test-report structure (clause 7.8)",
+              "ja": "試験報告書の構成（7.8 項）",
+              "zh": "检测报告结构（第 7.8 条）"
+            }
+          },
+          {
+            "value": "ILAC-G8",
+            "label": {
+              "th": "กฎการตัดสินความสอดคล้อง",
+              "en": "decision rule for conformity",
+              "ja": "適合性の判定規則",
+              "zh": "符合性判定规则"
+            }
+          },
           {
             "value": "8",
             "label": {
@@ -559,24 +596,6 @@
               "ja": "ブラウザ内処理",
               "zh": "浏览器端处理"
             }
-          },
-          {
-            "value": "ISO/IEC 17025",
-            "label": {
-              "th": "โครงสร้างรายงาน PDF",
-              "en": "PDF report structure",
-              "ja": "PDF レポート構成",
-              "zh": "PDF 报告结构"
-            }
-          },
-          {
-            "value": "3",
-            "label": {
-              "th": "ภาษาในระบบ",
-              "en": "UI languages",
-              "ja": "対応言語",
-              "zh": "界面语言"
-            }
           }
         ],
         "highlights": [
@@ -585,12 +604,18 @@
             "color": "#F7DF1E",
             "title": "JavaScript",
             "role": {
-              "th": "เว็บแอปและการแสดงผล",
-              "en": "Web app & UI",
-              "ja": "Web アプリと UI",
-              "zh": "网页应用与界面"
+              "th": "แดชบอร์ดและการแสดงผล",
+              "en": "Dashboard & UI",
+              "ja": "ダッシュボードと UI",
+              "zh": "仪表盘与界面"
             },
             "points": [
+              {
+                "th": "แดชบอร์ดเมนูด้านซ้าย การ์ดสถิติผ่าน/ไม่ผ่าน ตารางสรุป และหน้าผลการตรวจรายภาพแบบเต็มจอ (Tailwind CSS)",
+                "en": "A dashboard with a side menu, pass/fail stat cards, a summary table and a full-screen per-plate result view (Tailwind CSS)",
+                "ja": "サイドメニュー、合否統計カード、集計表、全画面の個別結果ビューを備えたダッシュボード（Tailwind CSS）",
+                "zh": "带侧边菜单、合格/不合格统计卡片、汇总表和全屏单样结果视图的仪表盘（Tailwind CSS）"
+              },
               {
                 "th": "โหลด Pyodide (WebAssembly) เพื่อรันโค้ด Python ในเบราว์เซอร์โดยตรง ไม่ต้องมีเซิร์ฟเวอร์ และภาพไม่ถูกส่งออกนอกเครื่อง",
                 "en": "Loads Pyodide (WebAssembly) to run the Python engine directly in the browser — no server, and images never leave the device",
@@ -598,22 +623,58 @@
                 "zh": "通过 Pyodide（WebAssembly）在浏览器中直接运行 Python 引擎——无需服务器，图片不离开设备"
               },
               {
-                "th": "อัปโหลดหลายภาพแบบลากวาง แสดงผลทันที พร้อมตารางสรุปและส่งออก CSV",
-                "en": "Drag-and-drop multi-image upload with instant results, a summary table and CSV export",
-                "ja": "複数画像のドラッグ＆ドロップ、即時表示、集計表と CSV 出力",
-                "zh": "支持多图拖放上传、即时出结果、汇总表与 CSV 导出"
-              },
-              {
-                "th": "สร้างรายงาน PDF ขนาด A4 ตามโครงสร้าง ISO/IEC 17025 ด้วย jsPDF และ html2canvas",
-                "en": "Generates A4 PDF reports following the ISO/IEC 17025 structure with jsPDF and html2canvas",
-                "ja": "jsPDF と html2canvas で ISO/IEC 17025 構成の A4 PDF レポートを生成",
-                "zh": "使用 jsPDF 与 html2canvas 生成符合 ISO/IEC 17025 结构的 A4 PDF 报告"
+                "th": "อัปโหลดหลายภาพแบบลากวาง หรือถ่ายจากกล้องเว็บแคม ส่งออกตาราง CSV",
+                "en": "Drag-and-drop multi-image upload or webcam capture, with CSV export",
+                "ja": "複数画像のドラッグ＆ドロップまたは Web カメラ撮影、CSV 出力",
+                "zh": "支持多图拖放上传或网络摄像头拍摄，并可导出 CSV"
               },
               {
                 "th": "รองรับ 3 ภาษา (ไทย / English / 中文) และโหมดสว่าง / มืด / อัตโนมัติ",
                 "en": "Three UI languages (Thai / English / Chinese) and light / dark / auto themes",
                 "ja": "3 言語（タイ語・英語・中国語）とライト／ダーク／自動テーマに対応",
                 "zh": "支持三种界面语言（泰文 / 英文 / 中文）及浅色 / 深色 / 自动主题"
+              }
+            ]
+          },
+          {
+            "icon": "report",
+            "color": "#2563EB",
+            "title": {
+              "th": "รายงานมาตรฐานสากล",
+              "en": "International-standard report",
+              "ja": "国際規格準拠の報告書",
+              "zh": "国际标准报告"
+            },
+            "role": {
+              "th": "ISO/IEC 17025:2017 ข้อ 7.8",
+              "en": "ISO/IEC 17025:2017 clause 7.8",
+              "ja": "ISO/IEC 17025:2017 7.8 項",
+              "zh": "ISO/IEC 17025:2017 第 7.8 条"
+            },
+            "points": [
+              {
+                "th": "รายงาน PDF ขนาด A4 ด้วย jsPDF + html2canvas มีเลขที่รายงานเฉพาะและ \"หน้า x จาก y\" ทุกหน้า วันที่รูปแบบ ISO 8601",
+                "en": "A4 PDF reports via jsPDF + html2canvas, with a unique report number and \"page x of y\" on every page and ISO 8601 dates",
+                "ja": "jsPDF + html2canvas による A4 PDF。全ページに固有の報告書番号と「x / y ページ」、ISO 8601 形式の日付",
+                "zh": "使用 jsPDF + html2canvas 生成 A4 PDF，每页带唯一报告编号和“第 x 页 共 y 页”，日期采用 ISO 8601 格式"
+              },
+              {
+                "th": "ข้อมูลหน่วยงาน ลูกค้า ตัวอย่าง วิธีทดสอบ ผลพร้อมหน่วยและเกณฑ์ ผู้วิเคราะห์และผู้อนุมัติ",
+                "en": "Laboratory, customer and sample details, test method, results with units and limits, analyst and approver",
+                "ja": "試験所・顧客・試料情報、試験方法、単位と基準付きの結果、分析者と承認者",
+                "zh": "实验室、客户和样品信息、检测方法、带单位和限值的结果、分析人员与批准人"
+              },
+              {
+                "th": "คำแถลงความสอดคล้องตามกฎการตัดสิน simple acceptance (ILAC-G8:09/2019) หมายเหตุ/ข้อเบี่ยงเบน และภาคผนวกภาพวิเคราะห์",
+                "en": "A statement of conformity under the simple-acceptance decision rule (ILAC-G8:09/2019), remarks and deviations, and an analysis-image appendix",
+                "ja": "単純受入れ判定規則（ILAC-G8:09/2019）による適合性の表明、備考・逸脱、解析画像の付録",
+                "zh": "依据简单接受判定规则（ILAC-G8:09/2019）的符合性声明、备注与偏离，以及分析图像附录"
+              },
+              {
+                "th": "ออกรายงานได้ 3 ภาษา (ไทย / English / 中文) ทั้งรายภาพหรือรวมทุกภาพในไฟล์เดียว",
+                "en": "Reports in three languages (Thai / English / Chinese), per plate or all plates in one file",
+                "ja": "3 言語（タイ語・英語・中国語）で、個別または全試料を 1 ファイルで出力",
+                "zh": "支持三种语言（泰文 / 英文 / 中文），可逐个样品或合并为一个文件导出"
               }
             ]
           },
@@ -662,9 +723,9 @@
           "JavaScript",
           "Pyodide",
           "WebAssembly",
+          "Tailwind CSS",
           "jsPDF",
           "html2canvas",
-          "Pure.css",
           "pytest",
           "GitHub Actions"
         ],
