@@ -965,40 +965,58 @@
     {
       "title": "BDA-MCU-PHRAE",
       "description": {
-        "th": "ทัวร์เสมือนจริง 360° หอพุทธศิลป์ มจร วิทยาเขตแพร่ เดินชมแบบ Street View พร้อมข้อมูลงานศิลปะ 70 ชิ้น — ผูกภาพและสร้างแผนผังอัตโนมัติด้วย Python + OpenCV",
-        "en": "A 360° virtual tour of the Buddhist Art Gallery at MCU Phrae Campus — Street View-style walking with 70 documented artworks, with the panoramas linked and mapped automatically by Python + OpenCV.",
-        "ja": "MCU プレー校・仏教美術館の 360° バーチャルツアー。ストリートビュー式に館内を歩き、70 点の作品解説を閲覧可能。パノラマの接続と館内図は Python + OpenCV で自動生成。",
-        "zh": "MCU 帕府校区佛教艺术馆 360° 虚拟导览——以街景方式漫游并查看 70 件艺术品介绍，全景图的连接与平面图由 Python + OpenCV 自动生成。"
+        "th": "ทัวร์เสมือนจริง หอพุทธศิลป์ มจร วิทยาเขตแพร่ — โมเดลสามมิติของห้องที่หมุน/ซูมได้ และเดินชมภาพ 360° แบบ Street View พร้อมข้อมูลงานศิลปะ 70 ชิ้น สร้างอัตโนมัติด้วย three.js + Python/OpenCV",
+        "en": "A virtual tour of the Buddhist Art Gallery at MCU Phrae Campus — an orbitable 3D model of the hall plus Street View-style 360° walking with 70 documented artworks, built automatically with three.js + Python/OpenCV.",
+        "ja": "MCU プレー校・仏教美術館のバーチャルツアー。回転・ズームできる館内の 3D モデルと、ストリートビュー式の 360° 散策、70 点の作品解説。three.js + Python/OpenCV で自動生成。",
+        "zh": "MCU 帕府校区佛教艺术馆虚拟导览——可旋转缩放的展厅 3D 模型，加上街景式 360° 漫游与 70 件艺术品介绍，由 three.js + Python/OpenCV 自动生成。"
       },
       "tags": [
-        "JavaScript",
+        "3D",
+        "three.js",
         "Python",
-        "OpenCV",
-        "360°"
+        "OpenCV"
       ],
       "link": "https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/",
       "image": "assets/img/projects/bda-mcu-phrae/cover.jpg",
       "featured": {
         "subtitle": {
-          "th": "ทัวร์เสมือนจริง 360° แบบ Street View · มจร วิทยาเขตแพร่",
-          "en": "Street View-style 360° virtual tour · MCU Phrae Campus",
-          "ja": "ストリートビュー式 360° バーチャルツアー · MCU プレー校",
-          "zh": "街景式 360° 虚拟导览 · MCU 帕府校区"
+          "th": "โมเดลสามมิติ + ทัวร์ 360° แบบ Street View · มจร วิทยาเขตแพร่",
+          "en": "3D model + Street View-style 360° tour · MCU Phrae Campus",
+          "ja": "3D モデル + ストリートビュー式 360° ツアー · MCU プレー校",
+          "zh": "3D 模型 + 街景式 360° 导览 · MCU 帕府校区"
         },
         "summary": {
-          "th": "เว็บไซต์พิพิธภัณฑ์เสมือนจริงของหอพุทธศิลป์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่ ผู้ชมคลิกลูกศรบนพื้นเพื่อเดินจากจุดหนึ่งไปอีกจุดแบบ Street View ระบบหันหน้าต่อเนื่องตามทิศที่เดิน มีแผนผังขนาดเล็กบอกตำแหน่งและทิศที่มอง และคลิก ⓘ ที่วัตถุเพื่ออ่านป้ายข้อมูลงานศิลปะได้ 70 ชิ้น ตำแหน่งของทุกจุด ทิศของลูกศร และตำแหน่งงานศิลปะในภาพ คำนวณอัตโนมัติจากภาพ 360° ด้วย Computer Vision แทนการกำหนดด้วยมือ",
-          "en": "A virtual museum for the Buddhist Art Gallery of Mahachulalongkornrajavidyalaya University, Phrae Campus. Visitors click arrows on the floor to walk from spot to spot like Street View, keeping their heading as they move; a mini-map shows where they are and which way they face, and ⓘ hotspots open the information cards of 70 artworks. Every spot's position, every arrow's direction and each artwork's place in the panoramas are computed automatically from the 360° photos with computer vision rather than set by hand.",
-          "ja": "マハーチュラーロンコーンラーチャウィタヤーラ大学プレー校・仏教美術館のバーチャルミュージアム。床の矢印をクリックしてストリートビューのように移動でき、進行方向を保ったまま視点がつながります。ミニマップで現在地と向きを表示し、ⓘ から 70 点の作品解説カードを開けます。各地点の位置、矢印の方向、パノラマ内の作品位置は、手作業ではなくコンピュータビジョンで 360° 写真から自動算出しています。",
-          "zh": "为摩诃朱拉隆功大学帕府校区佛教艺术馆打造的虚拟博物馆。观众点击地面箭头即可像街景一样在各点之间行走，并保持前进方向；小地图显示当前位置与朝向，点击 ⓘ 可查看 70 件艺术品的介绍卡片。每个点位的位置、箭头方向以及艺术品在全景图中的位置，均通过计算机视觉从 360° 照片自动计算，而非手动设定。"
+          "th": "พิพิธภัณฑ์เสมือนจริงของหอพุทธศิลป์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่ ชมได้สองมุมมอง: โมเดลสามมิติ ของห้องจัดแสดงและระเบียงแบบบ้านตุ๊กตา (dollhouse) ที่หมุน ซูม และคลิกจุดเพื่อเข้าชมหรือเปิดข้อมูลงานศิลปะได้ทันที กับ ทัวร์ 360° แบบ Street View ที่คลิกลูกศรบนพื้นเพื่อเดิน มีแผนผัง เข็มทิศบอกทิศจริง และจุด ⓘ ของงานศิลปะครบ 70 ชิ้น ไม่มีเครื่องสแกน 3 มิติ — ขนาดห้อง ความสูงเพดาน ตำแหน่งทุกจุด และพื้นผิวของโมเดล คำนวณจากภาพ 360° ด้วย Computer Vision ทั้งหมด",
+          "en": "A virtual museum for the Buddhist Art Gallery of Mahachulalongkornrajavidyalaya University, Phrae Campus, with two ways to explore: a 3D dollhouse model of the hall and veranda that visitors can orbit, zoom and click to jump into a spot or open an artwork, and a Street View-style 360° tour with floor arrows, a mini-map, a true-north compass and ⓘ hotspots for all 70 artworks. No 3D scanner was used — the room dimensions, ceiling height, every spot's position and the model's surfaces are all computed from the 360° photos with computer vision.",
+          "ja": "マハーチュラーロンコーンラーチャウィタヤーラ大学プレー校・仏教美術館のバーチャルミュージアム。2 つの見方があります：回転・ズームでき、クリックで地点へ移動したり作品を開いたりできる展示室と回廊の 3D ドールハウスモデル、そして床の矢印・ミニマップ・方位磁針・全 70 作品の ⓘ を備えた ストリートビュー式 360° ツアー。3D スキャナーは使わず、部屋の寸法、天井高、各地点の位置、モデルの表面はすべて 360° 写真からコンピュータビジョンで算出しています。",
+          "zh": "为摩诃朱拉隆功大学帕府校区佛教艺术馆打造的虚拟博物馆，提供两种浏览方式：可旋转、缩放并点击进入点位或打开艺术品的展厅与走廊 3D 玩偶屋模型，以及带地面箭头、小地图、真北指南针和全部 70 件艺术品 ⓘ 热点的 街景式 360° 导览。未使用 3D 扫描仪——房间尺寸、天花板高度、每个点位的位置以及模型表面，全部通过计算机视觉从 360° 照片计算得出。"
         },
         "gallery": [
           {
+            "src": "assets/img/projects/bda-mcu-phrae/model-3d.jpg",
+            "caption": {
+              "th": "โมเดลสามมิติของห้องจัดแสดง — ผนังและพื้นใช้ภาพ 360° จริงฉายลงบนโมเดล วงกลมคือจุดชม เพชรสีทองคืองานศิลปะ",
+              "en": "3D model of the exhibition hall — real 360° photos projected onto the walls and floor; circles are viewpoints, gold diamonds are artworks",
+              "ja": "展示室の 3D モデル — 実際の 360° 写真を壁と床に投影。円は視点、金色のひし形は作品",
+              "zh": "展厅 3D 模型——将真实 360° 照片投影到墙面与地面；圆圈为观景点，金色菱形为艺术品"
+            }
+          },
+          {
+            "src": "assets/img/projects/bda-mcu-phrae/model-3d-corridor.jpg",
+            "caption": {
+              "th": "หมุนโมเดลดูระเบียงทางเดินคู่กับห้องโถง ผนังด้านที่บังสายตาจะซ่อนเองเพื่อให้มองเห็นภายในจากทุกมุม",
+              "en": "Orbit to see the veranda alongside the hall — walls facing the camera hide themselves so the interior stays visible from any angle",
+              "ja": "回転して展示室と並ぶ回廊を表示 — 手前の壁は自動で隠れ、どの角度からでも内部が見える",
+              "zh": "旋转查看与展厅并排的走廊——朝向镜头的墙面会自动隐藏，从任何角度都能看到内部"
+            }
+          },
+          {
             "src": "assets/img/projects/bda-mcu-phrae/hall.jpg",
             "caption": {
-              "th": "โซนพระพุทธรูปในห้องจัดแสดง — ลูกศรบนพื้นสำหรับเดินต่อ และแผนผังที่มีกรวยบอกทิศที่กำลังมอง",
-              "en": "The Buddha-image zone in the main hall — a floor arrow to walk on and a mini-map with a cone showing the view direction",
-              "ja": "展示室の仏像ゾーン — 移動用の床の矢印と、視線方向を扇形で示すミニマップ",
-              "zh": "展厅中的佛像区——用于前进的地面箭头，以及以扇形显示视线方向的小地图"
+              "th": "ทัวร์ 360° โซนพระพุทธรูป — ปุ่ม 3D มุมขวาบน เข็มทิศบอกทิศจริง จุด ⓘ ที่งานศิลปะ และแผนผังพร้อมกรวยบอกทิศที่มอง",
+              "en": "360° tour in the Buddha-image zone — the 3D button, a true-north compass, ⓘ artwork hotspots and a mini-map with a view cone",
+              "ja": "仏像ゾーンの 360° ツアー — 右上の 3D ボタン、方位磁針、作品の ⓘ、視線方向付きミニマップ",
+              "zh": "佛像区的 360° 导览——右上角的 3D 按钮、真北指南针、艺术品 ⓘ 热点以及带视线扇形的小地图"
             }
           },
           {
@@ -1027,27 +1045,18 @@
               "ja": "現代絵画ゾーン — スマートフォンでも快適なようにパノラマを 4096×2048 に縮小",
               "zh": "当代绘画区——全景图缩小至 4096×2048，在手机上也能流畅浏览"
             }
-          },
-          {
-            "src": "assets/img/projects/bda-mcu-phrae/intro.jpg",
-            "caption": {
-              "th": "หน้าต้อนรับพร้อมวิธีใช้งาน: ลากเพื่อมองรอบ คลิกลูกศรเพื่อเดิน คลิก ⓘ เพื่ออ่านข้อมูล",
-              "en": "Welcome screen with how-to: drag to look around, click arrows to walk, click ⓘ to read",
-              "ja": "使い方付きのウェルカム画面：ドラッグで見回し、矢印で移動、ⓘ で解説",
-              "zh": "带使用说明的欢迎界面：拖动环视、点击箭头行走、点击 ⓘ 阅读介绍"
-            }
-          },
-          {
-            "src": "assets/img/projects/bda-mcu-phrae/entrance.jpg",
-            "caption": {
-              "th": "จุดเริ่มต้นที่ระเบียงทางเข้าหอพุทธศิลป์ ปุ่ม “เดินหน้า” (คีย์ W) ไปยังจุดที่อยู่ในทิศที่มอง",
-              "en": "Starting point on the entrance veranda — the “Forward” button (W key) goes to the spot in the direction you face",
-              "ja": "入口の回廊が出発点 —「前進」ボタン（W キー）で向いている方向の地点へ",
-              "zh": "起点位于入口走廊——“前进”按钮（W 键）可前往视线方向上的点位"
-            }
           }
         ],
         "metrics": [
+          {
+            "value": "3D + 360°",
+            "label": {
+              "th": "สองมุมมองในเว็บเดียว",
+              "en": "two ways to explore, one site",
+              "ja": "1 つのサイトで 2 つの視点",
+              "zh": "一个网站，两种视角"
+            }
+          },
           {
             "value": "28",
             "label": {
@@ -1058,34 +1067,61 @@
             }
           },
           {
-            "value": "70",
+            "value": "70/70",
             "label": {
-              "th": "งานศิลปะพร้อมป้ายข้อมูล",
-              "en": "artworks with info cards",
-              "ja": "解説付きの作品",
-              "zh": "附介绍的艺术品"
+              "th": "งานศิลปะที่ปักหมุดในภาพและโมเดล",
+              "en": "artworks pinned in the tour and model",
+              "ja": "ツアーとモデルに配置した作品",
+              "zh": "已在导览与模型中标注的艺术品"
             }
           },
           {
-            "value": "276",
+            "value": "0",
             "label": {
-              "th": "คู่ภาพที่วิเคราะห์ด้วย SIFT",
-              "en": "image pairs matched with SIFT",
-              "ja": "SIFT で照合した画像ペア",
-              "zh": "经 SIFT 匹配的图像对"
-            }
-          },
-          {
-            "value": "2–6",
-            "label": {
-              "th": "ทิศที่เดินได้ต่อจุด",
-              "en": "walkable directions per spot",
-              "ja": "地点ごとの移動方向",
-              "zh": "每个点位可行走方向"
+              "th": "เครื่องสแกน 3 มิติที่ใช้",
+              "en": "3D scanners used",
+              "ja": "使用した 3D スキャナー",
+              "zh": "使用的 3D 扫描仪"
             }
           }
         ],
         "highlights": [
+          {
+            "icon": "cube3d",
+            "color": "#F59E0B",
+            "title": {
+              "th": "โมเดลสามมิติ",
+              "en": "3D model",
+              "ja": "3D モデル",
+              "zh": "3D 模型"
+            },
+            "role": {
+              "th": "three.js + GLSL shader",
+              "en": "three.js + GLSL shaders",
+              "ja": "three.js + GLSL シェーダー",
+              "zh": "three.js + GLSL 着色器"
+            },
+            "points": [
+              {
+                "th": "โมเดลห้องแบบบ้านตุ๊กตา (dollhouse) ด้วย three.js หมุน/ซูมด้วย OrbitControls คลิกวงกลมเพื่อเข้าชมจุดนั้นในภาพ 360° หรือคลิกเพชรเพื่อเปิดข้อมูลงานศิลปะ",
+                "en": "A three.js dollhouse model of the hall with OrbitControls: click a circle to enter that 360° spot, or a diamond to open the artwork's card",
+                "ja": "three.js による展示室のドールハウスモデル（OrbitControls）。円をクリックでその 360° 地点へ、ひし形で作品カードを表示",
+                "zh": "使用 three.js 与 OrbitControls 构建的展厅玩偶屋模型：点击圆圈进入该 360° 点位，点击菱形打开艺术品卡片"
+              },
+              {
+                "th": "พื้นผิวเขียนด้วย GLSL shader ฉายภาพ 360° จริงจากจุดถ่ายที่ใกล้ที่สุดสองจุดลงบนพื้นและผนัง แล้วผสมตามระยะ จากภาพรวม (atlas) ไฟล์เดียว",
+                "en": "A custom GLSL shader projects the real 360° photos from the two nearest capture points onto the floor and walls, blended by distance, from a single texture atlas",
+                "ja": "自作の GLSL シェーダーで、最も近い 2 つの撮影地点の 360° 写真を床と壁に投影し距離で合成（1 枚のテクスチャアトラス）",
+                "zh": "自定义 GLSL 着色器将最近两个拍摄点的真实 360° 照片投影到地面与墙面，并按距离混合，仅使用一张纹理图集"
+              },
+              {
+                "th": "ผนังที่บังสายตาซ่อนเองอัตโนมัติ และมีลูกศรทิศเหนือ ตรงกับแผนผังและเข็มทิศในทัวร์ 360°",
+                "en": "Walls between the camera and the room hide automatically, with a north arrow matching the mini-map and the 360° tour's compass",
+                "ja": "カメラと部屋の間の壁は自動で非表示。北矢印はミニマップと 360° ツアーの方位磁針に一致",
+                "zh": "位于镜头与房间之间的墙面自动隐藏，北向箭头与小地图及 360° 导览中的指南针一致"
+              }
+            ]
+          },
           {
             "icon": "javascript",
             "color": "#F7DF1E",
@@ -1110,10 +1146,16 @@
                 "zh": "带视线扇形的小地图、点击瞬移、“前进”按钮 / W 键，以及 #p145 这样的点位直达链接"
               },
               {
-                "th": "รายการงานศิลปะ 70 ชิ้นพร้อมช่องค้นหา จุด ⓘ ในภาพ หมุนอัตโนมัติ เต็มจอ หน้าโหลด และรองรับมือถือ",
-                "en": "Searchable list of 70 artworks, ⓘ hotspots, auto-rotate, fullscreen, a loading screen and mobile support",
-                "ja": "検索付き 70 作品リスト、ⓘ ホットスポット、自動回転、全画面、ローディング画面、モバイル対応",
-                "zh": "可搜索的 70 件艺术品列表、ⓘ 热点、自动旋转、全屏、加载页及移动端支持"
+                "th": "เข็มทิศบอกทิศจริง (อ้างอิงประตูห้องโถง) รายการงานศิลปะ 70 ชิ้นพร้อมช่องค้นหา หมุนอัตโนมัติ เต็มจอ และรองรับมือถือ",
+                "en": "A true-north compass (referenced to the hall door), a searchable list of 70 artworks, auto-rotate, fullscreen and mobile support",
+                "ja": "ホールの扉を基準にした方位磁針、検索付き 70 作品リスト、自動回転、全画面、モバイル対応",
+                "zh": "以展厅大门为参照的真北指南针、可搜索的 70 件艺术品列表、自动旋转、全屏及移动端支持"
+              },
+              {
+                "th": "เว็บ static ล้วน ไลบรารี Pannellum และ three.js อยู่ในเครื่อง ขึ้นได้ทั้ง Apache, Nginx, Docker และ GitHub Pages",
+                "en": "Purely static: Pannellum and three.js are bundled locally, and it runs on Apache, Nginx, Docker or GitHub Pages",
+                "ja": "完全な静的サイト。Pannellum と three.js を同梱し、Apache・Nginx・Docker・GitHub Pages で動作",
+                "zh": "纯静态网站：Pannellum 与 three.js 本地打包，可运行于 Apache、Nginx、Docker 或 GitHub Pages"
               }
             ]
           },
@@ -1141,56 +1183,32 @@
                 "zh": "基于 141 对可靠图像一次性求解整张平面图（NumPy/SciPy），自动剔除矛盾的图像对并使墙面与坐标轴对齐"
               },
               {
+                "th": "วัดขนาดห้องจากภาพ 360°: ระยะถึงผนัง = ความสูงกล้อง ÷ tan(มุมก้มถึงเส้นผนังจรดพื้น) วัด 11 จุดแล้วแก้หาผนังทั้ง 4 ด้าน และความสูงเพดาน เพื่อสร้างโมเดลสามมิติ",
+                "en": "Measures the room from the 360° photos — wall distance = camera height ÷ tan(angle down to the wall base) — solving all 4 walls and the ceiling height from 11 spots to build the 3D model",
+                "ja": "360° 写真から部屋を計測：壁までの距離 = カメラ高 ÷ tan(壁と床の境界への俯角)。11 地点から 4 面の壁と天井高を解いて 3D モデルを構築",
+                "zh": "从 360° 照片测量房间：到墙距离 = 相机高度 ÷ tan(到墙脚线的俯角)，由 11 个点位求解四面墙和天花板高度，用于构建 3D 模型"
+              },
+              {
                 "th": "คัดภาพจาก 54 เหลือ 28 จุดโดยงานศิลปะทุกชิ้นยังมองเห็นได้ และหาตำแหน่งงานศิลปะในภาพ 360° จากภาพถ่ายในป้ายข้อมูล",
                 "en": "Selects 28 of 54 panoramas while keeping every artwork visible, and locates artworks in the panoramas from the photos on their info cards",
                 "ja": "全作品が見える状態を保ちつつ 54 枚から 28 地点を選定し、解説カードの写真からパノラマ内の作品位置を特定",
                 "zh": "在保证每件艺术品可见的前提下从 54 张中精选 28 个点位，并根据介绍卡片上的照片定位艺术品在全景图中的位置"
               }
             ]
-          },
-          {
-            "icon": "linux",
-            "color": "#FCC624",
-            "title": {
-              "th": "การ Deploy",
-              "en": "Deployment",
-              "ja": "デプロイ",
-              "zh": "部署"
-            },
-            "role": {
-              "th": "เว็บ static ขึ้นได้ทุกเซิร์ฟเวอร์",
-              "en": "Static site that runs on any server",
-              "ja": "どのサーバーでも動く静的サイト",
-              "zh": "可在任意服务器运行的静态网站"
-            },
-            "points": [
-              {
-                "th": "สคริปต์ build รวมเฉพาะไฟล์ที่เว็บใช้ (~27 MB จากภาพต้นฉบับ ~720 MB) และใส่เลขเวอร์ชันท้ายไฟล์ css/js",
-                "en": "A build script packs only the files the site uses (~27 MB out of ~720 MB of originals) and versions the CSS/JS URLs",
-                "ja": "ビルドスクリプトがサイトで使うファイルだけ（元画像約 720 MB から約 27 MB）をまとめ、CSS/JS にバージョンを付与",
-                "zh": "构建脚本仅打包网站使用的文件（约 720 MB 原图中的约 27 MB），并为 CSS/JS 添加版本号"
-              },
-              {
-                "th": "ตั้งค่าพร้อมใช้สำหรับ Apache (.htaccess), Nginx, Docker และ GitHub Pages — ไลบรารี Pannellum อยู่ในเครื่อง ไม่ต้องโหลดจาก CDN",
-                "en": "Ready-made configs for Apache (.htaccess), Nginx, Docker and GitHub Pages — Pannellum is bundled locally, not loaded from a CDN",
-                "ja": "Apache（.htaccess）、Nginx、Docker、GitHub Pages 用の設定を用意。Pannellum は同梱で CDN から読み込まない",
-                "zh": "提供 Apache（.htaccess）、Nginx、Docker 与 GitHub Pages 的现成配置——Pannellum 本地打包，不从 CDN 加载"
-              }
-            ]
           }
         ],
         "stack": [
+          "three.js (WebGL)",
+          "GLSL shaders",
           "JavaScript",
-          "Pannellum (WebGL)",
-          "HTML5 / CSS3",
+          "Pannellum",
           "Python",
           "OpenCV (SIFT)",
           "NumPy",
           "SciPy",
-          "Apache / Nginx",
-          "Docker"
+          "Apache / Nginx / Docker"
         ],
-        "name": "Buddhist Art Gallery 360°"
+        "name": "Buddhist Art Gallery 3D & 360°"
       }
     },
     {
