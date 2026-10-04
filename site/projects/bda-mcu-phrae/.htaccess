@@ -1,0 +1,37 @@
+# หอพุทธศิลป์ · ทัวร์ 360° — ตั้งค่าสำหรับ Apache / โฮสติ้ง cPanel
+# (build.sh คัดลอกไฟล์นี้ไปไว้ใน dist/ ให้อัตโนมัติ)
+
+DirectoryIndex index.html
+Options -Indexes
+AddDefaultCharset utf-8
+
+<IfModule mod_mime.c>
+  AddType application/javascript .js
+  AddType text/css .css
+  AddType image/jpeg .jpg .jpeg
+</IfModule>
+
+# บีบอัดไฟล์ข้อความ (ภาพ jpg บีบอัดอยู่แล้ว)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/plain image/svg+xml
+</IfModule>
+
+# แคช: ภาพ 360° เก็บนาน 30 วัน, css/js มีเลขเวอร์ชันจึงเก็บนานได้, หน้า html ให้ตรวจใหม่ทุกครั้ง
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpg|jpeg|png|svg|woff2?)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ไม่ให้เปิดไฟล์ซ่อน (.git, .env ฯลฯ)
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
