@@ -91,6 +91,8 @@ scripts/              ← สคริปต์แปลภาษา
 
 **ข้อความหน้าแรก** — `profile.tagline` (ป้ายเล็ก), `profile.slogan` (ข้อความตัวใหญ่), `profile.intro` (คำแนะนำตัว), `profile.motto` (ปณิธานในส่วนติดต่อ)
 
+**SEO** — `profile.seoDescription` คือคำอธิบายสำหรับ Google และการแชร์ในแต่ละภาษา (ไม่ใส่จะใช้ `profile.intro`) ส่วนแท็กคงที่, Open Graph และ JSON-LD (Person + ผลงานเด่น) อยู่ใน `<head>` ของ `site/index.html`
+
 วันที่ใช้รูปแบบ ค.ศ. `YYYY-MM-DD` หรือใส่แค่ปี ค.ศ. เช่น `"2013"` ก็ได้ เมื่อแสดงเป็นภาษาไทยจะเปลี่ยนเป็น พ.ศ. ให้อัตโนมัติ (`"end": null` หมายถึง "ปัจจุบัน")
 
 ## ระบบแปลภาษาอัตโนมัติ
@@ -165,6 +167,8 @@ git clone --depth 1 https://github.com/kittiphunr/BDA-MCU-PHRAE ../BDA-MCU-PHRAE
 rm -rf site/projects/bda-mcu-phrae && cp -r ../BDA-MCU-PHRAE/deploy/dist site/projects/bda-mcu-phrae
 npm run deploy
 ```
+
+> `site/projects/bda-mcu-phrae/index.html` มีแท็ก SEO (canonical, Open Graph, JSON-LD) ที่เพิ่มไว้ในส่วน `<head>` — ถ้าคัดลอกทับ ให้นำส่วนนี้กลับมาใส่ (หรือเพิ่มไว้ใน repo BDA-MCU-PHRAE ด้วย) ภาพแชร์อยู่ที่ `site/assets/img/projects/bda-mcu-phrae/og.jpg`
 
 ## ทดสอบในเครื่อง
 

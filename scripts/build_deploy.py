@@ -35,7 +35,7 @@ SOURCE_URL = "https://kittiphun.rut.mcupr.ac.th/"
 DEFAULT_BASE_URL = SOURCE_URL
 
 # Files whose absolute URLs point at the site itself.
-URL_FILES = ["index.html", "sitemap.xml", "robots.txt", "assets/js/app.js"]
+URL_FILES = ["index.html", "sitemap.xml", "robots.txt", "assets/js/app.js", "projects/bda-mcu-phrae/index.html"]
 # GitHub Pages only; not needed on Apache.
 SKIP = {".nojekyll"}
 
