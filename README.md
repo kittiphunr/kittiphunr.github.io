@@ -168,7 +168,7 @@ rm -rf site/projects/bda-mcu-phrae && cp -r ../BDA-MCU-PHRAE/deploy/dist site/pr
 npm run deploy
 ```
 
-> `site/projects/bda-mcu-phrae/index.html` มีแท็ก SEO (canonical, Open Graph, JSON-LD) ที่เพิ่มไว้ในส่วน `<head>` — ถ้าคัดลอกทับ ให้นำส่วนนี้กลับมาใส่ (หรือเพิ่มไว้ใน repo BDA-MCU-PHRAE ด้วย) ภาพแชร์อยู่ที่ `site/assets/img/projects/bda-mcu-phrae/og.jpg`
+> แท็ก SEO ของหน้าทัวร์ (title, canonical, Open Graph, JSON-LD) อยู่ใน `index.html` ของ repo BDA-MCU-PHRAE แล้ว คัดลอกทับได้เลย ส่วนภาพแชร์อยู่ที่ `site/assets/img/projects/bda-mcu-phrae/og.jpg` ในพอร์ตโฟลิโอ
 
 ## ทดสอบในเครื่อง
 
