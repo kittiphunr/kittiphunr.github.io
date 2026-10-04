@@ -608,6 +608,20 @@ button { font: inherit; color: inherit; }
 .about-list { margin: 4px 0 0; padding-left: 20px; line-height: 1.8; color: var(--text); }
 .about-list a { color: var(--gold-soft); }
 .dev { display: flex; gap: 14px; align-items: center; }
+.dev-photo {
+  flex: none; width: 88px; height: 88px; border-radius: 50%; object-fit: cover;
+  box-shadow: 0 0 0 3px var(--gold), 0 6px 18px rgba(0, 0, 0, .45);
+}
+.dev-en { color: var(--muted); font-size: 13px; letter-spacing: .3px; }
+.dev-tag { margin-top: 2px !important; font-size: 12px; color: var(--gold); letter-spacing: .5px; }
+.dev-contact {
+  list-style: none; margin: 12px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 6px 16px;
+}
+.dev-contact li { display: flex; gap: 8px; font-size: 14px; min-width: 0; }
+.dev-contact span { flex: none; width: 56px; color: var(--muted); }
+.dev-contact a { color: var(--gold-soft); text-decoration: none; overflow-wrap: anywhere; }
+.dev-contact a:hover { text-decoration: underline; }
 .dev-avatar {
   flex: none; display: grid; place-items: center;
   width: 56px; height: 56px; border-radius: 50%;

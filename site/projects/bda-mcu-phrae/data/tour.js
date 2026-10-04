@@ -6,7 +6,7 @@
 window.TOUR = {
   "title": "หอพุทธศิลป์",
   "subtitle": "พิพิธภัณฑ์เสมือนจริง 360° · มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่",
-  "firstScene": "p220",
+  "firstScene": "p215",
   "floorPlan": {
     "image": null,
     "rooms": [
@@ -1385,7 +1385,9 @@ window.TOUR = {
           "to": "p220"
         }
       ],
-      "infos": []
+      "infos": [],
+      "yaw": -175.8,
+      "pitch": 0
     },
     {
       "id": "p220",
