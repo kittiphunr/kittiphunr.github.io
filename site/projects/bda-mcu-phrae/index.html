@@ -72,7 +72,7 @@
   <link rel="apple-touch-icon" href="images/logo/apple-touch-icon.png">
   <link rel="preload" as="image" href="images/logo/mcu-logo.png">
   <link rel="stylesheet" href="vendor/pannellum/pannellum.css">
-  <link rel="stylesheet" href="css/style.css?v=5934983">
+  <link rel="stylesheet" href="css/style.css?v=d69cc33">
 </head>
 <body>
   <!-- หน้าโหลด: แสดงจนภาพ 360° แรกโหลดเสร็จ -->
@@ -99,6 +99,7 @@
       </div>
     </div>
     <nav class="tools" aria-label="เครื่องมือ">
+      <button id="btn-about" class="icon-btn btn-about" title="ข้อมูลโครงการและผู้พัฒนา" aria-label="ข้อมูลโครงการและผู้พัฒนา">?</button>
       <button id="btn-3d" class="icon-btn btn-3d" title="โมเดล 3 มิติของห้อง" aria-label="โมเดล 3 มิติของห้อง" hidden>3D</button>
       <button id="btn-art" class="icon-btn" title="งานศิลปะทั้งหมด" aria-label="งานศิลปะทั้งหมด">❖</button>
       <button id="btn-list" class="icon-btn" title="รายการจุดชม" aria-label="รายการจุดชม">☰</button>
@@ -190,6 +191,7 @@
         <li>คลิกจุดบน <b>แผนผัง</b> หรือ ☰ เพื่อไปยังจุดที่ต้องการ</li>
       </ul>
       <button id="btn-start" class="start">เริ่มชมนิทรรศการ</button>
+      <p class="intro-credit">พัฒนาโดย นายกิตติพันธ์ รัตนคร · <button type="button" class="link-btn" data-open-about>ข้อมูลเพิ่มเติม</button></p>
     </div>
   </section>
 
@@ -208,12 +210,58 @@
   </section>
   <div id="model3d-tip" class="model3d-tip" hidden></div>
 
+  <!-- หน้าข้อมูล (information) -->
+  <section id="about" class="about" hidden role="dialog" aria-modal="true" aria-labelledby="about-title">
+    <div class="about-card">
+      <button class="close" data-close="about" aria-label="ปิด">×</button>
+      <header class="about-head">
+        <img src="images/logo/mcu-logo.png" alt="" width="64" height="64">
+        <div>
+          <h2 id="about-title">เกี่ยวกับ หอพุทธศิลป์เสมือนจริง</h2>
+          <p>พิพิธภัณฑ์เสมือนจริง 360° · มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่</p>
+        </div>
+      </header>
+
+      <section class="about-sec">
+        <h3>ผู้พัฒนา</h3>
+        <div class="dev">
+          <div class="dev-avatar" aria-hidden="true">กร</div>
+          <div>
+            <p class="dev-name">นายกิตติพันธ์ รัตนคร</p>
+            <p class="dev-role">นักวิชาการคอมพิวเตอร์</p>
+            <p class="dev-org">มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาเขตแพร่</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-sec">
+        <h3>เกี่ยวกับโครงการ</h3>
+        <p>เว็บไซต์นำชมหอพุทธศิลป์ด้วยภาพ 360° เดินชมได้แบบ Street View พร้อมแผนผัง เข็มทิศ
+          โมเดล 3 มิติของห้อง และข้อมูลงานศิลปะ <span id="about-art-count"></span></p>
+        <ul class="about-list">
+          <li>ภาพ 360° และป้ายข้อมูลงานศิลปะ: หอพุทธศิลป์ มจร วิทยาเขตแพร่</li>
+          <li>แสดงภาพ 360°: <a href="https://pannellum.org/" target="_blank" rel="noopener">Pannellum</a> (MIT License)</li>
+          <li>โมเดล 3 มิติ: <a href="https://threejs.org/" target="_blank" rel="noopener">three.js</a> (MIT License)</li>
+        </ul>
+      </section>
+
+      <section class="about-sec">
+        <h3>วิธีใช้งาน</h3>
+        <ul class="about-list">
+          <li>ลากเมาส์หรือนิ้วเพื่อมองรอบ ๆ · คลิกลูกศรบนพื้นหรือกด <b>W</b> เพื่อเดิน</li>
+          <li><b>ⓘ</b> / <b>❖</b> ข้อมูลงานศิลปะ · <b>☰</b> รายการจุดชม · <b>◎</b> แผนผัง · <b>3D</b> โมเดล 3 มิติ</li>
+          <li>คลิกเข็มทิศเพื่อหันไปทางทิศเหนือ</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+
   <div id="toast" class="toast" role="status"></div>
 
   <script src="vendor/pannellum/pannellum.js"></script>
-  <script src="data/tour.js?v=5934983"></script>
-  <script src="js/app.js?v=5934983"></script>
+  <script src="data/tour.js?v=d69cc33"></script>
+  <script src="js/app.js?v=d69cc33"></script>
   <script type="importmap">{ "imports": { "three": "./vendor/three/three.module.min.js" } }</script>
-  <script type="module" src="js/model3d.js?v=5934983"></script>
+  <script type="module" src="js/model3d.js?v=d69cc33"></script>
 </body>
 </html>
