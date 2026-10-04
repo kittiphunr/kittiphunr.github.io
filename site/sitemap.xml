@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <xhtml:link rel="alternate" hreflang="th" href="https://kittiphun.rut.mcupr.ac.th/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kittiphun.rut.mcupr.ac.th/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphun.rut.mcupr.ac.th/?lang=ja"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://kittiphun.rut.mcupr.ac.th/?lang=zh"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kittiphun.rut.mcupr.ac.th/"/>
+    <image:image>
+      <image:loc>https://kittiphun.rut.mcupr.ac.th/assets/img/profile.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://kittiphun.rut.mcupr.ac.th/assets/img/projects/bda-mcu-phrae/cover.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://kittiphun.rut.mcupr.ac.th/assets/img/projects/precision-qc/cover.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://kittiphun.rut.mcupr.ac.th/assets/img/projects/iv-monitor/cover.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/?lang=en</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <xhtml:link rel="alternate" hreflang="th" href="https://kittiphun.rut.mcupr.ac.th/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kittiphun.rut.mcupr.ac.th/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphun.rut.mcupr.ac.th/?lang=ja"/>
@@ -20,7 +32,7 @@
   </url>
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/?lang=ja</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <xhtml:link rel="alternate" hreflang="th" href="https://kittiphun.rut.mcupr.ac.th/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kittiphun.rut.mcupr.ac.th/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphun.rut.mcupr.ac.th/?lang=ja"/>
@@ -29,7 +41,7 @@
   </url>
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/?lang=zh</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <xhtml:link rel="alternate" hreflang="th" href="https://kittiphun.rut.mcupr.ac.th/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kittiphun.rut.mcupr.ac.th/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphun.rut.mcupr.ac.th/?lang=ja"/>
@@ -39,5 +51,11 @@
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/</loc>
     <lastmod>2026-10-04</lastmod>
+    <image:image>
+      <image:loc>https://kittiphun.rut.mcupr.ac.th/assets/img/projects/bda-mcu-phrae/og.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://kittiphun.rut.mcupr.ac.th/assets/img/projects/bda-mcu-phrae/hall.jpg</image:loc>
+    </image:image>
   </url>
 </urlset>
