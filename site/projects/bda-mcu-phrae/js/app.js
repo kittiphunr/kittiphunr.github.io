@@ -3,6 +3,46 @@
   "use strict";
 
   var TOUR = window.TOUR;
+  var I = window.i18n, t = I.t, LANG = I.lang;
+
+  /* ---------- แปลข้อมูลทัวร์ (data/translations.js) ---------- */
+  // ภาษาไทยคือข้อมูลต้นฉบับ ภาษาอื่นแทนชื่อ/คำอธิบาย และเก็บชื่อไทยไว้ใน title_th
+  (function translateTour() {
+    var X = window.TOUR_I18N;
+    TOUR.artworks = TOUR.artworks || [];
+    TOUR.artworks.forEach(function (a) { a.title_th = a.title; });
+    if (LANG === "th" || !X) return;
+    var li = { en: 0, ja: 1, zh: 2 }[LANG];
+    if (X.tour.title[LANG]) TOUR.title = X.tour.title[LANG];
+    if (X.tour.subtitle[LANG]) TOUR.subtitle = X.tour.subtitle[LANG];
+    var rooms = TOUR.floorPlan && TOUR.floorPlan.rooms || [];
+    if (TOUR.model && TOUR.model.rooms && TOUR.model.rooms !== rooms) rooms = rooms.concat(TOUR.model.rooms);
+    rooms.forEach(function (r) {
+      var tr = X.rooms[r.label_th || r.label];
+      if (tr && tr[LANG]) { r.label_th = r.label_th || r.label; r.label = tr[LANG]; }
+    });
+    TOUR.scenes.forEach(function (s) {
+      var m = /^(.*?)( \(\d+\))?$/.exec(s.title);
+      var z = X.zones[m[1]] && X.zones[m[1]][LANG];
+      if (!z) return;
+      s.title_th = s.title;
+      s.title = z[0] + (m[2] || "");
+      s.description = z[1];
+    });
+    var artTitle = function (id, fallback) {
+      var a = X.artworks[id];
+      return a && a[li] || fallback;
+    };
+    TOUR.artworks.forEach(function (a) { a.title = artTitle(a.id, a.title); });
+    TOUR.scenes.forEach(function (s) {
+      (s.infos || []).forEach(function (info) {
+        if (!info.artwork) return;
+        info.title_th = info.title;
+        info.title = artTitle(info.artwork, info.title);
+      });
+    });
+  })();
+  I.apply();
   var ARROW_PITCH = -24; // ลูกศรวางบนพื้น
   var FORWARD_CONE = 50; // องศาที่ถือว่า "อยู่ข้างหน้า" สำหรับปุ่มเดินหน้า
   var EDIT = /[?&]edit=1/.test(location.search);
@@ -74,7 +114,7 @@
       '<span class="sv-arrow-label"></span>';
     div.querySelector(".sv-arrow-label").textContent = title;
     div.setAttribute("role", "button");
-    div.setAttribute("aria-label", "ไปยัง " + title);
+    div.setAttribute("aria-label", t("goTo", { name: title }));
   }
 
   function infoHotspot(info) {
@@ -131,18 +171,7 @@
       showControls: false,
       keyboardZoom: true,
       friction: 0.2,
-      strings: {
-        loadingLabel: "กำลังโหลดภาพ 360°...",
-        loadButtonLabel: "คลิกเพื่อโหลด",
-        bylineLabel: "",
-        noPanoramaError: "ไม่พบภาพ 360°",
-        fileAccessError: "ไม่สามารถเปิดไฟล์ %s ได้ (ให้เปิดผ่านเว็บเซิร์ฟเวอร์ ไม่ใช่ file://)",
-        malformedURLError: "ที่อยู่ภาพไม่ถูกต้อง",
-        iOS8WebGLError: "อุปกรณ์ไม่รองรับ WebGL",
-        genericWebGLError: "เบราว์เซอร์ไม่รองรับ WebGL",
-        textureSizeError: "ภาพใหญ่เกินไปสำหรับอุปกรณ์นี้ (กว้าง %s px, รองรับสูงสุด %s px)",
-        unknownError: "เกิดข้อผิดพลาด"
-      }
+      strings: Object.assign({ bylineLabel: "" }, t("pnlm"))
     },
     scenes: scenesCfg
   });
@@ -195,7 +224,7 @@
     var to = forwardLink();
     var btn = $("btn-forward");
     btn.disabled = !to;
-    btn.textContent = to ? "เดินหน้า ▲ " + byId[to].title : "หันไปทางลูกศรเพื่อเดิน";
+    btn.textContent = to ? t("forward") + " " + byId[to].title : t("faceArrow");
   }
 
   $("btn-forward").addEventListener("click", function () {
@@ -211,6 +240,7 @@
     } else if (e.key === "Escape") {
       hideInfo();
       $("about").hidden = true;
+      togglePanel("settings", false);
     }
   });
 
@@ -234,21 +264,25 @@
   /* กล่องข้อมูล */
   function showInfo(info) {
     $("info-title").textContent = info.title;
-    $("info-sub").textContent = info.subtitle || "";
+    // ภาษาอื่น: แสดงชื่อภาษาไทย (ตรงกับป้ายข้อมูล) และหมายเหตุว่าป้ายเป็นภาษาไทย
+    var foreign = LANG !== "th" && info.card;
+    $("info-sub").textContent = foreign ? (info.title_th || "") : (info.subtitle || "");
+    $("info-note").hidden = !foreign;
+    $("info-note").textContent = foreign ? t("cardNote") : "";
     $("info-text").textContent = info.text || "";
     var link = $("info-link");
     link.hidden = !info.card;
     if (info.card) {
       link.href = info.card;
       $("info-img").src = info.card;
-      $("info-img").alt = "ป้ายข้อมูล " + info.title;
+      $("info-img").alt = t("cardAlt", { name: info.title });
     }
     var art = info.artwork && artById[info.artwork];
     var where = art && art.placements.length ? art.placements.map(function (p) {
       return byId["p" + p.pano] ? byId["p" + p.pano].title : "";
     }).filter(function (t, i, a) { return t && a.indexOf(t) === i; }) : [];
-    $("info-where").textContent = (where.length ? "พบได้ที่: " + where.join(", ") : "") +
-      (info.approx ? " (ตำแหน่ง ⓘ โดยประมาณ)" : "");
+    $("info-where").textContent = (where.length ? t("foundAt", { places: where.join(", ") }) : "") +
+      (info.approx ? " " + t("approx") : "");
     $("info-card").hidden = false;
   }
   function hideInfo() { $("info-card").hidden = true; }
@@ -260,7 +294,7 @@
   var pendingInfo = null;
 
   function artInfo(a) {
-    return { title: a.title, subtitle: a.title_en, card: a.card, artwork: a.id,
+    return { title: a.title, title_th: a.title_th, subtitle: a.title_en, card: a.card, artwork: a.id,
              approx: a.placements.some(function (p) { return p.approx; }) };
   }
 
@@ -285,13 +319,13 @@
     b.innerHTML = '<span class="num"></span><span class="t"><span class="th"></span><small class="en"></small></span>';
     b.querySelector(".num").textContent = a.card_no;
     b.querySelector(".th").textContent = a.title;
-    b.querySelector(".en").textContent = a.title_en || "";
+    b.querySelector(".en").textContent = (LANG === "th" ? a.title_en : a.title_th) || "";
     if (!a.placements.length) b.classList.add("no-place");
     b.addEventListener("click", function () {
       openArtwork(a);
       if (window.matchMedia("(max-width: 720px)").matches) togglePanel("art-list", false);
     });
-    li.dataset.q = (a.title + " " + (a.title_en || "") + " " + a.card_no).toLowerCase();
+    li.dataset.q = [a.title, a.title_th, a.title_en || "", a.card_no].join(" ").toLowerCase();
     li.appendChild(b);
     artList.appendChild(li);
   });
@@ -317,7 +351,7 @@
   /* หน้าข้อมูลโครงการและผู้พัฒนา */
   function openAbout() {
     var placed = (TOUR.artworks || []).length;
-    $("about-art-count").textContent = placed ? "(" + placed + " ชิ้น)" : "";
+    $("about-art-count").textContent = placed ? t("pieces", { n: placed }) : "";
     $("about").hidden = false;
   }
   $("btn-about").addEventListener("click", openAbout);
@@ -343,9 +377,9 @@
 
   $("btn-share").addEventListener("click", function () {
     var url = location.href.split("#")[0] + "#" + encodeURIComponent(viewer.getScene());
-    var done = function () { toast("คัดลอกลิงก์แล้ว"); };
-    if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, function () { prompt("ลิงก์", url); });
-    else prompt("ลิงก์", url);
+    var done = function () { toast(t("copied")); };
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, function () { prompt(t("link"), url); });
+    else prompt(t("link"), url);
   });
 
   var toastTimer;
@@ -453,8 +487,7 @@
   /* ---------- เข็มทิศ ---------- */
 
   var COMPASS = TOUR.compass;
-  var DIRS = ["เหนือ", "ตะวันออกเฉียงเหนือ", "ตะวันออก", "ตะวันออกเฉียงใต้",
-              "ใต้", "ตะวันตกเฉียงใต้", "ตะวันตก", "ตะวันตกเฉียงเหนือ"];
+  var DIRS = t("dirs");
   var DIRS_EN = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
 
   // มุมทิศจริงของทิศที่กำลังมอง (0 = เหนือ, ตามเข็มนาฬิกา)
@@ -554,12 +587,42 @@
   })();
   viewer.on("load", hidePreloader);
   viewer.on("error", function () {
-    $("preloader-status").textContent = "โหลดภาพไม่สำเร็จ";
+    $("preloader-status").textContent = t("loadFailed");
     setTimeout(hidePreloader, 1200);
   });
   setTimeout(hidePreloader, 25000);   // กันค้าง
 
   /* ---------- หน้าต้อนรับ ---------- */
+
+  /* ---------- ภาษาและโหมดสี ---------- */
+
+  $("intro-dev").textContent = t("devBy", { name: t("devName") });
+  if (LANG !== "th") document.title = TOUR.title + " · " + t("org") + " · 3D & 360°";
+  Array.prototype.forEach.call(document.querySelectorAll(".lang-switch"), function (box) {
+    I.langs.forEach(function (l) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.lang = l.code;
+      b.textContent = l.label;
+      b.setAttribute("aria-pressed", l.code === LANG ? "true" : "false");
+      b.addEventListener("click", function () { I.setLang(l.code); });
+      box.appendChild(b);
+    });
+  });
+  function markTheme() {
+    var cur = I.theme();
+    Array.prototype.forEach.call(document.querySelectorAll("[data-theme-set]"), function (b) {
+      b.setAttribute("aria-pressed", b.dataset.themeSet === cur ? "true" : "false");
+    });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-theme-set]"), function (b) {
+    b.addEventListener("click", function () { I.setTheme(b.dataset.themeSet); markTheme(); });
+  });
+  markTheme();
+  $("btn-settings").addEventListener("click", function () {
+    togglePanel("settings");
+    this.setAttribute("aria-expanded", $("settings").hidden ? "false" : "true");
+  });
 
   $("tour-title").textContent = TOUR.title;
   $("intro-title").textContent = TOUR.title;
