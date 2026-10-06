@@ -591,7 +591,9 @@
     document.getElementById("projects").replaceChildren(h("div", { class: WRAP },
       sectionHead(s.projectsBadge, s.projectsHeading, true),
       h("div", { id: "carousel", class: "no-scrollbar -mx-2 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-2 py-4", "data-reveal-group": "" }, cards),
-      h("div", { id: "carousel-dots", class: "mt-6 flex justify-center gap-2" })
+      h("div", { id: "carousel-dots", class: "mt-6 flex justify-center gap-2" }),
+      h("div", { class: "mt-8 text-center" },
+        h("a", { class: "btn", href: lang === DEFAULT_LANG ? "projects/" : "projects/?lang=" + lang }, s.allProjects, icon("arrow")))
     ));
   }
 

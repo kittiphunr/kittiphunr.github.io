@@ -10,8 +10,8 @@ What it does
      tags, JSON-LD, sitemap, robots.txt and app.js.
   3. Adds ?v=<hash> to the CSS/JS links so browsers fetch new versions
      right after an update.
-  4. Writes an .htaccess (compression, caching, security headers) that
-     leaves /projects/ (Precision QC, the 360° tour) alone.
+  4. Writes an .htaccess (404 page, compression, caching, security headers)
+     that leaves /projects/ (Precision QC, the 360° tour) alone.
   5. Packs everything into deploy/../portfolio-deploy.zip.
 
 Run `npm run build` first so assets/css/tailwind.css is current
@@ -27,6 +27,7 @@ import shutil
 import zipfile
 from datetime import date
 from pathlib import Path
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
@@ -35,7 +36,8 @@ SOURCE_URL = "https://kittiphun.rut.mcupr.ac.th/"
 DEFAULT_BASE_URL = SOURCE_URL
 
 # Files whose absolute URLs point at the site itself.
-URL_FILES = ["index.html", "sitemap.xml", "robots.txt", "assets/js/app.js", "projects/bda-mcu-phrae/index.html"]
+URL_FILES = ["index.html", "sitemap.xml", "robots.txt", "assets/js/app.js", "projects/index.html",
+             "projects/bda-mcu-phrae/index.html"]
 # GitHub Pages only; not needed on Apache.
 SKIP = {".nojekyll"}
 
@@ -48,6 +50,10 @@ AddDefaultCharset utf-8
 AddType application/json .json
 AddType image/svg+xml .svg
 AddType image/webp .webp
+
+# Missing pages (and folders without an index, which -Indexes turns into 403) show the branded 404.
+ErrorDocument 404 @BASE_PATH@404.html
+ErrorDocument 403 @BASE_PATH@404.html
 
 <If "%{REQUEST_URI} !~ m#^/projects/#">
   <IfModule mod_deflate.c>
@@ -111,7 +117,12 @@ def main() -> None:
                   lambda m: f'{m.group(1)}{m.group(2)}?v={short_hash(out / m.group(2))}{m.group(3)}', html)
     index.write_text(html, encoding="utf-8")
 
-    (out / ".htaccess").write_text(HTACCESS, encoding="utf-8")
+    # 404.html is served at any depth, so its links are root-absolute; keep them
+    # (and ErrorDocument) correct when the site lives in a sub-folder.
+    base_path = urlparse(base).path
+    nf = out / "404.html"
+    nf.write_text(re.sub(r'((?:href|src)=")/(?!/)', lambda m: m.group(1) + base_path, nf.read_text(encoding="utf-8")), encoding="utf-8")
+    (out / ".htaccess").write_text(HTACCESS.replace("@BASE_PATH@", base_path), encoding="utf-8")
 
     files = sorted(p for p in out.rglob("*") if p.is_file())
     size = sum(p.stat().st_size for p in files)
