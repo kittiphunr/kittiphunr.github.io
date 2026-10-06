@@ -172,6 +172,25 @@ npm run deploy
 
 > แท็ก SEO ของหน้าทัวร์ (title, canonical, Open Graph, JSON-LD) อยู่ใน `index.html` ของ repo BDA-MCU-PHRAE แล้ว คัดลอกทับได้เลย ส่วนภาพแชร์อยู่ที่ `site/assets/img/projects/bda-mcu-phrae/og.jpg` ในพอร์ตโฟลิโอ
 
+### Deploy ขึ้นโฮสต์อัตโนมัติ (GitHub Action)
+
+workflow `.github/workflows/deploy-host.yml` build แล้วอัปโหลดขึ้นโฮสต์ผ่าน FTPS/SFTP ทุกครั้งที่ workflow "Translate and deploy to Pages" บน `main` ทำงานสำเร็จ (หรือกด Run workflow เอง) — **ยังไม่ทำงานจนกว่าจะตั้งค่า secrets** จึง merge ก่อนได้โดยไม่มีผลกับโฮสต์
+
+ตั้งค่าที่ *Settings → Secrets and variables → Actions*
+
+| ชื่อ | ชนิด | ค่า |
+| --- | --- | --- |
+| `HOST_FTP_HOST` | secret | ชื่อเซิร์ฟเวอร์ FTP/SFTP ของโฮสต์ |
+| `HOST_FTP_USER` / `HOST_FTP_PASSWORD` | secret | บัญชี FTP (แนะนำให้สร้างบัญชีที่เข้าได้เฉพาะโฟลเดอร์ของเว็บนี้) |
+| `HOST_REMOTE_DIR` | variable | โฟลเดอร์เว็บบนโฮสต์ เช่น `/public_html` (ค่าเริ่มต้น) |
+| `HOST_FTP_PROTOCOL` | variable | `ftps` (ค่าเริ่มต้น, explicit FTPS พอร์ต 21) · `sftp` · `ftp` (ไม่เข้ารหัส ไม่แนะนำ) |
+| `HOST_FTP_PORT`, `HOST_FTP_VERIFY_CERT`, `HOST_SSH_KNOWN_HOSTS` | ไม่บังคับ | พอร์ต / ปิดการตรวจใบรับรองถ้าชื่อไม่ตรง (`no`) / host key สำหรับ sftp |
+
+- **เพิ่ม/ทับไฟล์เท่านั้น ไม่ลบไฟล์บนโฮสต์** โฟลเดอร์ที่มีแต่บนโฮสต์ (เช่น `projects/precision-qc-web/`) จึงไม่ถูกแตะ ไฟล์ที่ลบออกจาก repo ต้องลบบนโฮสต์เอง
+- **ไม่อัปโหลด `.htaccess` ของรากเว็บ** เพื่อไม่ทับของเดิมบนโฮสต์ ถ้าต้องการให้ติ๊ก `upload_htaccess` ตอนกด Run workflow
+- **ลองก่อนด้วย dry run:** *Actions → Deploy to university host → Run workflow* (ค่าเริ่มต้นคือ dry run แสดงรายการไฟล์โดยไม่อัปโหลด) ตรวจ log แล้วค่อยรันจริงโดยเอาติ๊ก dry run ออก
+- ถ้าต้องการให้ต้องกดอนุมัติก่อนอัปโหลดทุกครั้ง ให้ตั้ง *Required reviewers* ที่ environment `production`
+
 ## ทดสอบในเครื่อง
 
 ```bash
