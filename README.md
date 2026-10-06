@@ -34,7 +34,8 @@ scripts/              ← สคริปต์แปลภาษา
 | `site/assets/js/effects.js` | เอฟเฟกต์: ลูกโลกเครือข่าย 3 มิติ, แอนิเมชันเมื่อเลื่อนหน้า, แถบทักษะ, ไฮไลต์เมนูตามตำแหน่ง, การ์ดเอียง 3 มิติ, ตัวนับสถิติ, เคอร์เซอร์แบบโต้ตอบ (เปิด/ปิดตามสถานะแอนิเมชัน) |
 | `site/assets/js/circuit.js` | ลายวงจร PCB พร้อมกระแสไฟวิ่งตามลายวงจร (แถบคั่นมีชิป IC และพื้นหลังจาง ๆ ของบางส่วน) |
 | `scripts/translate.mjs` | สคริปต์เติมคำแปลที่ขาดลงใน `site/data/portfolio.json` |
-| `.github/workflows/static.yml` | GitHub Action: แปลภาษาอัตโนมัติ → commit กลับ → deploy |
+| `.github/workflows/static.yml` | GitHub Action: build แล้ว deploy ขึ้น GitHub Pages |
+| `.github/workflows/translate.yml` | GitHub Action: เติมคำแปลที่ขาดแล้วเปิด PR ให้ตรวจ |
 
 ## การเพิ่มข้อมูล
 
@@ -99,7 +100,11 @@ scripts/              ← สคริปต์แปลภาษา
 
 ## ระบบแปลภาษาอัตโนมัติ
 
-1. **ตอน push ขึ้น `main`**: GitHub Action รัน `scripts/translate.mjs` เพื่อเติมภาษาที่ขาด แล้ว commit กลับเข้า repo และ deploy ขึ้น GitHub Pages
+1. **ตอน push `site/data/portfolio.json` ขึ้น `main`**: workflow `translate.yml` รัน `scripts/translate.mjs` เติมภาษาที่ขาด แล้ว**เปิด Pull request** จาก branch `auto/translations` ให้ตรวจก่อน (โดยเฉพาะภาษาญี่ปุ่น/จีนที่เป็นการแปลด้วยเครื่อง) แก้ใน branch นั้นได้โดยตรง เมื่อ merge แล้วจึง deploy — ไม่มีการ commit คำแปลเข้า `main` เอง
+   - ตั้งค่าครั้งเดียว: *Settings → Actions → General → Workflow permissions* ติ๊ก **Allow GitHub Actions to create and approve pull requests**
+   - PR ที่ workflow เปิดเองจะไม่ trigger workflow "Check site" (ข้อจำกัดของ `GITHUB_TOKEN`) แต่การแปลแก้เฉพาะ `portfolio.json`
+   - ระหว่างที่ PR ยังไม่ merge ข้อความที่ยังไม่มีคำแปลจะใช้การแปลในเบราว์เซอร์ (ข้อ 2) แทน
+   - workflow "Deploy to Pages" ไม่แปลหรือ commit อะไรแล้ว แค่ build และ deploy จาก `main`
 2. **ในเบราว์เซอร์ (สำรอง)**: ถ้ายังมีข้อความที่ไม่มีคำแปล เว็บจะแปลให้ทันทีและเก็บไว้ในเครื่องผู้เข้าชม ข้อความที่แปลด้วยเครื่องจะมีเส้นประใต้ข้อความ
 
 รันสคริปต์แปลภาษาในเครื่อง (Node.js 18 ขึ้นไป):
@@ -184,7 +189,7 @@ workflow `.github/workflows/check.yml` รันทุก PR ที่เข้�
 
 ### Deploy ขึ้นโฮสต์อัตโนมัติ (GitHub Action)
 
-workflow `.github/workflows/deploy-host.yml` build แล้วอัปโหลดขึ้นโฮสต์ผ่าน FTPS/SFTP ทุกครั้งที่ workflow "Translate and deploy to Pages" บน `main` ทำงานสำเร็จ (หรือกด Run workflow เอง) — **ยังไม่ทำงานจนกว่าจะตั้งค่า secrets** จึง merge ก่อนได้โดยไม่มีผลกับโฮสต์
+workflow `.github/workflows/deploy-host.yml` build แล้วอัปโหลดขึ้นโฮสต์ผ่าน FTPS/SFTP ทุกครั้งที่ workflow "Deploy to Pages" บน `main` ทำงานสำเร็จ (หรือกด Run workflow เอง) — **ยังไม่ทำงานจนกว่าจะตั้งค่า secrets** จึง merge ก่อนได้โดยไม่มีผลกับโฮสต์
 
 ตั้งค่าที่ *Settings → Secrets and variables → Actions*
 
