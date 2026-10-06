@@ -1,0 +1,70 @@
+# Fill in missing translations (TH / EN / JA / ZH) and propose them as a pull request.
+#
+# Machine translation is never pushed straight to main: it lands on the branch
+# auto/translations with a PR, so the Japanese and Chinese text can be read
+# before it goes live. Existing translations are never overwritten.
+#
+# One-time setting: Settings → Actions → General → Workflow permissions →
+# tick "Allow GitHub Actions to create and approve pull requests".
+name: Translate content
+
+on:
+  push:
+    branches: ["main"]
+    paths: ["site/data/portfolio.json"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: translate
+  cancel-in-progress: false
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      BRANCH: auto/translations
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fill in missing translations
+        run: node scripts/translate.mjs site/data/portfolio.json
+
+      - name: Open or update the translation PR
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- site/data/; then
+            echo "No missing translations."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add site/data/
+          git commit -m "chore: fill in missing translations (machine translated)"
+          # The branch belongs to this workflow, so it is rebuilt from main every time.
+          git push --force origin "$BRANCH"
+
+          if [ -n "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')" ]; then
+            echo "The open translation PR was updated."
+          else
+            gh pr create --base main --head "$BRANCH" \
+              --title "Fill in missing translations" \
+              --body "Machine-translated text for fields that had no translation yet (Google Translate, falling back to MyMemory). Existing translations are untouched.
+
+          Please read the Japanese and Chinese text before merging; edit this branch directly if anything is off. Merging deploys it." \
+              || { echo "::error::Could not open the PR. Enable Settings → Actions → General → 'Allow GitHub Actions to create and approve pull requests', or open a PR from $BRANCH by hand."; exit 1; }
+          fi

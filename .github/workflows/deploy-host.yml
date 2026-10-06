@@ -1,6 +1,6 @@
 # Upload the built site to the university host (Apache / cPanel) over FTPS or SFTP.
 #
-# Runs after "Translate and deploy to Pages" succeeds on main (so the uploaded
+# Runs after "Deploy to Pages" succeeds on main (so the uploaded
 # copy includes the auto-translated content), or by hand from the Actions tab.
 # Nothing happens until the secrets below exist, so it is safe to merge first.
 #
@@ -21,7 +21,7 @@ name: Deploy to university host
 
 on:
   workflow_run:
-    workflows: ["Translate and deploy to Pages"]
+    workflows: ["Deploy to Pages"]
     types: [completed]
     branches: [main]
   workflow_dispatch:
