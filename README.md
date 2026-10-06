@@ -172,6 +172,16 @@ npm run deploy
 
 > แท็ก SEO ของหน้าทัวร์ (title, canonical, Open Graph, JSON-LD) อยู่ใน `index.html` ของ repo BDA-MCU-PHRAE แล้ว คัดลอกทับได้เลย ส่วนภาพแชร์อยู่ที่ `site/assets/img/projects/bda-mcu-phrae/og.jpg` ในพอร์ตโฟลิโอ
 
+### ตรวจอัตโนมัติก่อน merge (Pull request)
+
+workflow `.github/workflows/check.yml` รันทุก PR ที่เข้า `main`: build Tailwind, รัน `python3 scripts/check_site.py` และลอง build โฟลเดอร์ `deploy/` สคริปต์ตรวจว่า
+- `portfolio.json` เป็น JSON ที่ถูกต้อง และไฟล์ที่อ้างถึง (`assets/...` รูป, PDF) มีอยู่จริง
+- `href`/`src` ภายในหน้า HTML ไม่ชี้ไปไฟล์ที่ไม่มี
+- URL ใน `sitemap.xml` และลิงก์โปรเจกต์บนโดเมนหลักมีไฟล์รองรับ (โฟลเดอร์ที่มีแต่บนโฮสต์ เช่น `projects/precision-qc-web/` ให้เพิ่มใน `HOST_ONLY` ของสคริปต์)
+- ไฟล์ JS ใน `site/assets/js/` ไม่มี syntax error
+
+รันในเครื่องได้เลย: `python3 scripts/check_site.py` (ต้องมี Node.js)
+
 ### Deploy ขึ้นโฮสต์อัตโนมัติ (GitHub Action)
 
 workflow `.github/workflows/deploy-host.yml` build แล้วอัปโหลดขึ้นโฮสต์ผ่าน FTPS/SFTP ทุกครั้งที่ workflow "Translate and deploy to Pages" บน `main` ทำงานสำเร็จ (หรือกด Run workflow เอง) — **ยังไม่ทำงานจนกว่าจะตั้งค่า secrets** จึง merge ก่อนได้โดยไม่มีผลกับโฮสต์
