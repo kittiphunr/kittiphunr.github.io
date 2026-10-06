@@ -1,0 +1,148 @@
+# Upload the built site to the university host (Apache / cPanel) over FTPS or SFTP.
+#
+# Runs after "Translate and deploy to Pages" succeeds on main (so the uploaded
+# copy includes the auto-translated content), or by hand from the Actions tab.
+# Nothing happens until the secrets below exist, so it is safe to merge first.
+#
+# Settings → Secrets and variables → Actions
+#   secrets:    HOST_FTP_HOST, HOST_FTP_USER, HOST_FTP_PASSWORD
+#               HOST_SSH_KNOWN_HOSTS  optional, pins the host key for sftp
+#   variables:  HOST_FTP_PROTOCOL   ftps (default) | sftp | ftp
+#               HOST_FTP_PORT       optional, e.g. 21 or 22
+#               HOST_FTP_VERIFY_CERT  yes (default) | no — use no only if the host's
+#                                   certificate does not match its hostname
+#               HOST_REMOTE_DIR     folder of the site on the host, e.g. /public_html
+#
+# Safety: files are only added or overwritten, never deleted, so folders that
+# exist only on the host (e.g. projects/precision-qc-web/) stay untouched.
+# The root .htaccess is not uploaded unless "upload_htaccess" is ticked,
+# because the host may already carry its own rules.
+name: Deploy to university host
+
+on:
+  workflow_run:
+    workflows: ["Translate and deploy to Pages"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "List what would be uploaded without uploading"
+        type: boolean
+        default: true
+      upload_htaccess:
+        description: "Also upload the generated root .htaccess (overwrites the host's)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# One upload at a time; a newer run waits instead of interrupting a transfer.
+concurrency:
+  group: host-deploy
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    # Skip when the Pages run failed; always run for a manual start.
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      HOST: ${{ secrets.HOST_FTP_HOST }}
+      FTP_USER: ${{ secrets.HOST_FTP_USER }}
+      FTP_PASS: ${{ secrets.HOST_FTP_PASSWORD }}
+      PROTOCOL: ${{ vars.HOST_FTP_PROTOCOL || 'ftps' }}
+      PORT: ${{ vars.HOST_FTP_PORT }}
+      VERIFY_CERT: ${{ vars.HOST_FTP_VERIFY_CERT || 'yes' }}
+      SSH_KNOWN_HOSTS: ${{ secrets.HOST_SSH_KNOWN_HOSTS }}
+      REMOTE_DIR: ${{ vars.HOST_REMOTE_DIR || '/public_html' }}
+      # workflow_run has no inputs: a scheduled/automatic run is a real upload.
+      DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+      UPLOAD_HTACCESS: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_htaccess || 'false' }}
+    steps:
+      - name: Check configuration
+        id: cfg
+        run: |
+          if [ -z "$HOST" ] || [ -z "$FTP_USER" ] || [ -z "$FTP_PASS" ]; then
+            echo "::notice::HOST_FTP_HOST / HOST_FTP_USER / HOST_FTP_PASSWORD are not set; skipping host upload."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            case "$PROTOCOL" in ftps|sftp|ftp) ;; *) echo "::error::HOST_FTP_PROTOCOL must be ftps, sftp or ftp"; exit 1;; esac
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout latest main (includes committed translations)
+        if: steps.cfg.outputs.ready == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        if: steps.cfg.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Build site for the host
+        if: steps.cfg.outputs.ready == 'true'
+        run: |
+          npm ci
+          npm run build
+          python3 scripts/build_deploy.py --no-zip
+
+      - name: Install lftp
+        if: steps.cfg.outputs.ready == 'true'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Upload to host
+        if: steps.cfg.outputs.ready == 'true'
+        run: |
+          set -euo pipefail
+          opts="--reverse --parallel=4 --verbose=1"
+          [ "$DRY_RUN" = "true" ] && opts="$opts --dry-run"
+          # Keep the host's own root .htaccess unless asked otherwise
+          # (regex on the relative path, so projects/*/.htaccess still goes up).
+          excl="--exclude '^[.]htaccess\$'"
+          [ "$UPLOAD_HTACCESS" = "true" ] && excl=""
+
+          # In lftp "ftp://" + ssl-force is explicit FTPS (what cPanel offers on port 21);
+          # "ftps://" would mean implicit TLS on port 990.
+          scheme=ftp
+          tls="set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate ${VERIFY_CERT};"
+          case "$PROTOCOL" in
+            ftp)  tls="" ;;
+            sftp)
+              scheme=sftp
+              if [ -n "${SSH_KNOWN_HOSTS:-}" ]; then
+                mkdir -p ~/.ssh && printf '%s\n' "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+                tls="set sftp:auto-confirm no;"
+              else
+                echo "::warning::HOST_SSH_KNOWN_HOSTS is not set; the SFTP host key is accepted without verification."
+                tls="set sftp:auto-confirm yes;"
+              fi ;;
+          esac
+
+          port=""
+          [ -n "$PORT" ] && port=":$PORT"
+
+          # The password is read from LFTP_PASSWORD, so it never appears on a command line.
+          export LFTP_PASSWORD="$FTP_PASS"
+          cat > "$RUNNER_TEMP/deploy.lftp" <<LFTP
+          set cmd:fail-exit yes
+          set net:max-retries 3
+          set net:timeout 30
+          $tls
+          open -u "$FTP_USER" "$scheme://$HOST$port"
+          mirror $opts $excl deploy "$REMOTE_DIR"
+          bye
+          LFTP
+          sed -i 's/^ *//' "$RUNNER_TEMP/deploy.lftp"
+          lftp -f "$RUNNER_TEMP/deploy.lftp"
+
+      - name: Summary
+        if: always() && steps.cfg.outputs.ready == 'true'
+        run: |
+          echo "Host upload: dry_run=$DRY_RUN, protocol=$PROTOCOL, target=$REMOTE_DIR, htaccess=$UPLOAD_HTACCESS" >> "$GITHUB_STEP_SUMMARY"
