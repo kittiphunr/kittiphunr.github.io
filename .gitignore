@@ -1,3 +1,5 @@
 node_modules/
 deploy/
 portfolio-deploy.zip
+site/projects/bda-mcu-phrae/
+.cache/

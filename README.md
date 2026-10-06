@@ -15,7 +15,7 @@ site/                 ← deploy ขึ้นเว็บ (GitHub Pages / Netlif
 └── projects/
     ├── index.html            (หน้ารวมโปรเจกต์ /projects/ — อ่านจาก data/portfolio.json อัตโนมัติ)
     ├── precision-qc-web/     (Precision QC — คัดลอกมาจาก `deploy/` ของ repo Precision-QC)
-    └── bda-mcu-phrae/        (ทัวร์ 360° + โมเดล 3 มิติ หอพุทธศิลป์ — คัดลอกมาจาก repo BDA-MCU-PHRAE)
+    └── bda-mcu-phrae/        (ทัวร์ 360° + โมเดล 3 มิติ หอพุทธศิลป์ — ดาวน์โหลดตอน build จาก repo BDA-MCU-PHRAE ไม่ได้ commit)
 src/tailwind.css      ← CSS ต้นฉบับของ Tailwind (เอฟเฟกต์ที่ utility ทำไม่ได้)
 tailwind.config.js    ← สี ฟอนต์ แอนิเมชันของธีม
 scripts/              ← สคริปต์แปลภาษา
@@ -163,20 +163,20 @@ npm run deploy       # build CSS แล้วสร้างโฟลเดอ�
 - **วิธีอัปโหลด:** อัปโหลด*ไฟล์ทั้งหมดในโฟลเดอร์* `deploy/` (หรือแตกไฟล์ zip) ขึ้น `public_html/` ด้วย FTP/SFTP หรือ File Manager ของ cPanel — อย่าลืมไฟล์ซ่อน `.htaccess` (FileZilla: *Server → Force showing hidden files*)
 - **ถ้าใน `public_html/` มี `.htaccess` เดิมอยู่แล้ว** ให้เปิดดูก่อน แล้วนำเนื้อหาของเราไปต่อท้าย แทนการเขียนทับ
 - อัปเดตครั้งต่อไป: แก้ข้อมูล → `npm run deploy` → อัปโหลดทับทั้งหมด
-- ทัวร์ 360° และโมเดล 3 มิติ หอพุทธศิลป์ (`site/projects/bda-mcu-phrae/`, ~30 MB) รวมอยู่ใน `deploy/` และ zip แล้ว เปิดได้ที่ `https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/` (มี `.htaccess` ของตัวเอง)
+- ทัวร์ 360° และโมเดล 3 มิติ หอพุทธศิลป์ (`site/projects/bda-mcu-phrae/`, ~30 MB) ถูกดาวน์โหลดมารวมใน `deploy/` และ zip ให้อัตโนมัติ เปิดได้ที่ `https://kittiphun.rut.mcupr.ac.th/projects/bda-mcu-phrae/` (มี `.htaccess` ของตัวเอง)
 - โฟลเดอร์ `deploy/` และไฟล์ zip ไม่ถูก commit (อยู่ใน `.gitignore`) สร้างใหม่ได้ทุกเมื่อ
 
 ### อัปเดตทัวร์ 360° (BDA-MCU-PHRAE)
 
-ไฟล์ใน `site/projects/bda-mcu-phrae/` คือ `deploy/dist/` ของ repo [BDA-MCU-PHRAE](https://github.com/kittiphunr/BDA-MCU-PHRAE) เมื่อแก้ทัวร์แล้วให้คัดลอกมาใหม่:
+ทัวร์ (`deploy/dist/` ของ repo [BDA-MCU-PHRAE](https://github.com/kittiphunr/BDA-MCU-PHRAE), ~30 MB) **ไม่ได้ commit ใน repo นี้แล้ว** แต่ถูกล็อกไว้ที่ commit หนึ่งใน `scripts/fetch_projects.py` และดาวน์โหลดลง `site/projects/bda-mcu-phrae/` ทุกครั้งที่ build (CI, อัปโหลดขึ้นโฮสต์, Netlify, `npm run deploy`) โฟลเดอร์นี้อยู่ใน `.gitignore` ประวัติ git จึงไม่โตตามทุกครั้งที่อัปเดตทัวร์
 
-```bash
-git clone --depth 1 https://github.com/kittiphunr/BDA-MCU-PHRAE ../BDA-MCU-PHRAE   # ครั้งแรก
-rm -rf site/projects/bda-mcu-phrae && cp -r ../BDA-MCU-PHRAE/deploy/dist site/projects/bda-mcu-phrae
-npm run deploy
-```
+- **ดูในเครื่อง / ก่อนรันตัวตรวจ:** `python3 scripts/fetch_projects.py` (ดาวน์โหลดเฉพาะโฟลเดอร์ `deploy/dist` ใช้เวลาไม่กี่วินาที; `--force` เพื่อโหลดใหม่)
+- **อัปเดตทัวร์:** เมื่อ repo BDA-MCU-PHRAE rebuild `deploy/dist` แล้ว ให้เปลี่ยน `ref` ใน `scripts/fetch_projects.py` เป็น SHA เต็ม 40 ตัวของ commit นั้น แล้ว commit/PR — diff มีแค่บรรทัดเดียว
+- เพิ่มโปรเจกต์อื่นที่แยก repo ได้โดยเพิ่มรายการใน `PROJECTS` ของสคริปต์เดียวกัน (repo ต้องเป็น public เพราะ CI ดาวน์โหลดแบบไม่ใช้โทเค็น; Precision QC เป็น private จึงยังคัดลอกไว้ใน repo นี้)
 
-> แท็ก SEO ของหน้าทัวร์ (title, canonical, Open Graph, JSON-LD) อยู่ใน `index.html` ของ repo BDA-MCU-PHRAE แล้ว คัดลอกทับได้เลย ส่วนภาพแชร์อยู่ที่ `site/assets/img/projects/bda-mcu-phrae/og.jpg` ในพอร์ตโฟลิโอ
+> แท็ก SEO ของหน้าทัวร์ (title, canonical, Open Graph, JSON-LD) อยู่ใน `index.html` ของ repo BDA-MCU-PHRAE แล้ว ส่วนภาพแชร์อยู่ที่ `site/assets/img/projects/bda-mcu-phrae/og.jpg` ในพอร์ตโฟลิโอ
+
+> หมายเหตุ: การย้ายนี้ไม่ลดขนาดประวัติ git เดิม (ไฟล์ทัวร์ที่เคย commit ยังอยู่ในประวัติ) แต่การอัปเดตครั้งต่อไปจะไม่ทำให้โตขึ้นอีก
 
 ### ตรวจอัตโนมัติก่อน merge (Pull request)
 
