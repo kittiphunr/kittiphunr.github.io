@@ -10,9 +10,8 @@
 site/                 ← deploy ขึ้นเว็บ (GitHub Pages / Netlify)
 ├── index.html
 ├── assets/css/tailwind.css   (ไฟล์ที่ build แล้ว — ห้ามแก้ตรง)
-├── assets/js/  assets/img/  assets/css/pages.css (สไตล์ของหน้า /projects/ และ 404)
+├── assets/js/  assets/img/  assets/css/pages.css (สไตล์ของหน้า /projects/)
 ├── data/portfolio.json
-├── 404.html                  (หน้า 404 — GitHub Pages/Netlify ใช้อัตโนมัติ, Apache ผ่าน ErrorDocument ใน .htaccess)
 └── projects/
     ├── index.html            (หน้ารวมโปรเจกต์ /projects/ — อ่านจาก data/portfolio.json อัตโนมัติ)
     └── bda-mcu-phrae/        (ทัวร์ 360° + โมเดล 3 มิติ หอพุทธศิลป์ — คัดลอกมาจาก repo BDA-MCU-PHRAE)
@@ -186,5 +185,4 @@ python3 -m http.server 8000 --directory site
 
 - `https://kittiphun.rut.mcupr.ac.th/projects/` คือหน้ารวมโปรเจกต์ (`site/projects/index.html` + `assets/js/projects.js`) สร้างการ์ดจาก `projects` ใน `site/data/portfolio.json` จึง**เพิ่มโปรเจกต์ใน JSON ที่เดียว** หน้านี้ก็แสดงให้เอง (รองรับ 4 ภาษา)
 - แต่ละโปรเจกต์ที่มีหน้าเว็บของตัวเองอยู่ที่ `site/projects/<ชื่อ-แบบ-kebab-case>/index.html` พร้อม `.htaccess` ของตัวเอง และใส่ URL นั้นในช่อง `link` ของโปรเจกต์ใน `portfolio.json`
-- ทุก URL ที่ไม่มีไฟล์ (รวมถึงโฟลเดอร์ที่ไม่มี `index.html`) จะแสดง `404.html` แทนหน้า error ของเซิร์ฟเวอร์ — `npm run deploy` เขียน `ErrorDocument` ลง `.htaccess` ให้
 - **Precision QC** (`/projects/precision-qc-web/`) ไม่ได้อยู่ใน repo นี้ แต่ติดตั้งแยกบนโฮสต์ การอัปโหลด `deploy/` ทับจะไม่ลบโฟลเดอร์นั้น
