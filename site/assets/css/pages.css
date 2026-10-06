@@ -1,4 +1,4 @@
-/* Shared styles for the standalone pages (projects index, 404).
+/* Shared styles for the standalone pages (projects index).
    Hand-written (not part of the Tailwind build) so these pages never need a rebuild.
    Colours mirror the theme tokens in src/tailwind.css and follow the same
    light / dark / data-theme rules as the home page. */
@@ -57,13 +57,5 @@ h1 { margin: .4rem 0 .5rem; font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 
 .tags li { padding: .1rem .6rem; border-radius: 999px; background: rgba(236, 72, 153, .13); color: var(--accent); font-size: .75rem; font-weight: 600; }
 .links { display: flex; gap: 1rem; margin-top: 1rem; font-size: .9rem; font-weight: 600; }
 .empty, .err { padding: 2rem; border: 1px dashed var(--line); border-radius: 1rem; color: var(--muted); text-align: center; }
-
-.btn { display: inline-block; padding: .6rem 1.2rem; border-radius: .7rem; font-weight: 600; color: #fff; background: var(--grad); }
-.btn:hover { text-decoration: none; filter: brightness(1.08); }
-.nf { text-align: center; padding-top: 4rem; }
-.nf .code { font: 700 clamp(4rem, 14vw, 8rem) "JetBrains Mono", monospace; line-height: 1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.nf p { color: var(--muted); }
-.nf .actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; margin-top: 1.5rem; }
-.btn.ghost { color: var(--accent); background: transparent; border: 1px solid var(--line); }
 
 footer { padding: 1.2rem 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
