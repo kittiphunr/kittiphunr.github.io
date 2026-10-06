@@ -6,7 +6,8 @@
     "build": "tailwindcss -i ./src/tailwind.css -o ./site/assets/css/tailwind.css --minify",
     "dev": "tailwindcss -i ./src/tailwind.css -o ./site/assets/css/tailwind.css --watch",
     "translate": "node scripts/translate.mjs",
-    "deploy": "npm run build && python3 scripts/build_deploy.py",
+    "fetch:projects": "python3 scripts/fetch_projects.py",
+    "deploy": "npm run fetch:projects && npm run build && python3 scripts/build_deploy.py",
     "pdf": "node scripts/build_pdf.mjs"
   },
   "devDependencies": {

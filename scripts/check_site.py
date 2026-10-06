@@ -133,6 +133,8 @@ def main() -> int:
     for e in errors:
         print(f"ERROR: {e}")
     print(f"{len(errors)} error(s), {len(notices)} notice(s)")
+    if errors and not (SITE / "projects" / "bda-mcu-phrae").is_dir():
+        print("hint: run `python3 scripts/fetch_projects.py` first; some project builds are downloaded, not committed.")
     return 1 if errors else 0
 
 
