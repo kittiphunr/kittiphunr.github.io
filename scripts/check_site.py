@@ -28,8 +28,8 @@ from urllib.parse import unquote, urlparse
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 PRIMARY = "https://kittiphun.rut.mcupr.ac.th/"
-# Deployed straight to the host, not part of this repo.
-HOST_ONLY = ("projects/precision-qc-web/",)
+# Folders that exist only on the university host (none right now).
+HOST_ONLY: tuple[str, ...] = ()
 
 errors: list[str] = []
 notices: list[str] = []
