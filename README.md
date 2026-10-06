@@ -14,6 +14,7 @@ site/                 ← deploy ขึ้นเว็บ (GitHub Pages / Netlif
 ├── data/portfolio.json
 └── projects/
     ├── index.html            (หน้ารวมโปรเจกต์ /projects/ — อ่านจาก data/portfolio.json อัตโนมัติ)
+    ├── precision-qc-web/     (Precision QC — คัดลอกมาจาก `deploy/` ของ repo Precision-QC)
     └── bda-mcu-phrae/        (ทัวร์ 360° + โมเดล 3 มิติ หอพุทธศิลป์ — คัดลอกมาจาก repo BDA-MCU-PHRAE)
 src/tailwind.css      ← CSS ต้นฉบับของ Tailwind (เอฟเฟกต์ที่ utility ทำไม่ได้)
 tailwind.config.js    ← สี ฟอนต์ แอนิเมชันของธีม
@@ -182,7 +183,7 @@ npm run deploy
 workflow `.github/workflows/check.yml` รันทุก PR ที่เข้า `main`: build Tailwind, รัน `python3 scripts/check_site.py` และลอง build โฟลเดอร์ `deploy/` สคริปต์ตรวจว่า
 - `portfolio.json` เป็น JSON ที่ถูกต้อง และไฟล์ที่อ้างถึง (`assets/...` รูป, PDF) มีอยู่จริง
 - `href`/`src` ภายในหน้า HTML ไม่ชี้ไปไฟล์ที่ไม่มี
-- URL ใน `sitemap.xml` และลิงก์โปรเจกต์บนโดเมนหลักมีไฟล์รองรับ (โฟลเดอร์ที่มีแต่บนโฮสต์ เช่น `projects/precision-qc-web/` ให้เพิ่มใน `HOST_ONLY` ของสคริปต์)
+- URL ใน `sitemap.xml` และลิงก์โปรเจกต์บนโดเมนหลักมีไฟล์รองรับ (โฟลเดอร์ที่มีแต่บนโฮสต์ เช่น โฟลเดอร์ที่ตั้งใจให้มีแต่บนโฮสต์ ให้เพิ่มใน `HOST_ONLY` ของสคริปต์)
 - ไฟล์ JS ใน `site/assets/js/` ไม่มี syntax error
 
 รันในเครื่องได้เลย: `python3 scripts/check_site.py` (ต้องมี Node.js)
@@ -201,7 +202,7 @@ workflow `.github/workflows/deploy-host.yml` build แล้วอัปโห�
 | `HOST_FTP_PROTOCOL` | variable | `ftps` (ค่าเริ่มต้น, explicit FTPS พอร์ต 21) · `sftp` · `ftp` (ไม่เข้ารหัส ไม่แนะนำ) |
 | `HOST_FTP_PORT`, `HOST_FTP_VERIFY_CERT`, `HOST_SSH_KNOWN_HOSTS` | ไม่บังคับ | พอร์ต / ปิดการตรวจใบรับรองถ้าชื่อไม่ตรง (`no`) / host key สำหรับ sftp |
 
-- **เพิ่ม/ทับไฟล์เท่านั้น ไม่ลบไฟล์บนโฮสต์** โฟลเดอร์ที่มีแต่บนโฮสต์ (เช่น `projects/precision-qc-web/`) จึงไม่ถูกแตะ ไฟล์ที่ลบออกจาก repo ต้องลบบนโฮสต์เอง
+- **เพิ่ม/ทับไฟล์เท่านั้น ไม่ลบไฟล์บนโฮสต์** โฟลเดอร์ที่มีแต่บนโฮสต์ (ถ้ามี) จึงไม่ถูกแตะ ไฟล์ที่ลบออกจาก repo ต้องลบบนโฮสต์เอง
 - **ไม่อัปโหลด `.htaccess` ของรากเว็บ** เพื่อไม่ทับของเดิมบนโฮสต์ ถ้าต้องการให้ติ๊ก `upload_htaccess` ตอนกด Run workflow
 - **ลองก่อนด้วย dry run:** *Actions → Deploy to university host → Run workflow* (ค่าเริ่มต้นคือ dry run แสดงรายการไฟล์โดยไม่อัปโหลด) ตรวจ log แล้วค่อยรันจริงโดยเอาติ๊ก dry run ออก
 - ถ้าต้องการให้ต้องกดอนุมัติก่อนอัปโหลดทุกครั้ง ให้ตั้ง *Required reviewers* ที่ environment `production`
@@ -219,4 +220,22 @@ python3 -m http.server 8000 --directory site
 
 - `https://kittiphun.rut.mcupr.ac.th/projects/` คือหน้ารวมโปรเจกต์ (`site/projects/index.html` + `assets/js/projects.js`) สร้างการ์ดจาก `projects` ใน `site/data/portfolio.json` จึง**เพิ่มโปรเจกต์ใน JSON ที่เดียว** หน้านี้ก็แสดงให้เอง (รองรับ 4 ภาษา)
 - แต่ละโปรเจกต์ที่มีหน้าเว็บของตัวเองอยู่ที่ `site/projects/<ชื่อ-แบบ-kebab-case>/index.html` พร้อม `.htaccess` ของตัวเอง และใส่ URL นั้นในช่อง `link` ของโปรเจกต์ใน `portfolio.json`
-- **Precision QC** (`/projects/precision-qc-web/`) ไม่ได้อยู่ใน repo นี้ แต่ติดตั้งแยกบนโฮสต์ การอัปโหลด `deploy/` ทับจะไม่ลบโฟลเดอร์นั้น
+
+### Precision QC (`site/projects/precision-qc-web/`)
+
+เป็นเว็บแอป static (ประมวลผลภาพในเบราว์เซอร์ด้วย Pyodide) ที่ build จาก repo [Precision-QC](https://github.com/kittiphunr/Precision-QC) และล็อกโดเมนเป็น `kittiphun.rut.mcupr.ac.th` แล้ว
+
+- รากของโฟลเดอร์คือเวอร์ชัน **Dashboard** (เวอร์ชันที่แสดงในพอร์ตโฟลิโอ) ส่วนเวอร์ชันอื่นเข้าได้ที่ `/dashboard/`, `/pure/`, `/lab/`, `/tailwind/`
+- เมื่อแก้ Precision QC แล้ว ให้ build ใน repo นั้นและคัดลอกมาทับ:
+
+```bash
+git clone --depth 1 https://github.com/kittiphunr/Precision-QC ../Precision-QC   # ครั้งแรก
+cd ../Precision-QC && python scripts/build_site.py --out deploy --lock-domain kittiphun.rut.mcupr.ac.th && cd -
+D=site/projects/precision-qc-web
+rm -rf $D && mkdir -p $D && cp -a ../Precision-QC/deploy/dashboard/. $D/
+for e in dashboard pure tailwind lab; do mkdir -p $D/$e && cp -a ../Precision-QC/deploy/$e/. $D/$e/; done
+python3 scripts/check_site.py
+```
+
+- คัดลอกเฉพาะ `deploy/` (ไฟล์ที่เผยแพร่อยู่แล้ว) ไม่ใช่โค้ดต้นทาง เทสต์ หรือไฟล์ในโฟลเดอร์ `inputs/`
+- ถ้าเพิ่มโดเมนอื่นให้แอปทำงาน ต้องเพิ่ม `--lock-domain` ตอน build
