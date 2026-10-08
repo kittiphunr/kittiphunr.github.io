@@ -1279,6 +1279,227 @@
       }
     },
     {
+      "title": "Formsmith",
+      "description": {
+        "th": "เครื่องมือลากวางสร้างเว็บฟอร์มจบในที่เดียว: ออกแบบฟอร์ม เลือกที่เก็บข้อมูล (Google Sheets, PHP, MySQL, Webhook) แล้วรับไฟล์ ZIP พร้อมติดตั้ง รองรับ 4 ภาษา ฟอร์มหลายขั้นตอน และช่องที่แสดงตามเงื่อนไข",
+        "en": "A drag-and-drop form-website builder: design the form, pick where answers go (Google Sheets, PHP, MySQL, Webhook) and get a ready-to-install ZIP — in 4 languages, with multi-step forms and conditional fields.",
+        "ja": "ドラッグ＆ドロップで作るフォームサイト生成ツール。フォームを設計し、回答の保存先（Google スプレッドシート・PHP・MySQL・Webhook）を選ぶだけで、すぐ設置できる ZIP を出力。4 言語、複数ステップ、条件付き項目に対応。",
+        "zh": "拖放式表单网站生成器：设计表单、选择数据去向（Google 表格、PHP、MySQL、Webhook），即可获得可直接安装的 ZIP。支持 4 种语言、多步骤表单和条件字段。"
+      },
+      "tags": [
+        "JavaScript",
+        "Node.js",
+        "Tailwind CSS",
+        "Apps Script",
+        "PHP",
+        "MySQL"
+      ],
+      "link": "https://kittiphun.rut.mcupr.ac.th/projects/formsmith/",
+      "image": "assets/img/projects/formsmith/cover.jpg",
+      "featured": {
+        "subtitle": {
+          "th": "เครื่องมือสร้างเว็บฟอร์ม · ลากวาง → ZIP พร้อมใช้ · 4 ภาษา",
+          "en": "Form-website builder · drag & drop → ready-to-use ZIP · 4 languages",
+          "ja": "フォームサイト生成ツール · ドラッグ＆ドロップ → すぐ使える ZIP · 4 言語",
+          "zh": "表单网站生成器 · 拖放 → 即用 ZIP · 4 种语言"
+        },
+        "summary": {
+          "th": "Formsmith (เดิมชื่อ Form Site Generator) เป็นเครื่องมือบนเบราว์เซอร์ที่ให้คนที่ไม่ใช่โปรแกรมเมอร์สร้างเว็บฟอร์มได้เอง: ลากช่องกรอกมาวาง เลือกที่เก็บข้อมูล แล้วกดสร้างเป็นไฟล์ ZIP (หรืออัปโหลดขึ้นเซิร์ฟเวอร์ผ่าน FTP/FTPS/SFTP ได้ทันที) เว็บที่สร้างออกมามี 4 ภาษา โหมดมืด พิมพ์ได้ และใช้งานบนมือถือได้ดี รองรับรูปแบบข้อมูลของงานจริงในหน่วยงานไทย ทั้งคำนำหน้านามของพระภิกษุ-สามเณร ตำแหน่งทางวิชาการ เลขบัตรประชาชน (ตรวจหลักตรวจสอบ) และที่อยู่จังหวัด-อำเภอ-ตำบลพร้อมรหัสไปรษณีย์ นอกจากนี้ยังมีฟอร์มหลายขั้นตอนและช่องที่แสดงตามเงื่อนไข ซึ่งตรวจซ้ำทั้งในเบราว์เซอร์และฝั่งรับข้อมูล",
+          "en": "Formsmith (formerly Form Site Generator) is a browser-based tool that lets non-programmers build their own form websites: drag fields into place, choose where answers are stored, and generate a ZIP — or upload straight to a server over FTP/FTPS/SFTP. The generated sites come in 4 languages, with dark mode, clean printing and a mobile-friendly layout, and handle real-world Thai data: monastic and academic titles, Thai national ID numbers (check-digit validated) and province → district → sub-district addresses with postal codes. It also offers multi-step forms and conditional fields, validated both in the browser and on the receiving side.",
+          "ja": "Formsmith（旧名 Form Site Generator）は、プログラマーでなくてもフォームサイトを作れるブラウザ上のツールです。項目をドラッグして配置し、保存先を選んで ZIP を生成（FTP/FTPS/SFTP でサーバーへ直接アップロードも可能）。生成されたサイトは 4 言語・ダークモード・印刷・モバイルに対応し、僧侶や学術の敬称、タイの国民 ID（チェックディジット検証）、県→郡→町と郵便番号つきの住所など、タイの実務データにも対応。複数ステップのフォームと条件付き項目も備え、ブラウザと受信側の両方で検証します。",
+          "zh": "Formsmith（原名 Form Site Generator）是一款浏览器端工具，让非程序员也能自己制作表单网站：拖放字段、选择数据存放位置，然后生成 ZIP（也可通过 FTP/FTPS/SFTP 直接上传到服务器）。生成的网站支持 4 种语言、深色模式、打印和手机端，并支持泰国实际业务数据：僧侣与学术头衔、泰国身份证号（校验位验证）、府→县→乡地址及邮政编码。还提供多步骤表单和条件字段，并在浏览器与接收端双重验证。"
+        },
+        "gallery": [
+          {
+            "src": "assets/img/projects/formsmith/builder.jpg",
+            "caption": {
+              "th": "หน้าออกแบบฟอร์ม: คลังช่องกรอกทางซ้าย ผืนผ้าใบตรงกลาง แผงตั้งค่าทางขวา — ตัวอย่างนี้ตั้งเงื่อนไข “แสดงช่องชื่อสถานศึกษาเมื่อสถานะ = นักเรียน/นักศึกษา” และแบ่งฟอร์มเป็น 3 ขั้นตอน",
+              "en": "The designer: field library on the left, canvas in the middle, settings on the right — here a field is set to appear only when “Status = Student”, and the form is split into 3 steps",
+              "ja": "デザイン画面：左に項目ライブラリ、中央にキャンバス、右に設定パネル。この例では「ステータス = 学生」のときだけ学校名を表示する条件を設定し、フォームを 3 ステップに分割",
+              "zh": "设计界面：左侧字段库、中间画布、右侧设置面板——此例设置为“状态 = 学生”时才显示学校名称，并将表单分为 3 个步骤"
+            }
+          },
+          {
+            "src": "assets/img/projects/formsmith/site-step1.jpg",
+            "caption": {
+              "th": "เว็บฟอร์มที่สร้างออกมา ขั้นตอนที่ 1 — มีแถบขั้นตอน ปุ่มถัดไป และเมนูคำนำหน้านามที่แยกกลุ่มบุคคลทั่วไป / พระภิกษุ / สามเณร",
+              "en": "The generated form, step 1 — a step bar, a Next button and a name-prefix menu grouped into laity / monks / novices",
+              "ja": "生成されたフォーム、ステップ 1 — ステップバー、「次へ」ボタン、一般・僧侶・沙弥にグループ分けされた敬称メニュー",
+              "zh": "生成的表单第 1 步——步骤条、“下一步”按钮，以及按普通人 / 比丘 / 沙弥分组的称谓菜单"
+            }
+          },
+          {
+            "src": "assets/img/projects/formsmith/site-step2-dark.jpg",
+            "caption": {
+              "th": "ขั้นตอนที่ 2 ในโหมดมืด — ช่อง “ชื่อสถานศึกษา” ปรากฏเองเมื่อเลือกนักเรียน/นักศึกษา และมีชุดที่อยู่ จังหวัด → อำเภอ → ตำบล",
+              "en": "Step 2 in dark mode — the “school name” field appears by itself when Student is chosen, followed by the province → district → sub-district address set",
+              "ja": "ダークモードのステップ 2 — 「学生」を選ぶと学校名の項目が自動で表示され、県→郡→町の住所セットが続く",
+              "zh": "深色模式下的第 2 步——选择“学生”后“学校名称”字段自动出现，并带有府→县→乡地址组"
+            }
+          },
+          {
+            "src": "assets/img/projects/formsmith/modes.jpg",
+            "caption": {
+              "th": "เลือกที่เก็บข้อมูลได้ 5 แบบ: Google Sheets (Apps Script), Apps Script Web App, PHP + CSV, PHP + MySQL และ Webhook ระบบสร้างโค้ดฝั่งรับข้อมูลและขั้นตอนติดตั้งให้",
+              "en": "Five places to store answers: Google Sheets (Apps Script), Apps Script Web App, PHP + CSV, PHP + MySQL and Webhook — the receiving code and install steps are generated for you",
+              "ja": "保存先は 5 種類：Google スプレッドシート（Apps Script）、Apps Script Web アプリ、PHP + CSV、PHP + MySQL、Webhook。受信側のコードと設置手順を自動生成",
+              "zh": "可选 5 种数据存放方式：Google 表格（Apps Script）、Apps Script Web 应用、PHP + CSV、PHP + MySQL 和 Webhook——自动生成接收端代码与安装步骤"
+            }
+          }
+        ],
+        "metrics": [
+          {
+            "value": "4",
+            "label": {
+              "th": "ภาษา: ไทย อังกฤษ ญี่ปุ่น จีน",
+              "en": "languages: Thai, English, Japanese, Chinese",
+              "ja": "言語：タイ語・英語・日本語・中国語",
+              "zh": "种语言：泰、英、日、中"
+            }
+          },
+          {
+            "value": "5",
+            "label": {
+              "th": "รูปแบบที่เก็บข้อมูล",
+              "en": "ways to store answers",
+              "ja": "種類の保存先",
+              "zh": "种数据存放方式"
+            }
+          },
+          {
+            "value": "18",
+            "label": {
+              "th": "ชนิดช่องกรอกให้ลากวาง",
+              "en": "field types to drag in",
+              "ja": "種類のドラッグ可能な項目",
+              "zh": "种可拖放的字段类型"
+            }
+          },
+          {
+            "value": "123",
+            "label": {
+              "th": "เทสต์อัตโนมัติ",
+              "en": "automated tests",
+              "ja": "件の自動テスト",
+              "zh": "项自动化测试"
+            }
+          }
+        ],
+        "highlights": [
+          {
+            "icon": "javascript",
+            "color": "#F7DF1E",
+            "title": "JavaScript",
+            "role": {
+              "th": "ตัวออกแบบฟอร์มและตัวสร้างเว็บ (ไม่ใช้เฟรมเวิร์ก)",
+              "en": "Form designer and site generator (no framework)",
+              "ja": "フォームデザイナーとサイト生成（フレームワーク不使用）",
+              "zh": "表单设计器与网站生成器（无框架）"
+            },
+            "points": [
+              {
+                "th": "ตัวออกแบบเป็น vanilla JavaScript ล้วน: ลากวางช่องกรอก จัดลำดับ แก้ไขหลายภาษาในหน้าเดียว และพรีวิวสดในกรอบแยกที่ปลอดภัย (sandboxed iframe)",
+                "en": "The designer is plain vanilla JavaScript: drag-and-drop fields, reordering, multi-language editing on one screen, and a live preview in a sandboxed iframe",
+                "ja": "デザイナーは素の JavaScript：項目のドラッグ＆ドロップ、並べ替え、1 画面での多言語編集、サンドボックス化された iframe でのライブプレビュー",
+                "zh": "设计器完全使用原生 JavaScript：拖放字段、排序、同屏多语言编辑，以及在沙盒 iframe 中实时预览"
+              },
+              {
+                "th": "ตัวสร้างเว็บ (templates.js) ใช้ร่วมกันทั้งในเบราว์เซอร์และ Node ทำให้ทดสอบโค้ดชุดเดียวกับที่ผู้ใช้ใช้จริง และสร้าง HTML, CSS, config และคู่มือติดตั้งเป็นภาษาของผู้สร้างฟอร์ม",
+                "en": "The generator (templates.js) is shared by the browser and Node, so tests exercise the very code users run; it emits HTML, CSS, config and an install guide in the form creator's language",
+                "ja": "サイト生成ロジック（templates.js）はブラウザと Node で共有し、ユーザーが使うコードそのものをテスト。HTML・CSS・設定・設置ガイドをフォーム作成者の言語で出力",
+                "zh": "网站生成逻辑（templates.js）由浏览器与 Node 共用，测试的就是用户实际运行的代码；并以表单创建者的语言输出 HTML、CSS、配置和安装指南"
+              },
+              {
+                "th": "เว็บที่สร้างมีฟอร์มหลายขั้นตอน (ย้อนกลับ/ถัดไป, ปุ่ม Back ของเบราว์เซอร์, จำขั้นในฉบับร่าง), ช่องที่แสดงตามเงื่อนไข และ progress bar โดยไม่ใช้ innerHTML เลยเพื่อความปลอดภัย",
+                "en": "Generated sites support multi-step forms (back/next, browser Back button, remembered step in drafts), conditional fields and a progress bar — without a single innerHTML, for safety",
+                "ja": "生成されたサイトは、複数ステップ（戻る／次へ、ブラウザの戻るボタン、下書きにステップを保存）、条件付き項目、進捗バーに対応。安全のため innerHTML は一切不使用",
+                "zh": "生成的网站支持多步骤表单（上一步/下一步、浏览器返回键、草稿记住步骤）、条件字段与进度条，且为安全起见完全不使用 innerHTML"
+              },
+              {
+                "th": "สไตล์ทั้งหมดเป็น Tailwind CSS v4 ล้วน ไม่มี CSS เขียนเอง และตัวเว็บที่สร้างไม่พึ่ง CDN ของ CSS",
+                "en": "All styling is pure Tailwind CSS v4 with no hand-written CSS, and generated sites do not depend on a CSS CDN",
+                "ja": "スタイルはすべて Tailwind CSS v4 のみ（手書き CSS なし）。生成サイトは CSS の CDN に依存しない",
+                "zh": "全部样式使用纯 Tailwind CSS v4，不含手写 CSS，生成的网站也不依赖 CSS CDN"
+              }
+            ]
+          },
+          {
+            "icon": "nodedotjs",
+            "color": "#5FA04E",
+            "title": "Node.js",
+            "role": {
+              "th": "เซิร์ฟเวอร์ในเครื่อง การอัปโหลด และชุดทดสอบ",
+              "en": "Local server, deployment and test suite",
+              "ja": "ローカルサーバー、デプロイ、テスト",
+              "zh": "本地服务器、部署与测试套件"
+            },
+            "points": [
+              {
+                "th": "เซิร์ฟเวอร์เล็ก ๆ ไม่มี dependency หนัก ให้บริการหน้าเครื่องมือ และอัปโหลดไฟล์ที่สร้างขึ้นเซิร์ฟเวอร์จริงผ่าน FTP, FTPS หรือ SFTP จากหน้าเครื่องมือเลย",
+                "en": "A tiny server with no heavy dependencies serves the tool and uploads the generated site to a real host over FTP, FTPS or SFTP right from the page",
+                "ja": "重い依存のない小さなサーバーがツールを提供し、生成したサイトを画面から FTP・FTPS・SFTP で実サーバーへアップロード",
+                "zh": "轻量服务器（无重型依赖）提供工具页面，并可直接在页面中通过 FTP、FTPS 或 SFTP 将生成的网站上传到真实服务器"
+              },
+              {
+                "th": "ชุดทดสอบอัตโนมัติ 123 ข้อ รันโค้ด PHP จริงและจำลอง Apps Script ตรวจการตรวจสอบข้อมูลทั้งสองฝั่ง ตั้งแต่เลขบัตรประชาชน ไฟล์อัปโหลด ไปจนถึงเงื่อนไขการแสดงช่อง",
+                "en": "123 automated tests run real PHP and a simulated Apps Script to check validation on both sides — from national IDs and file uploads to conditional-field rules",
+                "ja": "123 件の自動テストが実際の PHP と Apps Script のシミュレーションを実行し、国民 ID、ファイルアップロード、条件付き項目まで両側の検証を確認",
+                "zh": "123 项自动化测试运行真实 PHP 并模拟 Apps Script，检查两端的验证——从身份证号、文件上传到条件字段规则"
+              },
+              {
+                "th": "ตรวจด้วย Chromium จริงทุกครั้งที่ปรับ UX ทั้งตัวเครื่องมือและเว็บที่สร้างออกมา บนจอคอมพิวเตอร์ มือถือ และโหมดมืด",
+                "en": "Every UX change is verified in real Chromium — both the tool and the generated sites, on desktop, mobile and dark mode",
+                "ja": "UX を変更するたびに、ツール本体と生成サイトの両方を、デスクトップ・モバイル・ダークモードで実際の Chromium で検証",
+                "zh": "每次 UX 改动都用真实 Chromium 验证——工具本身与生成的网站，覆盖桌面、手机和深色模式"
+              }
+            ]
+          },
+          {
+            "icon": "mysql",
+            "color": "#4479A1",
+            "title": "PHP · MySQL · Apps Script",
+            "role": {
+              "th": "ฝั่งรับข้อมูลที่สร้างให้อัตโนมัติ",
+              "en": "Auto-generated receiving side",
+              "ja": "自動生成される受信側",
+              "zh": "自动生成的接收端"
+            },
+            "points": [
+              {
+                "th": "สร้างโค้ดฝั่งรับข้อมูลให้ตามที่เลือก: Google Apps Script เก็บลง Sheets/Drive, PHP เก็บเป็น CSV หรือ MySQL (สร้างตารางให้) หรือส่งต่อ Webhook",
+                "en": "Generates the receiving code for the chosen target: Google Apps Script into Sheets/Drive, PHP into CSV or MySQL (tables created for you), or a Webhook",
+                "ja": "選択に応じて受信側コードを生成：Apps Script（Sheets/Drive）、PHP（CSV または MySQL・テーブル自動作成）、Webhook",
+                "zh": "按所选目标生成接收端代码：Apps Script（存入 Sheets/Drive）、PHP（CSV 或 MySQL，自动建表）或 Webhook"
+              },
+              {
+                "th": "ตรวจข้อมูลซ้ำที่ฝั่งเซิร์ฟเวอร์เสมอ (ช่องบังคับ ตัวเลือกที่ถูกต้อง อีเมล เลขบัตรประชาชน ขนาด/ชนิดไฟล์ และเงื่อนไขการแสดงช่อง) ไม่เชื่อแค่การตรวจในเบราว์เซอร์ และกันสูตรใน Sheets (formula injection)",
+                "en": "Always re-validates on the server (required fields, valid options, email, national ID, file size/type and conditional-field rules) rather than trusting the browser, and guards Sheets against formula injection",
+                "ja": "ブラウザの検証だけに頼らず、サーバー側で必ず再検証（必須項目、選択肢、メール、国民 ID、ファイルサイズ/種類、条件付き項目）。スプレッドシートの数式インジェクションも防止",
+                "zh": "始终在服务器端复检（必填项、有效选项、邮箱、身份证号、文件大小/类型及条件字段规则），不单靠浏览器验证，并防止表格公式注入"
+              },
+              {
+                "th": "ส่งอีเมลตอบกลับผู้กรอกอัตโนมัติได้ มีข้อความผิดพลาดตามภาษาของผู้เข้าชม และสร้างคู่มือติดตั้งเป็นภาษาของผู้สร้างฟอร์ม",
+                "en": "Can email an automatic reply to the respondent, shows errors in the visitor's language and writes the install guide in the creator's language",
+                "ja": "回答者への自動返信メール、訪問者の言語でのエラー表示、作成者の言語での設置ガイドを備える",
+                "zh": "可自动给填写者发送回复邮件，按访客语言显示错误，并以创建者语言撰写安装指南"
+              }
+            ]
+          }
+        ],
+        "stack": [
+          "JavaScript",
+          "Node.js",
+          "Tailwind CSS v4",
+          "Google Apps Script",
+          "PHP",
+          "MySQL",
+          "SweetAlert2",
+          "FTP / FTPS / SFTP",
+          "Playwright (testing)"
+        ]
+      }
+    },
+    {
       "title": "Music Player ESP32-S3",
       "description": {
         "th": "เครื่องเล่นเพลงบนจอแสดงผลขนาด 2.8 นิ้ว ด้วยไมโครคอนโทรลเลอร์ ESP32-S3",
