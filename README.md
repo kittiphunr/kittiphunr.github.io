@@ -15,7 +15,8 @@ site/                 ← deploy ขึ้นเว็บ (GitHub Pages / Netlif
 └── projects/
     ├── index.html            (หน้ารวมโปรเจกต์ /projects/ — อ่านจาก data/portfolio.json อัตโนมัติ)
     ├── precision-qc-web/     (Precision QC — คัดลอกมาจาก `deploy/` ของ repo Precision-QC)
-    └── bda-mcu-phrae/        (ทัวร์ 360° + โมเดล 3 มิติ หอพุทธศิลป์ — ดาวน์โหลดตอน build จาก repo BDA-MCU-PHRAE ไม่ได้ commit)
+    ├── bda-mcu-phrae/        (ทัวร์ 360° + โมเดล 3 มิติ หอพุทธศิลป์ — ดาวน์โหลดตอน build จาก repo BDA-MCU-PHRAE ไม่ได้ commit)
+    └── formsmith/            (Formsmith — ตัวสร้างเว็บฟอร์ม ดีพลอยบนเซิร์ฟเวอร์มหาวิทยาลัยแยกจาก repo นี้ จึงไม่มีโฟลเดอร์ใน `site/`; ลิงก์อยู่ใน `site/data/portfolio.json` และอยู่ใน `HOST_ONLY` ของ `scripts/check_site.py`)
 src/tailwind.css      ← CSS ต้นฉบับของ Tailwind (เอฟเฟกต์ที่ utility ทำไม่ได้)
 tailwind.config.js    ← สี ฟอนต์ แอนิเมชันของธีม
 scripts/              ← สคริปต์แปลภาษา
@@ -87,7 +88,7 @@ scripts/              ← สคริปต์แปลภาษา
 { "name": "Docker", "icon": "docker", "color": "#2496ED", "level": 75 }
 ```
 
-**ผลงานเด่น (Featured)** — ใส่ `"featured": { … }` ในผลงานชิ้นใดก็ได้ (ตอนนี้คือ Precision-QC, IV-Monitor-BCNPH และ BDA-MCU-PHRAE) ระบบจะสร้างส่วน "ผลงานเด่น" ต่อจากทักษะ ประกอบด้วย `subtitle`, `summary`, `gallery` (ภาพ + คำบรรยาย), `metrics`, `highlights` (การ์ด JavaScript / Python พร้อมรายการจุดเด่น) และ `stack` — ภาพอยู่ใน `site/assets/img/projects/<ชื่อโปรเจกต์>/`
+**ผลงานเด่น (Featured)** — ใส่ `"featured": { … }` ในผลงานชิ้นใดก็ได้ (ตอนนี้คือ Precision-QC, IV-Monitor-BCNPH, BDA-MCU-PHRAE และ Formsmith ตามลำดับที่ปรากฏในหน้าเว็บ) ระบบจะสร้างส่วน "ผลงานเด่น" ต่อจากทักษะ ประกอบด้วย `subtitle`, `summary`, `gallery` (ภาพ + คำบรรยาย), `metrics`, `highlights` (การ์ด JavaScript / Python พร้อมรายการจุดเด่น) และ `stack` — ภาพอยู่ใน `site/assets/img/projects/<ชื่อโปรเจกต์>/`
 
 **รูปโปรไฟล์** — วางรูปไว้ที่ `site/assets/img/` แล้วใส่ path ใน `profile.photo`
 

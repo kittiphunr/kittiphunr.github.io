@@ -20,6 +20,9 @@
     <image:image>
       <image:loc>https://kittiphun.rut.mcupr.ac.th/assets/img/projects/iv-monitor/cover.jpg</image:loc>
     </image:image>
+    <image:image>
+      <image:loc>https://kittiphun.rut.mcupr.ac.th/assets/img/projects/formsmith/cover.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/?lang=en</loc>

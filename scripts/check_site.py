@@ -28,8 +28,9 @@ from urllib.parse import unquote, urlparse
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 PRIMARY = "https://kittiphun.rut.mcupr.ac.th/"
-# Folders that exist only on the university host (none right now).
-HOST_ONLY: tuple[str, ...] = ()
+# Folders that exist only on the university host: Formsmith is deployed there
+# from its own repository, so portfolio.json links to it without a copy in site/.
+HOST_ONLY: tuple[str, ...] = ("projects/formsmith",)
 
 errors: list[str] = []
 notices: list[str] = []
