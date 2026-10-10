@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="th" href="https://kittiphun.rut.mcupr.ac.th/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kittiphun.rut.mcupr.ac.th/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphun.rut.mcupr.ac.th/?lang=ja"/>
@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/?lang=en</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="th" href="https://kittiphun.rut.mcupr.ac.th/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kittiphun.rut.mcupr.ac.th/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphun.rut.mcupr.ac.th/?lang=ja"/>
@@ -35,7 +35,7 @@
   </url>
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/?lang=ja</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="th" href="https://kittiphun.rut.mcupr.ac.th/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kittiphun.rut.mcupr.ac.th/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphun.rut.mcupr.ac.th/?lang=ja"/>
@@ -44,7 +44,7 @@
   </url>
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/?lang=zh</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="th" href="https://kittiphun.rut.mcupr.ac.th/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kittiphun.rut.mcupr.ac.th/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kittiphun.rut.mcupr.ac.th/?lang=ja"/>
@@ -53,7 +53,7 @@
   </url>
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/projects/</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://kittiphun.rut.mcupr.ac.th/projects/precision-qc-web/</loc>
