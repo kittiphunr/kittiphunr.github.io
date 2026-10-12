@@ -83,7 +83,7 @@ infra/vps/            ← ชุดติดตั้งบน VPS ของต�
 
 **ทักษะ** (`skills`) — `icon` เลือกได้จาก `network`, `windows`, `terminal`, `code`, `server`, `shield`
 
-**ระดับทักษะ** (`proficiency`, แสดงเป็นแถบเปอร์เซ็นต์และไอคอนในหน้าแรก) — `level` คือ 0–100 ปรับตามจริงได้ `icon` เลือกจาก `cisco`, `windows`, `linux`, `ubuntu`, `html5`, `javascript`, `nodedotjs`, `python`, `mysql`, `docker`, `git`
+**ระดับทักษะ** (`proficiency`, แสดงเป็นแถบเปอร์เซ็นต์และไอคอนในหน้าแรก) — `level` คือ 0–100 ปรับตามจริงได้ `icon` เลือกจาก `cisco`, `mikrotik`, `windows`, `linux`, `ubuntu`, `html5`, `javascript`, `nodedotjs`, `python`, `mysql`, `docker`, `git`
 
 ```json
 { "name": "Docker", "icon": "docker", "color": "#2496ED", "level": 75 }
