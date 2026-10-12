@@ -18,7 +18,8 @@ site/                 ← deploy ขึ้นเว็บ (GitHub Pages / Netlif
     └── formsmith/            (Formsmith — ตัวสร้างเว็บฟอร์ม ดีพลอยบนเซิร์ฟเวอร์มหาวิทยาลัยแยกจาก repo นี้ จึงไม่มีโฟลเดอร์ใน `site/`; ลิงก์อยู่ใน `site/data/portfolio.json` และอยู่ใน `HOST_ONLY` ของ `scripts/check_site.py`)
 src/tailwind.css      ← CSS ต้นฉบับของ Tailwind (เอฟเฟกต์ที่ utility ทำไม่ได้)
 tailwind.config.js    ← สี ฟอนต์ แอนิเมชันของธีม
-scripts/              ← สคริปต์แปลภาษา
+scripts/              ← สคริปต์ build/ตรวจ/แปลภาษา (`build_deploy.py`, `check_site.py`, `fetch_projects.py`, `translate.mjs`, `build_pdf.mjs`)
+infra/vps/            ← ชุดติดตั้งบน VPS ของตัวเอง (Nginx + HTTPS) อยู่นอก `site/` เพื่อไม่ถูกเผยแพร่ ดู `infra/vps/README.md`
 .github/              ← GitHub Action (build CSS → แปลภาษา → deploy)
 ```
 
@@ -34,6 +35,7 @@ scripts/              ← สคริปต์แปลภาษา
 | `site/assets/js/icons.js` | ไอคอนโลโก้เทคโนโลยี (Simple Icons) |
 | `site/assets/js/effects.js` | เอฟเฟกต์: ลูกโลกเครือข่าย 3 มิติ, แอนิเมชันเมื่อเลื่อนหน้า, แถบทักษะ, ไฮไลต์เมนูตามตำแหน่ง, การ์ดเอียง 3 มิติ, ตัวนับสถิติ, เคอร์เซอร์แบบโต้ตอบ (เปิด/ปิดตามสถานะแอนิเมชัน) |
 | `site/assets/js/circuit.js` | ลายวงจร PCB พร้อมกระแสไฟวิ่งตามลายวงจร (แถบคั่นมีชิป IC และพื้นหลังจาง ๆ ของบางส่วน) |
+| `infra/vps/` | ติดตั้งและ deploy บน VPS ของตัวเอง: `setup-server.sh` (ครั้งเดียว), `deploy.sh` (ทุกครั้งที่อัปเดต), `nginx/portfolio.conf` |
 | `scripts/translate.mjs` | สคริปต์เติมคำแปลที่ขาดลงใน `site/data/portfolio.json` |
 | `.github/workflows/static.yml` | GitHub Action: build แล้ว deploy ขึ้น GitHub Pages |
 | `.github/workflows/translate.yml` | GitHub Action: เติมคำแปลที่ขาดแล้วเปิด PR ให้ตรวจ |
