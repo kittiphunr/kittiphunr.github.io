@@ -30,6 +30,6 @@ bash host/vps/deploy-vps.sh example.com user@SERVER_IP
 
 ## ข้อควรรู้
 - `.htaccess` ใช้กับ Apache เท่านั้น Nginx ไม่อ่าน สคริปต์จึงไม่อัปโหลด และ `nginx.conf` มีกฎเทียบเท่า (บีบอัด, แคช, security headers) ให้แล้ว
-- ทัวร์ 360° หอพุทธศิลป์ (`projects/bda-mcu-phrae/`) และ Formsmith ให้อัปโหลดเอง สคริปต์จะไม่แตะสองโฟลเดอร์นี้ (แม้ใช้ `DELETE=1`) ลิงก์ในเว็บยังชี้ไปที่โดเมนมหาวิทยาลัยเดิม
+- สคริปต์อัปโหลดเฉพาะหน้าหลักและ `/projects/index.html` ส่วนโฟลเดอร์โปรเจกต์ (`projects/bda-mcu-phrae/`, `projects/formsmith/`, `projects/precision-qc-web/`) ให้อัปโหลดเอง สคริปต์จะไม่แตะโฟลเดอร์เหล่านี้ (แม้ใช้ `DELETE=1`) ลิงก์ในเว็บยังชี้ไปที่โดเมนมหาวิทยาลัยเดิม
 - ต่ออายุใบรับรองอัตโนมัติ: certbot ตั้ง timer ให้เอง ตรวจได้ด้วย `sudo certbot renew --dry-run`
 - ตรวจสอบ: `curl -I https://example.com/` ควรได้ `200`

@@ -14,7 +14,6 @@ site/                 ← deploy ขึ้นเว็บ (GitHub Pages / Netlif
 ├── data/portfolio.json
 └── projects/
     ├── index.html            (หน้ารวมโปรเจกต์ /projects/ — อ่านจาก data/portfolio.json อัตโนมัติ)
-    ├── precision-qc-web/     (Precision QC — คัดลอกมาจาก `deploy/` ของ repo Precision-QC)
     ├── bda-mcu-phrae/        (ทัวร์ 360° + โมเดล 3 มิติ หอพุทธศิลป์ — อัปโหลดขึ้นโฮสต์เอง จึงไม่มีโฟลเดอร์ใน `site/`; อยู่ใน `HOST_ONLY` ของ `scripts/check_site.py`)
     └── formsmith/            (Formsmith — ตัวสร้างเว็บฟอร์ม ดีพลอยบนเซิร์ฟเวอร์มหาวิทยาลัยแยกจาก repo นี้ จึงไม่มีโฟลเดอร์ใน `site/`; ลิงก์อยู่ใน `site/data/portfolio.json` และอยู่ใน `HOST_ONLY` ของ `scripts/check_site.py`)
 src/tailwind.css      ← CSS ต้นฉบับของ Tailwind (เอฟเฟกต์ที่ utility ทำไม่ได้)
@@ -215,23 +214,15 @@ python3 -m http.server 8000 --directory site
 ## โครงสร้างโปรเจกต์ใน `/projects/` (มาตรฐาน)
 
 - `https://kittiphun.rut.mcupr.ac.th/projects/` คือหน้ารวมโปรเจกต์ (`site/projects/index.html` + `assets/js/projects.js`) สร้างการ์ดจาก `projects` ใน `site/data/portfolio.json` จึง**เพิ่มโปรเจกต์ใน JSON ที่เดียว** หน้านี้ก็แสดงให้เอง (รองรับ 4 ภาษา)
-- แต่ละโปรเจกต์ที่มีหน้าเว็บของตัวเองอยู่ที่ `site/projects/<ชื่อ-แบบ-kebab-case>/index.html` พร้อม `.htaccess` ของตัวเอง และใส่ URL นั้นในช่อง `link` ของโปรเจกต์ใน `portfolio.json`
+- repo นี้เก็บแค่หน้าหลักและ `site/projects/index.html` ส่วนโปรเจกต์ที่มีหน้าเว็บของตัวเอง (`projects/<ชื่อ>/`: Precision QC, ทัวร์ 360°, Formsmith) **อัปโหลดขึ้นโฮสต์เอง** ไม่อยู่ใน `site/` ให้ใส่ URL ของโปรเจกต์ในช่อง `link` ของ `portfolio.json` และเพิ่มชื่อโฟลเดอร์ใน `HOST_ONLY` ของ `scripts/check_site.py`
 
-### Precision QC (`site/projects/precision-qc-web/`)
+### Precision QC (`projects/precision-qc-web/`) — อัปโหลดเอง
 
-เป็นเว็บแอป static (ประมวลผลภาพในเบราว์เซอร์ด้วย Pyodide) ที่ build จาก repo [Precision-QC](https://github.com/kittiphunr/Precision-QC) และล็อกโดเมนเป็น `kittiphun.rut.mcupr.ac.th` แล้ว
-
-- รากของโฟลเดอร์คือเวอร์ชัน **Dashboard** (เวอร์ชันที่แสดงในพอร์ตโฟลิโอ) ส่วนเวอร์ชันอื่นเข้าได้ที่ `/dashboard/`, `/pure/`, `/lab/`, `/tailwind/`
-- เมื่อแก้ Precision QC แล้ว ให้ build ใน repo นั้นและคัดลอกมาทับ:
+เป็นเว็บแอป static (ประมวลผลภาพในเบราว์เซอร์ด้วย Pyodide) ที่ build จาก repo [Precision-QC](https://github.com/kittiphunr/Precision-QC) ไม่อยู่ใน repo นี้แล้ว ให้ build ใน repo นั้นแล้วอัปโหลดไปที่ `projects/precision-qc-web/` บนโฮสต์เอง
 
 ```bash
-git clone --depth 1 https://github.com/kittiphunr/Precision-QC ../Precision-QC   # ครั้งแรก
-cd ../Precision-QC && python scripts/build_site.py --out deploy --lock-domain kittiphun.rut.mcupr.ac.th && cd -
-D=site/projects/precision-qc-web
-rm -rf $D && mkdir -p $D && cp -a ../Precision-QC/deploy/dashboard/. $D/
-for e in dashboard pure tailwind lab; do mkdir -p $D/$e && cp -a ../Precision-QC/deploy/$e/. $D/$e/; done
-python3 scripts/check_site.py
+cd ../Precision-QC && python scripts/build_site.py --out deploy --lock-domain kittiphun.rut.mcupr.ac.th
 ```
 
-- คัดลอกเฉพาะ `deploy/` (ไฟล์ที่เผยแพร่อยู่แล้ว) ไม่ใช่โค้ดต้นทาง เทสต์ หรือไฟล์ในโฟลเดอร์ `inputs/`
+- รากของโฟลเดอร์ที่อัปโหลดคือ `deploy/dashboard/` (เวอร์ชันที่แสดงในพอร์ตโฟลิโอ) ส่วน `dashboard`, `pure`, `lab`, `tailwind` อัปโหลดเป็นโฟลเดอร์ย่อย
 - ถ้าเพิ่มโดเมนอื่นให้แอปทำงาน ต้องเพิ่ม `--lock-domain` ตอน build
