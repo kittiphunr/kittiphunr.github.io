@@ -34,13 +34,11 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE_PROJECTS = ROOT / "site" / "projects"
 STAMPS = ROOT / ".cache" / "projects"
 
-PROJECTS = {
-    "bda-mcu-phrae": {
-        "repo": "https://github.com/kittiphunr/BDA-MCU-PHRAE",
-        "ref": "c8970fc8a8e40b34caeaa95e174fbbe62b38d720",  # full 40-character SHA
-        "path": "deploy/dist",
-    },
-}
+# Nothing is pinned right now: the 360° tour (BDA-MCU-PHRAE, a private repository) is
+# uploaded to the host by hand, so no build or deploy step downloads it. To pin a
+# project again, add an entry like:
+#   "name": {"repo": "https://github.com/<owner>/<repo>", "ref": "<40-char SHA>", "path": "deploy/dist"},
+PROJECTS: dict[str, dict[str, str]] = {}
 
 
 def git_env() -> dict[str, str]:

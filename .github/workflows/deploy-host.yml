@@ -79,11 +79,6 @@ jobs:
         with:
           ref: main
 
-      - name: Fetch project builds (pinned in scripts/fetch_projects.py)
-        run: python3 scripts/fetch_projects.py
-        env:
-          PROJECTS_TOKEN: ${{ secrets.PROJECTS_TOKEN }}  # read access to the private project repos
-
       - name: Setup Node
         if: steps.cfg.outputs.ready == 'true'
         uses: actions/setup-node@v4

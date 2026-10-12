@@ -23,15 +23,13 @@ sudo bash ~/vps/setup-server.sh example.com you@example.com
 ค่าเริ่มต้นของโฟลเดอร์เว็บคือ `/var/www/portfolio` (ใส่อาร์กิวเมนต์ที่ 3 เพื่อเปลี่ยน)
 
 ## 2) build และอัปโหลด (ทุกครั้งที่อัปเดต)
-หอพุทธศิลป์เป็น repo private จึงต้องมี token ที่อ่านได้ (fine-grained PAT, Contents: Read-only)
 ```bash
-export PROJECTS_TOKEN=github_pat_...
 bash host/vps/deploy-vps.sh example.com user@SERVER_IP
 ```
-สคริปต์จะ fetch โปรเจกต์ → build CSS → สร้าง `deploy/` โดยเปลี่ยน URL ในหน้าเว็บ, sitemap และ robots.txt เป็นโดเมนของคุณ → rsync ขึ้นเซิร์ฟเวอร์ ปกติไฟล์ถูกเพิ่มหรือเขียนทับเท่านั้น ใส่ `DELETE=1` นำหน้าคำสั่งถ้าต้องการลบไฟล์ที่ไม่มีใน build แล้ว
+สคริปต์จะ build CSS → สร้าง `deploy/` โดยเปลี่ยน URL ในหน้าเว็บ, sitemap และ robots.txt เป็นโดเมนของคุณ → rsync ขึ้นเซิร์ฟเวอร์ ปกติไฟล์ถูกเพิ่มหรือเขียนทับเท่านั้น ใส่ `DELETE=1` นำหน้าคำสั่งถ้าต้องการลบไฟล์ที่ไม่มีใน build แล้ว
 
 ## ข้อควรรู้
 - `.htaccess` ใช้กับ Apache เท่านั้น Nginx ไม่อ่าน สคริปต์จึงไม่อัปโหลด และ `nginx.conf` มีกฎเทียบเท่า (บีบอัด, แคช, security headers) ให้แล้ว
-- Formsmith และ Precision QC deploy แยกบนเซิร์ฟเวอร์มหาวิทยาลัย ลิงก์ไปโปรเจกต์เหล่านั้นจะยังชี้ไปที่เดิม
+- ทัวร์ 360° หอพุทธศิลป์ (`projects/bda-mcu-phrae/`) และ Formsmith ให้อัปโหลดเอง สคริปต์จะไม่แตะสองโฟลเดอร์นี้ (แม้ใช้ `DELETE=1`) ลิงก์ในเว็บยังชี้ไปที่โดเมนมหาวิทยาลัยเดิม
 - ต่ออายุใบรับรองอัตโนมัติ: certbot ตั้ง timer ให้เอง ตรวจได้ด้วย `sudo certbot renew --dry-run`
 - ตรวจสอบ: `curl -I https://example.com/` ควรได้ `200`

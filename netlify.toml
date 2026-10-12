@@ -1,4 +1,4 @@
-# Fetch the pinned project builds, build Tailwind CSS, then publish only the site/ folder.
+# Build Tailwind CSS, then publish only the site/ folder.
 [build]
   publish = "site"
-  command = "python3 scripts/fetch_projects.py && npm ci && npm run build"
+  command = "npm ci && npm run build"

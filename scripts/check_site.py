@@ -28,9 +28,10 @@ from urllib.parse import unquote, urlparse
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 PRIMARY = "https://kittiphun.rut.mcupr.ac.th/"
-# Folders that exist only on the university host: Formsmith is deployed there
-# from its own repository, so portfolio.json links to it without a copy in site/.
-HOST_ONLY: tuple[str, ...] = ("projects/formsmith",)
+# Folders that exist only on the host: Formsmith and the 360° tour (BDA-MCU-PHRAE) are
+# uploaded there by hand from their own repositories, so portfolio.json and sitemap.xml
+# link to them without a copy in site/.
+HOST_ONLY: tuple[str, ...] = ("projects/formsmith", "projects/bda-mcu-phrae")
 
 errors: list[str] = []
 notices: list[str] = []
@@ -114,7 +115,10 @@ def check_sitemap() -> None:
         if loc.startswith(PRIMARY):
             rel = loc[len(PRIMARY):].split("?")[0].split("#")[0]
             if rel and not exists(rel):
-                errors.append(f"sitemap.xml: {loc} has no file in site/")
+                if host_only(rel):
+                    notices.append(f"sitemap.xml: {loc} has no file in site/ (host-only, ok)")
+                else:
+                    errors.append(f"sitemap.xml: {loc} has no file in site/")
 
 
 def check_js() -> None:
@@ -134,8 +138,6 @@ def main() -> int:
     for e in errors:
         print(f"ERROR: {e}")
     print(f"{len(errors)} error(s), {len(notices)} notice(s)")
-    if errors and not (SITE / "projects" / "bda-mcu-phrae").is_dir():
-        print("hint: run `python3 scripts/fetch_projects.py` first; some project builds are downloaded, not committed.")
     return 1 if errors else 0
 
 
