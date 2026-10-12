@@ -176,6 +176,21 @@ html.cursor-visible .cursor-dot, html.cursor-visible .cursor-ring { opacity: 1; 
 }
 :root[data-theme="light"] .c-glow { stroke: rgba(219, 39, 119, .28); }
 :root[data-theme="light"] .c-core { stroke: #db2777; }
+/* After the chip the pulses are green or blue (circuit.js picks one at random on every pass). */
+.c-glow.c-green { stroke: rgba(74, 222, 128, .38); }
+.c-core.c-green { stroke: #bbf7d0; }
+.c-glow.c-blue { stroke: rgba(56, 189, 248, .38); }
+.c-core.c-blue { stroke: #bae6fd; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .c-glow.c-green { stroke: rgba(22, 163, 74, .28); }
+  :root:not([data-theme="dark"]) .c-core.c-green { stroke: #16a34a; }
+  :root:not([data-theme="dark"]) .c-glow.c-blue { stroke: rgba(37, 99, 235, .26); }
+  :root:not([data-theme="dark"]) .c-core.c-blue { stroke: #2563eb; }
+}
+:root[data-theme="light"] .c-glow.c-green { stroke: rgba(22, 163, 74, .28); }
+:root[data-theme="light"] .c-core.c-green { stroke: #16a34a; }
+:root[data-theme="light"] .c-glow.c-blue { stroke: rgba(37, 99, 235, .26); }
+:root[data-theme="light"] .c-core.c-blue { stroke: #2563eb; }
 @keyframes c-run { from { stroke-dashoffset: 28px; } to { stroke-dashoffset: calc(var(--len) * -1px); } }
 
 /* ---------- Loading screen (index.html) ---------- */
