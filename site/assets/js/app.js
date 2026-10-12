@@ -141,6 +141,7 @@
         if (v == null || v === false) continue;
         if (k === "class") el.className = v;
         else if (k === "html") el.innerHTML = v;
+        else if (k.startsWith("on") && typeof v === "function") el.addEventListener(k.slice(2), v);
         else el.setAttribute(k, v);
       }
     }
@@ -193,7 +194,8 @@
     heart: '<path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/>',
     check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/>',
     phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/>',
-    expand: '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>'
+    expand: '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>',
+    chevron: '<path d="M6 9l6 6 6-6"/>'
   };
 
   // SVG must be parsed from markup so it gets the SVG namespace.
@@ -244,15 +246,17 @@
 
   // ---------- sections ----------
   const NAV = [
-    ["home", "navHome"], ["about", "navAbout"], ["skills", "navSkills"],
+    ["home", "navHome"], ["about", "navAbout"], ["skills", "navSkills"], ["featured", "navFeatured"],
     ["experience", "navExperience"], ["education", "navEducation"], ["projects", "navProjects"], ["contact", "navContact"]
   ];
 
   function renderNav() {
     const s = UI[lang];
-    const items = NAV.filter(([id]) => id !== "education" || hasItems(data.education));
-    document.getElementById("nav-links").replaceChildren(...items.map(([id, key]) =>
-      h("a", { href: "#" + id, "data-spy": id, class: "nav-link relative whitespace-nowrap px-2 py-1.5 text-[0.9rem] font-medium text-muted transition-colors hover:text-fg" }, s[key])));
+    const items = NAV.filter(([id]) =>
+      (id !== "education" || hasItems(data.education)) && (id !== "featured" || (data.projects || []).some((x) => x.featured)));
+    // The logo already goes home, so the desktop bar skips "Home" to leave room for the other links.
+    document.getElementById("nav-links").replaceChildren(...items.filter(([id]) => id !== "home").map(([id, key]) =>
+      h("a", { href: "#" + id, "data-spy": id, class: "nav-link relative whitespace-nowrap px-1.5 py-1.5 text-[0.9rem] font-medium text-muted transition-colors hover:text-fg" }, s[key])));
     document.getElementById("mobile-menu").replaceChildren(...items.map(([id, key]) =>
       h("a", { href: "#" + id, class: "rounded-lg px-3 py-2.5 text-muted hover:bg-ink-800 hover:text-fg" }, s[key])));
 
@@ -419,14 +423,61 @@
   const THUMB_COLS = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-4", 5: "grid-cols-5", 6: "grid-cols-3 sm:grid-cols-6" };
   const THUMB_COLS_MANY = "grid-cols-4 sm:grid-cols-5";   // 7+ images wrap onto two rows
 
-  // Spotlights for every project marked with "featured" in portfolio.json.
+  // Showcase for every project marked with "featured" in portfolio.json: a switcher on top and
+  // one project at a time below it, so three case studies do not make one very long scroll.
+  // The chosen project survives a language change; a #featured-<name> link opens its project.
+  let featuredIndex = 0;
+
   function renderFeatured() {
     const el = document.getElementById("featured");
     const list = (data.projects || []).filter((x) => x.featured);
     if (!list.length) { el.hidden = true; el.replaceChildren(); return; }
     el.hidden = false;
-    el.replaceChildren(h("div", { class: WRAP }, list.map((pr, i) => featuredBlock(pr, i))));
+    featuredIndex = Math.min(featuredIndex, list.length - 1);
+
+    const panels = list.map((pr, i) => featuredBlock(pr, i));
+    const tabs = list.map((pr, i) => h("button", {
+      type: "button", role: "tab", id: "ftab-" + i, "aria-controls": featuredId(pr), class: "ftab",
+      onclick: () => select(i)
+    },
+      pr.image ? h("img", { class: "ftab-thumb", src: pr.image, alt: "", loading: "lazy", decoding: "async" }) : null,
+      h("span", { class: "ftab-text" },
+        h("span", { class: "ftab-num" }, String(i + 1).padStart(2, "0")),
+        h("span", { class: "ftab-name" }, list[i].featured.name || resolveEn(pr.title).replace(/-/g, " ")))));
+
+    function select(i, focus) {
+      featuredIndex = i;
+      tabs.forEach((b, j) => {
+        b.setAttribute("aria-selected", String(j === i));
+        b.tabIndex = j === i ? 0 : -1;
+        panels[j].hidden = j !== i;
+      });
+      if (focus) tabs[i].focus();
+    }
+    const bar = list.length > 1
+      ? h("div", { class: "ftabs no-scrollbar", role: "tablist", "aria-label": UI[lang].featuredBadge,
+          onkeydown: (e) => {
+            const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+            if (k) { e.preventDefault(); select((featuredIndex + k + list.length) % list.length, true); }
+            else if (e.key === "Home") { e.preventDefault(); select(0, true); }
+            else if (e.key === "End") { e.preventDefault(); select(list.length - 1, true); }
+          } }, tabs)
+      : null;
+    select(featuredIndex);
+    el.replaceChildren(h("div", { class: WRAP }, bar, panels));
   }
+
+  // Open the project a #featured-<name> link points to before the page scrolls there.
+  function openFeaturedFromHash(hash) {
+    const panel = hash && hash.length > 1 && document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (!panel || !panel.hasAttribute("data-fpanel") || !panel.hidden) return;
+    document.getElementById("ftab-" + panel.dataset.fpanel).click();
+  }
+  // Capture phase: runs before the smooth-scroll handler in effects.js, which needs the panel visible.
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="#featured-"]');
+    if (a) openFeaturedFromHash(a.getAttribute("href"));
+  }, true);
 
   function featuredBlock(pr, index) {
     const f = pr.featured;
@@ -434,7 +485,7 @@
     const isRepo = /github\.com/.test(pr.link || "");
 
     const gallery = f.gallery || [];
-    const mainImg = h("img", { class: "showcase-img aspect-[16/11] w-full bg-[#0b0912] object-contain", src: gallery[0] ? gallery[0].src : pr.image, alt: "", decoding: "async" });
+    const mainImg = h("img", { class: "showcase-img aspect-[16/11] w-full bg-[#0b0912] object-contain", src: gallery[0] ? gallery[0].src : pr.image, alt: "", loading: "lazy", decoding: "async" });
     const mainLink = h("a", { href: mainImg.src, target: "_blank", rel: "noopener", class: "group relative block", title: s.viewFull, "aria-label": s.viewFull },
       mainImg,
       h("span", { class: "absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-lg bg-black/55 text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100" }, icon("expand", "h-4 w-4")));
@@ -493,7 +544,26 @@
       ));
     const hlCols = highlights.length >= 3 ? "lg:grid-cols-3" : "md:grid-cols-2";
 
-    return h("article", { id: featuredId(pr), class: "spot " + (index ? "mt-24 border-t border-ink-600 pt-24" : "") },
+    // Technical details start folded; the toggle grows them open (CSS grid-rows transition).
+    let details = null;
+    if (highlights.length) {
+      const bodyId = featuredId(pr) + "-details";
+      const label = h("span", null, s.showTech);
+      const toggle = h("button", { type: "button", class: "btn btn-sm fdetails-toggle", "aria-expanded": "false", "aria-controls": bodyId },
+        label, icon("chevron", "fdetails-chevron"));
+      const body = h("div", { id: bodyId, class: "fdetails-body", inert: "" },
+        h("div", { class: "fdetails-inner" }, h("div", { class: "grid gap-6 pb-8 pt-8 " + hlCols, "data-reveal-group": "" }, highlights)));
+      toggle.addEventListener("click", () => {
+        const open = toggle.getAttribute("aria-expanded") !== "true";
+        toggle.setAttribute("aria-expanded", String(open));
+        details.classList.toggle("open", open);
+        body.toggleAttribute("inert", !open);
+        label.textContent = open ? s.hideTech : s.showTech;
+      });
+      details = h("div", { class: "fdetails mt-10 text-center" }, toggle, body);
+    }
+
+    return h("article", { id: featuredId(pr), class: "spot panel-in", role: "tabpanel", "data-fpanel": index, "aria-labelledby": "ftab-" + index },
       h("header", { class: "section-head mb-10 text-center" },
         h("span", { class: "featured-pill", html: STAR_SVG + "<span>" + s.featuredBadge + "</span>" }),
         h("h2", { class: "mt-3 bg-grad bg-clip-text text-4xl font-bold leading-tight tracking-tight text-transparent md:text-5xl" }, f.name || resolveEn(pr.title).replace(/-/g, " ")),
@@ -502,7 +572,7 @@
         // min-w-0 lets the long address-bar text truncate instead of widening the grid.
         h("div", { class: "reveal min-w-0" }, h("div", { class: "showcase" }, frame), caption, h("div", { class: "mt-1 grid gap-3 " + (THUMB_COLS[thumbs.length] || THUMB_COLS_MANY) }, thumbs)),
         h("div", { class: "reveal min-w-0" }, t(f.summary, "p", "text-soft"), action, metrics, stack)),
-      highlights.length ? h("div", { class: "mt-12 grid gap-6 " + hlCols, "data-reveal-group": "" }, highlights) : null
+      details
     );
   }
 
@@ -652,6 +722,34 @@
     ));
   }
 
+  // Mobile contact bar: slides up once the hero is out of view and tucks away over the contact
+  // section (which already has the same buttons). Phones and tablets only (lg:hidden in the markup).
+  const ctaState = { hero: true, contact: false };
+  function renderCtaBar() {
+    const bar = document.getElementById("cta-bar");
+    const p = data.profile, s = UI[lang];
+    const cv = p.cv ? resolve(p.cv).text : "";
+    bar.replaceChildren(
+      h("a", { class: "btn btn-primary btn-sm flex-1 justify-center", href: p.email ? "mailto:" + p.email : "#contact" }, s.hireMe, icon("mail")),
+      cv ? h("a", { class: "btn btn-sm justify-center", href: cv, download: cv.split("/").pop(), type: "application/pdf", "aria-label": s.downloadCV }, s.ctaCv, icon("download")) : null);
+    if (!renderCtaBar.bound && "IntersectionObserver" in window) {
+      renderCtaBar.bound = true;
+      const watch = (id, key) => {
+        const el = document.getElementById(id);
+        if (el) new IntersectionObserver(([en]) => { ctaState[key] = en.isIntersecting; syncCta(); }).observe(el);
+      };
+      watch("home", "hero");
+      watch("contact", "contact");
+    }
+    syncCta();
+  }
+  function syncCta() {
+    const bar = document.getElementById("cta-bar");
+    const show = !ctaState.hero && !ctaState.contact;
+    bar.classList.toggle("is-shown", show);
+    bar.toggleAttribute("inert", !show);
+  }
+
   // Primary address: GitHub Pages copies point their canonical here too.
   const SITE_URL = "https://kittiphun.rut.mcupr.ac.th/";
   const OG_LOCALE = { th: "th_TH", en: "en_US", ja: "ja_JP", zh: "zh_CN" };
@@ -689,6 +787,8 @@
     document.head.append(h("link", { rel: "stylesheet", href, "data-font": code }));
   }
 
+  let hashHandled = false;
+
   function render() {
     const id = ++renderId;
     jobs = [];
@@ -698,10 +798,17 @@
     renderAbout();
     renderSkills();
     renderFeatured();
+    if (!hashHandled) {
+      hashHandled = true;
+      openFeaturedFromHash(location.hash);
+      const target = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (target && target.hasAttribute("data-fpanel")) requestAnimationFrame(() => target.scrollIntoView());
+    }
     renderExperience();
     renderEducation();
     renderProjects();
     renderContact();
+    renderCtaBar();
     updateMeta();
     if (window.Effects) window.Effects.afterRender();
     runJobs(id);

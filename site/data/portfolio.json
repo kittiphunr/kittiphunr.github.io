@@ -191,6 +191,12 @@
       "level": 90
     },
     {
+      "name": "MikroTik",
+      "icon": "mikrotik",
+      "color": "#8DA2B3",
+      "level": 80
+    },
+    {
       "name": "Windows Server",
       "icon": "windows",
       "color": "#3B9EFF",

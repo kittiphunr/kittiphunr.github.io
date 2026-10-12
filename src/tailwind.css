@@ -142,10 +142,13 @@ html.cursor-visible .cursor-dot, html.cursor-visible .cursor-ring { opacity: 1; 
 /* ---------- PCB circuit traces with running current (circuit.js) ---------- */
 .circuit-divider { position: relative; height: 72px; overflow: hidden; pointer-events: none; }
 @media (min-width: 768px) { .circuit-divider { height: 110px; } }
-.circuit-divider .circuit-svg, .circuit-bg .circuit-svg { display: block; width: 100%; height: 100%; }
+.circuit-divider .circuit-svg { display: block; width: 100%; height: 100%; }
+/* Backgrounds stack boards at a fixed scale (circuit.js), so the height follows the width;
+   1080px is the narrowest board, centred and cropped on phones (MIN_BOARD_W in circuit.js). */
+.circuit-bg .circuit-svg { display: block; position: relative; left: 50%; translate: -50% 0; width: max(100%, 1080px); height: auto; }
 /* Behind section content (sections are isolate), under the hero globe. */
 .circuit-bg {
-  position: absolute; inset: 0; z-index: -15; pointer-events: none; opacity: .75;
+  position: absolute; inset: 0; z-index: -15; pointer-events: none; opacity: .75; overflow: hidden;
   /* fade towards the middle so text stays easy to read */
   -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.18) 0%, rgba(0,0,0,.55) 45%, #000 85%);
   mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.18) 0%, rgba(0,0,0,.55) 45%, #000 85%);
@@ -274,7 +277,7 @@ html[data-motion="off"] .loader-bar span { width: 60%; }
 .tilt.reveal.in.tilting { transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-4px); }
 
 /* Nav underline for hover and the active section */
-.nav-link::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: -2px; height: 2px; border-radius: 2px; background: linear-gradient(135deg, #ec4899, #a855f7); transform: scaleX(0); transition: transform .25s; }
+.nav-link::after { content: ""; position: absolute; left: 6px; right: 6px; bottom: -2px; height: 2px; border-radius: 2px; background: linear-gradient(135deg, #ec4899, #a855f7); transform: scaleX(0); transition: transform .25s; }
 .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
 .nav-link.active { color: rgb(var(--fg)); }
 
@@ -377,3 +380,47 @@ html[data-font="lg"] { font-size: 112.5%; }
   background: linear-gradient(135deg, #ec4899, #a855f7); box-shadow: 0 4px 14px rgba(236, 72, 153, .45);
 }
 .proj-star svg { width: 12px; height: 12px; fill: currentColor; }
+
+
+/* ---------- Featured showcase: project switcher, folded details ---------- */
+.ftabs {
+  display: flex; gap: .75rem; margin: 0 auto 2.5rem; padding: .25rem; overflow-x: auto; scroll-snap-type: x mandatory;
+  justify-content: flex-start;
+}
+@media (min-width: 768px) { .ftabs { justify-content: center; } }
+.ftab {
+  display: flex; flex: none; align-items: center; gap: .75rem; scroll-snap-align: center; cursor: pointer;
+  border: 1px solid rgb(var(--ink-600)); border-radius: 14px; background: rgb(var(--ink-800)); padding: .5rem 1rem .5rem .5rem;
+  color: rgb(var(--muted)); text-align: left; transition: border-color .25s, box-shadow .25s, color .25s, transform .25s;
+}
+.ftab:hover { transform: translateY(-2px); border-color: rgba(236, 72, 153, .5); color: rgb(var(--fg)); }
+.ftab:focus-visible { outline: 2px solid #ec4899; outline-offset: 2px; }
+.ftab[aria-selected="true"] {
+  color: rgb(var(--fg)); border-color: transparent;
+  background: linear-gradient(rgb(var(--ink-800)), rgb(var(--ink-800))) padding-box, linear-gradient(135deg, #ec4899, #c026d3 55%, #a855f7) border-box;
+  box-shadow: 0 10px 28px rgba(236, 72, 153, .22);
+}
+.ftab-thumb { width: 56px; height: 40px; flex: none; border-radius: 9px; object-fit: cover; opacity: .75; transition: opacity .25s; }
+.ftab[aria-selected="true"] .ftab-thumb, .ftab:hover .ftab-thumb { opacity: 1; }
+.ftab-text { display: grid; gap: 1px; }
+.ftab-num { font: 600 .7rem "JetBrains Mono", ui-monospace, monospace; letter-spacing: .08em; color: rgb(var(--accent)); }
+.ftab-name { font-size: .92rem; font-weight: 600; white-space: nowrap; }
+.panel-in { animation: panel-in .55s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes panel-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* Folded technical details: the rows grow from 0fr to 1fr, so the height animates without measuring. */
+.fdetails-body { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows .55s cubic-bezier(.2, .7, .2, 1), visibility 0s linear .55s; }
+.fdetails.open .fdetails-body { grid-template-rows: 1fr; visibility: visible; transition-delay: 0s; }
+/* Padding and negative margin leave room for the cards' hover shadow inside the clipped box. */
+.fdetails-inner { min-height: 0; overflow: hidden; margin: 0 -1rem; padding: 0 1rem; text-align: left; }
+.fdetails-chevron { transition: transform .3s; }
+.fdetails.open .fdetails-chevron { transform: rotate(180deg); }
+html[data-motion="off"] .fdetails-body { transition: none; }
+
+/* ---------- Mobile contact bar ---------- */
+.cta-bar {
+  position: fixed; inset: auto 0 0 0; z-index: 45; display: flex; gap: .625rem; padding: .625rem 1rem calc(.625rem + env(safe-area-inset-bottom));
+  background: rgb(var(--ink-950) / .82); border-top: 1px solid rgb(var(--ink-600)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  transform: translateY(110%); transition: transform .35s cubic-bezier(.2, .7, .2, 1);
+}
+.cta-bar.is-shown { transform: none; }
