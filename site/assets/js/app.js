@@ -453,9 +453,15 @@
         panels[j].hidden = j !== i;
       });
       if (focus) tabs[i].focus();
+      // keep the chosen tab inside the scrolling row (scrollTo on the row only, so the page doesn't jump)
+      const row = tabs[i].parentElement;
+      if (row) {
+        const r = row.getBoundingClientRect(), c = tabs[i].getBoundingClientRect();
+        row.scrollTo({ left: row.scrollLeft + (c.left - r.left) - (r.width - c.width) / 2, behavior: "smooth" });
+      }
     }
     const bar = list.length > 1
-      ? h("div", { class: "ftabs no-scrollbar", role: "tablist", "aria-label": UI[lang].featuredBadge,
+      ? h("div", { class: "ftabs", role: "tablist", "aria-label": UI[lang].featuredBadge,
           onkeydown: (e) => {
             const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
             if (k) { e.preventDefault(); select((featuredIndex + k + list.length) % list.length, true); }

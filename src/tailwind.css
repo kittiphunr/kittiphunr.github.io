@@ -399,11 +399,15 @@ html[data-font="lg"] { font-size: 112.5%; }
 
 /* ---------- Featured showcase: project switcher, folded details ---------- */
 .ftabs {
-  display: flex; gap: .75rem; margin: 0 auto 2.5rem; padding: .25rem; overflow-x: auto; scroll-snap-type: x mandatory;
-  justify-content: flex-start;
+  display: flex; flex-wrap: nowrap; gap: .75rem; margin: 0 auto 2.5rem; padding: .25rem .25rem .75rem; overflow-x: auto; scroll-snap-type: x proximity;
+  justify-content: flex-start; scrollbar-width: thin; scrollbar-color: rgba(236, 72, 153, .45) transparent;
 }
-/* Wide screens: wrap onto a second row instead of scrolling, so no tab is cut off at either edge */
-@media (min-width: 768px) { .ftabs { justify-content: center; flex-wrap: wrap; overflow: visible; scroll-snap-type: none; } }
+.ftabs::-webkit-scrollbar { height: 6px; }
+.ftabs::-webkit-scrollbar-thumb { background: rgba(236, 72, 153, .45); border-radius: 999px; }
+.ftabs::-webkit-scrollbar-track { background: transparent; }
+/* One row, centred while it fits; auto margins (not justify-content: center) keep the first tab reachable once it overflows */
+.ftab:first-child { margin-left: auto; }
+.ftab:last-child { margin-right: auto; }
 .ftab {
   display: flex; flex: none; align-items: center; gap: .75rem; scroll-snap-align: center; cursor: pointer;
   border: 1px solid rgb(var(--ink-600)); border-radius: 14px; background: rgb(var(--ink-800)); padding: .5rem 1rem .5rem .5rem;
