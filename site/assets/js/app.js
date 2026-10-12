@@ -219,6 +219,8 @@
 
   const WRAP = "mx-auto max-w-6xl px-4 md:px-8";
 
+  const STAR_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.7 7.4L12 18.1 5.5 22l1.7-7.4-5.7-5 7.5-.7z"/></svg>';
+
   function badge(text) { return h("span", { class: "badge" }, text); }
 
   function sectionHead(badgeText, title, center) {
@@ -398,7 +400,7 @@
         t(sk.title, "h3", "mb-2 text-lg font-semibold"),
         t(sk.description, "p", "text-muted"),
         hasItems(sk.items) ? h("ul", { class: "mt-4 flex flex-wrap gap-2" }, sk.items.map((it) =>
-          t(it, "li", "rounded-md border border-ink-600 bg-ink-700 px-2.5 py-1 font-mono text-xs text-soft transition-colors hover:border-brand-500 hover:text-fg"))) : null
+          t(it, "li", "chip"))) : null
       )
     );
     document.getElementById("skills").replaceChildren(h("div", { class: WRAP },
@@ -432,7 +434,7 @@
     const isRepo = /github\.com/.test(pr.link || "");
 
     const gallery = f.gallery || [];
-    const mainImg = h("img", { class: "aspect-[16/11] w-full bg-[#0b0912] object-contain", src: gallery[0] ? gallery[0].src : pr.image, alt: "", decoding: "async" });
+    const mainImg = h("img", { class: "showcase-img aspect-[16/11] w-full bg-[#0b0912] object-contain", src: gallery[0] ? gallery[0].src : pr.image, alt: "", decoding: "async" });
     const mainLink = h("a", { href: mainImg.src, target: "_blank", rel: "noopener", class: "group relative block", title: s.viewFull, "aria-label": s.viewFull },
       mainImg,
       h("span", { class: "absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-lg bg-black/55 text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100" }, icon("expand", "h-4 w-4")));
@@ -458,7 +460,7 @@
     thumbs.forEach((b, i) => b.addEventListener("click", () => show(i)));
     if (gallery.length) show(0);
 
-    const frame = h("div", { class: "card reveal overflow-hidden shadow-card" },
+    const frame = h("div", { class: "card overflow-hidden" },
       h("div", { class: "flex items-center gap-2 border-b border-ink-600 px-4 py-2.5" },
         h("i", { class: "h-2.5 w-2.5 flex-none rounded-full bg-[#fb7185]" }), h("i", { class: "h-2.5 w-2.5 flex-none rounded-full bg-[#fbbf24]" }), h("i", { class: "h-2.5 w-2.5 flex-none rounded-full bg-[#4ade80]" }),
         fileLabel),
@@ -470,17 +472,17 @@
         isRepo ? s.viewSource : s.tryLive, icon("arrow"))) : null;
 
     const metrics = h("div", { class: "mt-7 grid grid-cols-2 gap-3", "data-reveal-group": "" }, (f.metrics || []).map((m) =>
-      h("div", { class: "rounded-xl border border-ink-600 bg-ink-800 px-4 py-3.5" },
+      h("div", { class: "tile metric px-4 py-3.5" },
         h("strong", { class: "block bg-grad bg-clip-text text-xl font-bold leading-tight text-transparent sm:text-2xl" }, m.value),
         t(m.label, "span", "mt-1 block text-sm text-muted"))));
 
     const stack = hasItems(f.stack) ? h("div", { class: "mt-7" },
       h("p", { class: "mb-3 text-xs font-semibold uppercase tracking-[0.1em] text-muted" }, s.techStack),
       h("ul", { class: "flex flex-wrap gap-2" }, f.stack.map((x) =>
-        h("li", { class: "rounded-md border border-ink-600 bg-ink-800 px-2.5 py-1 font-mono text-xs text-soft" }, x)))) : null;
+        h("li", { class: "chip" }, x)))) : null;
 
     const highlights = (f.highlights || []).map((hl) =>
-      h("article", { class: "card tilt p-6 md:p-7" },
+      h("article", { class: "card tilt hl-card p-6 md:p-7" },
         h("div", { class: "flex items-center gap-4" },
           brand(hl.icon, hl.color, "h-14 w-14 flex-none rounded-xl border border-ink-600 bg-ink-700 p-3"),
           h("div", null,
@@ -491,14 +493,14 @@
       ));
     const hlCols = highlights.length >= 3 ? "lg:grid-cols-3" : "md:grid-cols-2";
 
-    return h("article", { id: featuredId(pr), class: index ? "mt-24 border-t border-ink-600 pt-24" : "" },
+    return h("article", { id: featuredId(pr), class: "spot " + (index ? "mt-24 border-t border-ink-600 pt-24" : "") },
       h("header", { class: "section-head mb-10 text-center" },
-        badge(s.featuredBadge),
+        h("span", { class: "featured-pill", html: STAR_SVG + "<span>" + s.featuredBadge + "</span>" }),
         h("h2", { class: "mt-3 bg-grad bg-clip-text text-4xl font-bold leading-tight tracking-tight text-transparent md:text-5xl" }, f.name || resolveEn(pr.title).replace(/-/g, " ")),
         t(f.subtitle, "p", "mx-auto mt-3 max-w-2xl text-lg text-muted")),
       h("div", { class: "grid items-start gap-10 lg:grid-cols-[1.2fr_.8fr]" },
         // min-w-0 lets the long address-bar text truncate instead of widening the grid.
-        h("div", { class: "min-w-0" }, frame, caption, h("div", { class: "mt-1 grid gap-3 " + (THUMB_COLS[thumbs.length] || THUMB_COLS_MANY) }, thumbs)),
+        h("div", { class: "reveal min-w-0" }, h("div", { class: "showcase" }, frame), caption, h("div", { class: "mt-1 grid gap-3 " + (THUMB_COLS[thumbs.length] || THUMB_COLS_MANY) }, thumbs)),
         h("div", { class: "reveal min-w-0" }, t(f.summary, "p", "text-soft"), action, metrics, stack)),
       highlights.length ? h("div", { class: "mt-12 grid gap-6 " + hlCols, "data-reveal-group": "" }, highlights) : null
     );
@@ -546,7 +548,8 @@
     const frame = "relative aspect-video overflow-hidden border-b border-ink-600";
     if (pr.image) {
       return h("div", { class: frame },
-        h("img", { class: "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105", src: pr.image, alt: "", loading: "lazy" }));
+        h("img", { class: "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105", src: pr.image, alt: "", loading: "lazy" }),
+        h("span", { class: "cover-fade" }));
     }
     const hue = COVER_HUES[i % COVER_HUES.length];
     const label = (pr.tags && pr.tags[0]) || resolveEn(pr.title).slice(0, 3);
@@ -569,7 +572,8 @@
   function renderProjects() {
     const s = UI[lang];
     const cards = (data.projects || []).map((pr, i) =>
-      h("article", { class: "card tilt group flex shrink-0 snap-start basis-full flex-col overflow-hidden sm:basis-[calc((100%-1.5rem)/2)] lg:basis-[calc((100%-3rem)/3)]" },
+      h("article", { class: "card tilt proj-card group flex shrink-0 snap-start basis-full flex-col overflow-hidden sm:basis-[calc((100%-1.5rem)/2)] lg:basis-[calc((100%-3rem)/3)] " + (pr.featured ? "is-featured" : "") },
+        pr.featured ? h("span", { class: "proj-star", html: STAR_SVG + "<span>" + s.featuredBadge + "</span>" }) : null,
         h("span", { class: "absolute left-3.5 top-3 z-10 rounded-md bg-black/50 px-2 py-0.5 font-mono text-xs font-semibold text-white backdrop-blur" },
           String(i + 1).padStart(2, "0")),
         projectCover(pr, i),
