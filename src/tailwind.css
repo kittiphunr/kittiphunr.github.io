@@ -402,7 +402,8 @@ html[data-font="lg"] { font-size: 112.5%; }
   display: flex; gap: .75rem; margin: 0 auto 2.5rem; padding: .25rem; overflow-x: auto; scroll-snap-type: x mandatory;
   justify-content: flex-start;
 }
-@media (min-width: 768px) { .ftabs { justify-content: center; } }
+/* Wide screens: wrap onto a second row instead of scrolling, so no tab is cut off at either edge */
+@media (min-width: 768px) { .ftabs { justify-content: center; flex-wrap: wrap; overflow: visible; scroll-snap-type: none; } }
 .ftab {
   display: flex; flex: none; align-items: center; gap: .75rem; scroll-snap-align: center; cursor: pointer;
   border: 1px solid rgb(var(--ink-600)); border-radius: 14px; background: rgb(var(--ink-800)); padding: .5rem 1rem .5rem .5rem;
