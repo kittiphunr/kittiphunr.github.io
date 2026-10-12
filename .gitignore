@@ -3,3 +3,5 @@ deploy/
 portfolio-deploy.zip
 site/projects/bda-mcu-phrae/
 .cache/
+infra/vps/.env
+.DS_Store

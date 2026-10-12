@@ -21,9 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Fetch project builds (pinned in scripts/fetch_projects.py)
-        run: python3 scripts/fetch_projects.py
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
