@@ -523,10 +523,10 @@
           {
             "src": "assets/img/projects/precision-qc/result-pass.jpg",
             "caption": {
-              "th": "หน้าผลการตรวจรายภาพ — ผ่าน คะแนน 83.0 เกรด A พร้อมค่าวัดเทียบเกณฑ์ทุกข้อและภาพประกอบการวิเคราะห์",
-              "en": "Per-plate result — PASS, score 83.0, grade A, with every measurement against its limit and the analysis images",
-              "ja": "個別結果 — 合格、スコア 83.0・グレード A、全測定値と基準、解析画像",
-              "zh": "单样结果——合格，评分 83.0、A 级，列出各项测量值与限值及分析图像"
+              "th": "หน้าผลการตรวจรายภาพ — ผ่าน คะแนน 82.9 เกรด A พร้อมค่าวัดเทียบเกณฑ์ทุกข้อและภาพประกอบการวิเคราะห์",
+              "en": "Per-plate result — PASS, score 82.9, grade A, with every measurement against its limit and the analysis images",
+              "ja": "個別結果 — 合格、スコア 82.9・グレード A、全測定値と基準、解析画像",
+              "zh": "单样结果——合格，评分 82.9、A 级，列出各项测量值与限值及分析图像"
             }
           },
           {
