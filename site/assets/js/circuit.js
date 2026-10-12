@@ -112,7 +112,7 @@
       g.append(el("rect", { x: c.x, y: c.y, width: c.w, height: c.h, rx: 5, class: "c-body" }));
       g.append(el("circle", { cx: c.x + 9, cy: c.y + 9, r: 2.5, class: "c-dot" }));
       const label = el("text", { x: c.x + c.w / 2, y: c.y + c.h / 2 + 4, "text-anchor": "middle", class: "c-label" });
-      label.textContent = "KR · ESP32-S3";
+      label.textContent = "Process";
       g.append(label);
       base.append(g);
     }
