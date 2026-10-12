@@ -145,12 +145,40 @@
     if (host.firstElementChild) return;
     const kind = host.dataset.circuit;
     const seed = Number(host.dataset.seed) || 1;
-    const key = kind + seed;
-    if (!cache.has(key)) cache.set(key, kind === "divider" ? divider(seed) : background(seed));
-    const svg = draw(cache.get(key), kind);
-    host.append(svg);
-    timePulses(svg, seed);
+    if (kind === "bg") tileBackground(host, seed);
+    else {
+      const key = kind + seed;
+      if (!cache.has(key)) cache.set(key, divider(seed));
+      const svg = draw(cache.get(key), kind);
+      host.append(svg);
+      timePulses(svg, seed);
+    }
     if (io) io.observe(host); else host.classList.add("is-live");
+  }
+
+  // A background is a stack of boards drawn at one fixed scale (the section's width / 1440, but
+  // never narrower than MIN_BOARD_W so lines stay visible on phones), so lines and pads look the
+  // same in a short section and a very tall one. Stretching a single board to the section's
+  // height would make the lines several times thicker. Keep MIN_BOARD_W in sync with tailwind.css.
+  const MIN_BOARD_W = 1080;
+  function tileBackground(host, seed) {
+    const mount = () => {
+      const w = Math.max(host.clientWidth, MIN_BOARD_W), h = host.clientHeight;
+      const tileH = w * 900 / 1440;
+      const n = h > 0 ? Math.max(1, Math.ceil(h / tileH)) : 1;
+      if (host.childElementCount === n) return;
+      host.replaceChildren();
+      for (let i = 0; i < n; i++) {
+        const s = seed + i * 101; // each tile gets its own layout
+        const key = "bg" + s;
+        if (!cache.has(key)) cache.set(key, background(s));
+        const svg = draw(cache.get(key), "bg");
+        host.append(svg);
+        timePulses(svg, s);
+      }
+    };
+    mount();
+    if ("ResizeObserver" in window) new ResizeObserver(mount).observe(host);
   }
 
   // Background layers for sections whose content is re-rendered by app.js:
