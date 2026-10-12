@@ -245,7 +245,9 @@
 <link rel="preload" as="image" href="assets/img/profile.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Fonts load without blocking first paint (display=swap shows system text until they arrive). -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 <link rel="stylesheet" href="assets/css/tailwind.css">
 <noscript><style>#loader { display: none; }</style></noscript>
 </head>
@@ -296,7 +298,7 @@
 <script>
   (function () {
     var root = document.documentElement, el = document.getElementById("loader");
-    var start = Date.now(), MIN = 900, MAX = 6000, ready = false, loaded = false, done = false;
+    var start = Date.now(), MIN = 600, MAX = 6000, ready = false, loaded = false, done = false;
     root.classList.add("is-loading");
     function hide() {
       if (done) return;
@@ -353,7 +355,7 @@
         </div>
       </div>
     </div>
-    <a id="hire-btn" href="#contact" class="btn btn-primary btn-sm hidden whitespace-nowrap xl:inline-flex">Contact</a>
+    <a id="hire-btn" href="#contact" class="btn btn-primary btn-sm hidden flex-none whitespace-nowrap xl:inline-flex">Contact</a>
     <button id="menu-toggle" type="button" aria-label="Menu" aria-expanded="false"
       class="flex h-[38px] w-[38px] flex-col justify-center gap-1 rounded-[10px] border border-ink-600 bg-ink-800 px-2.5 lg:hidden">
       <span class="block h-0.5 rounded bg-fg"></span><span class="block h-0.5 rounded bg-fg"></span><span class="block h-0.5 rounded bg-fg"></span>
@@ -373,7 +375,7 @@
   <section id="about" class="sect sect-alt py-20 lg:py-24"></section>
   <section id="skills" class="sect py-20 lg:py-24"></section>
   <div class="circuit-divider" data-circuit="divider" data-seed="9" aria-hidden="true"></div>
-  <section id="featured" data-spy-as="projects" class="sect sect-alt py-20 lg:py-24" hidden></section>
+  <section id="featured" class="sect sect-alt py-20 lg:py-24" hidden></section>
   <section id="experience" class="sect py-20 lg:py-24"></section>
   <section id="education" class="sect py-20 lg:py-24" hidden></section>
   <section id="projects" class="sect py-20 lg:py-24"></section>
@@ -381,7 +383,8 @@
   <section id="contact" class="sect sect-alt py-20 lg:py-24"></section>
 </main>
 
-<footer id="footer" class="py-6 text-sm text-muted"></footer>
+<footer id="footer" class="pb-24 pt-6 text-sm text-muted lg:pb-6"></footer>
+<div id="cta-bar" class="cta-bar lg:hidden" inert></div>
 
 <noscript>
   <div class="mx-auto max-w-3xl px-4 py-10">
