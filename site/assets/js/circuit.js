@@ -44,7 +44,7 @@
       pads.push([cx - cw / 2 - 8, py]);
       // right side: out of a pin to the edge
       const ry = lanes[Math.floor(r() * lanes.length)];
-      traces.push({ pts: jog(cx + cw / 2 + 8, py, W, ry, .25 + r() * .5), pulse: r() < .8, rev: false });
+      traces.push({ pts: jog(cx + cw / 2 + 8, py, W, ry, .25 + r() * .5), pulse: r() < .8, rev: false, after: true }); // current that has passed through the chip
       pads.push([cx + cw / 2 + 8, py]);
       if (i % 2 === 0) vias.push([120 + r() * 300, lanes[Math.floor(r() * lanes.length)]], [W - 120 - r() * 300, lanes[Math.floor(r() * lanes.length)]]);
     });
@@ -94,7 +94,9 @@
       base.append(el("path", { d: path, class: t.faint ? "c-trace c-faint" : "c-trace" }));
       if (t.pulse) {
         // Two layers: a soft wide glow and a bright core, sharing one animation.
-        pulses.append(el("path", { d: path, class: "c-pulse c-glow" }), el("path", { d: path, class: "c-pulse c-core" }));
+        // Past the chip the current is green or blue (picked again on every pass, see timePulses).
+        const tint = t.after ? " " + randomTint() : "", mark = t.after ? { "data-after": "1" } : {};
+        pulses.append(el("path", { d: path, class: "c-pulse c-glow" + tint, ...mark }), el("path", { d: path, class: "c-pulse c-core" + tint, ...mark }));
       }
     });
     board.pads.forEach(([x, y]) => base.append(el("circle", { cx: x, cy: y, r: kind === "bg" ? 4.5 : 3.2, class: "c-pad" })));
@@ -120,6 +122,8 @@
     return svg;
   }
 
+  function randomTint() { return Math.random() < .5 ? "c-green" : "c-blue"; }
+
   // Each pulse gets its own speed and start time from the path length.
   function timePulses(svg, seed) {
     const r = prng(seed * 7 + 1);
@@ -128,6 +132,11 @@
       const len = core.getTotalLength();
       const dur = Math.max(2.2, len / (220 + r() * 160));
       const delay = -r() * dur * 2;
+      // A pulse that left the chip comes back as a new green or blue one each time it loops.
+      if (core.dataset.after) core.addEventListener("animationiteration", () => {
+        const tint = randomTint();
+        [core, glow].forEach((p) => { p.classList.remove("c-green", "c-blue"); p.classList.add(tint); });
+      });
       [core, glow].forEach((p) => {
         p.style.setProperty("--len", len.toFixed(0));
         p.style.setProperty("--dur", dur.toFixed(2) + "s");
