@@ -40,22 +40,117 @@ a:hover { text-decoration: underline; }
 .langs button { border: 0; border-radius: 999px; padding: .25rem .7rem; font: inherit; font-size: .8rem; font-weight: 600; color: var(--muted); background: transparent; cursor: pointer; }
 .langs button[aria-pressed="true"] { background: var(--grad); color: #fff; }
 
-main { flex: 1; padding: 3rem 0 4rem; }
+main { flex: 1; padding: 3rem 0 4rem; overflow-x: clip; } /* clip, not hidden: keeps position: sticky working */
 .badge { display: inline-block; font: 600 .78rem "JetBrains Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
 h1 { margin: .4rem 0 .5rem; font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 1.2; }
 .lead { margin: 0 0 2rem; color: var(--muted); max-width: 42rem; }
 
-.grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); }
-.card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: 1rem; background: var(--card); transition: transform .2s, border-color .2s; }
-.card:hover { transform: translateY(-3px); border-color: var(--accent); }
-.card img, .card .ph { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: var(--bg2); }
-.card .ph { display: grid; place-items: center; font: 700 1.6rem "JetBrains Mono", monospace; color: var(--accent); }
-.card .body { display: flex; flex: 1; flex-direction: column; padding: 1.1rem 1.3rem 1.2rem; }
-.card h2 { margin: 0 0 .4rem; font-size: 1.1rem; }
-.card p { margin: 0; flex: 1; color: var(--muted); font-size: .93rem; }
-.tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: .9rem 0 0; padding: 0; list-style: none; }
+/* ---------- layout switcher ---------- */
+.views { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; margin: 0 0 2.5rem; }
+.seg { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); }
+.seg button { display: inline-flex; align-items: center; gap: .5rem; border: 0; border-radius: 999px; padding: .4rem 1rem .4rem .6rem; font: inherit; font-size: .88rem; font-weight: 600; color: var(--muted); background: transparent; cursor: pointer; transition: color .2s; }
+.seg button:hover { color: var(--fg); }
+.seg button b { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--bg2); font: 700 .72rem "JetBrains Mono", monospace; }
+.seg button[aria-pressed="true"] { background: var(--grad); color: #fff; box-shadow: 0 8px 20px rgba(236, 72, 153, .3); }
+.seg button[aria-pressed="true"] b { background: rgba(255, 255, 255, .22); }
+.seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.views-hint { margin: 0; color: var(--muted); font-size: .88rem; }
+
+/* ---------- one project (shared by all layouts) ---------- */
+.v-list { list-style: none; margin: 0; padding: 0; }
+.pj { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); overflow: hidden; border: 1px solid var(--line); border-radius: 1.25rem; background: var(--card); box-shadow: 0 18px 44px rgba(190, 24, 93, .09); transition: border-color .25s, box-shadow .25s; }
+.pj:hover { border-color: var(--accent); }
+.pj.is-featured { border-color: rgba(236, 72, 153, .45); }
+.pj-media { position: relative; overflow: hidden; min-height: 12rem; background: var(--bg2); }
+.pj-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+.pj:hover .pj-media img { transform: scale(1.05); }
+.pj-gen { display: flex; align-items: center; justify-content: center; }
+.gen-grid { position: absolute; inset: 0; opacity: .22; background: linear-gradient(rgba(255, 255, 255, .5) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .5) 1px, transparent 1px); background-size: 22px 22px; }
+.gen-win { position: relative; width: 58%; border: 1px solid rgba(255, 255, 255, .16); border-radius: .6rem; background: rgba(11, 9, 18, .7); box-shadow: 0 16px 30px rgba(0, 0, 0, .4); padding: .55rem .8rem .8rem; display: grid; gap: .4rem; transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+.pj:hover .gen-win { transform: translateY(-6px) scale(1.04); }
+.gen-dots { display: flex; gap: .25rem; }
+.gen-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, .3); }
+.gen-win b { font: 700 1.05rem "JetBrains Mono", monospace; color: #fff; }
+.gen-line { display: block; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, .15); }
+.gen-line.l1 { width: 70%; } .gen-line.l2 { width: 50%; } .gen-line.l3 { width: 62%; }
+.pj-body { display: flex; flex-direction: column; gap: .65rem; padding: 1.5rem 1.7rem 1.6rem; }
+.pj-top { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.pj-num { font: 700 .78rem "JetBrains Mono", monospace; letter-spacing: .08em; color: var(--accent); }
+.pj-star { padding: .15rem .65rem; border-radius: 999px; background: var(--grad); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .04em; }
+.pj h2 { margin: 0; font-size: clamp(1.25rem, 2.3vw, 1.65rem); line-height: 1.25; }
+.pj p { margin: 0; flex: 1; color: var(--muted); font-size: .95rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: .4rem 0 0; padding: 0; list-style: none; }
 .tags li { padding: .1rem .6rem; border-radius: 999px; background: rgba(236, 72, 153, .13); color: var(--accent); font-size: .75rem; font-weight: 600; }
-.links { display: flex; gap: 1rem; margin-top: 1rem; font-size: .9rem; font-weight: 600; }
+.links { display: flex; gap: 1rem; margin-top: .5rem; font-size: .9rem; font-weight: 600; }
+@media (max-width: 767px) {
+  .pj { grid-template-columns: 1fr; }
+  .pj-media { min-height: 0; aspect-ratio: 16 / 9; }
+  .pj-body { padding: 1.2rem 1.25rem 1.3rem; }
+}
+
+/* ---------- A · Deck: cards stack, the one underneath tilts back (--p = how far it is covered) ---------- */
+:root { --bar: 4rem; }
+.v-deck .v-item { position: sticky; top: calc(var(--bar) + 1rem + var(--i, 0) * 12px); margin-bottom: 1.5rem; }
+.v-deck .pj { transform-origin: 50% 0; transform: perspective(1400px) translateY(calc(var(--p, 0) * -6px)) scale(calc(1 - var(--p, 0) * .07)) rotateX(calc(var(--p, 0) * -3deg)); will-change: transform; }
+.v-deck .pj::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: #0b0912; opacity: calc(var(--p, 0) * .38); }
+.v-deck .pj-media { min-height: 18rem; }
+
+/* ---------- B · Drum: a vertical wheel (--d signed, --ad absolute distance from the centre) ---------- */
+.v-drum { padding: 18vh 0 22vh; }
+.v-drum .v-item { max-width: 54rem; margin: 0 auto 1rem; transform: perspective(1100px) translateZ(calc(var(--ad, 0) * -150px)) rotateX(calc(var(--d, 0) * -30deg)) scale(calc(1 - var(--ad, 0) * .05)); opacity: calc(1 - var(--ad, 0) * .65); will-change: transform, opacity; }
+.v-drum .pj { grid-template-columns: 11rem minmax(0, 1fr); }
+.v-drum .pj-media { min-height: 0; }
+.v-drum .pj-body { padding: 1rem 1.3rem 1.1rem; gap: .4rem; }
+.v-drum .pj p { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: .9rem; }
+.v-drum .tags { margin-top: .2rem; }
+.v-drum .is-centre .pj { border-color: var(--accent); box-shadow: 0 26px 60px rgba(192, 38, 211, .28), 0 0 0 1px rgba(236, 72, 153, .5); }
+.v-drum .is-centre .pj p { -webkit-line-clamp: 4; }
+.pos { position: fixed; right: max(1rem, env(safe-area-inset-right)); bottom: 1.2rem; z-index: 20; padding: .35rem .8rem; border: 1px solid var(--line); border-radius: 999px; background: var(--card); font: 700 .8rem "JetBrains Mono", monospace; color: var(--accent); box-shadow: 0 8px 24px rgba(0, 0, 0, .12); }
+@media (max-width: 767px) {
+  .v-drum .pj { grid-template-columns: 6.5rem minmax(0, 1fr); }
+  .v-drum .pj-media { aspect-ratio: auto; }
+  .v-drum .pj-body { padding: .8rem .9rem; }
+  .v-drum .links { margin-top: .2rem; }
+}
+
+/* ---------- C · Corridor: cards on two walls swing in along a centre line ---------- */
+.v-corridor { position: relative; padding: 1rem 0 2rem; perspective: 1800px; perspective-origin: 50% 40%; }
+.v-corridor::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: linear-gradient(transparent, var(--accent) 6%, #a855f7 94%, transparent); opacity: .5; }
+.v-corridor .v-item { position: relative; width: calc(50% - 2.75rem); margin-bottom: 2.5rem; }
+/* The card moves, the dot on the centre line stays put. */
+.v-corridor .pj { transform: translateX(calc(var(--side, 1) * var(--ad, 0) * 36px)) translateZ(calc(var(--ad, 0) * -130px)) rotateY(calc(var(--side, 1) * var(--ad, 0) * -17deg)); opacity: calc(1 - var(--ad, 0) * .55); will-change: transform, opacity; }
+.v-corridor .v-item:nth-child(odd) { margin-right: auto; }
+.v-corridor .v-item:nth-child(even) { margin-left: auto; margin-top: -7rem; } /* interleave the two walls */
+.v-corridor .v-item::after { content: ""; position: absolute; top: 50%; width: 14px; height: 14px; margin-top: -7px; border: 3px solid var(--bg); border-radius: 50%; background: var(--grad); box-shadow: 0 0 0 2px var(--accent), 0 0 18px rgba(236, 72, 153, .6); }
+.v-corridor .v-item:nth-child(odd)::after { right: -2.75rem; margin-right: -7px; }
+.v-corridor .v-item:nth-child(even)::after { left: -2.75rem; margin-left: -7px; }
+.v-corridor .pj { grid-template-columns: 1fr; }
+.v-corridor .pj-media { min-height: 0; aspect-ratio: 16 / 9; }
+.v-corridor .pj-media img, .v-corridor .gen-win { transform: scale(1.12) translateY(calc(var(--d, 0) * -14px)); }
+.v-corridor .pj:hover .pj-media img { transform: scale(1.16) translateY(calc(var(--d, 0) * -14px)); }
+.v-corridor .is-centre .pj { border-color: var(--accent); box-shadow: 0 26px 60px rgba(192, 38, 211, .26); }
+@media (max-width: 899px) {
+  .v-corridor::before { left: .6rem; }
+  .v-corridor .v-item { width: auto; margin: 0 0 1.75rem 2rem !important; }
+  .v-corridor .pj { transform: translateZ(calc(var(--ad, 0) * -90px)) rotateY(calc(var(--ad, 0) * -9deg)); transform-origin: 0 50%; }
+  .v-corridor .v-item::after, .v-corridor .v-item:nth-child(odd)::after, .v-corridor .v-item:nth-child(even)::after { left: -2rem; right: auto; margin: -7px 0 0 -1px; }
+}
+
+/* Animations off (device setting or the home page's switch): a plain list, nothing sticks or tilts. */
+html[data-motion="off"] .v-item { position: static !important; transform: none !important; opacity: 1 !important; margin-left: 0 !important; margin-right: 0 !important; width: auto !important; }
+html[data-motion="off"] .v-corridor { perspective: none; }
+html[data-motion="off"] .v-corridor::before, html[data-motion="off"] .v-corridor .v-item::after, html[data-motion="off"] .pos { display: none; }
+html[data-motion="off"] .pj { opacity: 1 !important; }
+html[data-motion="off"] .pj, html[data-motion="off"] .pj-media img, html[data-motion="off"] .gen-win { transform: none !important; transition: none; }
+html[data-motion="off"] .pj::after { display: none; }
+html[data-motion="off"] .v-drum, html[data-motion="off"] .v-corridor { padding-top: 0; padding-bottom: 0; }
+html[data-motion="off"] .v-item { margin-top: 0 !important; margin-bottom: 1.25rem !important; }
+html[data-motion="off"] .v-drum .pj p { -webkit-line-clamp: unset; display: block; }
+@media (min-width: 768px) {
+  html[data-motion="off"] .v-drum .pj, html[data-motion="off"] .v-corridor .pj { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+  html[data-motion="off"] .v-drum .pj-body { padding: 1.5rem 1.7rem 1.6rem; gap: .65rem; }
+  html[data-motion="off"] .v-corridor .pj-media, html[data-motion="off"] .v-drum .pj-media { aspect-ratio: auto; min-height: 14rem; }
+}
 .empty, .err { padding: 2rem; border: 1px dashed var(--line); border-radius: 1rem; color: var(--muted); text-align: center; }
 
 footer { padding: 1.2rem 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }

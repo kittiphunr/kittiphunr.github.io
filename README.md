@@ -215,7 +215,7 @@ python3 -m http.server 8000 --directory site
 
 ## โครงสร้างโปรเจกต์ใน `/projects/` (มาตรฐาน)
 
-- `https://kittiphun.rut.mcupr.ac.th/projects/` คือหน้ารวมโปรเจกต์ (`site/projects/index.html` + `assets/js/projects.js`) สร้างการ์ดจาก `projects` ใน `site/data/portfolio.json` จึง**เพิ่มโปรเจกต์ใน JSON ที่เดียว** หน้านี้ก็แสดงให้เอง (รองรับ 4 ภาษา)
+- `https://kittiphun.rut.mcupr.ac.th/projects/` คือหน้ารวมโปรเจกต์ (`site/projects/index.html` + `assets/js/projects.js`) สร้างการ์ดจาก `projects` ใน `site/data/portfolio.json` จึง**เพิ่มโปรเจกต์ใน JSON ที่เดียว** หน้านี้ก็แสดงให้เอง (รองรับ 4 ภาษา) มี 3 รูปแบบเลื่อนแบบ 3 มิติให้เลือกด้วยปุ่มบนหน้า หรือ `?view=a|b|c` (a = สำรับการ์ด, b = วงล้อ, c = ทางเดิน) และเป็นรายการธรรมดาเมื่อปิดแอนิเมชัน
 - repo นี้เก็บแค่หน้าหลักและ `site/projects/index.html` ส่วนโปรเจกต์ที่มีหน้าเว็บของตัวเอง (`projects/<ชื่อ>/`: Precision QC, ทัวร์ 360°, Formsmith) **อัปโหลดขึ้นโฮสต์เอง** ไม่อยู่ใน `site/` ให้ใส่ URL ของโปรเจกต์ในช่อง `link` ของ `portfolio.json` และเพิ่มชื่อโฟลเดอร์ใน `HOST_ONLY` ของ `scripts/check_site.py`
 
 ### Precision QC (`projects/precision-qc-web/`) — อัปโหลดเอง
