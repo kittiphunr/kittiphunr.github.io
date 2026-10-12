@@ -1506,6 +1506,83 @@
       }
     },
     {
+      "title": "Certify Hub",
+      "description": {
+        "th": "ระบบแบบสอบถามและออกวุฒิบัตร/เกียรติบัตรออนไลน์ ผู้ตอบแบบสอบถามได้ไฟล์ PNG และ PDF ทันที พร้อมเลขที่และ QR ตรวจสอบความถูกต้อง มีโมเดล 3 มิติ/AR ซิงก์ Google Sheets และเข้าสู่ระบบด้วย ThaID, Google, LINE, Facebook, GitHub",
+        "en": "An online survey and certificate platform: respondents get a PNG and PDF certificate instantly, with a serial number and a QR code for verification. It adds a 3D/AR view, Google Sheets sync and sign-in with ThaID, Google, LINE, Facebook or GitHub.",
+        "ja": "オンラインのアンケート兼修了証・表彰状発行システム。回答後すぐに PNG と PDF の証明書を受け取れ、通し番号と検証用 QR コード付き。3D/AR 表示、Google スプレッドシート連携、ThaID・Google・LINE・Facebook・GitHub でのログインに対応。",
+        "zh": "在线问卷与证书发放系统：填写问卷后立即获得 PNG 和 PDF 证书，附编号和可验证的二维码。支持 3D/AR 展示、Google 表格同步，以及 ThaID、Google、LINE、Facebook、GitHub 登录。"
+      },
+      "tags": [
+        "PHP",
+        "MySQL",
+        "three.js",
+        "Google Sheets"
+      ],
+      "link": ""
+    },
+    {
+      "title": "TOR-Gen-Gov",
+      "description": {
+        "th": "เว็บแอปร่างข้อกำหนดขอบเขตของงาน (TOR) และใบเสนอราคาสำหรับการจ้างเหมาบริการบุคคลธรรมดา ออกเอกสารฉบับร่างเป็น Word และ PDF ทำงานในเบราว์เซอร์ได้โดยไม่ต้องมีเซิร์ฟเวอร์ หรือติดตั้งแบบมีระบบล็อกอินและบันทึกการใช้งาน",
+        "en": "A web app that drafts Terms of Reference (TOR) and price quotations for hiring individual contractors, exporting draft documents as Word and PDF. It runs entirely in the browser with no server, or as a server install with sign-in and an audit log.",
+        "ja": "個人への業務委託に向けた業務仕様書（TOR）と見積書を下書きするウェブアプリ。Word と PDF で出力でき、サーバーなしでブラウザだけで動作するほか、ログインと利用履歴付きのサーバー版にも対応。",
+        "zh": "用于起草个人劳务外包的工作范围说明书（TOR）和报价单的网页应用，可导出 Word 和 PDF 草稿。无需服务器，在浏览器中即可运行，也可部署为带登录和使用日志的服务器版本。"
+      },
+      "tags": [
+        "Node.js",
+        "Tailwind CSS",
+        "Word / PDF"
+      ],
+      "link": ""
+    },
+    {
+      "title": "ID-PHOTO-MCU-STD",
+      "description": {
+        "th": "เว็บไซต์ตัดต่อรูปถ่ายให้เป็นรูปถ่ายติดบัตรนิสิต ตัดพื้นหลังด้วย AI จัดตำแหน่งใบหน้า ปรับแสงและรีทัชผิว ตรวจรูปตามระเบียบอัตโนมัติ และส่งออกขนาดจริง ประมวลผลทั้งหมดในเบราว์เซอร์ รูปไม่ถูกส่งขึ้นเซิร์ฟเวอร์",
+        "en": "A web tool that turns a photo into a university student ID photo: AI background removal, face alignment, lighting and skin retouching, automatic compliance checks and print-size export. Everything runs in the browser, so photos never leave the device.",
+        "ja": "写真を学生証用の証明写真に仕上げるウェブツール。AI による背景除去、顔の位置合わせ、明るさ補正と肌のレタッチ、規定の自動チェック、実寸での書き出しに対応。処理はすべてブラウザ内で完結し、写真は端末の外に出ません。",
+        "zh": "将照片处理成大学学生证照片的网页工具：AI 去除背景、人脸对齐、光线调整与肤色修饰、自动检查是否符合规定，并可按实际尺寸导出。全部在浏览器中完成，照片不会离开设备。"
+      },
+      "tags": [
+        "Python",
+        "MediaPipe",
+        "WebAssembly"
+      ],
+      "link": "https://github.com/kittiphunr/ID-PHOTO-MCU-STD"
+    },
+    {
+      "title": "Form-App-Script-Generator",
+      "description": {
+        "th": "เครื่องมือลากวางสร้างเว็บฟอร์มบน Google Apps Script สำหรับคนที่ไม่มีโฮสติ้งหรือโดเมน ได้โค้ด Code.gs และ Index.html พร้อมคู่มือติดตั้ง 4 ภาษา Deploy แล้วได้ลิงก์ฟอร์มใช้งานจริง ข้อมูลบันทึกลง Google Sheets และไฟล์แนบลง Google Drive ของเจ้าของ",
+        "en": "A drag-and-drop builder for web forms on Google Apps Script, for people with no hosting or domain. It outputs Code.gs and Index.html with a four-language install guide; deploy it for a live form link. Answers go to the owner's Google Sheets and attachments to Google Drive.",
+        "ja": "ホスティングやドメインがなくても使える、Google Apps Script 上のウェブフォームをドラッグ＆ドロップで作るツール。Code.gs と Index.html、4 言語のインストール手順を出力し、デプロイするだけで公開フォームが完成。回答は所有者の Google スプレッドシート、添付ファイルは Google ドライブに保存。",
+        "zh": "在 Google Apps Script 上拖放创建网页表单的工具，无需主机或域名。生成 Code.gs 和 Index.html 及四种语言的安装说明，部署后即得到可用的表单链接。数据保存到所有者的 Google 表格，附件保存到 Google 云端硬盘。"
+      },
+      "tags": [
+        "JavaScript",
+        "Apps Script",
+        "Tailwind CSS",
+        "Google Sheets"
+      ],
+      "link": ""
+    },
+    {
+      "title": "Form-Student",
+      "description": {
+        "th": "แบบฟอร์มข้อมูลนักศึกษาที่ใช้ Tailwind CSS และบันทึกลง Google Sheets ธีมสีตามอัตลักษณ์ มจร. รองรับ 3 ภาษาและโหมดมืด/สว่าง ตรวจข้อมูลทั้งฝั่งหน้าเว็บและฝั่ง Apps Script กันข้อมูลซ้ำและบอต",
+        "en": "A student information form built with Tailwind CSS that saves to Google Sheets. It follows MCU's colour identity, supports three languages and light/dark modes, validates on both the page and Apps Script, and guards against duplicates and bots.",
+        "ja": "Tailwind CSS で作った学生情報フォーム。回答は Google スプレッドシートに保存されます。MCU のブランドカラー、3 言語、ライト/ダークモードに対応し、ページ側と Apps Script 側の両方で検証し、重複とボットを防ぎます。",
+        "zh": "使用 Tailwind CSS 制作并保存到 Google 表格的学生信息表单。采用 MCU 的品牌配色，支持三种语言和明/暗模式，在页面和 Apps Script 两端校验数据，并防止重复提交和机器人。"
+      },
+      "tags": [
+        "Tailwind CSS",
+        "Apps Script",
+        "Google Sheets"
+      ],
+      "link": ""
+    },
+    {
       "title": "Music Player ESP32-S3",
       "description": {
         "th": "เครื่องเล่นเพลงบนจอแสดงผลขนาด 2.8 นิ้ว ด้วยไมโครคอนโทรลเลอร์ ESP32-S3",
