@@ -739,6 +739,195 @@
       }
     },
     {
+      "title": "Mushroom-Cap-Counter",
+      "description": {
+        "th": "นับจำนวนดอกเห็ดในช่อจากภาพถ่ายด้านบน แบ่งขนาดเล็ก/กลาง/ใหญ่ ประมาณดอกที่ซ่อนใต้ดอกอื่น และคิดสัดส่วนพื้นที่ — ทำงานอิสระจากการตรวจจานเพาะเชื้อ ประมวลผลในเบราว์เซอร์ด้วย Python + WebAssembly",
+        "en": "Counts the mushroom caps in a bunch from a top-down photo, classes them small / medium / large, estimates caps hidden under others and reports area shares — a standalone tool, separate from the plate QC, running Python in the browser via WebAssembly.",
+        "ja": "上から撮影した写真からきのこの株の傘の数を数え、小・中・大に分類。他の傘の下に隠れた傘も推定し、面積比を算出。培養皿 QC とは独立したツールで、Python を WebAssembly でブラウザ実行。",
+        "zh": "根据俯拍照片统计菌株中的菌盖数量，按大小分为小/中/大，估算被遮挡的菌盖并计算面积占比——独立于培养皿检测的工具，Python 通过 WebAssembly 在浏览器中运行。"
+      },
+      "tags": [
+        "Python",
+        "JavaScript",
+        "WebAssembly",
+        "Computer Vision"
+      ],
+      "link": "https://kittiphun.rut.mcupr.ac.th/projects/precision-qc-web/caps.html",
+      "image": "assets/img/projects/mushroom-count/cover.jpg",
+      "featured": {
+        "name": "Mushroom Cap Counter",
+        "subtitle": {
+          "th": "นับจำนวนดอกเห็ดจากภาพถ่ายช่อดอก พร้อมแบ่งขนาดและรายงาน PDF",
+          "en": "Counting mushroom caps from a photo of the bunch, with size classes and a PDF report",
+          "ja": "株の写真からきのこの傘を数え、サイズ分類と PDF 報告書を出力",
+          "zh": "从菌株照片统计菌盖数量，含大小分类与 PDF 报告"
+        },
+        "summary": {
+          "th": "หน้า caps.html ของระบบ Precision QC เป็นเครื่องมือนับดอกเห็ด (หมวก) ในช่อจากภาพถ่ายมุมบน ใช้โค้ดและเว็บเดียวกับการตรวจคุณภาพจานเพาะเชื้อ แต่ทำงานแยกส่วนอิสระต่อกัน — อัปโหลดภาพหรือถ่ายจากกล้อง ระบบหาตำแหน่งช่อ แยกดอกที่ติดกัน แล้ววงล้อมทุกดอก แบ่งเป็นเล็ก (เขียว) กลาง (น้ำเงิน) ใหญ่ (แดง) เทียบกับดอกมัธยฐานของช่อนั้น และประมาณดอกที่ซ่อนอยู่ใต้ดอกอื่น (ส้ม) จากส่วนที่โผล่ออกมา จากนั้นแสดงจำนวนรวม เส้นผ่านศูนย์กลางมัธยฐาน ความหนาแน่น และสัดส่วนพื้นที่ต่อพื้นที่ช่อ พร้อมภาพเทคนิค 11 ขั้นตอนและรายงาน PDF ทั้งหมดประมวลผลในเบราว์เซอร์ ภาพไม่ถูกส่งออกนอกเครื่อง",
+          "en": "The caps.html page of Precision QC counts the mushroom caps in a bunch from a top-down photo. It shares its code and web app with the plate QC but works as a fully independent tool. Upload or capture a photo and it locates the bunch, separates touching caps and circles every one — small (green), medium (blue) or large (red) relative to the bunch's median cap — and estimates caps hidden under others (orange) from the part that peeks out. It then reports the total count, median diameter, density and each size class's share of the bunch area, with an 11-step technique view and a PDF report. Everything runs in the browser; images never leave the device.",
+          "ja": "Precision QC の caps.html は、真上から撮影した写真から株のきのこの傘を数えるツールです。培養皿 QC と同じコードとウェブアプリを共有しながら、機能は完全に独立しています。画像をアップロードまたは撮影すると、株の位置を特定し、接した傘を分離してすべてを円で囲み、株の中央値に対して小（緑）・中（青）・大（赤）に分類。他の傘の下に隠れた傘（橙）も、見えている部分から推定します。総数、直径の中央値、密度、サイズ別の面積比を表示し、11 段階の手法ビューと PDF 報告書も出力。処理はすべてブラウザ内で行い、画像は端末外に送信されません。",
+          "zh": "Precision QC 的 caps.html 是根据俯拍照片统计菌株中菌盖数量的工具，与培养皿检测共用同一套代码和网页应用，但功能完全独立。上传或拍摄照片后，系统定位菌株、分离相邻菌盖并圈出每一个，按相对于该株中位菌盖的大小分为小（绿）、中（蓝）、大（红），并根据露出的部分估算被其他菌盖遮挡的菌盖（橙）。随后显示总数、中位直径、密度以及各大小类别占菌株面积的比例，并提供 11 步技术视图和 PDF 报告。全部在浏览器中处理，图片不离开设备。"
+        },
+        "gallery": [
+          {
+            "src": "assets/img/projects/mushroom-count/result.jpg",
+            "caption": {
+              "th": "ผลการนับ 489 ดอก — วงเขียว เล็ก · น้ำเงิน กลาง · แดง ใหญ่ · ส้ม ดอกที่ซ่อนใต้ดอกอื่น พร้อมตารางจำนวน สัดส่วน และพื้นที่ต่อพื้นที่ช่อ",
+              "en": "Result: 489 caps — green small, blue medium, red large, orange hidden under others — with a table of counts, shares and area per bunch area",
+              "ja": "結果：傘 489 個 — 緑＝小、青＝中、赤＝大、橙＝他の傘の下に隠れた傘。個数・割合・株面積比の表付き",
+              "zh": "结果：489 个菌盖——绿色为小、蓝色为中、红色为大、橙色为被遮挡；附数量、占比及占株面积比例表"
+            }
+          },
+          {
+            "src": "assets/img/projects/mushroom-count/steps.jpg",
+            "caption": {
+              "th": "เทคนิคที่ใช้นับทีละขั้น 11 ภาพ — ตั้งแต่หาตำแหน่งช่อ แยกดอกด้วยคอนทราสต์ หาศูนย์กลางด้วย distance transform ไปจนถึงค้นหาดอกที่ซ่อน",
+              "en": "The 11-step technique view — from locating the bunch and splitting caps by contrast, to finding centres with a distance transform and searching for hidden caps",
+              "ja": "手法を 11 段階で表示 — 株の特定、コントラストによる分離、距離変換による中心検出、隠れた傘の探索まで",
+              "zh": "11 步技术视图——从定位菌株、按对比度分离菌盖，到用距离变换找中心及搜索被遮挡的菌盖"
+            }
+          },
+          {
+            "src": "assets/img/projects/mushroom-count/report.jpg",
+            "caption": {
+              "th": "รายงาน PDF การนับดอกเห็ด — ข้อมูลตัวอย่าง วิธีทดสอบ จำนวนตามขนาด สัดส่วนพื้นที่ และข้อจำกัดของผล",
+              "en": "PDF report of the count — sample details, method, counts by size, area shares and the limits of the result",
+              "ja": "計数の PDF 報告書 — 試料情報、方法、サイズ別個数、面積比、結果の限界",
+              "zh": "计数 PDF 报告——样品信息、方法、按大小的数量、面积占比及结果的局限性"
+            }
+          },
+          {
+            "src": "assets/img/projects/mushroom-count/report-appendix.jpg",
+            "caption": {
+              "th": "ภาคผนวกของรายงาน: ภาพเทคนิคทีละขั้นครบ 11 ภาพ พร้อมคำอธิบายแต่ละขั้น",
+              "en": "Report appendix: all 11 technique images, each with its explanation",
+              "ja": "報告書付録：11 段階すべての手法画像と各ステップの説明",
+              "zh": "报告附录：全部 11 步技术图像及各步骤说明"
+            }
+          }
+        ],
+        "metrics": [
+          {
+            "value": "11",
+            "label": {
+              "th": "ขั้นตอนเทคนิคที่แสดงทีละภาพ",
+              "en": "technique steps shown as images",
+              "ja": "画像で見せる手法ステップ",
+              "zh": "以图像展示的技术步骤"
+            }
+          },
+          {
+            "value": "4",
+            "label": {
+              "th": "ชนิดดอก: เล็ก / กลาง / ใหญ่ / ซ่อน",
+              "en": "cap classes: small / medium / large / hidden",
+              "ja": "傘の区分：小・中・大・隠れ",
+              "zh": "菌盖类别：小 / 中 / 大 / 被遮挡"
+            }
+          },
+          {
+            "value": "2",
+            "label": {
+              "th": "เครื่องมือแยกกัน ใช้เว็บแอปเดียวกัน",
+              "en": "independent tools in one web app",
+              "ja": "1 つのウェブアプリ内の独立ツール",
+              "zh": "同一网页应用中的独立工具"
+            }
+          },
+          {
+            "value": "100%",
+            "label": {
+              "th": "ประมวลผลในเบราว์เซอร์",
+              "en": "in-browser processing",
+              "ja": "ブラウザ内処理",
+              "zh": "浏览器端处理"
+            }
+          }
+        ],
+        "highlights": [
+          {
+            "icon": "python",
+            "color": "#4B8BBE",
+            "title": "Python",
+            "role": {
+              "th": "ตัวนับดอก (Cap counting engine)",
+              "en": "Cap-counting engine",
+              "ja": "傘の計数エンジン",
+              "zh": "菌盖计数引擎"
+            },
+            "points": [
+              {
+                "th": "ใช้เพียง NumPy + Pillow หาช่อจากก้อนสีขาวครีมที่ใหญ่ที่สุด (ไม่นับสีน้ำเงินของถุง/พื้นหลัง) แล้วแยกดอกด้วยพิกเซลที่สว่างกว่ารอบข้าง",
+                "en": "Uses only NumPy + Pillow: finds the bunch as the largest pale blob (ignoring the blue sleeve and background) and splits caps by pixels brighter than their surroundings",
+                "ja": "NumPy + Pillow のみを使用。最大の淡色領域を株として特定し（青い袋や背景は除外）、周囲より明るい画素で傘を分離",
+                "zh": "仅使用 NumPy + Pillow：将最大的浅色区域识别为菌株（忽略蓝色袋子和背景），并按比周围更亮的像素分离菌盖"
+              },
+              {
+                "th": "distance transform ให้ศูนย์กลางและรัศมีของแต่ละดอก แล้วจัดเล็ก/กลาง/ใหญ่เทียบกับรัศมีมัธยฐาน (เล็ก < 0.85× · ใหญ่ > 1.2×)",
+                "en": "A distance transform gives each cap's centre and radius, then classes it against the median radius (small < 0.85×, large > 1.2×)",
+                "ja": "距離変換で各傘の中心と半径を求め、中央値に対して分類（小 < 0.85×、大 > 1.2×）",
+                "zh": "用距离变换得到每个菌盖的中心和半径，再相对中位半径分类（小 < 0.85×、大 > 1.2×）"
+              },
+              {
+                "th": "ค้นหาซ้ำในหลายมุมมอง (ช่องสีน้ำเงิน, min(R,G,B), ภาพที่ยกเงา) เพื่อหาดอกเล็กในช่องว่างหรือในเงาที่รอบแรกพลาด",
+                "en": "Searches again in several views (blue channel, min(R,G,B), shadow-lifted image) to catch small caps in gaps or in shade that the first pass missed",
+                "ja": "複数のビュー（青チャンネル、min(R,G,B)、影を持ち上げた画像）で再探索し、1 回目で漏れた隙間や影の小さな傘を検出",
+                "zh": "在多个视图（蓝色通道、min(R,G,B)、提亮阴影后的图像）中再次搜索，找出第一轮漏掉的缝隙或阴影中的小菌盖"
+              },
+              {
+                "th": "ประมาณดอกที่ซ่อนใต้ดอกอื่นจากเสี้ยวสีอ่อนที่โผล่ออกมา โดยฟิตวงกลมเข้ากับขอบอิสระของแต่ละส่วน และคำนวณสัดส่วนพื้นที่ต่อพื้นที่ช่อ",
+                "en": "Estimates caps hidden under others from the pale crescents peeking out, fitting a circle to each fragment's free outline, and computes area shares of the bunch",
+                "ja": "顔を出している淡い三日月部分から、隠れた傘を推定。各断片の自由な輪郭に円を当てはめ、株面積に対する面積比も算出",
+                "zh": "根据露出的浅色月牙形部分估算被遮挡的菌盖，对每个片段的自由轮廓拟合圆，并计算占菌株面积的比例"
+              }
+            ]
+          },
+          {
+            "icon": "javascript",
+            "color": "#F7DF1E",
+            "title": "JavaScript",
+            "role": {
+              "th": "หน้าเว็บและรายงาน",
+              "en": "Web page & report",
+              "ja": "ウェブページと報告書",
+              "zh": "网页与报告"
+            },
+            "points": [
+              {
+                "th": "หน้า caps.html แยกอิสระจากหน้าตรวจจาน ใช้แดชบอร์ดและเอนจิน Pyodide (WebAssembly) ชุดเดียวกัน รันในเบราว์เซอร์โดยไม่ต้องมีเซิร์ฟเวอร์",
+                "en": "caps.html is independent of the plate-QC page yet shares the same dashboard and Pyodide (WebAssembly) engine, running in the browser with no server",
+                "ja": "caps.html は培養皿 QC ページから独立していますが、同じダッシュボードと Pyodide（WebAssembly）エンジンを共有し、サーバーなしでブラウザ内実行",
+                "zh": "caps.html 独立于培养皿检测页面，但共用同一套仪表盘和 Pyodide（WebAssembly）引擎，无需服务器即可在浏览器中运行"
+              },
+              {
+                "th": "อัปโหลดหลายภาพ ถ่ายจากกล้อง หรือลองช่อตัวอย่าง ปรับความไวและเกณฑ์แบ่งขนาดแล้วตรวจใหม่ได้ ส่งออกภาพและตาราง CSV",
+                "en": "Upload several photos, capture from the camera or try a sample bunch; tune the sensitivity and size thresholds and re-run; export the image and a CSV table",
+                "ja": "複数画像のアップロード、カメラ撮影、サンプル株の試用に対応。感度とサイズ閾値を調整して再実行でき、画像と CSV を出力",
+                "zh": "支持多图上传、摄像头拍摄或试用示例菌株；可调整灵敏度和大小阈值后重新检测，并导出图像和 CSV 表格"
+              },
+              {
+                "th": "ออกรายงาน PDF ขนาด A4 ด้วย jsPDF + html2canvas พร้อมเลขที่รายงาน ข้อมูลตัวอย่าง และข้อจำกัดของผล รวมภาคผนวกภาพเทคนิคทีละขั้น",
+                "en": "A4 PDF report via jsPDF + html2canvas with a report number, sample details, the limits of the result and an appendix of the step-by-step images",
+                "ja": "jsPDF + html2canvas による A4 PDF 報告書。報告書番号、試料情報、結果の限界、手順画像の付録を含む",
+                "zh": "使用 jsPDF + html2canvas 生成 A4 PDF 报告，含报告编号、样品信息、结果局限性及分步图像附录"
+              }
+            ]
+          }
+        ],
+        "stack": [
+          "Python",
+          "NumPy",
+          "Pillow",
+          "JavaScript",
+          "Pyodide",
+          "WebAssembly",
+          "Tailwind CSS",
+          "jsPDF",
+          "html2canvas"
+        ]
+      }
+    },
+    {
       "title": "MCUPR-CANTEEN",
       "description": {
         "th": "ระบบบริหารจัดการโรงอาหาร มจร. วิทยาเขตแพร่",

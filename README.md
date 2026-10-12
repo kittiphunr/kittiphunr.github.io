@@ -89,7 +89,7 @@ infra/vps/            ← ชุดติดตั้งบน VPS ของต�
 { "name": "Docker", "icon": "docker", "color": "#2496ED", "level": 75 }
 ```
 
-**ผลงานเด่น (Featured)** — ใส่ `"featured": { … }` ในผลงานชิ้นใดก็ได้ (ตอนนี้คือ Precision-QC, IV-Monitor-BCNPH, BDA-MCU-PHRAE และ Formsmith ตามลำดับที่ปรากฏในหน้าเว็บ) ระบบจะสร้างส่วน "ผลงานเด่น" ต่อจากทักษะ ประกอบด้วย `subtitle`, `summary`, `gallery` (ภาพ + คำบรรยาย), `metrics`, `highlights` (การ์ด JavaScript / Python พร้อมรายการจุดเด่น) และ `stack` — ภาพอยู่ใน `site/assets/img/projects/<ชื่อโปรเจกต์>/`
+**ผลงานเด่น (Featured)** — ใส่ `"featured": { … }` ในผลงานชิ้นใดก็ได้ (ตอนนี้คือ Precision-QC, Mushroom-Cap-Counter, IV-Monitor-BCNPH, BDA-MCU-PHRAE และ Formsmith ตามลำดับที่ปรากฏในหน้าเว็บ) ระบบจะสร้างส่วน "ผลงานเด่น" ต่อจากทักษะ ประกอบด้วย `subtitle`, `summary`, `gallery` (ภาพ + คำบรรยาย), `metrics`, `highlights` (การ์ด JavaScript / Python พร้อมรายการจุดเด่น) และ `stack` — ภาพอยู่ใน `site/assets/img/projects/<ชื่อโปรเจกต์>/`
 
 **รูปโปรไฟล์** — วางรูปไว้ที่ `site/assets/img/` แล้วใส่ path ใน `profile.photo`
 
