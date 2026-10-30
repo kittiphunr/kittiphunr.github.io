@@ -928,6 +928,162 @@
       }
     },
     {
+      "title": "Hematocrit",
+      "description": {
+        "th": "อ่านค่า Hematocrit (PCV) จากภาพถ่ายหลอดแคปิลลารี แยกชั้นเม็ดเลือดแดง บัฟฟีโคท พลาสมาอัตโนมัติ ทำงานในเบราว์เซอร์ด้วย Python + WebAssembly",
+        "en": "Reads the hematocrit (PCV) from a photo of a capillary tube, separating RBC, buffy coat and plasma automatically — running Python in the browser via WebAssembly.",
+        "ja": "毛細管の写真からヘマトクリット（PCV）を読み取り、赤血球・バフィーコート・血漿の層を自動で分離。Python を WebAssembly でブラウザ実行。",
+        "zh": "根据毛细管照片读取红细胞压积（PCV），自动区分红细胞、白膜层和血浆——Python 通过 WebAssembly 在浏览器中运行。"
+      },
+      "tags": [
+        "Python",
+        "JavaScript",
+        "WebAssembly",
+        "Computer Vision"
+      ],
+      "link": "https://kittiphun.rut.mcupr.ac.th/projects/hematocrit/",
+      "image": "assets/img/projects/hematocrit/cover.jpg",
+      "featured": {
+        "name": "Hematocrit",
+        "subtitle": {
+          "th": "อ่านค่า Hematocrit (PCV) จากภาพถ่ายหลอดแคปิลลารี พร้อมรายงาน PDF",
+          "en": "Reading hematocrit (PCV) from a capillary-tube photo, with a PDF report",
+          "ja": "毛細管の写真からヘマトクリット（PCV）を読み取り、PDF 報告書を出力",
+          "zh": "从毛细管照片读取红细胞压积（PCV），并生成 PDF 报告"
+        },
+        "summary": {
+          "th": "ระบบอ่านค่า Hematocrit (Packed Cell Volume, %) จากภาพถ่ายหลอดแคปิลลารีที่ปั่นเลือดแล้ว โดยวัดความยาวชั้นเม็ดเลือดแดงอัดแน่นเทียบกับคอลัมน์เลือดทั้งหมด เป็นอัตราส่วนจึงไม่ต้องมีสเกลและไม่ขึ้นกับระยะถ่าย ระบบหมุนภาพให้ตรง หาทิศทางปลายอุดดินน้ำมัน แยกชั้น RBC / บัฟฟีโคท / พลาสมาให้เอง และให้ผู้ใช้ลากเส้นวัดแก้เองได้หากอ่านผิด รองรับหลายหลอดในภาพเดียว ออกรายงาน PDF และใช้ได้ทั้งบนเว็บ GitHub Actions และบรรทัดคำสั่ง — ประมวลผลในเบราว์เซอร์ ภาพไม่ถูกส่งออกนอกเครื่อง",
+          "en": "A system that reads the hematocrit (packed cell volume, %) from a photo of a spun capillary tube by measuring the packed red-cell layer against the whole blood column. Being a ratio, it needs no scale and does not depend on shooting distance. It straightens the image, finds which end is sealed with clay, separates RBC / buffy coat / plasma by itself, and lets the user drag the measuring lines if it reads wrongly. It handles several tubes in one photo, produces a PDF report, and runs on the web, in GitHub Actions or on the command line — processing happens in the browser and images never leave the device.",
+          "ja": "遠心後の毛細管の写真からヘマトクリット（容積比 %）を読み取るシステム。詰まった赤血球層の長さを血液柱全体と比較して測定します。比率なのでスケールは不要で、撮影距離にも依存しません。画像の回転補正、パテで封じた端の判定、赤血球・バフィーコート・血漿の分離を自動で行い、読み取りが誤っていればユーザーが測定線をドラッグして修正できます。1 枚に複数の管、PDF 報告書、Web・GitHub Actions・コマンドラインに対応。処理はブラウザ内で行われ、画像は端末外に送信されません。",
+          "zh": "根据离心后毛细管的照片读取红细胞压积（PCV，%）的系统，通过压实红细胞层与整段血柱的长度之比进行测量。由于是比例，无需标尺，也不受拍摄距离影响。系统会自动摆正图像、判断封泥一端、分离红细胞 / 白膜层 / 血浆，读错时用户可拖动测量线手动修正。支持同图多管、PDF 报告，可在网页、GitHub Actions 和命令行中使用——在浏览器中处理，图片不离开设备。"
+        },
+        "gallery": [
+          {
+            "src": "assets/img/projects/hematocrit/cover.jpg",
+            "caption": {
+              "th": "หน้าแรกของระบบ — อ่านค่า Hct = ความยาวชั้น RBC ÷ ความยาวคอลัมน์เลือดทั้งหมด × 100 พร้อมเส้น BASE / RBC TOP / MENISCUS",
+              "en": "The system at a glance — Hct = RBC length ÷ whole blood column × 100, with BASE / RBC TOP / MENISCUS lines",
+              "ja": "システムの概要 — Hct ＝ 赤血球層の長さ ÷ 血液柱全体 × 100。BASE / RBC TOP / MENISCUS の各線付き",
+              "zh": "系统概览——Hct = 红细胞层长度 ÷ 整段血柱长度 × 100，含 BASE / RBC TOP / MENISCUS 线"
+            }
+          },
+          {
+            "src": "assets/img/projects/hematocrit/tubes.jpg",
+            "caption": {
+              "th": "ภาพตัวอย่างหลายหลอดในภาพเดียว — ระบบแยกหลอดแล้วอ่านค่าทีละหลอด",
+              "en": "A sample photo with several tubes — the system separates them and reads each one",
+              "ja": "複数の管が写ったサンプル画像 — 管を分離して 1 本ずつ読み取り",
+              "zh": "含多根毛细管的示例图——系统分离各管并逐一读数"
+            }
+          }
+        ],
+        "metrics": [
+          {
+            "value": "3",
+            "label": {
+              "th": "วิธีใช้งาน: เว็บ / GitHub Actions / CLI",
+              "en": "ways to run: web / GitHub Actions / CLI",
+              "ja": "実行方法：Web / GitHub Actions / CLI",
+              "zh": "运行方式：网页 / GitHub Actions / 命令行"
+            }
+          },
+          {
+            "value": "3",
+            "label": {
+              "th": "ภาษา: ไทย / English / 中文",
+              "en": "languages: Thai / English / Chinese",
+              "ja": "言語：タイ語 / 英語 / 中国語",
+              "zh": "语言：泰语 / 英语 / 中文"
+            }
+          },
+          {
+            "value": "100%",
+            "label": {
+              "th": "ประมวลผลในเบราว์เซอร์",
+              "en": "in-browser processing",
+              "ja": "ブラウザ内処理",
+              "zh": "浏览器端处理"
+            }
+          }
+        ],
+        "highlights": [
+          {
+            "icon": "python",
+            "color": "#4B8BBE",
+            "title": "Python",
+            "role": {
+              "th": "ตัวอ่านค่า (Hct engine)",
+              "en": "Hct engine",
+              "ja": "Hct 読み取りエンジン",
+              "zh": "Hct 读数引擎"
+            },
+            "points": [
+              {
+                "th": "ใช้เพียง NumPy + Pillow โค้ดชุดเดียวกันรันได้ทั้งในเบราว์เซอร์ผ่าน Pyodide บน GitHub Actions และบรรทัดคำสั่ง",
+                "en": "Uses only NumPy + Pillow; the same code runs in the browser through Pyodide, in GitHub Actions and on the command line",
+                "ja": "NumPy + Pillow のみを使用。同じコードがブラウザ（Pyodide）、GitHub Actions、コマンドラインで動作",
+                "zh": "仅使用 NumPy + Pillow；同一套代码可通过 Pyodide 在浏览器、GitHub Actions 和命令行中运行"
+              },
+              {
+                "th": "หมุนภาพให้หลอดตรง หาทิศทางปลายอุดดินน้ำมัน แล้วแยกชั้น RBC / บัฟฟีโคท / พลาสมาเพื่อวัดความยาว",
+                "en": "Rotates the tube upright, finds the clay-sealed end, then separates RBC / buffy coat / plasma to measure their lengths",
+                "ja": "管をまっすぐに回転し、パテで封じた端を判定。赤血球・バフィーコート・血漿を分離して長さを測定",
+                "zh": "将管摆正，判断封泥一端，再分离红细胞 / 白膜层 / 血浆并测量长度"
+              },
+              {
+                "th": "โหมด --multi แยกหลายหลอดในภาพเดียว อ่านทีละหลอด หลอดที่อ่านไม่ได้ไม่กระทบหลอดอื่น",
+                "en": "--multi mode splits several tubes in one photo and reads each; an unreadable tube does not affect the others",
+                "ja": "--multi モードで 1 枚の画像から複数の管を分離して読み取り。読めない管が他に影響しない",
+                "zh": "--multi 模式可分离同图多根管并逐一读数，读不出的管不影响其他管"
+              }
+            ]
+          },
+          {
+            "icon": "javascript",
+            "color": "#F7DF1E",
+            "title": "JavaScript",
+            "role": {
+              "th": "หน้าเว็บและรายงาน",
+              "en": "Web page & report",
+              "ja": "ウェブページと報告書",
+              "zh": "网页与报告"
+            },
+            "points": [
+              {
+                "th": "ลากภาพมาวางหรือถ่ายจากกล้อง ลากเส้นวัดแก้เองได้ ไทย / English / 中文 โหมดสว่าง–มืด",
+                "en": "Drop in or capture a photo, drag the measuring lines to correct them; Thai / English / Chinese, light and dark modes",
+                "ja": "画像のドロップやカメラ撮影、測定線のドラッグ修正に対応。タイ語・英語・中国語、ライト／ダーク",
+                "zh": "拖入或拍摄照片，可拖动测量线修正；泰语 / 英语 / 中文，明暗模式"
+              },
+              {
+                "th": "รายงาน PDF ขนาด A4 ด้วย jsPDF + html2canvas โครงสร้างตาม ISO/IEC 17025 ข้อ 7.8 (เพื่อรูปแบบเท่านั้น ไม่ใช่การรับรอง)",
+                "en": "A4 PDF report via jsPDF + html2canvas, structured after ISO/IEC 17025 clause 7.8 (format only, not an accreditation)",
+                "ja": "jsPDF + html2canvas による A4 PDF 報告書。構成は ISO/IEC 17025 7.8 項に準拠（形式のみで認定ではありません）",
+                "zh": "使用 jsPDF + html2canvas 生成 A4 PDF 报告，结构参照 ISO/IEC 17025 第 7.8 条（仅为格式，并非认证）"
+              },
+              {
+                "th": "บันทึกการใช้งานเก็บเฉพาะตัวเลข ไม่เก็บภาพหรือชื่อไฟล์ และส่งออกนอกเครื่องเมื่อผู้ใช้ยินยอมเท่านั้น",
+                "en": "The usage log keeps numbers only — never images or file names — and is sent off-device only with the visitor's consent",
+                "ja": "利用ログは数値のみで画像やファイル名は保存せず、訪問者の同意がある場合のみ送信",
+                "zh": "使用日志仅记录数字，不保存图像或文件名，仅在访客同意时才发送"
+              }
+            ]
+          }
+        ],
+        "stack": [
+          "Python",
+          "NumPy",
+          "Pillow",
+          "JavaScript",
+          "Pyodide",
+          "WebAssembly",
+          "jsPDF",
+          "html2canvas",
+          "GitHub Actions"
+        ]
+      }
+    },
+    {
       "title": "MCUPR-CANTEEN",
       "description": {
         "th": "ระบบบริหารจัดการโรงอาหาร มจร. วิทยาเขตแพร่",
@@ -1691,6 +1847,300 @@
           "SweetAlert2",
           "FTP / FTPS / SFTP",
           "Playwright (testing)"
+        ]
+      }
+    },
+    {
+      "title": "Temple Financial Management System",
+      "description": {
+        "th": "ระบบ PHP + MySQL บันทึกบัญชีรายรับ–รายจ่ายของวัดในจังหวัดแพร่ พร้อมแดชบอร์ดรายอำเภอและอนุโมทนาบัตรที่ตรวจสอบด้วย QR code",
+        "en": "A PHP + MySQL system for recording temple income and expenses in Phrae province, with district dashboards and QR-verifiable merit receipts.",
+        "ja": "プレー県の寺院の収支を記録する PHP + MySQL システム。郡別ダッシュボードと QR コードで検証できる功徳証書付き。",
+        "zh": "用于记录帕府寺院收支的 PHP + MySQL 系统，含各县仪表盘及可用二维码验证的功德凭证。"
+      },
+      "tags": [
+        "PHP",
+        "MySQL",
+        "Tailwind CSS"
+      ],
+      "link": "https://github.com/kittiphunr/Temple-Financial-Management-System-TFMS-",
+      "image": "assets/img/projects/tfms/cover.jpg",
+      "featured": {
+        "name": "Temple Finance (TFMS)",
+        "subtitle": {
+          "th": "ระบบบัญชีรายรับ–รายจ่ายวัด จังหวัดแพร่",
+          "en": "Temple income & expense accounting for Phrae province",
+          "ja": "プレー県 寺院収支会計システム",
+          "zh": "帕府寺院收支账务系统"
+        },
+        "summary": {
+          "th": "ระบบ PHP + MySQL สำหรับบันทึกบัญชีรายรับ–รายจ่ายของวัด จัดกลุ่มตามอำเภอทั้ง 8 อำเภอของจังหวัดแพร่ มีแดชบอร์ดรายอำเภอ (รายรับ รายจ่าย ยอดคงเหลือ กราฟรายเดือน และวัดที่ยังไม่บันทึกบัญชี) รายงานสรุปรายปี/เดือน/หมวด/วัด รายงานประจำเดือนตามแบบฟอร์มของวัด และอนุโมทนาบัตรที่มีเลขที่ต่อเนื่อง ตรวจสอบได้ด้วย QR code สิทธิ์ผู้ใช้แยกเป็นแอดมินหลัก เจ้าคณะจังหวัด แอดมินอำเภอ และแอดมินวัด พร้อมล็อกอินสองชั้นและการเข้ารหัสเลขบัตรประชาชนตาม PDPA",
+          "en": "A PHP + MySQL system for recording temple income and expenses, grouping temples by the 8 districts of Phrae province. It offers district dashboards (income, expenses, balance, monthly chart and temples that have not yet posted accounts), annual / monthly / category / per-temple summaries, monthly statements in the temples' own form, and merit receipts with running numbers that can be verified by QR code. Roles separate the main admin, the provincial abbot, district admins and temple admins, with two-factor login and encrypted ID-card numbers in line with PDPA.",
+          "ja": "プレー県の 8 郡ごとに寺院をまとめ、収支を記録する PHP + MySQL システム。郡別ダッシュボード（収入・支出・残高・月別グラフ・未記帳の寺院）、年・月・科目・寺院別の集計、寺院所定様式の月次報告、連番で QR コード検証できる功徳証書を備えます。権限はメイン管理者、県の僧長、郡管理者、寺院管理者に分かれ、二要素認証と PDPA に沿った身分証番号の暗号化に対応。",
+          "zh": "按帕府 8 个县对寺院分组、记录收支的 PHP + MySQL 系统。提供各县仪表盘（收入、支出、结余、月度图表及尚未记账的寺院）、按年 / 月 / 类别 / 寺院的汇总、按寺院表格格式的月度报表，以及带连续编号、可用二维码验证的功德凭证。角色分为主管理员、府级住持、县管理员和寺院管理员，支持双重登录验证，并按 PDPA 要求加密身份证号。"
+        },
+        "gallery": [
+          {
+            "src": "assets/img/projects/tfms/dashboard.jpg",
+            "caption": {
+              "th": "แดชบอร์ดทั้งจังหวัด — รายรับ รายจ่าย ยอดคงเหลือ และกราฟรายเดือน (ข้อมูลตัวอย่าง)",
+              "en": "Province dashboard — income, expenses, balance and monthly chart (sample data)",
+              "ja": "県全体のダッシュボード — 収入・支出・残高と月別グラフ（サンプルデータ）",
+              "zh": "全府仪表盘——收入、支出、结余及月度图表（示例数据）"
+            }
+          },
+          {
+            "src": "assets/img/projects/tfms/receipt.jpg",
+            "caption": {
+              "th": "อนุโมทนาบัตรพร้อมเลขที่ต่อเนื่องและ QR code สำหรับตรวจสอบ (ข้อมูลตัวอย่าง)",
+              "en": "A merit receipt with a running number and verification QR code (sample data)",
+              "ja": "連番と検証用 QR コード付きの功徳証書（サンプルデータ）",
+              "zh": "带连续编号和验证二维码的功德凭证（示例数据）"
+            }
+          },
+          {
+            "src": "assets/img/projects/tfms/statements.jpg",
+            "caption": {
+              "th": "รายงานประจำเดือนตามแบบฟอร์มบัญชีของวัด พร้อมพิมพ์/บันทึก PDF (ข้อมูลตัวอย่าง)",
+              "en": "Monthly statement in the temple's own account form, ready to print or save as PDF (sample data)",
+              "ja": "寺院の帳簿様式による月次報告。印刷・PDF 保存に対応（サンプルデータ）",
+              "zh": "按寺院账簿格式的月度报表，可打印或存为 PDF（示例数据）"
+            }
+          }
+        ],
+        "metrics": [
+          {
+            "value": "8",
+            "label": {
+              "th": "อำเภอในจังหวัดแพร่",
+              "en": "districts of Phrae province",
+              "ja": "プレー県の郡",
+              "zh": "帕府的县"
+            }
+          },
+          {
+            "value": "4",
+            "label": {
+              "th": "บทบาทผู้ใช้ตามระดับสิทธิ์",
+              "en": "user roles by permission level",
+              "ja": "権限別のユーザー役割",
+              "zh": "按权限划分的用户角色"
+            }
+          },
+          {
+            "value": "พ.ศ.",
+            "label": {
+              "th": "วันที่ทุกจุดในระบบเป็นปี พ.ศ.",
+              "en": "Buddhist Era dates throughout the system",
+              "ja": "システム内の日付はすべて仏暦",
+              "zh": "系统内所有日期均为佛历"
+            }
+          }
+        ],
+        "highlights": [
+          {
+            "icon": "php",
+            "color": "#777BB4",
+            "title": "PHP + MySQL",
+            "role": {
+              "th": "ระบบหลังบ้านและความปลอดภัย",
+              "en": "Back end & security",
+              "ja": "バックエンドとセキュリティ",
+              "zh": "后端与安全"
+            },
+            "points": [
+              {
+                "th": "บัญชี 1 วัด = 1 บัญชี ล็อกอินสองชั้นทางอีเมล บังคับเปลี่ยนรหัสผ่านครั้งแรก และมีระบบลืมรหัสผ่าน",
+                "en": "One account per temple, two-factor login by email, a forced first-time password change and a password-reset flow",
+                "ja": "1 寺院 1 アカウント、メールによる二要素認証、初回パスワード変更の強制、パスワード再設定",
+                "zh": "每个寺院一个账号，邮箱双重登录验证，首次登录强制改密，并有找回密码流程"
+              },
+              {
+                "th": "เลขบัตรประชาชนเข้ารหัสด้วย libsodium แสดงแบบปิดบัง ดูเลขเต็มได้เฉพาะผู้มีสิทธิ์พร้อมบันทึก audit และต้องยืนยันความยินยอมตาม PDPA",
+                "en": "ID-card numbers are encrypted with libsodium and masked; only authorised users see them in full, with an audit trail, and PDPA consent must be confirmed",
+                "ja": "身分証番号は libsodium で暗号化・マスク表示。全桁は権限者のみで監査記録付き、PDPA の同意確認が必須",
+                "zh": "身份证号用 libsodium 加密并掩码显示，仅授权用户可查看完整号码并留有审计记录，且须确认 PDPA 同意"
+              },
+              {
+                "th": "รายการที่ออกอนุโมทนาบัตรแล้วแก้/ลบไม่ได้จนกว่าจะยกเลิกใบ และเลขที่ที่ยกเลิกจะไม่ถูกนำกลับมาใช้",
+                "en": "Entries with an issued receipt cannot be edited or deleted until it is cancelled, and cancelled numbers are never reused",
+                "ja": "功徳証書を発行した記録は取消まで編集・削除不可で、取消番号は再利用されない",
+                "zh": "已开具凭证的记录在作废前不可修改或删除，作废编号不会重复使用"
+              }
+            ]
+          },
+          {
+            "icon": "javascript",
+            "color": "#F7DF1E",
+            "title": "Tailwind CSS",
+            "role": {
+              "th": "หน้าจอและเอกสารพิมพ์",
+              "en": "Interface & printables",
+              "ja": "画面と印刷物",
+              "zh": "界面与打印文档"
+            },
+            "points": [
+              {
+                "th": "แดชบอร์ดรายอำเภอ กราฟรายเดือน และตัวกรองปี พ.ศ. ที่แอดมินแต่ละระดับเห็นเฉพาะข้อมูลในสิทธิ์ของตน",
+                "en": "District dashboards, monthly charts and Buddhist-Era year filters, where each admin level sees only data within its permission",
+                "ja": "郡別ダッシュボード、月別グラフ、仏暦の年フィルター。管理者の階層ごとに権限内のデータのみ表示",
+                "zh": "各县仪表盘、月度图表和佛历年份筛选，各级管理员只能看到权限范围内的数据"
+              },
+              {
+                "th": "พิมพ์อนุโมทนาบัตร รายงาน และบัญชี A4 พร้อมหัวกระดาษ/โลโก้วัด แปลงจำนวนเงินเป็นตัวอักษร และส่งออก CSV",
+                "en": "Prints merit receipts, reports and ledgers on A4 with temple letterhead and logo, converts amounts to words, and exports CSV",
+                "ja": "功徳証書・報告書・帳簿を寺院のレターヘッドとロゴ付きで A4 印刷。金額を文字に変換し、CSV 出力にも対応",
+                "zh": "以 A4 打印功德凭证、报表和账簿，含寺院抬头和标志，金额自动转大写文字，并可导出 CSV"
+              }
+            ]
+          }
+        ],
+        "stack": [
+          "PHP",
+          "MySQL",
+          "libsodium",
+          "Tailwind CSS",
+          "JavaScript",
+          "SweetAlert2",
+          "QR code"
+        ]
+      }
+    },
+    {
+      "title": "MCUPR-S.A.T.U.R.N",
+      "description": {
+        "th": "ธีม WordPress สำหรับเว็บไซต์หน่วยงานภาครัฐและสถาบันการศึกษา สร้างด้วย Tailwind CSS v4 รองรับ 4 ภาษา พร้อม Elementor และชุดเครื่องมือผู้ดูแล",
+        "en": "A WordPress theme for government and educational websites, built with Tailwind CSS v4, in four languages, with Elementor support and an admin toolkit.",
+        "ja": "官公庁・教育機関のウェブサイト向け WordPress テーマ。Tailwind CSS v4 製、4 言語、Elementor 対応、管理者向けツール付き。",
+        "zh": "面向政府机构和教育机构网站的 WordPress 主题，基于 Tailwind CSS v4，支持四种语言，兼容 Elementor 并带管理工具。"
+      },
+      "tags": [
+        "WordPress",
+        "PHP",
+        "Tailwind CSS",
+        "Elementor"
+      ],
+      "link": "https://github.com/kittiphunr/MCUPR-WORDPRESS-Theme",
+      "image": "assets/img/projects/mcupr-saturn/cover.jpg",
+      "featured": {
+        "name": "MCUPR-S.A.T.U.R.N",
+        "subtitle": {
+          "th": "ธีม WordPress สำหรับเว็บไซต์หน่วยงานภาครัฐ/สถาบันการศึกษา",
+          "en": "A WordPress theme for government and educational sites",
+          "ja": "官公庁・教育機関向け WordPress テーマ",
+          "zh": "面向政府与教育机构网站的 WordPress 主题"
+        },
+        "summary": {
+          "th": "ธีม WordPress ที่ออกแบบและพัฒนาเองทั้งชุดสำหรับเว็บไซต์หน่วยงานภาครัฐและสถาบันการศึกษา โครงสร้างหน้าเว็บอ้างอิงเว็บมหาวิทยาลัย: แถบเครื่องมือ → โลโก้/ชื่อหน่วยงาน → เมนูหลักหลายระดับ → ข่าวเด่น → ลิงก์ด่วน → ข่าวล่าสุด → ท้ายเว็บไซต์ ใช้ Tailwind CSS v4 เป็นแกนของ UI รองรับ 4 ภาษา มีวิดเจ็ต ชอร์ตโค้ด ปฏิทินกิจกรรม เอกสาร ถามตอบ ศูนย์ควบคุมสำหรับผู้ดูแล และ Elementor ตั้งค่าสี/การแสดงผลได้จาก Customizer และผู้เข้าชมปรับขนาดอักษรหรือคอนทราสต์เองได้ มีสคริปต์สร้างไฟล์ zip พร้อมตรวจก่อนส่งเข้า WordPress.org",
+          "en": "A complete WordPress theme designed and built in-house for government and educational websites. Its page structure follows university sites: toolbar → logo / organisation name → multi-level main menu → featured news → quick links → latest news → footer. Tailwind CSS v4 is the core of the UI, in four languages, with widgets, shortcodes, an events calendar, documents, FAQs, an admin control centre and Elementor support. Colours and display are set from the Customizer, and visitors can adjust text size or contrast themselves. Scripts build and check the zip before it goes to WordPress.org.",
+          "ja": "官公庁・教育機関のウェブサイト向けに、設計から開発まで自作した WordPress テーマ。ページ構成は大学サイトに準拠：ツールバー → ロゴ・組織名 → 多階層メインメニュー → 注目ニュース → クイックリンク → 最新ニュース → フッター。UI の中核は Tailwind CSS v4、4 言語対応で、ウィジェット、ショートコード、イベントカレンダー、文書、FAQ、管理者用コントロールセンター、Elementor にも対応。色や表示はカスタマイザーで設定でき、訪問者も文字サイズやコントラストを調整できます。WordPress.org への提出前に zip を作成・検証するスクリプト付き。",
+          "zh": "为政府机构和教育机构网站从设计到开发全部自行完成的 WordPress 主题。页面结构参照高校网站：工具栏 → 标志 / 机构名称 → 多级主菜单 → 焦点新闻 → 快速链接 → 最新新闻 → 页脚。UI 以 Tailwind CSS v4 为核心，支持四种语言，含小工具、短代码、活动日历、文档、常见问题、管理控制中心并兼容 Elementor。颜色与显示可在定制器中设置，访客也可自行调整字号或对比度。附带在提交 WordPress.org 前打包并检查 zip 的脚本。"
+        },
+        "gallery": [
+          {
+            "src": "assets/img/projects/mcupr-saturn/screenshot.jpg",
+            "caption": {
+              "th": "ภาพหน้าปกธีม MCUPR-S.A.T.U.R.N ที่แสดงใน Appearance → Themes ของ WordPress",
+              "en": "The MCUPR-S.A.T.U.R.N cover shown under Appearance → Themes in WordPress",
+              "ja": "WordPress の「外観 → テーマ」に表示される MCUPR-S.A.T.U.R.N のカバー画像",
+              "zh": "在 WordPress「外观 → 主题」中显示的 MCUPR-S.A.T.U.R.N 封面"
+            }
+          }
+        ],
+        "metrics": [
+          {
+            "value": "4",
+            "label": {
+              "th": "ภาษาที่รองรับ",
+              "en": "languages supported",
+              "ja": "対応言語",
+              "zh": "支持语言"
+            }
+          },
+          {
+            "value": "v4",
+            "label": {
+              "th": "Tailwind CSS เป็นแกนของ UI",
+              "en": "Tailwind CSS at the core of the UI",
+              "ja": "UI の中核は Tailwind CSS",
+              "zh": "UI 以 Tailwind CSS 为核心"
+            }
+          },
+          {
+            "value": "1.80",
+            "label": {
+              "th": "เวอร์ชันปัจจุบันของธีม",
+              "en": "current theme version",
+              "ja": "現在のテーマバージョン",
+              "zh": "当前主题版本"
+            }
+          }
+        ],
+        "highlights": [
+          {
+            "icon": "php",
+            "color": "#777BB4",
+            "title": "PHP / WordPress",
+            "role": {
+              "th": "แกนธีมและเครื่องมือผู้ดูแล",
+              "en": "Theme core & admin tools",
+              "ja": "テーマ本体と管理ツール",
+              "zh": "主题核心与管理工具"
+            },
+            "points": [
+              {
+                "th": "โค้ดแบ่งเป็นโมดูลใน inc/ (setup, assets, i18n, colors, customizer, widgets, shortcodes, seo, events, documents, faq ฯลฯ) และตรวจเวอร์ชันขั้นต่ำก่อนโหลด",
+                "en": "Code is split into modules under inc/ (setup, assets, i18n, colors, customizer, widgets, shortcodes, seo, events, documents, faq and more), with a minimum-version check before loading",
+                "ja": "コードは inc/ 配下にモジュール分割（setup、assets、i18n、colors、customizer、widgets、shortcodes、seo、events、documents、faq など）。読み込み前に最小バージョンを確認",
+                "zh": "代码按模块拆分在 inc/ 下（setup、assets、i18n、colors、customizer、widgets、shortcodes、seo、events、documents、faq 等），加载前检查最低版本"
+              },
+              {
+                "th": "ศูนย์ควบคุมสำหรับผู้ดูแล ตัวจัดการไฟล์ ศูนย์คุกกี้ และตัวเรียงลำดับส่วนต่าง ๆ จาก Customizer",
+                "en": "An admin control centre, a file manager, a cookie centre and a Customizer-based section ordering tool",
+                "ja": "管理者用コントロールセンター、ファイルマネージャー、クッキーセンター、カスタマイザーでのセクション並べ替え",
+                "zh": "管理控制中心、文件管理器、Cookie 中心，以及基于定制器的版块排序工具"
+              },
+              {
+                "th": "ความคิดเห็นแสดงตัวอักษรย่อแทน Gravatar จึงไม่ส่งข้อมูลผู้เข้าชมไปบุคคลที่สามตาม PDPA",
+                "en": "Comments show initials instead of Gravatar, so no visitor data goes to third parties, in line with PDPA",
+                "ja": "コメントは Gravatar ではなくイニシャルを表示するため、PDPA に沿って訪問者情報を第三者へ送信しない",
+                "zh": "评论显示姓名首字母而非 Gravatar，因此不会按 PDPA 要求向第三方发送访客数据"
+              }
+            ]
+          },
+          {
+            "icon": "javascript",
+            "color": "#06B6D4",
+            "title": "Tailwind CSS v4",
+            "role": {
+              "th": "ภาษาภาพและการแสดงผล",
+              "en": "Visual language & display",
+              "ja": "ビジュアルと表示",
+              "zh": "视觉与显示"
+            },
+            "points": [
+              {
+                "th": "การ์ดมนใหญ่ เมนูแบบ pill โหมดมืด/คอนทราสต์สูง ฟอนต์ Sarabun ฝังในธีม และข้อความทั้งหมดแปลครบ 4 ภาษา",
+                "en": "Large rounded cards, pill menus, dark and high-contrast modes, the Sarabun font bundled in the theme, and every string translated into four languages",
+                "ja": "大きな角丸カード、ピル型メニュー、ダーク／ハイコントラスト、テーマ同梱の Sarabun フォント、全文字列を 4 言語に翻訳",
+                "zh": "大圆角卡片、胶囊式菜单、深色 / 高对比度模式、主题内置 Sarabun 字体，所有文字均翻译为四种语言"
+              },
+              {
+                "th": "npm run package สร้าง zip เฉพาะโฟลเดอร์ธีม แล้วตรวจด้วย scripts/check-zip.sh ให้ผ่านระบบตรวจอัตโนมัติของ WordPress.org",
+                "en": "npm run package builds a zip of only the theme folder, then scripts/check-zip.sh checks it against the WordPress.org automated review",
+                "ja": "npm run package でテーマフォルダのみの zip を生成し、scripts/check-zip.sh で WordPress.org の自動審査向けに検証",
+                "zh": "npm run package 仅打包主题文件夹为 zip，再用 scripts/check-zip.sh 按 WordPress.org 自动审核标准检查"
+              }
+            ]
+          }
+        ],
+        "stack": [
+          "WordPress",
+          "PHP",
+          "Tailwind CSS v4",
+          "JavaScript",
+          "Elementor",
+          "Customizer API"
         ]
       }
     },
