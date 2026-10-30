@@ -28,10 +28,10 @@ from urllib.parse import unquote, urlparse
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 PRIMARY = "https://kittiphun.rut.mcupr.ac.th/"
-# Folders that exist only on the host: Formsmith, the 360° tour (BDA-MCU-PHRAE) and
-# Precision QC are uploaded there by hand from their own repositories, so portfolio.json and sitemap.xml
+# Folders that exist only on the host: Formsmith, the 360° tour (BDA-MCU-PHRAE),
+# Precision QC and Hematocrit are uploaded there by hand from their own repositories, so portfolio.json and sitemap.xml
 # link to them without a copy in site/.
-HOST_ONLY: tuple[str, ...] = ("projects/formsmith", "projects/bda-mcu-phrae", "projects/precision-qc-web")
+HOST_ONLY: tuple[str, ...] = ("projects/formsmith", "projects/bda-mcu-phrae", "projects/precision-qc-web", "projects/hematocrit")
 
 errors: list[str] = []
 notices: list[str] = []
